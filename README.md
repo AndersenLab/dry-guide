@@ -1,2 +1,2 @@
-# Andersen-Lab-Computing
-The Guide to Computing in the Andersen Lab
+# [Andersen Lab Computing Guide](https://github.com/AndersenLab/Andersen-Lab-Computing/wiki)
+
