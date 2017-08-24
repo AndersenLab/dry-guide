@@ -1,0 +1,24 @@
+site_name: Andersen Lab Computing
+theme: readthedocs
+repo_url: https://github.com/Andersenlab/Andersen-Lab-Computing
+
+
+markdown_extensions:
+    - admonition
+    - toc:
+        permalink: True
+    - fenced_code
+    - sane_lists
+
+pages:
+  - Home: index.md
+  - Bash: bash.md
+  - Setting up 
+  - Quest: quest.md
+  - Nextflow: nextflow.md
+  - Pipelines: pipelines.md
+  - R: r.md
+  - Travis-CI: travis-ci.md
+  - Google Cloud: google-cloud.md
+  - CeNDR: cendr.md
+  - Domains: domains.md

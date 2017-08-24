@@ -1,2 +1,3 @@
-# [Andersen Lab Computing Guide](https://github.com/AndersenLab/Andersen-Lab-Computing/wiki)
+# [Andersen Lab Dry Guide](hhttp://andersenlab.org/dry-guide/)
 
+The Andersen lab dry-lab computing guide.
