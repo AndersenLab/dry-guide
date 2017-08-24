@@ -1,6 +1,6 @@
-# [Andersen Lab Dry Guide](hhttp://andersenlab.org/dry-guide/)
+# [Andersen Lab Dry Guide](http://andersenlab.org/dry-guide/)
 
-The Andersen lab dry-lab computing guide. The guide is built with [mkdocs](http://www.mkdocs.org/).
+The Andersen lab [dry-lab computing guide](http://andersenlab.org/dry-guide/). The guide is built with [mkdocs](http://www.mkdocs.org/).
 
 ## Editing the site
 
