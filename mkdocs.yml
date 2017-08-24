@@ -1,6 +1,6 @@
 site_name: Andersen Lab Dry Guide
 theme: readthedocs
-repo_url: https://github.com/Andersenlab/Andersen-Lab-Computing
+repo_url: https://github.com/Andersenlab/dry-guide
 
 
 markdown_extensions:
