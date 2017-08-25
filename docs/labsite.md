@@ -2,6 +2,15 @@
 
 The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and runs using the [Github Pages](https://pages.github.com/) service.
 
+To get started, you will want to clone the repo using:
+
+```
+git clone https://github.com/andersenlab/andersenlab.github.io
+```
+
+When you make changes to this repo and push them to GitHub, Github will trigger a 'build' 
+of the labsite and update it. This all usually occurs in less than a minute. Instructions for changing various aspects of the site are listed below.
+
 ## Announcements
 
 ## Lab members
