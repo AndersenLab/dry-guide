@@ -6,8 +6,8 @@ The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and run
 
 Photo albums can be added easily to the Andersen Labsite. Adding albums requires two utilities to be installed on your computer:
 
-a.) Image Magick
-b.) exiftool
+* (a) Image Magick
+* (b) exiftool
 
 These two can be installed using the following
 
@@ -26,8 +26,8 @@ For example, `2017-08-05-Hawaii Trip`.
 
 The `build.sh` script will do the following:
 
-a.) Construct pages for the album being published.
-b.) Decrease the size of the images in the album (max width=1200). 
+* (a) Construct pages for the album being published.
+* (b) Decrease the size of the images in the album (max width=1200). 
 
 You can run the script using:
 
