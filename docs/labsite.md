@@ -14,7 +14,7 @@ The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and run
 
 ## Photo Albums
 
-Photo albums can be added easily to the Andersen Labsite. Adding albums requires two utilities to be installed on your computer:
+Photo albums can be added to the Andersen Labsite. Adding albums requires two utilities to be installed on your computer:
 
 * (a) Image Magick
 * (b) exiftool
@@ -32,7 +32,11 @@ brew install exiftool
 
 For example, `2017-08-05-Hawaii Trip`.
 
-#### (2) Run the `build.sh` script in the root of the `andersenlab.github.io` repo.
+#### (2) Move that folder to `/people/albums/`
+
+Now copy the renamed folder to the `/people/albums/` directory.
+
+#### (3) Run the `build.sh` script in the root of the `andersenlab.github.io` repo.
 
 The `build.sh` script will do the following:
 
@@ -45,7 +49,7 @@ You can run the script using:
 bash build.sh
 ```
 
-#### (3) Add the images using git and push to GitHub
+#### (4) Add the images using git and push to GitHub
 
 You can easily add all images using:
 
