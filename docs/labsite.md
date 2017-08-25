@@ -2,7 +2,17 @@
 
 The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and runs using the [Github Pages](https://pages.github.com/) service.
 
-## Adding Photo Albums
+## Announcements
+
+## Lab members
+
+## Papers
+
+## Protocols
+
+## Research
+
+## Photo Albums
 
 Photo albums can be added easily to the Andersen Labsite. Adding albums requires two utilities to be installed on your computer:
 
