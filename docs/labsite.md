@@ -38,6 +38,11 @@ jekyll serve
 
 The site should become available at `localhost:4000` and any changes you make will be reflected at that local url.
 
+#### Updating the site
+
+In order for any change to become visible, you need to use git. Any subsequent direcitons that suggest modifying, or adding files assumes you will be adding them to the repo, committing them, and pushing the commit to GitHub.com. See [Git-SCM](http://www.git-scm.com) for a basic introduction to git.
+
+
 ## andersenlab.github.io
 
 The structure of the Andersen Lab repo looks like this:
@@ -65,6 +70,48 @@ Protocols/
 ```
 
 ## Announcements
+
+Announcements are stored in the `_posts` folder. Posts are organized into folders by year. There is also a `_photo_albums` that you can ignore (more on this below). Two types of announcements can be made. A 'general' announcement regarding anything, or a new publication.
+
+#### General Announcements
+
+To add a new post create a new text file with the following naming scheme:
+
+```
+YYYY-MM-DD-title.md
+```
+
+For example:
+
+```
+2017-09-24-A new post.md
+```
+
+The contents of the file should correspond to the following structure:
+
+```
+---
+title: "The title of the post"
+layout: post
+tags: news
+published: true
+---
+
+The post content goes here!
+```
+
+The top part surrounded by `---` is known as the header and has to define a number of variables:
+
+`layout: post`, `tags: news`, and `published: true` should always be set and should not change. The only thing you will change is the `title`. Set a title, and add content below.
+
+Because we used a `*.md` extension when naming the file, we can use markdown in the post to create headings, links, images, and more.
+
+### Publication Post
+
+When a new publication, it's thumbnail and associated links can be embedded in the same way they are shown on the publications page.
+
+
+If you've seen the posts associated with a publication, you'll see that they include the thumbnail/link to the publication similar to what is presented on the publications page.
 
 ## Lab members
 
@@ -135,7 +182,7 @@ Elements used to construct the publications page of the website are stored in tw
 1. `_data/pubs_data.yaml` - The publications data stores authors, pub date, journal, etc.
 2. `publications/` - The publications folder for PDFs, thumbnails, and supplementary files.
 
-#### (1) Download a PDF of the publication
+__(1) Download a PDF of the publication__
 
 You will want to remove any additional PDF pages (e.g. cover sheets) if there are any present in the PDF. See [this guide](https://support.apple.com/kb/PH20221?locale=en_US&viewlocale=en_US) for information on removing pages from a PDF.
 
@@ -143,15 +190,15 @@ Save the PDF to `/publications/[year][tag]`
 
 Where `tag` is a unique identifier for the publication. In general, these have been the first author or the journal or a combination of both.
 
-#### (Optional) PMID Known
+__(Optional) PMID Known__
 
 If the PubMed Identifier (PMID) is known for the publication, you can add it to the file `publications/publications_list.txt`.
 
-#### (2) Run `build.sh`
+__(2) Run `build.sh`__
 
 The `build.sh` script does a variety of tasks for the website. For publications - it will generate thumbnails. It will also fetch information for publications and add it to the `_data/pubs_data.yaml` file __if__ a PMID has been provided. If you did not add a PMID, you will have to manually add authors, journal, etc. to the `_data/pubs_data.yaml` file.
 
-#### (3) Edit `_data/pubs_data.yaml`
+__(3) Edit `_data/pubs_data.yaml`__
 
 The publication should now be added either manually or automatically to `_data/pubs_data.yaml` and should look something like this:
 
@@ -186,7 +233,7 @@ You can also italicize text by adding `<em>` tags around words as shown above (`
 
     Before pushing any changes to GitHub, you will want to preview the changes locally using `jekyll serve`.
 
-#### (4) Add supplementary data
+__(4) Add supplementary data__
 
 Supplemental data and figures are stored in `publications/[pdf_name]`. For example, 2017Laricchia has an associated folder in `publications/` where supplemental data and figures are stored.
 
@@ -204,17 +251,15 @@ brew install imagemagick
 brew install exiftool
 ```
 
-#### (1) Place images in a folder and name it according to the following schema:
+__(1) Place images in a folder and name it according to the following schema:__
 
 `YYYY-MM-DD-title`
 
 For example, `2017-08-05-Hawaii Trip`.
 
-#### (2) Move that folder to `/people/albums/`
+__(2) Move that folder to `/people/albums/`__
 
-Now copy the renamed folder to the `/people/albums/` directory.
-
-#### (3) Run the `build.sh` script in the root of the `andersenlab.github.io` repo.
+__(3) Run the `build.sh` script in the root of the `andersenlab.github.io` repo.__
 
 The `build.sh` script will do the following:
 
@@ -231,7 +276,7 @@ You can run the script using:
 bash build.sh
 ```
 
-#### (4) Add the images using git and push to GitHub
+__(4) Add the images using git and push to GitHub__
 
 You can easily add all images using:
 
@@ -239,7 +284,7 @@ You can easily add all images using:
 git add *.jpg
 ```
 
-#### (5) Push changes to github
+__(5) Push changes to github__
 
 ```
 git push
