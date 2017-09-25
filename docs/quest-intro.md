@@ -1,5 +1,7 @@
 ## Introduction
 
+[TOC]
+
 The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:
 
 __[Quest Documentation](http://www.it.northwestern.edu/research/user-services/quest/index.html)__

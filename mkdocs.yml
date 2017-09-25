@@ -7,15 +7,20 @@ markdown_extensions:
     - admonition
     - toc:
         permalink: True
+        separator: "_"
     - fenced_code
     - sane_lists
 
 pages:
   - Home: index.md
   - Bash: bash.md
-  - Quest: quest.md
+  - Quest:
+    - Introduction: quest-intro.md
+    - Mounting Quest: quest-mount.md
   - Nextflow: nextflow.md
-  - Pipelines: pipelines.md
+  - Pipelines:
+    - umm: pipelines.md
+    - NIL-Pipeline: pipeline-nil.md
   - R: r.md
   - Travis-CI: travis-ci.md
   - Google Cloud: google-cloud.md
