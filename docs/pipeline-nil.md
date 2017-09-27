@@ -1,6 +1,8 @@
-# nils-nf
+# NIL-NF
 
 The nil-nf pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
+
+__TOC__
 
 ## Usage
 
@@ -37,42 +39,47 @@ The nil-nf pipeline will align, call variants, and generate datasets for NIL seq
 
 ```
 
+## Setting up sequence data (`--fqs`)
 
-Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data.
+In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. `The fq_sheet.tsv` file should be tab-delimited and look like this:
 
 ```
-# cd to directory of fastqs
-nextflow run main.nf -resume --fq_folder data/test_fq<fq_directory>
+NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
+NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 ```
 
-The __NIL__ workflow works a little differently than the RIL and WI workflows. NIL sequence sets generally only need to be run once, and the resultant datasets are not mixed together as they are with wild isolate and RIAIL sequence data.
-
-In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. __Note__: Unlike other workflows the fastq path provided is *relative* and not *absolute* for each fastq. This is because the NIL workflow processes fastqs located within a folder rather.
-
-## fq_sheet.tsv
-
-The `fq_sheet.tsv` defines the fastqs to be processed as part of the NIL workflow. It comes in the following format:
+Notice that the file does not include a header. The table with corresponding columns looks like this.
 
 | strain   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   |
 |:-------|:-----------------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| QX98   | QX98_GCTACGCTGCTCGAA   | GCTACGCTGCTCGAA   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX98_GCTACGCT-GCTCGAA_L003_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX98_GCTACGCT-GCTCGAA_L003_R2_001.fq.gz   |
-| QX99   | QX99_AGGCAGAAGCTAATC   | AGGCAGAAGCTAATC   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L005_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L005_R2_001.fq.gz   |
-| QX99   | QX99_AGGCAGAAGCTAATC   | AGGCAGAAGCTAATC   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L006_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L006_R2_001.fq.gz   |
-| QX99   | QX99_CGAGGCTGTGGCAAT   | CGAGGCTGTGGCAAT   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L003_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L003_R2_001.fq.gz   |
-| QX99   | QX99_CGAGGCTGTGGCAAT   | CGAGGCTGTGGCAAT   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L004_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L004_R2_001.fq.gz   |
+| NIL_01 | NIL_01_ID | S16 | NIL_01_1.fq.gz | NIL_01_2.fq.gz |
+| NIL_02 | NIL_02_ID | S1  | NIL_02_1.fq.gz | NIL_02_2.fq.gz |
 
-This file can be generated using a script that *looks* like this, but not that you may have to modify it depending on the naming convention used for the provided fastqs.
+This file needs to be placed along with the sequence data into a folder. The tree will look like this:
 
 ```
-ls -1 *.gz | grep 'R1' | awk -v pwd=`pwd` '{
-                            split($0, a, "_");
-                            SM = a[1]; 
-                            gsub("-","",a[2]); // LB
-                            ID = a[1] "_" a[2];
-                            fq2 = $1; gsub("_R1", "_R2", fq2);
-                            print SM "\t" ID "\t" a[2] "\t" pwd "/" $1 "\t" pwd "/" fq2;
-                            }' > fq_sheet.tsv
+NIL_SEQ_DATA/
+├── NIL_01_1.fq.gz
+├── NIL_01_2.fq.gz
+├── NIL_02_1.fq.gz
+├── NIL_02_2.fq.gz
+└── fq_sheet.tsv
 ```
+
+Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
+
+!!! Important
+    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+
+## Parental VCF (`--vcf`)
+
+Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, you would likely want to use:
+
+`/projects/b1059/analysis/WI-20170531/vcf/WI.20170531.hard-filter.vcf.gz`
+
+This is the __hard-filtered__ VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.
+
+Set the parental VCF as `--vcf=/the/path/to/WI.20170531.hard-filter.vcf.gz`
 
 ## Important Notes
 
