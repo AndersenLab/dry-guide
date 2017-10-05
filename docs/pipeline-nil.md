@@ -1,6 +1,8 @@
-# nils-nf
+# NIL-NF
 
 The `nil-nf` pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
+
+[TOC]
 
 ## Usage
 
@@ -23,10 +25,9 @@ The `nil-nf` pipeline will align, call variants, and generate datasets for NIL s
     --B                  Parent B                       CB4856
     --cA                 Parent A color (for plots)     #0080FF
     --cB                 Parent B color (for plots)     #FF8000
-    --analysis_folder    Folder for results             results
-    --analysis_dir       Sub-Folder                     results/NIL-N2-CB4856-2017-09-25
+    --out                Directory to output results    NIL-N2-CB4856-2017-09-27
     --fqs                fastq file (see help)          (required)
-    --reference          Reference Genome               /path/to/WS245.fa.gz
+    --reference          Reference Genome               /Users/dancook/Documents/git/nil-nf/reference/WS245.fa.gz
     --vcf                VCF to fetch parents from      (required)
     --tmpdir             A temporary directory          tmp/
 
@@ -37,87 +38,135 @@ The `nil-nf` pipeline will align, call variants, and generate datasets for NIL s
 
 ```
 
+# Parameters
 
-Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data.
+## --debug
+
+The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. You can use the following command to debug:
 
 ```
-# cd to directory of fastqs
-nextflow run main.nf -resume --fq_folder data/test_fq<fq_directory>
+nextflow run main.nf --debug --reference=<path to reference>
 ```
 
-The __NIL__ workflow works a little differently than the RIL and WI workflows. NIL sequence sets generally only need to be run once, and the resultant datasets are not mixed together as they are with wild isolate and RIAIL sequence data.
+## --cores
 
-In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. __Note__: Unlike other workflows the fastq path provided is *relative* and not *absolute* for each fastq. This is because the NIL workflow processes fastqs located within a folder rather.
+The number of cores to use during alignments and variant calling.
 
-## fq_sheet.tsv
+## --A, --B
 
-The `fq_sheet.tsv` defines the fastqs to be processed as part of the NIL workflow. It comes in the following format:
+Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided __must__ be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.
+
+## --cA, --cB
+
+The color to use for parental strain A and B on plots.
+
+## --out
+
+A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
+
+## --fqs (FASTQs)
+
+In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
+
+```
+NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
+NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
+```
+
+Notice that the file does not include a header. The table with corresponding columns looks like this.
 
 | strain   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   |
 |:-------|:-----------------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| QX98   | QX98_GCTACGCTGCTCGAA   | GCTACGCTGCTCGAA   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX98_GCTACGCT-GCTCGAA_L003_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX98_GCTACGCT-GCTCGAA_L003_R2_001.fq.gz   |
-| QX99   | QX99_AGGCAGAAGCTAATC   | AGGCAGAAGCTAATC   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L005_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L005_R2_001.fq.gz   |
-| QX99   | QX99_AGGCAGAAGCTAATC   | AGGCAGAAGCTAATC   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L006_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_AGGCAGAA-GCTAATC_L006_R2_001.fq.gz   |
-| QX99   | QX99_CGAGGCTGTGGCAAT   | CGAGGCTGTGGCAAT   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L003_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L003_R2_001.fq.gz   |
-| QX99   | QX99_CGAGGCTGTGGCAAT   | CGAGGCTGTGGCAAT   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L004_R1_001.fq.gz   | /projects/b1059/data/fastq/RIL/dna/processed/151009_D00422_0262_BC7NJ0ANXX-ECA/QX99_CGAGGCTG-TGGCAAT_L004_R2_001.fq.gz   |
+| NIL_01 | NIL_01_ID | S16 | NIL_01_1.fq.gz | NIL_01_2.fq.gz |
+| NIL_02 | NIL_02_ID | S1  | NIL_02_1.fq.gz | NIL_02_2.fq.gz |
 
-This file can be generated using a script that *looks* like this, but not that you may have to modify it depending on the naming convention used for the provided fastqs.
+The columns are detailed below:
 
-```
-ls -1 *.gz | grep 'R1' | awk -v pwd=`pwd` '{
-                            split($0, a, "_");
-                            SM = a[1]; 
-                            gsub("-","",a[2]); // LB
-                            ID = a[1] "_" a[2];
-                            fq2 = $1; gsub("_R1", "_R2", fq2);
-                            print SM "\t" ID "\t" a[2] "\t" pwd "/" $1 "\t" pwd "/" fq2;
-                            }' > fq_sheet.tsv
-```
+* __strain__ - The name of the strain. If a strain was sequenced multiple times this file is used to identify that fact and merge those fastq-pairs together following alignment.
+* __fastq_pair_id__ - This must be unique identifier for all individual FASTQ pairs.
+* __library__ - A string identifying the DNA library. If you sequenced a strain from different library preps it can be beneficial when calling variants. The string can be arbitrary (e.g. LIB1) as well if only one library prep was used.
+* __fastq-1-path__ - The __relative__ path of the first fastq.
+* __fastq-2-path__ - The __relative__ path of the second fastq.
 
-## Important Notes
-
-* NIL sequencing uses low coverage by design. No pre-processing (ie trimming) takes place because variants will be called at specific positions and low quality/adapter contamination are unlikely to be problematic.
-
-## Output
-
-The output directory looks like this:
+This file needs to be placed along with the sequence data into a folder. The tree will look like this:
 
 ```
-├── SM
-│   ├── SM_bam_idxstats.tsv
-│   ├── SM_bam_stats.tsv
-│   ├── SM_coverage.full.tsv
-│   └── SM_coverage.tsv
-├── bam
-│   ├── <bam_files + indices>
-├── duplicates
-│   └── bam_duplicates.tsv
+NIL_SEQ_DATA/
+├── NIL_01_1.fq.gz
+├── NIL_01_2.fq.gz
+├── NIL_02_1.fq.gz
+├── NIL_02_2.fq.gz
+└── fq_sheet.tsv
+```
+
+Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
+
+!!! Important
+    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+
+## --vcf (Parental VCF)
+
+Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, you would likely want to use:
+
+`/projects/b1059/analysis/WI-20170531/vcf/WI.20170531.hard-filter.vcf.gz`
+
+This is the __hard-filtered__ VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.
+
+Set the parental VCF as `--vcf=/the/path/to/WI.20170531.hard-filter.vcf.gz`
+
+## --reference
+
+A fasta reference indexed with BWA. On Quest, the reference is available here:
+
+```
+/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
+```
+
+## --tmpdir
+
+A directory for storing temporary data.
+
+# Output
+
+The final output directory looks like this:
+
+```
+.
+├── log.txt
 ├── fq
 │   ├── fq_bam_idxstats.tsv
 │   ├── fq_bam_stats.tsv
 │   ├── fq_coverage.full.tsv
 │   └── fq_coverage.tsv
+├── SM
+│   ├── SM_bam_idxstats.tsv
+│   ├── SM_bam_stats.tsv
+│   ├── SM_coverage.full.tsv
+│   └── SM_coverage.tsv
 ├── hmm
-│   ├── gt_hmm.png
-│   ├── gt_hmm.svg
+│   ├── gt_hmm.(png/svg)
 │   └── gt_hmm.tsv
-├── plots
-│   ├── coverage_comparison.png
-│   ├── coverage_comparison.svg
-│   ├── duplicates.png
-│   ├── duplicates.svg
-│   ├── unmapped_reads.png
-│   └── unmapped_reads.svg
+├── bam
+│   └── <BAMS + indices>
+├── duplicates
+│   └── bam_duplicates.tsv
+├── sitelist
+│   ├── N2.CB4856.sitelist.tsv.gz
+│   └── N2.CB4856.sitelist.tsv.gz.tbi
 └── vcf
     ├── NIL.filtered.stats.txt
+    ├── NIL.filtered.vcf.gz
+    ├── NIL.filtered.vcf.gz.csi
     ├── NIL.hmm.vcf.gz
     ├── NIL.hmm.vcf.gz.csi
     ├── gt_hmm.tsv
     ├── gt_hmm_fill.tsv
-    ├── merged.raw.vcf.gz
-    ├── merged.raw.vcf.gz.csi
     └── union_vcfs.txt
 ```
+
+### log.txt
+
+A summary of the nextflow run.
 
 ### duplicates/
 
@@ -125,36 +174,40 @@ __bam_duplicates.tsv__ - A summary of duplicate reads from aligned bams.
 
 ### fq/
 
-* __fq_bam_idxstats.tsv__
-* __fq_bam_stats.tsv__
-* __fq_coverage.full.tsv__
-* __fq_coverage.tsv__
+* __fq_bam_idxstats.tsv__ - A summary of mapped and unmapped reads by fastq pair.
+* __fq_bam_stats.tsv__ - BAM summary by fastq pair.
+* __fq_coverage.full.tsv__ - Coverage summary by chromosome
+* __fq_coverage.tsv__ - Simple coverage file by fastq
 
 ### SM/
 
-* __SM_bam_idxstats.tsv__
-* __SM_bam_stats.tsv__
-* __SM_coverage.full.tsv__
-* __SM_coverage.tsv__
+If you have multiple fastq pairs per sample, their alignments will be combined into a strain or sample-level BAM and the results will be output to this directory.
+
+* __SM_bam_idxstats.tsv__ - A summary of mapped and unmapped reads by sample.
+* __SM_bam_stats.tsv__ - BAM summary at the sample level
+* __SM_coverage.full.tsv__ - Coverage at the sample level
+* __SM_coverage.tsv__ - Simple coverage at the sample level.
 
 ### hmm/
 
-* __gt_hmm.(png/svg/pdf)__ - Haplotypes for NILs.
+* __gt_hmm.(png/svg)__ - Haplotype plot for NILs.
 * __gt_hmm.tsv__ - Long form genotypes file.
 
 ### plots/
 
-__coverage_comparison.(png/svg/pdf)__
+* __coverage_comparison.(png/svg/pdf)__ - Compares FASTQ and Sample-level coverage. Note that coverage is not simply cumulative. Only uniquely mapped reads count towards coverage, so it is possible that the sample-level coverage will not equal to the cumulative sum of the coverages of individual FASTQ pairs.
+* __duplicates.(png/svg/pdf)__ - Coverage vs. percent duplicated.
+* __unmapped_reads.(png/svg/pdf)__ - Coverage vs. unmapped read percent.
 
-__duplicates.(png/svg/pdf)__
+### sitelist/
 
-__unmapped_reads.(png/svg/pdf)__
+* `<A>.<B>.sitelist.tsv.gz[+.tbi]` - A tabix-indexed list of sites found to be different between both parental strains.
 
 ### vcf/
 
-* __gt_hmm.tsv__ - Haplotypes defined by region with associated information. 
+* __gt_hmm.tsv__ - Haplotypes defined by region with associated information.
 * __gt_hmm_fill.tsv__ - Same as above, but using `--infill` and `--endfill` with VCF-Kit. For more information, see [VCF-Kit Documentation](http://vcf-kit.readthedocs.io/en/latest/)
-* __NIL.filter.vcf.gz__ - A VCF of filtered genotypes. 
-* __NIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats RIL.filter.vcf.gz`
+* __NIL.filtered.vcf.gz__ - A VCF genotypes including the NILs and parental genotypes.
+* __NIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats NIL.filtered.vcf.gz`
 * __NIL.hmm.vcf.gz__ - The RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.
 * __union_vcfs.txt__ - A list of VCFs that were merged to generate RIL.filter.vcf.gz
