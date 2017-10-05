@@ -69,9 +69,12 @@ scripts/
 Protocols/
 ```
 
+The folders prefixed with
+
+
 ## Announcements
 
-Announcements are stored in the `_posts` folder. Posts are organized into folders by year. There is also a `_photo_albums` that you can ignore (more on this below). Two types of announcements can be made. A 'general' announcement regarding anything, or a new publication.
+Announcements are stored in the `_posts` folder. Posts are organized into folders by year. There is also a `_photo_albums` folder that you can ignore (more on this below). Two types of announcements can be made. A 'general' announcement regarding anything, or a new publication.
 
 #### General Announcements
 
@@ -100,7 +103,7 @@ published: true
 The post content goes here!
 ```
 
-The top part surrounded by `---` is known as the header and has to define a number of variables:
+The top part surrounded by `---` is known as the __header__ and has to define a number of variables:
 
 `layout: post`, `tags: news`, and `published: true` should always be set and should not change. The only thing you will change is the `title`. Set a title, and add content below.
 
@@ -108,10 +111,25 @@ Because we used a `*.md` extension when naming the file, we can use markdown in 
 
 ### Publication Post
 
-When a new publication, it's thumbnail and associated links can be embedded in the same way they are shown on the publications page.
+New publication posts can be created. These posts embed a publication summary identical to what you see on the publication page. They follow the same paradigm as above except they require two additional lines in the header:
 
+* `subtitle:` - Usually the title of the paper; Appears on homepage.
+* `PMID:` - The pubmed identifier
 
-If you've seen the posts associated with a publication, you'll see that they include the thumbnail/link to the publication similar to what is presented on the publications page.
+__Example__:
+
+```
+---
+title: "Katie's paper accepted at <em>G3</em>!"
+subtitle: "Correlations of geneotype with climate parameters suggest <em>Caenorhabditis elegans</em> niche adaptations"
+layout: post
+tags: news
+published: true
+PMID: 27866149
+---
+
+Congratulations to Katie for her paper accepted at G3!
+```
 
 ## Lab members
 
@@ -289,4 +307,8 @@ __(5) Push changes to github__
 ```
 git push
 ```
+
+## Software
+
+If you can write software you should be able to figure out how to update this section. It's markdown/html and not overly complicated.
 
