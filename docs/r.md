@@ -1,17 +1,11 @@
-## Setting up Quest
+# R
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+### R Packages
 
-## Commands
+The Andersen lab maintains several R packages.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+#### cegwas
 
-## Project layout
+#### linkagemapping
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+#### easysorter
