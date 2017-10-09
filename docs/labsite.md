@@ -67,6 +67,7 @@ people/
 publications/
 scripts/
 Protocols/
+funding/
 ```
 
 The folders prefixed with
@@ -188,6 +189,26 @@ For example:
 
 Remove the persons information from `_data/people.yaml`; Optionally delete their photo.
 
+## Funding
+
+Funding is managed using the `funding/` folder in the root directory and the data file `_data/funding_links.yaml`. The `funding/` folder has two subfolders: `past/` and `current/` for past funding and current funding. Rename the logo file to be lowercase and simple.
+
+To update funding simply place the logo of the institution providing funding in one of these folders and it will appear on the funding page under the heading corresponding to the subfolder in which it was placed. If you would like to add a link for the funding of that organization you can edit the `_data/funding_links.yaml` file.
+
+This file is structured as a set of `basename: url` pairs:
+
+```
+nigms: https://www.nigms.nih.gov/Pages/default.aspx
+acs: http://www.cancer.org/
+pew: http://www.pewtrusts.org/en
+niaid: https://www.niaid.nih.gov/
+aws: https://aws.amazon.com/
+weinberg: http://www.weinberg.northwestern.edu/
+mod: http://www.marchofdimes.org/
+cbc: http://www.chicagobiomedicalconsortium.org/
+```
+
+Each acronym above corresponds with an image file in the `current/` or `past/` folder. Notice that the extension (e.g. jpeg/png, etc) does not matter. Just use the basename of the file and its associated link here.
 
 ## Protocols
 
