@@ -40,7 +40,7 @@ The site should become available at `localhost:4000` and any changes you make wi
 
 #### Updating the site
 
-In order for any change to become visible, you need to use git. Any subsequent direcitons that suggest modifying, or adding files assumes you will be adding them to the repo, committing them, and pushing the commit to GitHub.com. See [Git-SCM](http://www.git-scm.com) for a basic introduction to git.
+In order for any change to become visible, you need to use git. Any subsequent directions that suggest modifying, adding, or removing files assumes you will be __committing__ these changes to the repo and __pushing__ the commit to GitHub.com. See [Git-SCM](http://www.git-scm.com) for a basic introduction to git.
 
 
 ## andersenlab.github.io
@@ -66,7 +66,7 @@ pages/
 people/
 publications/
 scripts/
-Protocols/
+protocols/
 funding/
 ```
 
@@ -211,6 +211,35 @@ cbc: http://www.chicagobiomedicalconsortium.org/
 Each acronym above corresponds with an image file in the `current/` or `past/` folder. Notice that the extension (e.g. jpeg/png, etc) does not matter. Just use the basename of the file and its associated link here.
 
 ## Protocols
+
+Protocols are stored in the `protocols/` folder and their titles and pdfs are managed in `_data/protocols.yaml`. To add a new protocol, add the PDF to the `protocols/` folder. Then add these lines to the `_data/protocols.yaml` file:
+
+```
+- Name: Title of Protocol
+  file: filename_of_protocol_in_protocols_folder.pdf
+  group: <em>C. elegans</em> Phenotyping methods
+```
+
+* `name` - The name of the protocol
+* `file` - The filename of the protocol within the `protocols/` folder.
+* `group` - The grouping of the protocol; It will be nested under this grouping on the protocols page.
+
+```
+- name: Semi-Quantitative Brood Assay
+  file: SemiQuantitativeBroodAssay.pdf
+  group: <em>C. elegans</em> Phenotyping Methods
+- name: <em>Pseudomonas aeruginosa</em> Fast-killing assay</a>
+  file: FKAprotocol.pdf
+  group: <em>C. elegans</em> Phenotyping Methods
+- name: <em>Staphylococcus aureus</em> killing assay</a>
+  file: Staphaureus_Protocol.pdf
+  group: <em>C. elegans</em> Phenotyping Methods
+- name: <em>Bacillus thuringiensis</em> toxin assay on plates</a>
+  file: Bacillus-thuringiensis-toxin-plate-assay.pdf
+  group: <em>C. elegans</em> Phenotyping Methods
+  ```
+
+To remove a protocol, delete the pdf and remove the corresponding lines.
 
 ## Research
 
