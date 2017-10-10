@@ -4,7 +4,15 @@ The `nil-nf` pipeline will align, call variants, and generate datasets for NIL s
 
 [TOC]
 
-## Usage
+# Docker container
+
+The docker container used by the `nil-nf` pipeline is the `nil-ril` docker container:
+
+#### [andersenlab/nil-ril](https://hub.docker.com/r/andersenlab/nil-ril/)
+
+The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
+
+# Usage
 
 ```
 
@@ -204,6 +212,9 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 * `<A>.<B>.sitelist.tsv.gz[+.tbi]` - A tabix-indexed list of sites found to be different between both parental strains.
 
 ### vcf/
+
+!!! Important
+    __gt_hmm_fill.tsv__ is for visualization purposes only. To determine breakpoints you should use __gt_hmm.tsv__.
 
 * __gt_hmm.tsv__ - Haplotypes defined by region with associated information.
 * __gt_hmm_fill.tsv__ - Same as above, but using `--infill` and `--endfill` with VCF-Kit. For more information, see [VCF-Kit Documentation](http://vcf-kit.readthedocs.io/en/latest/)
