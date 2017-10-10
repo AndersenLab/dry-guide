@@ -237,11 +237,34 @@ Protocols are stored in the `protocols/` folder and their titles and pdfs are ma
 - name: <em>Bacillus thuringiensis</em> toxin assay on plates</a>
   file: Bacillus-thuringiensis-toxin-plate-assay.pdf
   group: <em>C. elegans</em> Phenotyping Methods
-  ```
+```
 
 To remove a protocol, delete the pdf and remove the corresponding lines.
 
 ## Research
+
+The research portion of the site is structured as a set of sections - each devoted to a project/area. Navigate to `/pages/research` and you will see a set of files:
+
+* `research.html` - This page controls the content at the top of the research page. It's an overview of research in the Andersen lab. You can edit the top portion between the `<p>[content]</p>` tags freely to modify the top of the research page.
+* `research-*.md` - These are the individual projects. These files look like this:
+
+```
+---
+title: High-throughput approaches to understand conserved drug responses
+image: worms_drugs2.jpg
+order: 1
+---
+
+Because of the efforts of a number of highly dedicated scientists and citizen volunteers...
+
+To this end, we deep sequenced all of these strains...
+```
+
+The page includes a header (the items located between `---`) which includes a number of important items.
+
+* `title` - the title to display for the research area.
+* `image` - An image for that research area/project. This is the base name of the image placed in `/assets/img/research/`
+* `order` - A number indicating the order you would like the page ot appear in. Order is descending and any set of numbers can be used to determine sort order (e.g. 1, 2, 5, 8, 1000). 
 
 ## Publications
 
