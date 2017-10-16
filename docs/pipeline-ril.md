@@ -4,6 +4,14 @@ The `RIL-nf` pipeline will align, call variants, and generate datasets for RIL s
 
 [TOC]
 
+# Docker image
+
+The docker image used by the `ril-nf` pipeline is the `nil-ril` docker image:
+
+#### [andersenlab/nil-ril](https://hub.docker.com/r/andersenlab/nil-ril/)
+
+The __Dockerfile__ is stored in the root of the [`nil-nf` github repo](https://www.github.com/andersenlab/nil-nf) and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever that repo is pushed.
+
 ## Usage
 
 ```

@@ -4,9 +4,9 @@ The `nil-nf` pipeline will align, call variants, and generate datasets for NIL s
 
 [TOC]
 
-# Docker container
+# Docker image
 
-The docker container used by the `nil-nf` pipeline is the `nil-ril` docker container:
+The docker image used by the `nil-nf` pipeline is the `nil-ril` docker image:
 
 #### [andersenlab/nil-ril](https://hub.docker.com/r/andersenlab/nil-ril/)
 
