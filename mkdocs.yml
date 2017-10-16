@@ -16,6 +16,7 @@ pages:
   - Bash: bash.md
   - Quest:
     - Introduction: quest-intro.md
+    - Linuxbrew: quest-linuxbrew.md
     - Setting up Nextflow: quest-nextflow.md
     - Mounting Quest: quest-mount.md
   - Nextflow: nextflow.md
@@ -25,7 +26,7 @@ pages:
     - Concordance: pipeline-wi.md
     - WI: pipeline-wi.md
     - Trimming: pipeline-trimming.md
-    - cegwas: pipeline-cegwas.md
+    - Cegwas: pipeline-cegwas.md
   - R: r.md
   - Travis-CI: travis-ci.md
   - Google Cloud: google-cloud.md
