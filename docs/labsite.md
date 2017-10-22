@@ -18,6 +18,11 @@ gem install jekyll # you may need to sudo install this.
 pip install metapub pyyaml
 ```
 
+* __ruby__ - Is used to run jekyll, which is the software that builds the site.
+* __imagemagick__ - Handles thumbnail generation and scaling photos. Its used in the `build.sh` script.
+* __exiftool__ Is used to extract data about photos as part of the `build.sh` script. 
+* __python__ Used to retrieve information about publications and modify yaml files that are part of 
+
 #### Cloning the repo
 
 To get started editing, clone the repo:
