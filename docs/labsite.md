@@ -12,6 +12,7 @@ Several software packages are required for editing/maintaining the Andersen Lab 
 
 ```
 brew install ruby imagemagick exiftool python
+brew upgrade ruby # If Ruby has not been updated in a while, you may need to do this.
 sudo gem install jekyll -v 3.6.0
 # If you get an error when trying to run pip, try:
 # brew link --overwrite python
