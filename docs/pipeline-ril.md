@@ -1,19 +1,32 @@
-# NIL-NF
+# RIL-NF
 
-The `nil-nf` pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
+The `RIL-nf` pipeline will align, call variants, and generate datasets for RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
 
 [TOC]
+
+# Docker image
+
+The docker image used by the `ril-nf` pipeline is the `nil-ril` docker image:
+
+#### [andersenlab/nil-ril](https://hub.docker.com/r/andersenlab/nil-ril/)
+
+The __Dockerfile__ is stored in the root of the [`nil-nf` github repo](https://www.github.com/andersenlab/nil-nf) and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever that repo is pushed.
 
 ## Usage
 
 ```
 
-    ███╗   ██╗██╗██╗      ███╗   ██╗███████╗
-    ████╗  ██║██║██║      ████╗  ██║██╔════╝
-    ██╔██╗ ██║██║██║█████╗██╔██╗ ██║█████╗
-    ██║╚██╗██║██║██║╚════╝██║╚██╗██║██╔══╝
-    ██║ ╚████║██║███████╗ ██║ ╚████║██║
-    ╚═╝  ╚═══╝╚═╝╚══════╝ ╚═╝  ╚═══╝╚═╝
+ ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄
+▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌             ▐░░▌      ▐░▌▐░░░░░░░░░░░▌
+▐░█▀▀▀▀▀▀▀█░▌ ▀▀▀▀█░█▀▀▀▀ ▐░▌             ▐░▌░▌     ▐░▌▐░█▀▀▀▀▀▀▀▀▀
+▐░▌       ▐░▌     ▐░▌     ▐░▌             ▐░▌▐░▌    ▐░▌▐░▌
+▐░█▄▄▄▄▄▄▄█░▌     ▐░▌     ▐░▌ ▄▄▄▄▄▄▄▄▄▄▄ ▐░▌ ▐░▌   ▐░▌▐░█▄▄▄▄▄▄▄▄▄
+▐░░░░░░░░░░░▌     ▐░▌     ▐░▌▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌▐░░░░░░░░░░░▌
+▐░█▀▀▀▀█░█▀▀      ▐░▌     ▐░▌ ▀▀▀▀▀▀▀▀▀▀▀ ▐░▌   ▐░▌ ▐░▌▐░█▀▀▀▀▀▀▀▀▀
+▐░▌     ▐░▌       ▐░▌     ▐░▌             ▐░▌    ▐░▌▐░▌▐░▌
+▐░▌      ▐░▌  ▄▄▄▄█░█▄▄▄▄ ▐░█▄▄▄▄▄▄▄▄▄    ▐░▌     ▐░▐░▌▐░▌
+▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌   ▐░▌      ▐░░▌▐░▌
+ ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀     ▀        ▀▀  ▀
 
 
     parameters           description                    Set/Default
@@ -25,9 +38,9 @@ The `nil-nf` pipeline will align, call variants, and generate datasets for NIL s
     --B                  Parent B                       CB4856
     --cA                 Parent A color (for plots)     #0080FF
     --cB                 Parent B color (for plots)     #FF8000
-    --out                Directory to output results    NIL-N2-CB4856-2017-09-27
+    --out                Directory to output results    RIL-N2-CB4856-2017-09-27
     --fqs                fastq file (see help)          (required)
-    --reference          Reference Genome               /Users/dancook/Documents/git/nil-nf/reference/WS245.fa.gz
+    --reference          Reference Genome               /Users/dancook/Documents/git/RIL-nf/reference/WS245.fa.gz
     --vcf                VCF to fetch parents from      (required)
     --tmpdir             A temporary directory          tmp/
 
@@ -62,23 +75,23 @@ The color to use for parental strain A and B on plots.
 
 ## --out
 
-A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
+A directory in which to output results. By default it will be `RIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
 
 ## --fqs (FASTQs)
 
-In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
+In order to process RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
 
 ```
-NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
-NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
+RIL_01   RIL_01_ID    S16 RIL_01_1.fq.gz   RIL_01_2.fq.gz
+RIL_02   RIL_02_ID    S1  RIL_02_1.fq.gz   RIL_02_2.fq.gz
 ```
 
 Notice that the file does not include a header. The table with corresponding columns looks like this.
 
 | strain   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   |
 |:-------|:-----------------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| NIL_01 | NIL_01_ID | S16 | NIL_01_1.fq.gz | NIL_01_2.fq.gz |
-| NIL_02 | NIL_02_ID | S1  | NIL_02_1.fq.gz | NIL_02_2.fq.gz |
+| RIL_01 | RIL_01_ID | S16 | RIL_01_1.fq.gz | RIL_01_2.fq.gz |
+| RIL_02 | RIL_02_ID | S1  | RIL_02_1.fq.gz | RIL_02_2.fq.gz |
 
 The columns are detailed below:
 
@@ -91,18 +104,18 @@ The columns are detailed below:
 This file needs to be placed along with the sequence data into a folder. The tree will look like this:
 
 ```
-NIL_SEQ_DATA/
-├── NIL_01_1.fq.gz
-├── NIL_01_2.fq.gz
-├── NIL_02_1.fq.gz
-├── NIL_02_2.fq.gz
+RIL_SEQ_DATA/
+├── RIL_01_1.fq.gz
+├── RIL_01_2.fq.gz
+├── RIL_02_1.fq.gz
+├── RIL_02_2.fq.gz
 └── fq_sheet.tsv
 ```
 
 Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
 
 !!! Important
-    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+    Do not perform any pre-processing on RIL data. RIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
 
 ## --vcf (Parental VCF)
 
@@ -154,11 +167,11 @@ The final output directory looks like this:
 │   ├── N2.CB4856.sitelist.tsv.gz
 │   └── N2.CB4856.sitelist.tsv.gz.tbi
 └── vcf
-    ├── NIL.filtered.stats.txt
-    ├── NIL.filtered.vcf.gz
-    ├── NIL.filtered.vcf.gz.csi
-    ├── NIL.hmm.vcf.gz
-    ├── NIL.hmm.vcf.gz.csi
+    ├── RIL.filtered.stats.txt
+    ├── RIL.filtered.vcf.gz
+    ├── RIL.filtered.vcf.gz.csi
+    ├── RIL.hmm.vcf.gz
+    ├── RIL.hmm.vcf.gz.csi
     ├── gt_hmm.tsv
     ├── gt_hmm_fill.tsv
     └── union_vcfs.txt
@@ -190,7 +203,7 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 
 ### hmm/
 
-* __gt_hmm.(png/svg)__ - Haplotype plot for NILs.
+* __gt_hmm.(png/svg)__ - Haplotype plot for RILs.
 * __gt_hmm.tsv__ - Long form genotypes file.
 
 ### plots/
@@ -207,7 +220,7 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 
 * __gt_hmm.tsv__ - Haplotypes defined by region with associated information.
 * __gt_hmm_fill.tsv__ - Same as above, but using `--infill` and `--endfill` with VCF-Kit. For more information, see [VCF-Kit Documentation](http://vcf-kit.readthedocs.io/en/latest/)
-* __NIL.filtered.vcf.gz__ - A VCF genotypes including the NILs and parental genotypes.
-* __NIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats NIL.filtered.vcf.gz`
-* __NIL.hmm.vcf.gz__ - The RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.
+* __RIL.filtered.vcf.gz__ - A VCF genotypes including the RILs and parental genotypes.
+* __RIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats RIL.filtered.vcf.gz`
+* __RIL.hmm.vcf.gz__ - The RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.
 * __union_vcfs.txt__ - A list of VCFs that were merged to generate RIL.filter.vcf.gz
