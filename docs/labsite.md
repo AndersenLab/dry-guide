@@ -151,7 +151,7 @@ Each individual should have - at a minimum, the following:
 ```
 - first_name: <first name>
   last_name: <last name>
-  title: <One of: Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher>
+  title:  <The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician>
   photo: <filename of the photo located in the people/ directory>
 ```
 
@@ -160,7 +160,7 @@ Additional fields can also be added:
 ```
 - first_name: <first name>
   last_name: <last name>
-  title: <One of: Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher>
+  title: <The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician>
   pub_names: ["<an array>", "<of possible>", "<publication>", "<names>"]
   photo: <base filename of the photo located in the people/ directory; e.g. 'dan.jpg'>
   website: <website>
