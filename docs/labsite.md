@@ -304,7 +304,6 @@ The publication should now be added either manually or automatically to `_data/p
 - Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
   Citations: 0
   DOI: 10.1093/molbev/msx155
-  Date_Published: 2017 May 09
   Journal: Molecular Biology and Evolution
   PMID: 28486636
   Title: Natural variation in the distribution and abundance of transposable elements
@@ -317,11 +316,10 @@ The first thing you will want to do is associate the publication with the PDF yo
 - Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
   Citations: 0
   DOI: 10.1093/molbev/msx155
-  Date_Published: 2017 May 09
   Journal: Molecular Biology and Evolution
   PMID: 28486636
   Title: Natural variation in the distribution and abundance of transposable elements
-    across the <em>Caenorhabditis elegans</em> species
+    across the Caenorhabditis elegans species
   PDF: 2017Laricchia
 ```
 
@@ -330,6 +328,21 @@ You can also italicize text by adding `<em>` tags around words as shown above (`
 !!! IMPORTANT
 
     Before pushing any changes to GitHub, you will want to preview the changes locally using `jekyll serve`.
+
+__Additionally__ - You may need to add the `Date_Published` line in as this is not always available.
+
+Final result:
+
+- Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
+  Citations: 0
+  DOI: 10.1093/molbev/msx155
+  Date_Published: 2017 May 09
+  Journal: Molecular Biology and Evolution
+  PMID: 28486636
+  Title: Natural variation in the distribution and abundance of transposable elements
+    across the <em>Caenorhabditis elegans</em> species
+  PDF: 2017Laricchia
+```
 
 __(4) Add supplementary data__
 
