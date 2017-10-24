@@ -333,6 +333,7 @@ __Additionally__ - You may need to add the `Date_Published` line in as this is n
 
 Final result:
 
+```
 - Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
   Citations: 0
   DOI: 10.1093/molbev/msx155
