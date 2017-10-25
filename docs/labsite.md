@@ -12,11 +12,18 @@ Several software packages are required for editing/maintaining the Andersen Lab 
 
 ```
 brew install ruby imagemagick exiftool python
-gem install jekyll # you may need to sudo install this.
+brew upgrade ruby # If Ruby has not been updated in a while, you may need to do this.
+sudo gem install jekyll -v 3.6.0
 # If you get an error when trying to run pip, try:
 # brew link --overwrite python
 pip install metapub pyyaml
 ```
+
+* __Ruby__ - Is used to run jekyll, which is the software that builds the site.
+* __Jekyll__ - As stated earlier, jekyll builds the static site and is written in Ruby.
+* __Imagemagick__ - Handles thumbnail generation and scaling photos. Imagemagick is used in the `build.sh` script.
+* __exiftool__ Extract data about photos as part of the `build.sh` script for use in scaling images.
+* __Python__ Retrieves information about publications and updates `_data/pubs_data.yaml`.
 
 #### Cloning the repo
 
@@ -144,7 +151,7 @@ Each individual should have - at a minimum, the following:
 ```
 - first_name: <first name>
   last_name: <last name>
-  title: <One of: Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher>
+  title:  <The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician>
   photo: <filename of the photo located in the people/ directory>
 ```
 
@@ -153,7 +160,7 @@ Additional fields can also be added:
 ```
 - first_name: <first name>
   last_name: <last name>
-  title: <One of: Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher>
+  title: <The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician>
   pub_names: ["<an array>", "<of possible>", "<publication>", "<names>"]
   photo: <base filename of the photo located in the people/ directory; e.g. 'dan.jpg'>
   website: <website>
@@ -297,7 +304,6 @@ The publication should now be added either manually or automatically to `_data/p
 - Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
   Citations: 0
   DOI: 10.1093/molbev/msx155
-  Date_Published: 2017 May 09
   Journal: Molecular Biology and Evolution
   PMID: 28486636
   Title: Natural variation in the distribution and abundance of transposable elements
@@ -310,11 +316,10 @@ The first thing you will want to do is associate the publication with the PDF yo
 - Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
   Citations: 0
   DOI: 10.1093/molbev/msx155
-  Date_Published: 2017 May 09
   Journal: Molecular Biology and Evolution
   PMID: 28486636
   Title: Natural variation in the distribution and abundance of transposable elements
-    across the <em>Caenorhabditis elegans</em> species
+    across the Caenorhabditis elegans species
   PDF: 2017Laricchia
 ```
 
@@ -323,6 +328,22 @@ You can also italicize text by adding `<em>` tags around words as shown above (`
 !!! IMPORTANT
 
     Before pushing any changes to GitHub, you will want to preview the changes locally using `jekyll serve`.
+
+__Additionally__ - You may need to add the `Date_Published` line in as this is not always available.
+
+Final result:
+
+```
+- Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
+  Citations: 0
+  DOI: 10.1093/molbev/msx155
+  Date_Published: 2017 May 09
+  Journal: Molecular Biology and Evolution
+  PMID: 28486636
+  Title: Natural variation in the distribution and abundance of transposable elements
+    across the <em>Caenorhabditis elegans</em> species
+  PDF: 2017Laricchia
+```
 
 __(4) Add supplementary data__
 

@@ -21,9 +21,8 @@ pages:
     - Mounting Quest: quest-mount.md
   - Nextflow: nextflow.md
   - Pipelines:
-    - NIL: pipeline-nil.md
-    - RIL: pipeline-ril.md
-    - Concordance: pipeline-wi.md
+    - NIL / RIL: pipeline-nil-ril.md
+    - Concordance: pipeline-concordance.md
     - WI: pipeline-wi.md
     - Trimming: pipeline-trimming.md
     - Cegwas: pipeline-cegwas.md
