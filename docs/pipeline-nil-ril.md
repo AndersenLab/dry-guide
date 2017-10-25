@@ -1,6 +1,6 @@
 # nil-ril-nf
 
-The `nil-ril-nf` pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
+The `nil-ril-nf` pipeline will align, call variants, and generate datasets for NIL and RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
 
 [TOC]
 
