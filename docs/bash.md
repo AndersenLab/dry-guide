@@ -38,6 +38,7 @@ Below I link to some good guides for various bash utilities.
 ## awk
 
 * [awk guide](https://linuxconfig.org/learning-linux-commands-awk)
+* [awk by example](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md) - hundreds of examples
 
 ### Rearranging columns
 

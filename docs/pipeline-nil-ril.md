@@ -46,6 +46,41 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 
 ```
 
+# Running on Quest
+
+Before running the command below, be sure you are familiar with the following:
+
+* [relative vs. absolute paths](https://stackoverflow.com/questions/21306512/difference-between-relative-path-and-absolute-path-in-javascript)
+* [screen](https://nathan.chantrell.net/linux/an-introduction-to-screen/)
+* [quest](quest-intro)
+* [nextflow](quest-nextflow)
+
+```
+# Run this in screen!
+cd /projects/b1059/analysis
+nextflow run andersenlab/nil-ril-nf \
+    --A=<parent A> \
+    --B=<parent B> \
+    --fqs=<absolute path to the fq file> \
+    --reference=<absolute path to reference> \
+    --vcf=<most recent wild isolate WI>
+```
+
+__A complete example__
+
+```
+cd /projects/b1059/projects/kammenga-nils-nf/
+nextflow run andersenlab/nil-ril-nf \
+    --A=N2 \
+    --B=CB4856 \
+    --fqs=fastq/fq_nil_sheet.tsv \
+    --reference=/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz \
+    --vcf=/projects/b1059/analysis/WI-20170531/vcf/WI.20170531.hard-filter.vcf.gz
+```
+
+* Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-nf` pipeline for details.
+* The command above will automatically place results in a folder: `NIL-N2-CB4856-YYYY-MM-DD`
+
 # Parameters
 
 ## --debug
@@ -53,7 +88,7 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. You can use the following command to debug:
 
 ```
-nextflow run main.nf --debug --reference=<path to reference>
+nextflow run andersenlab/nil-ril-nf --debug --reference=<path to reference>
 ```
 
 ## --cores
@@ -74,7 +109,7 @@ A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-D
 
 ## --fqs (FASTQs)
 
-In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
+In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
 
 ```
 NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
