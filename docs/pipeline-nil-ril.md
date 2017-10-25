@@ -1,14 +1,14 @@
-# NIL-NF
+# nil-ril-nf
 
-The `nil-nf` pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
+The `nil-ril-nf` pipeline will align, call variants, and generate datasets for NIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
 
 [TOC]
 
 # Docker image
 
-The docker image used by the `nil-nf` pipeline is the `nil-ril` docker image:
+The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker image:
 
-#### [andersenlab/nil-ril](https://hub.docker.com/r/andersenlab/nil-ril/)
+#### [andersenlab/nil-ril-nfL](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
 
 The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
 
@@ -16,12 +16,12 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 
 ```
 
-    ███╗   ██╗██╗██╗      ███╗   ██╗███████╗
-    ████╗  ██║██║██║      ████╗  ██║██╔════╝
-    ██╔██╗ ██║██║██║█████╗██╔██╗ ██║█████╗
-    ██║╚██╗██║██║██║╚════╝██║╚██╗██║██╔══╝
-    ██║ ╚████║██║███████╗ ██║ ╚████║██║
-    ╚═╝  ╚═══╝╚═╝╚══════╝ ╚═╝  ╚═══╝╚═╝
+    ███╗   ██╗██╗██╗      ██████╗ ██╗██╗      ███╗   ██╗███████╗
+    ████╗  ██║██║██║      ██╔══██╗██║██║      ████╗  ██║██╔════╝
+    ██╔██╗ ██║██║██║█████╗██████╔╝██║██║█████╗██╔██╗ ██║█████╗
+    ██║╚██╗██║██║██║╚════╝██╔══██╗██║██║╚════╝██║╚██╗██║██╔══╝
+    ██║ ╚████║██║███████╗ ██║  ██║██║███████╗ ██║ ╚████║██║
+    ╚═╝  ╚═══╝╚═╝╚══════╝ ╚═╝  ╚═╝╚═╝╚══════╝ ╚═╝  ╚═══╝╚═╝
 
 
     parameters           description                    Set/Default
