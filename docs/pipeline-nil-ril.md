@@ -46,6 +46,24 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 
 ```
 
+# Overview
+
+The `nil-ril-nf` pipeline:
+
+
+![Overview](img/nil-ril-overview.svg)
+
+
+1. `Alignment` - Performed using bwa-mem
+1. `Merge Bams` - Combines bam files aligned individually for each fastq-pair. [Sambamba](http://lomereiter.github.io/sambamba/) is actually used in place of samtools, but it's a drop-in, faster replacement.
+1. `Bam Stats` - A variety of metrics are calculated for bams and combined into individual files for downstream analsyis.
+1. `Mark Duplicates` - Duplicate reads are marked using Picard.
+1. `Call Variants individual` - Variants are called for each strain inidividually first. This generates a sitelist which is used to identify all variant sites in the population.
+1. `Pull parental genotypes` - Pulls out parental genotypes from the given VCF. The list of genotypes is filtered for discordant calls (i.e. different genotypes). This is VCF is used to generate a sitelist for calling low-coverage bams and later is merged into the resulting VCF.
+1. `Call variants union` - Uses the sitelist from the previous step to call variants on low-coverage sequence data. The resulting VCF will have a lot of missing calls.
+1. `Merge VCF` - Merges in the parental VCF (which has been filtered only for variants with discordant calls).
+1. `Call HMM` - VCF-kit is run in various ways to infer the appropriate genotypes from the low-coverage sequence data.
+
 # Testing
 
 If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the `-resume` option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly.
@@ -169,26 +187,25 @@ The final output directory looks like this:
 │   ├── SM_bam_idxstats.tsv
 │   ├── SM_bam_stats.tsv
 │   ├── SM_coverage.full.tsv
+│   ├── SM_union_vcfs.txt
 │   └── SM_coverage.tsv
 ├── hmm
 │   ├── gt_hmm.(png/svg)
-│   └── gt_hmm.tsv
+│   ├── gt_hmm.tsv
+│   ├── gt_hmm_fill.tsv
+│   ├── NIL.filtered.stats.txt
+│   ├── NIL.filtered.vcf.gz
+│   ├── NIL.filtered.vcf.gz.csi
+│   ├── NIL.hmm.vcf.gz
+│   ├── NIL.hmm.vcf.gz.csi
+│   └── gt_hmm_genotypes.tsv
 ├── bam
 │   └── <BAMS + indices>
 ├── duplicates
 │   └── bam_duplicates.tsv
-├── sitelist
-│   ├── N2.CB4856.sitelist.tsv.gz
-│   └── N2.CB4856.sitelist.tsv.gz.tbi
-└── vcf
-    ├── NIL.filtered.stats.txt
-    ├── NIL.filtered.vcf.gz
-    ├── NIL.filtered.vcf.gz.csi
-    ├── NIL.hmm.vcf.gz
-    ├── NIL.hmm.vcf.gz.csi
-    ├── gt_hmm.tsv
-    ├── gt_hmm_fill.tsv
-    └── union_vcfs.txt
+└─ sitelist
+    ├── N2.CB4856.sitelist.tsv.gz
+    └── N2.CB4856.sitelist.tsv.gz.tbi
 ```
 
 ### log.txt
@@ -218,7 +235,9 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 ### hmm/
 
 * __gt_hmm.(png/svg)__ - Haplotype plot for NILs.
-* __gt_hmm.tsv__ - Long form genotypes file.
+* __gt_hmm.tsv__ - HMM genotypes WITHOUT FILL.
+* __gt_hmm_fill.tsv__ - HMM genotypes WITH FILL
+* __gt_hmm_genotypes.tsv__ - Long form genotypes file.
 
 ### plots/
 
