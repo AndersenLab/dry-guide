@@ -46,6 +46,25 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 
 ```
 
+# Testing
+
+If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the `-resume` option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly.
+
+Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci [here](https://travis-ci.org/AndersenLab/nil-ril-nf), and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.
+
+The command below can be used to test the pipeline locally.
+
+```
+# Downloads a pre-indexed reference
+curl https://storage.googleapis.com/andersen/genome/c_elegans/WS245/WS245.tar.gz > WS245.tar.gz
+tar -xvzf WS245.tar.gz
+nextflow run andersenlab/nil-ril-nf \
+             -with-docker andersenlab/nil-ril-nf \
+             --debug \
+             --reference=WS245.fa.gz \
+             -resume
+```
+
 # Parameters
 
 ## --debug
