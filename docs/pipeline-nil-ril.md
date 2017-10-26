@@ -93,6 +93,9 @@ nextflow run andersenlab/nil-ril-nf \
              -resume
 ```
 
+* Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-nf` pipeline for details.
+* The command above will automatically place results in a folder: `NIL-N2-CB4856-YYYY-MM-DD`
+
 # Parameters
 
 ## --debug
@@ -100,7 +103,7 @@ nextflow run andersenlab/nil-ril-nf \
 The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. You can use the following command to debug:
 
 ```
-nextflow run main.nf --debug --reference=<path to reference>
+nextflow run andersenlab/nil-ril-nf --debug --reference=<path to reference>
 ```
 
 ## --cores
@@ -121,7 +124,7 @@ A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-D
 
 ## --fqs (FASTQs)
 
-In order to process NIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
+In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq files are *relative* to that file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
 
 ```
 NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
