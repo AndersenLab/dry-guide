@@ -11,7 +11,7 @@ The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and run
 Several software packages are required for editing/maintaining the Andersen Lab site. They can be installed using [Homebrew](brew.sh):
 
 ```
-brew install ruby imagemagick exiftool python
+brew install ruby imagemagick exiftool python ghostscript
 brew upgrade ruby # If Ruby has not been updated in a while, you may need to do this.
 sudo gem install jekyll -v 3.6.0
 # If you get an error when trying to run pip, try:
@@ -37,7 +37,7 @@ This repo contains documents that get compiled into the Andersen Lab website. Wh
 
 You can also use [Github Desktop](https://desktop.github.com) to manage changes to the site. 
 
-If you want to edit the site locally and preview changes, run the following in the git repo directory:
+If you want to edit the site locally and preview changes, run the following in the __root__ directory of the git repo:
 
 ```
 jekyll serve
@@ -310,26 +310,10 @@ The publication should now be added either manually or automatically to `_data/p
     across the Caenorhabditis elegans species
 ```
 
-The first thing you will want to do is associate the publication with the PDF you added. Add a `PDF` line for that:
-
-```
-- Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
-  Citations: 0
-  DOI: 10.1093/molbev/msx155
-  Journal: Molecular Biology and Evolution
-  PMID: 28486636
-  Title: Natural variation in the distribution and abundance of transposable elements
-    across the Caenorhabditis elegans species
-  PDF: 2017Laricchia
-```
-
-You can also italicize text by adding `<em>` tags around words as shown above (`<em>Caenorhabditis elegans</em>`).
-
-!!! IMPORTANT
-
-    Before pushing any changes to GitHub, you will want to preview the changes locally using `jekyll serve`.
-
-__Additionally__ - You may need to add the `Date_Published` line in as this is not always available.
+You will need to add a few things:
+  - Add a `PDF:` line to associate the publication with the correct PDF and its thumbnail. This is the same `tag` you used above.
+  - If there is no `Date_Published:` line you will want to add that. The format is `YYYY-month_abbr-DD` (e.g. `2017 Aug 17`).
+  - Add `<em>` tags around items you want to italicize: `<em>Caenorhabditis elegans</em>`
 
 Final result:
 
@@ -347,7 +331,21 @@ Final result:
 
 __(4) Add supplementary data__
 
-Supplemental data and figures are stored in `publications/[pdf_name]`. For example, 2017Laricchia has an associated folder in `publications/` where supplemental data and figures are stored.
+Supplemental data and figures are stored in `publications/[pdf_name]`. For example, `2017Laricchia` has an associated folder in `publications/` where supplemental data and figures are stored: `publications/2017Laricchia/<supplemental files>`
+
+Once you have added supplemental files, you'll need to add some information to `_data/pubs_data.yaml` to describe them. These are the lines that were added for `2017Laricchia`:
+
+```
+  pub_data:
+    files:
+      Supplemental_Figures.pdf: {title: Supplemental Figures}
+      Supplemental_Files.zip: {title: Supplemental Files}
+      Supplemental_Tables.zip: {title: Supplemental Tables}\
+      ...
+      <name of file>: {title: <title to display>}
+```
+
+The last line above illustrates the format. The name of the file must match exactly what is in the `publications/[pdf_name]` folder. Resulting supplemental data will be listed under publications and on the data page.
 
 ## Photo Albums
 
