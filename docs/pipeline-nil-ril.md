@@ -46,36 +46,51 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
 
 ```
 
-# Running on Quest
+# Overview
 
-Before running the command below, be sure you are familiar with the following:
+The `nil-ril-nf` pipeline:
 
-* [relative vs. absolute paths](https://stackoverflow.com/questions/21306512/difference-between-relative-path-and-absolute-path-in-javascript)
-* [screen](https://nathan.chantrell.net/linux/an-introduction-to-screen/)
-* [quest](quest-intro)
-* [nextflow](quest-nextflow)
+
+![Overview](img/nil-ril-overview.svg)
+
+
+1. `Alignment` - Performed using bwa-mem
+1. `Merge Bams` - Combines bam files aligned individually for each fastq-pair. [Sambamba](http://lomereiter.github.io/sambamba/) is actually used in place of samtools, but it's a drop-in, faster replacement.
+1. `Bam Stats` - A variety of metrics are calculated for bams and combined into individual files for downstream analsyis.
+1. `Mark Duplicates` - Duplicate reads are marked using Picard.
+1. `Call Variants individual` - Variants are called for each strain inidividually first. This generates a sitelist which is used to identify all variant sites in the population.
+1. `Pull parental genotypes` - Pulls out parental genotypes from the given VCF. The list of genotypes is filtered for discordant calls (i.e. different genotypes). This is VCF is used to generate a sitelist for calling low-coverage bams and later is merged into the resulting VCF.
+1. `Call variants union` - Uses the sitelist from the previous step to call variants on low-coverage sequence data. The resulting VCF will have a lot of missing calls.
+1. `Merge VCF` - Merges in the parental VCF (which has been filtered only for variants with discordant calls).
+1. `Call HMM` - VCF-kit is run in various ways to infer the appropriate genotypes from the low-coverage sequence data.
+
+# Docker image
+
+The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker image:
+
+#### [andersenlab/nil-ril-nf](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
+
+The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
+
+
+# Testing
+
+If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the `-resume` option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly.
+
+Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci [here](https://travis-ci.org/AndersenLab/nil-ril-nf), and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.
+
+The command below can be used to test the pipeline locally.
 
 ```
-# Run this in screen!
-cd /projects/b1059/analysis
+# Downloads a pre-indexed reference
+curl https://storage.googleapis.com/andersen/genome/c_elegans/WS245/WS245.tar.gz > WS245.tar.gz
+tar -xvzf WS245.tar.gz
+# Run nextflow
 nextflow run andersenlab/nil-ril-nf \
-    --A=<parent A> \
-    --B=<parent B> \
-    --fqs=<absolute path to the fq file> \
-    --reference=<absolute path to reference> \
-    --vcf=<most recent wild isolate WI>
-```
-
-__A complete example__
-
-```
-cd /projects/b1059/projects/kammenga-nils-nf/
-nextflow run andersenlab/nil-ril-nf \
-    --A=N2 \
-    --B=CB4856 \
-    --fqs=fastq/fq_nil_sheet.tsv \
-    --reference=/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz \
-    --vcf=/projects/b1059/analysis/WI-20170531/vcf/WI.20170531.hard-filter.vcf.gz
+             -with-docker andersenlab/nil-ril-nf \
+             --debug \
+             --reference=WS245.fa.gz \
+             -resume
 ```
 
 * Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-nf` pipeline for details.
@@ -185,26 +200,25 @@ The final output directory looks like this:
 │   ├── SM_bam_idxstats.tsv
 │   ├── SM_bam_stats.tsv
 │   ├── SM_coverage.full.tsv
+│   ├── SM_union_vcfs.txt
 │   └── SM_coverage.tsv
 ├── hmm
 │   ├── gt_hmm.(png/svg)
-│   └── gt_hmm.tsv
+│   ├── gt_hmm.tsv
+│   ├── gt_hmm_fill.tsv
+│   ├── NIL.filtered.stats.txt
+│   ├── NIL.filtered.vcf.gz
+│   ├── NIL.filtered.vcf.gz.csi
+│   ├── NIL.hmm.vcf.gz
+│   ├── NIL.hmm.vcf.gz.csi
+│   └── gt_hmm_genotypes.tsv
 ├── bam
 │   └── <BAMS + indices>
 ├── duplicates
 │   └── bam_duplicates.tsv
-├── sitelist
-│   ├── N2.CB4856.sitelist.tsv.gz
-│   └── N2.CB4856.sitelist.tsv.gz.tbi
-└── vcf
-    ├── NIL.filtered.stats.txt
-    ├── NIL.filtered.vcf.gz
-    ├── NIL.filtered.vcf.gz.csi
-    ├── NIL.hmm.vcf.gz
-    ├── NIL.hmm.vcf.gz.csi
-    ├── gt_hmm.tsv
-    ├── gt_hmm_fill.tsv
-    └── union_vcfs.txt
+└─ sitelist
+    ├── N2.CB4856.sitelist.[tsv/vcf].gz
+    └── N2.CB4856.sitelist.[tsv/vcf].gz.[tbi/csi]
 ```
 
 ### log.txt
@@ -230,11 +244,26 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 * __SM_bam_stats.tsv__ - BAM summary at the sample level
 * __SM_coverage.full.tsv__ - Coverage at the sample level
 * __SM_coverage.tsv__ - Simple coverage at the sample level.
+* __SM_union_vcfs.txt__ - A list of VCFs that were merged to generate RIL.filter.vcf.gz
+
 
 ### hmm/
 
-* __gt_hmm.(png/svg)__ - Haplotype plot for NILs.
-* __gt_hmm.tsv__ - Long form genotypes file.
+!!! Important
+    __gt_hmm_fill.tsv__ is for visualization purposes only. To determine breakpoints you should use __gt_hmm.tsv__.
+
+![hmm_fill](http://vcf-kit.readthedocs.io/en/latest/hmm_opts.png)
+
+The `--infill` and `--endfill` options are applied to the __gt_hmm_fill.tsv__ file. You need to be cautious when examining this data as it is __generated primarily for visualization purposes__.
+
+* __gt_hmm.(png/svg)__ - Haplotype plot __using__ `--infill` and `--endfill`.
+* __gt_hmm_fill.tsv__ - Same as above, but using `--infill` and `--endfill` with VCF-Kit. For more information, see [VCF-Kit Documentation](http://vcf-kit.readthedocs.io/en/latest/). This file is used to generate the plots.
+* __gt_hmm.tsv__ - Haplotypes defined by region with associated information. Does __not__ use `--infill` and `--endfill`
+* __gt_hmm_genotypes.tsv__ - Long form genotypes file.
+* __NIL/RIL.filtered.vcf.gz__ - A VCF genotypes including the NILs and parental genotypes.
+* __NIL/RIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats NIL.filtered.vcf.gz`
+* __NIL/RIL.hmm.vcf.gz__ - The NIL/RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.
+
 
 ### plots/
 
@@ -245,15 +274,5 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 ### sitelist/
 
 * `<A>.<B>.sitelist.tsv.gz[+.tbi]` - A tabix-indexed list of sites found to be different between both parental strains.
+* `<A>.<B>.sitelist.vcf.gz[+.tbi]` - A vcf of sites found to be different between both parental strains.
 
-### vcf/
-
-!!! Important
-    __gt_hmm_fill.tsv__ is for visualization purposes only. To determine breakpoints you should use __gt_hmm.tsv__.
-
-* __gt_hmm.tsv__ - Haplotypes defined by region with associated information.
-* __gt_hmm_fill.tsv__ - Same as above, but using `--infill` and `--endfill` with VCF-Kit. For more information, see [VCF-Kit Documentation](http://vcf-kit.readthedocs.io/en/latest/)
-* __NIL.filtered.vcf.gz__ - A VCF genotypes including the NILs and parental genotypes.
-* __NIL.filtered.stats.txt__ - Summary of filtered genotypes. Generated by `bcftools stats NIL.filtered.vcf.gz`
-* __NIL.hmm.vcf.gz__ - The RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.
-* __union_vcfs.txt__ - A list of VCFs that were merged to generate RIL.filter.vcf.gz
