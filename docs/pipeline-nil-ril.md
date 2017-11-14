@@ -100,11 +100,7 @@ nextflow run andersenlab/nil-ril-nf \
 
 ## --debug
 
-The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. You can use the following command to debug:
-
-```
-nextflow run andersenlab/nil-ril-nf --debug --reference=<path to reference>
-```
+The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the [Testing](#testing) section for more information.
 
 ## --cores
 
