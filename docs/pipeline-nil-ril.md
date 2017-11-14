@@ -35,7 +35,7 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
     --cB                 Parent B color (for plots)     #FF8000
     --out                Directory to output results    NIL-N2-CB4856-2017-09-27
     --fqs                fastq file (see help)          (required)
-    --fq_file_prefix     fastq prefix (see help)        <location of fqs file>
+    --relative           use relative fastq prefix      ${params.relative}
     --reference          Reference Genome               /Users/dancook/Documents/git/nil-nf/reference/WS245.fa.gz
     --vcf                VCF to fetch parents from      (required)
     --tmpdir             A temporary directory          tmp/
@@ -121,7 +121,7 @@ A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-D
 
 ## --fqs (FASTQs)
 
-In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq can be specified as *relative* or *absoltue*. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
+In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq can be specified as *relative* or *absolute*. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
 
 ```
 NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
@@ -159,11 +159,11 @@ Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
 !!! Important
     Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
 
-If you want to specify fastqs using an absolute path use `--fq_file_prefix=""`
+If you want to specify fastqs using an absolute path use `--relative=false`
 
-## --fq_file_prefix
+## --relative
 
-Sets the fastq prefix when specifying fastqs.
+Set to `true` by default. If you set `--relative=false`, fq's in the fq_sheet are expected to use an absolute path.
 
 ## --vcf (Parental VCF)
 
