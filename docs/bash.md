@@ -1,10 +1,12 @@
 # Bash
 
-Below I list command-line commands you should learn. Below that I offer a little more detail.
+[Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) is the default unix shell on Mac OS and most Linux operating systems. Many bioinformatic programs are run using the command line, so becoming familiar with Bash is important.
+
+Start with the fo [Introduction to bash](http://cs.lmu.edu/~ray/notes/bash/). 
 
 ## Basic Commands
 
-Most of these can be learned in less than an 20 minutes.
+You should familiarize yourself with the following commands.
 
 * __alias__ - create a shortcut for a command
 * __awk__ - file manipulation; Filtering; Rearranging columns
