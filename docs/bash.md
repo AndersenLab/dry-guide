@@ -67,10 +67,3 @@ cat example.tsv awk '$0 ~ "^#" { print }'
 Screen can be used to run things in the background. It is extremely useful if you need to run things on quest without worry that they will be terminated if you log out or get kicked off. This is essential when running __nextflow__ because pipelines can sometimes run for many hours and its likely you will be kicked off in that time or lose your connection.
 
 * [Screen basics](https://www.linode.com/docs/networking/ssh/using-gnu-screen-to-manage-persistent-terminal-sessions)
-
-## uniq
-
-Get a count of lines in a file. 
-```
-cat myfile.tsv | sort | uniq -c
-```

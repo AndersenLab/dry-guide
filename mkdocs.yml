@@ -16,10 +16,9 @@ pages:
   - Bash: bash.md
   - Quest:
     - Introduction: quest-intro.md
-    - Linuxbrew: quest-linuxbrew.md
-    - Setting up Nextflow: quest-nextflow.md
+    - Setup: quest-setup.md
+    - Nextflow: quest-nextflow.md
     - Mounting Quest: quest-mount.md
-  - Nextflow: nextflow.md
   - Pipelines:
     - NIL / RIL: pipeline-nil-ril.md
     - Concordance: pipeline-concordance.md
@@ -27,8 +26,6 @@ pages:
     - Trimming: pipeline-trimming.md
     - Cegwas: pipeline-cegwas.md
   - R: r.md
-  - Travis-CI: travis-ci.md
   - Google Cloud: google-cloud.md
   - CeNDR: cendr.md
-  - Domains: domains.md
   - Andersen Labsite: labsite.md

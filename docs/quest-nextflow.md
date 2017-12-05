@@ -2,6 +2,9 @@
 
 # Installation
 
+!!! Important
+    If you haven't already, take a look at [Quest Setup](quest-setup) for more information on how to setup your environment on Quest. That page has a script which can automate much of what you see on this page, although I am leaving this page here as it has a lot of detail on configuring nextflow.
+
 Nextflow can be installed with [linuxbrew](quest-linuxbrew). Use:
 
 ```

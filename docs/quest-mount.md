@@ -1,6 +1,6 @@
 __1. Download and Install Fuse for Mac OS__
 
-https://osxfuse.github.io/
+[https://osxfuse.github.io/](https://osxfuse.github.io/)
 
 __2. Install sshfs__
 
