@@ -24,7 +24,8 @@ The above line makes it so you simply type `quest` and the login process is init
 
 If you are not familiar with what a bash profile is, [take a look at this](https://www.quora.com/What-is-bash_profile-and-what-is-its-use).
 
-When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job. 
+!!! important
+    When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
 
 ### Home Directory
 
@@ -43,6 +44,16 @@ The Andersen lab has access to two projects.
 __b1042__ - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days.
 
 __b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 10 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
+
+### b1059 Structure
+
+The overall directory structure of `/projects/b1059/` is as follows:
+
+* __data__ - fastqs, bams, and other data.
+* __software__ - Centrally used software can be stored here.
+* __projects__ - Individual projects that have a definitive endpoint.
+* __workflows__ - Workflows used in ongoing projects. For example, Wild Isolate, RIL, and NIL sequencing.
+* __analysis__ - Output from workflows run on _ongoing projects_.
 
 ## Installing and using software
 
@@ -63,11 +74,7 @@ A lot of the software you use can be installed using a `bottle` format.
 The Andersen Lab has access to the 'Genomics' project
 
 ### Starting interactive jobs
-
+The command below will start up an interactive job.
 ```
 msub -I -A b1042
 ```
-
-#### Using Screen
-
-<kbd>Ctrl</kbd> + <kbd>A</kbd>

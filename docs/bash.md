@@ -1,10 +1,12 @@
 # Bash
 
-Below I list command-line commands you should learn. Below that I offer a little more detail.
+[Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) is the default unix shell on Mac OS and most Linux operating systems. Many bioinformatic programs are run using the command line, so becoming familiar with Bash is important.
+
+Start with the fo [Introduction to bash](http://cs.lmu.edu/~ray/notes/bash/). 
 
 ## Basic Commands
 
-Most of these can be learned in less than an 20 minutes.
+You should familiarize yourself with the following commands.
 
 * __alias__ - create a shortcut for a command
 * __awk__ - file manipulation; Filtering; Rearranging columns
@@ -65,10 +67,3 @@ cat example.tsv awk '$0 ~ "^#" { print }'
 Screen can be used to run things in the background. It is extremely useful if you need to run things on quest without worry that they will be terminated if you log out or get kicked off. This is essential when running __nextflow__ because pipelines can sometimes run for many hours and its likely you will be kicked off in that time or lose your connection.
 
 * [Screen basics](https://www.linode.com/docs/networking/ssh/using-gnu-screen-to-manage-persistent-terminal-sessions)
-
-## uniq
-
-Get a count of lines in a file. 
-```
-cat myfile.tsv | sort | uniq -c
-```
