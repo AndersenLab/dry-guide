@@ -20,10 +20,10 @@ pages:
     - Nextflow: quest-nextflow.md
     - Mounting Quest: quest-mount.md
   - Pipelines:
-    - NIL / RIL: pipeline-nil-ril.md
-    - Concordance: pipeline-concordance.md
-    - WI: pipeline-wi.md
     - Trimming: pipeline-trimming.md
+    - NIL / RIL: pipeline-nil-ril.md
+    - WI: pipeline-wi.md
+    - Concordance: pipeline-concordance.md
     - Cegwas: pipeline-cegwas.md
   - R: r.md
   - Google Cloud: google-cloud.md
