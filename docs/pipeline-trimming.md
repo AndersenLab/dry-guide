@@ -2,6 +2,12 @@
 
 The trimmomatic workflow should be used to initially process sequence data. You should not use the trimmomatic workflow on low-coverage NIL or RIL data.
 
+### Docker
+
+The trimmomatic pipeline is very simple and only requires trimmomatic to be installed. However, a docker image is available for trimmomatic here:
+
+[cyverseuk/trimmomatic/](https://hub.docker.com/r/cyverseuk/trimmomatic/)
+
 ### Usage
 
 New sequence data should be stored in the appropriate path on the cluster in the `raw` directory. For example, when adding new sequence data for wild isolates, data should be added to a new folder here:
