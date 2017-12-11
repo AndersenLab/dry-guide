@@ -2,11 +2,13 @@
 
 The trimmomatic workflow should be used to initially process sequence data. You should not use the trimmomatic workflow on low-coverage NIL or RIL data.
 
-### Docker
+# Docker Image
 
-The trimmomatic pipeline is very simple and only requires trimmomatic to be installed. However, a docker image is available for trimmomatic here:
+The trimmomatic pipeline is very simple and only requires trimmomatic and multiqc to be installed. 
 
-[cyverseuk/trimmomatic/](https://hub.docker.com/r/cyverseuk/trimmomatic/)
+The wild-isolate docker file can be used to run the trimmomatic pipeline.
+
+[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf)
 
 ### Usage
 
