@@ -1,4 +1,10 @@
-# cegwas
+# cegwas-nf
+
+# Docker image
+
+The wild-isolate docker file can be used. The `cegwas-nf` pipeline requires R/cegwas to be installed and a python module, awesome-slugify.
+
+[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf)
 
 ### Requirements
 
@@ -8,7 +14,7 @@ The cegwas-nf pipeline requires `awesome-slugify`; Install using:
 pip install awesome-slugify
 ```
 
-It also requires that cegwas be installed. See the [cegwas](https://github.com/AndersenLab/cegwas) repo for more information.
+It also requires that cegwas be installed. See the [cegwas](https://github.com/AndersenLab/cegwas) repo for more information. Alternatively, you can use the wi-nf docker image.
 
 ### Usage
 
