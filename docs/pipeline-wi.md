@@ -1,6 +1,6 @@
 # wi-nf
 
-The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild isolate sequence data.
+The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild isolate sequence data. The output of the `wi-nf` pipeline can be uploaded to google storage as a new release for the CeNDR website.
 
 [TOC]
 
@@ -32,6 +32,7 @@ The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild iso
     --annotation_reference  SnpEff annotation              ${params.annotation_reference}
     --bamdir                Location for bams              ${params.bamdir}
     --tmpdir                A temporary directory          ${params.tmpdir}
+    --email                 Email to be sent results       ${params.email}
 
     HELP: http://andersenlab.org/dry-guide/pipeline-wi/
 
@@ -43,6 +44,25 @@ The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild iso
 
 [andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf/) is the docker file for the wi-nf pipeline. It can be converted to a singularity image for use later.
 
+## pyenv environments
+
+The pipeline uses multiple python environments due to clashing dependencies. The two environments are:
+
+* `vcf-kit` - A python 2.7.14 environment with vcf-kit and cyvcf installed.
+* `multiqc` - A python 3.6.0 environment with multiqc installed.
+
+ If you are not using the docker container you must install these virtual environments using the following script:
+
+```
+bash setup_pyenv.sh
+```
+
+In order to set a python environment within a nextflow process use the following:
+
+```
+source init_pyenv.sh && pyenv activate <environment name>
+```
+
 ## Running the pipeline on Quest
 
 __Typical usage:__
@@ -50,6 +70,14 @@ __Typical usage:__
 ```
 nextflow run main.nf -profile quest -resume -with-report report.html
 ```
+
+### Teset profiles
+
+The `nextflow.config` file included with this pipeline contains three testing profiles.
+
+* `local` - Used for local development. Uses the docker container.
+* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
+* `quest` - Runs the entire dataset.
 
 ## --debug
 
