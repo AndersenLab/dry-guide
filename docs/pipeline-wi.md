@@ -38,6 +38,10 @@ The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild iso
 
 ```
 
+# Pipeline Overview
+
+![Pipeline-overview](img/wi-nf.png)
+
 # Usage
 
 ## Docker File
