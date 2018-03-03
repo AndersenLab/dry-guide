@@ -71,8 +71,48 @@ The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker im
 
 #### [andersenlab/nil-ril-nf](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
 
-The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
+The __Dockerfile__ is stored in the root of the `nil-ril-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
 
+# Usage
+
+## Profiles and Running the Pipeline
+
+The `nextflow.config` file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
+
+* `local` - Used for local development. Uses the docker container.
+* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
+* `quest` - Runs the entire dataset.
+* `travis` - Used by travis-ci for testing purposes.
+
+### Running the pipeline locally
+
+When running locally, the pipeline will run using the `andersenlab/nil-ril-nf` docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:
+
+```
+curl https://storage.googleapis.com/elegansvariation.org/genome/WS245/WS245.tar.gz > WS245.tar.gz
+tar -xvzf WS245.tar.gz
+```
+
+Run the pipeline locally with:
+```
+nextflow run main.nf -profile local -resume
+```
+
+### Debugging the pipeline on Quest
+
+When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
+
+```
+nextflow run main.nf -profile quest_debug -resume
+```
+
+### Running the pipeline on Quest
+
+The pipeline can be run on Quest using the following command:
+
+```
+nextflow run main.nf -profile quest -resume
+```
 
 # Testing
 
@@ -84,7 +124,7 @@ The command below can be used to test the pipeline locally.
 
 ```
 # Downloads a pre-indexed reference
-curl https://storage.googleapis.com/andersen/genome/c_elegans/WS245/WS245.tar.gz > WS245.tar.gz
+curl https://storage.googleapis.com/elegansvariation.org/genome/WS245/WS245.tar.gz > WS245.tar.gz
 tar -xvzf WS245.tar.gz
 # Run nextflow
 nextflow run andersenlab/nil-ril-nf \
