@@ -2,13 +2,16 @@
 
 The trimmomatic workflow should be used to initially process sequence data. You should not use the trimmomatic workflow on low-coverage NIL or RIL data.
 
-# Docker Image
+[TOC]
 
-The trimmomatic pipeline is very simple and only requires trimmomatic and multiqc to be installed. 
+# Requirements
 
-The wild-isolate docker file can be used to run the trimmomatic pipeline.
+* trimmomatic
+* rename
+* fastqc
+* multiqc
 
-[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf)
+The trimmomatic environments can be installed using the primary-seq-env conda environment.
 
 ### Usage
 
@@ -20,7 +23,7 @@ New sequence data should be stored in the appropriate path on the cluster in the
     All FASTQs should end with a `_1.fq.gz` or a `_2.fq.gz`. To rename FASTQs you can use:
     
     ```
-    rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 *.fastq.gz
+    rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 _2 *.fastq.gz
     ```
 
 Outside of these simple changes to the filenames, no further changes should be made. The original filenames are potentially useful when tracing issues. Downstream steps use a file to connect the filenames with the appropriate strain or isotype.
