@@ -1,6 +1,6 @@
 # wi-nf
 
-The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild isolate sequence data.
+The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild isolate sequence data. The output of the `wi-nf` pipeline can be uploaded to google storage as a new release for the CeNDR website.
 
 [TOC]
 
@@ -32,34 +32,76 @@ The `wi-nf` pipeline aligns, calls variants, and performs analysis from wild iso
     --annotation_reference  SnpEff annotation              ${params.annotation_reference}
     --bamdir                Location for bams              ${params.bamdir}
     --tmpdir                A temporary directory          ${params.tmpdir}
+    --email                 Email to be sent results       ${params.email}
 
     HELP: http://andersenlab.org/dry-guide/pipeline-wi/
 
 ```
 
+# Pipeline Overview
+
+![Pipeline-overview](img/wi-nf.png)
+
 # Usage
 
 ## Docker File
 
-[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf/) is the docker file for the wi-nf pipeline. It can be converted to a singularity image for use later.
+[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf/) is the docker image used within the wi-nf pipeline. If Quest ever supports singularity, it can be converted to a singularity image and used with Nextflow.
 
-## Running the pipeline on Quest
+## pyenv environments
 
-__Typical usage:__
+The pipeline uses two python environments due to clashing dependencies. The two environments are:
 
-```
-nextflow run main.nf -profile quest -resume -with-report report.html
-```
+* `vcf-kit` - A python 2.7.14 environment with vcf-kit and cyvcf installed.
+* `multiqc` - A python 3.6.0 environment with multiqc installed.
 
-## --debug
-
-The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. You can use the following command to debug:
+ If you are not using the docker container you must install these virtual environments by running the `setup_pyenv.sh` script:
 
 ```
-nextflow run main.nf --debug --reference=<path to reference> -with-docker andersenlab/wi-nf
+bash setup_pyenv.sh
 ```
 
-Note the use of the `-with-docker` flag.
+If you require one of these environments for a process within the pipeline, add the following as the first line of your script:
+
+```
+source init_pyenv.sh && pyenv activate <environment name>
+```
+
+## Profiles and Running the Pipeline
+
+The `nextflow.config` file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
+
+* `local` - Used for local development. Uses the docker container.
+* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
+* `quest` - Runs the entire dataset.
+
+### Running the pipeline locally
+
+When running locally, the pipeline will run using the `andersenlab/wi-nf` docker image. You must have docker installed.
+
+```
+nextflow run main.nf -profile local -resume
+```
+
+### Debugging the pipeline on Quest
+
+When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
+
+```
+nextflow run main.nf -profile quest_debug -resume
+```
+
+### Running the pipeline on Quest
+
+The pipeline can be run on Quest using the following command:
+
+```
+nextflow run main.nf -profile quest -resume
+```
+
+# Configuration
+
+Most configuration is handled using the `-profile` flag and `nextflow.config`; If you want to fine tune things you can use the options below.
 
 ## --cores
 
@@ -71,59 +113,13 @@ A directory in which to output results. By default it will be `WI-YYYY-MM-DD` wh
 
 ## --fqs (FASTQs)
 
-When running the __wi-nf__ pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into isotypes. By default, this is the sample sheet in the base of the wi-nf repo (`SM_sample_sheet.tsv`), but can be specified using `--fqs` if an alternative is required. The sample sheet provides information on the isotype, fastq_pairs, library, location of fastqs, and sequencing folder.
+When running the `wi-nf` pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into isotypes. By default, this is the sample sheet in the base of the wi-nf repo (`SM_sample_sheet.tsv`), but can be specified using `--fqs` if an alternative is required. The sample sheet provides information on the isotype, fastq_pairs, library, location of fastqs, and sequencing folder.
 
-More information on the sample sheet and adding new sequence data in the [adding new sequence data](adding new sequence data) section.
+More information on the sample sheet and adding new sequence data in the [Sample sheet](#sample_sheet) section.
 
 ## --fqs_file_prefix
-----
 
-The sample sheet is constructed using the `scripts/construct_SM_sheet.sh` script. When new sequence data is added, this needs to be modified to add information about the new FASTQs. Changes should be committed to the repo. More information on this in the [adding new sequence data](adding new sequence data) section. Unfortunately, no sequencing center can agree on how to name FASTQs, so you'll have to come up with a way to pull out the appropriate 
-
-!!! Important
-    You have to call new isotypes using the concordance script before they can be processed using wi-nf.
-
-When you run the script, it will output the `SM_Sample_sheet.tsv` using the location of FASTQs for Quest. You The script will output a sample sheet that defines information about FASTQs. By default absolute or relative mannerThis file defines the fastqs that should be processed. The fastq files are *relative* to that file. The fastq sheet details the FASTQ files and their associated strains. It should be tab-delimited and look like this:
-
-__Sample sheet structure__
-
-```
-ECA551  ECA551_S2_L004  S2  ECA551_S2_L004_1P.fq.gz ECA551_S2_L004_2P.fq.gz seq_folder_1
-ECA552  ECA552_S16_L004 S16 ECA552_S16_L004_1P.fq.gz    ECA552_S16_L004_2P.fq.gz    seq_folder_1
-ECA571  ECA571_S5_L004  S5  ECA571_S5_L004_1P.fq.gz ECA571_S5_L004_2P.fq.gz seq_folder_1
-ECA571  ECA572_S6_L004  S6  ECA572_S6_L004_1P.fq.gz ECA572_S6_L004_2P.fq.gz seq_folder_1
-```
-
-Notice that the file does not include a header. The table with corresponding columns looks like this.
-
-| isotype   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   | sequencing_folder |
-|:-------|:----------------|:----|:-------------------------|:-------------------------|:-------------|
-| ECA551 | ECA551_S2_L004  | S2  | ECA551_S2_L004_1P.fq.gz  | ECA551_S2_L004_2P.fq.gz  | seq_folder_1 |
-| ECA552 | ECA552_S16_L004 | S16 | ECA552_S16_L004_1P.fq.gz | ECA552_S16_L004_2P.fq.gz | seq_folder_1 |
-
-The columns are detailed below:
-
-* __strain__ - The name of the strain. If a strain was sequenced multiple times this file is used to identify that fact and merge those fastq-pairs together following alignment.
-* __fastq_pair_id__ - This must be unique identifier for all individual FASTQ pairs.
-* __library__ - A string identifying the DNA library. If you sequenced a strain from different library preps it can be beneficial when calling variants. The string can be arbitrary (e.g. LIB1) as well if only one library prep was used.
-* __fastq-1-path__ - The __relative__ path of the first fastq.
-* __fastq-2-path__ - The __relative__ path of the second fastq.
-
-This file needs to be placed along with the sequence data into a folder. The tree will look like this:
-
-```
-NIL_SEQ_DATA/
-├── NIL_01_1.fq.gz
-├── NIL_01_2.fq.gz
-├── NIL_02_1.fq.gz
-├── NIL_02_2.fq.gz
-└── fq_sheet.tsv
-```
-
-Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
-
-!!! Important
-    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+A prefix path for FASTQs defined in a sample sheet. The sample sheet designed for usage on Quest (`SM_sample_sheet.tsv`) uses absolute paths so no FASTQ prefix is necessary. Additionally, there is no need to set this option as it is set for you when using the `-profile` flag. This option is only necessary (maybe) with a custom dataset where you are not using absolute paths to reference FASTQs.
 
 ## --reference
 
@@ -137,9 +133,38 @@ A fasta reference indexed with BWA. On Quest, the reference is available here:
 
 A directory for storing temporary data.
 
-# Adding new sequence data
+# Sample Sheet
 
+The sample sheet defines which FASTQs belong to which isotypes, set FASTQ IDs, library, and more. The sample sheet is constructed using the `scripts/construct_SM_sheet.sh` script. When new sequence data is added, this needs to be modified to add information about the new FASTQs. Updates to this script should be committed to the repo.
 
+!!! Important
+    You have to assign isotypes using the concordance script before they can be processed using wi-nf.
+
+When you run the `scripts/construct_SM_sheet.sh`, it will output the `SM_Sample_sheet.tsv` file in the base of the repo. You should carefully examine the diff of this file using Git to ensure it is modifying the sample sheet correctly. __Errors can be disasterous__. Note that the output uses absolute paths to FASTQ files.
+
+__Sample sheet structure__
+
+```
+AB1 BGI1-RET2-AB1   RET2    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-1P.fq.gz /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-2P.fq.gz original_wi_set
+AB1 BGI2-RET2-AB1   RET2    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-1P.fq.gz /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-2P.fq.gz original_wi_set
+AB1 BGI3-RET2b-AB1  RET2b   /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-1P.fq.gz    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-2P.fq.gz    original_wi_set
+```
+
+Notice that the file does not include a header. The table with corresponding columns looks like this.
+
+| isotype   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   | sequencing_folder |
+|:----|:---------------|:------|:-----------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|:----------------|
+| AB1 | BGI1-RET2-AB1  | RET2  | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-1P.fq.gz  | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-2P.fq.gz  | original_wi_set |
+| AB1 | BGI2-RET2-AB1  | RET2  | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-1P.fq.gz  | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-2P.fq.gz  | original_wi_set |
+| AB1 | BGI3-RET2b-AB1 | RET2b | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-1P.fq.gz | /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-2P.fq.gz | original_wi_set |
+
+The columns are detailed below:
+
+* __isotype__ - The name of the isotype. It is used to group FASTQ-pairs into BAMs which are treated as individuals.
+* __fastq_pair_id__ - This must be unique identifier for all individual FASTQ pairs. There is (unfortunately) no standard for this.
+* __library__ - A name identifying the DNA library. If the FASTQ-pairs for a strain were sequenced using different library preps they should be assigned different library names. Likewise, if they were the same DNA library they should have the same library name. Keep in mind that within an isotype the library names for each strain must be independent.
+* __fastq-1-path__ - The __absolute__ path of the first fastq.
+* __fastq-2-path__ - The __absolute__ path of the second fastq.
 
 # Output
 

@@ -26,6 +26,5 @@ pages:
     - Concordance: pipeline-concordance.md
     - Cegwas: pipeline-cegwas.md
   - R: r.md
-  - Google Cloud: google-cloud.md
-  - CeNDR: cendr.md
+  - Cloud: cloud.md
   - Andersen Labsite: labsite.md
