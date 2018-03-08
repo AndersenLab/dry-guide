@@ -69,7 +69,7 @@ The `nil-ril-nf` pipeline:
 
 The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker image:
 
-#### [andersenlab/nil-ril-nf](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
+[andersenlab/nil-ril-nf](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
 
 The __Dockerfile__ is stored in the root of the `nil-ril-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
 

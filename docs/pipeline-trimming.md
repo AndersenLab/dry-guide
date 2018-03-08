@@ -2,13 +2,16 @@
 
 The trimmomatic workflow should be used to initially process sequence data. You should not use the trimmomatic workflow on low-coverage NIL or RIL data.
 
-# Docker Image
+[TOC]
 
-The trimmomatic pipeline is very simple and only requires trimmomatic and multiqc to be installed. 
+# Requirements
 
-The wild-isolate docker file can be used to run the trimmomatic pipeline.
+* trimmomatic
+* rename
+* fastqc
+* multiqc
 
-[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf)
+The trimmomatic environments can be installed using the primary-seq-env conda environment.
 
 ### Usage
 

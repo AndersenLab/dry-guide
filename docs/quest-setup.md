@@ -13,7 +13,11 @@ The __andersen-lab-env__ is a precisely defined set set of configurations and so
 
 In order to do any sort of analysis you will need to set up your environment first. Daniel Cook has written a script that will set up the environment on quest. The script works as of 2017-12-05. However, because software gets updated frequently it may break and may need to be updated. However - it will get you 90% of the way there. You need to __read__ the script before running it and to understand what it is doing. And you may need to make adjustments if it is out of date.
 
+__Please read the script first__
+
 [Quest Setup Scripts](https://gist.github.com/danielecook/aed4a6fd53195fca7a3297f054d613c7)
+
+__Then read about what the script is doing below__
 
 ### What do these scripts do?
 
@@ -77,8 +81,10 @@ See [Quest-Nextflow](quest-nextflow) for further details on what exactly is bein
 
 Please __read__ the script prior to running it.
 
-### Running the script
+__Run the script using this command__
+
+__Run the script using the command below__
 
 ```
-curl https://gist.github.com/danielecook/aed4a6fd53195fca7a3297f054d613c7#file-quest_setup-sh | bash 
+curl https://gist.githubusercontent.com/danielecook/aed4a6fd53195fca7a3297f054d613c7/raw/quest_setup.sh | bash
 ```
