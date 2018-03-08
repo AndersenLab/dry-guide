@@ -20,7 +20,7 @@ New sequence data should be stored in the appropriate path on the cluster in the
     All FASTQs should end with a `_1.fq.gz` or a `_2.fq.gz`. To rename FASTQs you can use:
     
     ```
-    rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 *.fastq.gz
+    rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 _2 *.fastq.gz
     ```
 
 Outside of these simple changes to the filenames, no further changes should be made. The original filenames are potentially useful when tracing issues. Downstream steps use a file to connect the filenames with the appropriate strain or isotype.
