@@ -89,7 +89,7 @@ The report output files are:
 * __multiqc_report_pre.html__ - Aggregated FASTQC report before trimming.
 * __multiqc_report_post.html__ - Aggregated FASTQC report after trimming.
 
-Additionally, the `raw/seq` and `processed/seq` will have `fastq/` folders containing the original, unaggregatred FASTQC reports.
+Additionally, the `raw/seq` and `processed/seq` will have `fastqc/` folders containing the original, unaggregatred FASTQC reports.
 
 ### Cleanup
 
