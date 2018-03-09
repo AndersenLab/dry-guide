@@ -208,6 +208,8 @@ if [ -f /etc/bashrc ]; then
 fi
 ```
 
+__Installation__
+
 The andersen-lab-env can be installed by running the following command:
 
 ```
