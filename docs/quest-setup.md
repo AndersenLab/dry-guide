@@ -1,14 +1,26 @@
 # The Andersen Lab Software Environment
 
+[TOC]
+
 ## andersen-lab-env
 
-In order for comutational research to be reproducible you need to keep track of the code, software, and data. We keep track of code in GitHub. Our starting data is static in the sense that it will not change over the course of our analysis and when it does we will perform a new analysis. 
+__Computational Reproducibility__ is the ability to reproduce an analysis exactly. In order for comutational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub. Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.
 
-To track software we've developed the 'andersen-lab-env'. The andersen-lab-env is a GitHub repo that helps install and set up a software environment for use locally on a Mac and on Quest. The installed software is not identical but it is very similar between Mac and Linux. More importantly, we rely on three tools to manage the software environment. Each of them provide advantages. In concert they provide a lot of flexibility when it comes to setting up the software environment.
+To track software we've developed the [andersen-lab-env](http://www.github.com/andersenlab/andersen-lab-env). The andersen-lab-env is a set of software environments that can be used in conjunction with the bioinformatic pipelines we have developed for Quest. These environments can be installed locally on a Mac or on Quest. The andersen-lab-env is designed to change over time, but we explicitly define the software versions, and we track changes to the environments over time.
 
-### pyenv
+The system is in some ways complex. This page is designed to try to explain how it works. We rely on three different tools to manage software environments. In concert they provide a lot of flexibility when it comes to setting up the software environment.
 
-pyenv is used to install and manage different versions of python. For example, you might have a python 3 script for one project and a python 2 script for another. You want to be able to run both scripts on your system. One option is to modify the python 2 script to work with python 3, but this is not always an option.
+!!! note
+
+    The software environments on Mac and Linux are not exactly identical...but they are very close.
+
+There is an installation script you can use to install the __andersen-lab-env__, but it is recommended that you read this page before doing so.
+
+## pyenv
+
+__[pyenv documentation](https://github.com/pyenv/pyenv)__
+
+`pyenv` is used to install and manage different versions of python. For example, you might have a python 3 script for one project and a python 2 script for another. You want to be able to run both scripts on your system. One option is to modify the python 2 script to work with python 3, but this is not always an option.
 
 The solution is to be able to install __multiple__ versions of python simultaneously. `pyenv` allows you to do this. More than this, pyenv allows you to set the python version that you want to use at the local or global level.
 
@@ -41,6 +53,8 @@ __Example setting the global version of python to 3.6.0__
 pyenv global 3.6.0
 ```
 
+Now when we run `python` it will use python version 3.6.0.
+
 #### Setting the local version
 
 __Example setting the local version of python to 2.7.11__
@@ -60,126 +74,93 @@ Now lets see what this looks like:
 
 <image src='/img/pyenv.svg' style='width: 400px;'/>
 
-As is illustrated above, versions are defined hierarchically. When you `cd` to a directory, pyenv searches up through each directory looking for a `.python-version` file to identify which version of python to use. If it reaches the top before finding one it uses the global version.
+As is illustrated above, versions are inherited from parent directories. When you `cd` to a directory, pyenv searches up through each directory looking for a `.python-version` file to identify which version of python to use. If it reaches the top before finding one it uses the global version.
 
-#### How pyenv sets versions
+__tl;dr;__ - pyenv allows us to install separate versions of python and set them at the directory level.
 
+## pyenv-virtualenv
 
+__[Documentation](https://github.com/pyenv/pyenv-virtualenv)__
 
-```
-pyenv global 3.6.0
-```
+`pyenv` lets us install multiple versions of python, and lets us use those versions locally within certain directories or globally. But what if we have two projects that use Python 2.7.11 and one requires a python module with a specific version: `networkx==1.0`. Another project the same module greater than version 2.0 `networkx>2.0`. How can we simultaneously work on both projects on the same system?
 
-Now when we type `Python` we should see something that looks like this:
+__virtualenv__ is a python tool for creating isolated python environments (also known as virtualenvs; The usage tends to be specific for python virtual environments and is short for 'virtual environment'). You can create a virtualenv for every project that you do - and these can be used to ensure that when you update or install modules for a given project that they do not interfere with each other. 
 
-```
-Python 3.6.0 (default, Jan 22 2017, 12:12:27)
-[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-```
+We won't be using virtualenv directly, but instead will the pyenv flavor of virtualenvs. `pyenv-virtualenv` is a tool that can create virtual environments that operate similar to the way `pyenv` python environments do. You can create virtualenvs that act globally or you can create virtualenvs that are local to a specific directory.
 
-And running `pyenv versions` gives us:
+To create a `pyenv-virtualenv` you must provide a base python environment that you have installed and a name for the environment. For example, below 
+the python environment is `2.7.11` and the name of the environment is `c_elegans_project`:
 
 ```
-$ pyenv versions
-   system
-   2.7.11
-*  3.6.0
+pyenv virtualenv 2.7.11 c_elegans_project
 ```
 
-
-
-For example lets set the global version of python:
+Then you can set that virtualenv to a local directory using:
 
 ```
-pyenv global 3.6.0
+mkdir c_elegans_project
+cd c_elegans_project
+pyenv local c_elegans_project
 ```
 
-Now when we run `python`
+Notice that the folder name is the same as the virtualenv. This can be a good idea for clarity.
 
-For example, if you run:
-
-```
-mkdir my_new_project
-cd my_new_project
-pyenv local 2.7.11
-```
-
-`pyenv` will create a `.python-version` file in the directory `my_new_project` which makes it so that when you are in that folder you will be using python version 2.7.11. Nested folders will also use 2.7.11 unless an inner directory has a different local version of python set.
-
-
-
-__The advantages of using pyenv__
-
-* You can install and maintain multiple versions of python
-* You can set those 
-
-* The ability to track all the software that is installed and is being used.
-* The ability to maintain __multiple__ software environments concurrently.
-* The ability to set the software environment that should be used at the directory level. This means you can install a different set of tools in one directory vs. another.
-* __hierarchically define environments. 
-
-The __andersen-lab-env__ is a precisely defined set set of configurations and software. The environment can be created on Quest by running a script. The __andersen-lab-env__ environment is implemented using two software tools: [conda](https://conda.io/docs) and [pyenv](https://github.com/pyenv/pyenv). The details of how this are implemented are provided in further detail on the repo where the environment is maintained.
-
-## How the environment is structured
-
-
-
-
-#### [andersenlab/andersen-lab-env](https://github.com/AndersenLab/andersen-lab-env)
-
-* You can install additional software, but if you expect others in the lab will use it you should update the default software environment.
-
-
-### Setting up your environment
-
-In order to do any sort of analysis you will need to set up your environment first. Daniel Cook has written a script that will set up the environment on quest. The script works as of 2017-12-05. However, because software gets updated frequently it may break and may need to be updated. However - it will get you 90% of the way there. You need to __read__ the script before running it and to understand what it is doing. And you may need to make adjustments if it is out of date.
-
-__Please read the script first__
-
-[Quest Setup Scripts](https://gist.github.com/danielecook/aed4a6fd53195fca7a3297f054d613c7)
-
-__Then read about what the script is doing below__
-
-### What do these scripts do?
-
-#### Cleans up the existing environment - Removes `~/.linuxbrew` and `~/.cache`
-
-These older files are removed.
-
-#### Installs linuxbrew
-
-Linuxbrew is the tool used to install additional software.
-
-#### Installs the following software
+You can see a list of python versions and virtual environments by typing:
 
 ```
-curl
-git
-nextflow
-pigz
-igvtools
-vcfanno
-snpeff
-fastq-tools
-muscle
-sambamba
-google-cloud-sdk
-# utilities
-pyenv
-pyenv-virtualenv
-autojump
+pyenv versions
 ```
 
-#### Replaces your .bash_profile
+Output:
 
-The __.bash_profile__ will be replaced with the one found on the [Quest Setup Scripts](https://gist.github.com/danielecook/aed4a6fd53195fca7a3297f054d613c7) page.
+```
+  2.7.11
+  3.6.0
+```
 
-#### Installs Python 2.7.11 and Python 3.6.0
+Now we can also install the module we need for that specific project. `pyenv` installs a python-specific package manager called `pip`:
 
-These are installed using [pyenv](https://github.com/pyenv/pyenv).
+```
+pip install networkx==1.0
+```
 
-__python 2.7.11__ is set as the default global version.
+Notice that at this point we have isolated independent environments that do not interfere with one another. If we leave them alone for a year we should be able to come back and the software environment should be the same... and if they work with data they should reproduce the identical result.
+
+__tl;dr__ - pyenv-virtualenv can define custom isolated python environments and set them the same way pyenv sets python installations.
+
+## Conda
+
+__[Conda Documentation](http://www.conda.io)__
+
+Thus far we've managed to install multiple versions of python and figured out how to use them in independent, isolated environments. But we obviously use a lot more than just Python. We need to be able to install things like [bcftools](https://samtools.github.io/bcftools/bcftools.html) to work with variant data. We need to be able to install Java packages, and R packages, and all kinds of software. __Conda__ can help us with this.
+
+__Conda__ is a language-agnostic package manager. That means it can be used to install packages from python, R, Java, C/C++, etc. 
+
+For example, the command below will install R and the [R Tidyverse](https://www.tidyverse.org/).
+
+```
+conda install r-tidyverse
+```
+
+### Conda integrates with pyenv and pyenv-virtualenv
+
+Important for our purposes, `conda` can be installed by `pyenv`. When I stated earlier that pyenv is used to install and manage versions of python I ommitted the fact that it can __also__ install conda to avoid confusion. __conda is not a version of python__, but it is written in python, and it can be used to install python modules in addition to lots of other stuff.
+
+Similar to python virtualenvs, isolated conda environments can be created as was demonstrated above. You would run something like:
+
+```
+pyenv install miniconda3-4.3.27
+pyenv virtualenv miniconda3-4.3.27 my_new_conda_env
+pyenv local my_new_conda_env
+conda install bcftools
+pip install requests # This version of pip is specific gto 
+```
+
+What is great about these environments is that we can create custom software environments to suit any project. We can install R packages, python modules, C/C++ executables, and more.
+
+## pyenv versions are inherited
+
+We can now install custom environments for each project. We can track changes to our environments over time.
 
 #### Installs python modules for python 2.7.11
 
