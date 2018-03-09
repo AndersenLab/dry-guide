@@ -26,10 +26,11 @@ In order to use nextflow on quest you will need to define some global variables 
 
 ```
 process {
-    module='R/3.3.1'
     executor = 'pbs'
     queue = 'genomicsguest'
     clusterOptions = '-A b1042 -l walltime=24:00:00 -e errlog.txt'
+    genome = "WS245"
+    reference = "/projects/b1059/data/genomes/c_elegans/${genome}/${genome}.fa.gz"
 }
 
 workDir = "/projects/b1042/AndersenLab/work"
@@ -39,62 +40,12 @@ tmpDir = "/projects/b1042/AndersenLab/tmp"
 
 This configuration file does the following:
 
-* `module='R/3.3.1'` - automatically loads `R` for all processes.
 * Sets the executor to `pbs` (which is what Quest uses)
 * Sets the queue to `genomicsguest` which submits jobs to genomics nodes.
 * `clusterOptions` - Sets the account to `b1042`; granting access to genomics-dedicated scratch space.
 
 * `workDir` - Sets the working directory to scratch space on b1042.
 * `tmpDir` - Creates a temporary working directory. This can be used within workflows when necessary.
-
-### Pipeline Configuration
-
-At the pipeline level you will want to define things like the number of processors for a given process, the analysis output directory, or the reference genome used. The following is an example from the `wi-nf` pipeline:
-
-```
-genome = "WS245"
-reference = "/projects/b1059/data/genomes/c_elegans/${genome}/${genome}.fa.gz"
-alignment_cores = 16
-variant_cores = 6
-compression_threads = 4
-//date = new Date().format( 'yyyyMMdd' )
-date = 20170531
-analysis_dir = "/projects/b1059/analysis/WI-${date}"
-SM_alignments_dir = "/projects/b1059/data/alignments"
-beagle_location = "/projects/b1059/software/beagle/beagle.jar"
-
-process {
-    module='gcc/5.1.0:R/3.3.1'
-    $perform_alignment {
-        cpus = 4
-    }
-    $call_variants_individual {
-        cpus = 6
-        memory = '8G'
-    }
-    $call_variants_union {
-        cpus = 6
-        memory = '8G'
-    }
-    $merge_union_vcf {
-        cpus = 20
-        memory = '50G'
-    }
-    $filter_union_vcf {
-        cpus = 20
-        memory = '50G'
-    }
-    $annotate_vcf_snpeff {
-        module='gcc/4.6.3'
-    }
-    $generate_isotype_vcf {
-        errorStrategy='retry'
-        maxRetries=20
-        maxForks=10
-    }
-
-}
-```
 
 # Resources
 
