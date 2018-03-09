@@ -20,6 +20,7 @@ pages:
     - Nextflow: quest-nextflow.md
     - Mounting Quest: quest-mount.md
   - Pipelines:
+    - Overview: pipeline-overview.md
     - Trimming: pipeline-trimming.md
     - NIL / RIL: pipeline-nil-ril.md
     - WI: pipeline-wi.md
