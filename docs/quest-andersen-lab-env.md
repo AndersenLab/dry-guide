@@ -195,6 +195,19 @@ You can create and use your own conda environments for projects, but these are d
 
 ## Installing the andersen-lab-env
 
+__If you are on Quest__
+
+Edit your `.bashrc` file to contain the following:
+
+```
+# .bashrc
+export PKG_CONFIG_PATH=/usr/share/pkgconfig:$PKG_CONFIG_PATH
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+```
+
 The andersen-lab-env can be installed by running the following command:
 
 ```
