@@ -16,7 +16,7 @@ pages:
   - Bash: bash.md
   - Quest:
     - Introduction: quest-intro.md
-    - Setup: quest-setup.md
+    - Andersen-Lab-Env: quest-andersen-lab-env.md
     - Nextflow: quest-nextflow.md
     - Mounting Quest: quest-mount.md
   - Pipelines:

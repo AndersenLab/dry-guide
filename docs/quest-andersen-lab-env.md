@@ -160,34 +160,29 @@ What is great about these environments is that we can create custom software env
 
 ## pyenv versions are inherited
 
-We can now install custom environments for each project. We can track changes to our environments over time.
+We can now install custom environments for each project. Even better, pyenv allows you to specify multiple environments together. Consider the example in this diagram:
 
-#### Installs python modules for python 2.7.11
+![inherited](img/pyenv_inherit.svg)
 
-```
-pip
-numpy
-setuptools
-cython
-scipy
-gcloud
-vcf-kit
-bam-toolbox (for coverage calculations)
-```
+There are two environments defined:
 
-### Configures nextflow
+__env_1__
 
-See [Quest-Nextflow](quest-nextflow) for further details on what exactly is being done here.
+* bcftools v1.6
+* bedtools v1.2
+* R-tidyverse 1.0
 
+__env_2__
 
-### ... And More
+* bcftools v1.6
+* vcf-kit v1.6
 
-Please __read__ the script prior to running it.
+Those environments on their own appear in blue above.
 
-__Run the script using this command__
-
-__Run the script using the command below__
+If we were to use the following command to specify these environments:
 
 ```
-curl https://gist.githubusercontent.com/danielecook/aed4a6fd53195fca7a3297f054d613c7/raw/quest_setup.sh | bash
+pyenv local env_2 env_1
 ```
+
+We would produce the green environment in the diagram. What you are seeing are two environments being combined. However, the order you specify them in matters. Notice that `bcftools v1.7` is used and not `bcftools v1.6`. This is because `env_2` is searched first when commands libraries are retrieved. After pulling all the libraries in `env_2`, the combined library will inherit anything remaining in `env_1`. This allows to easily combine environments for analysis.
