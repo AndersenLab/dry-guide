@@ -65,9 +65,6 @@ cd my_python2_project
 pyenv local 2.7.11
 ```
 
-
-
-
 Now if we go into a particular directoy and type `pyenv local 2.7.11`, a `.python-version` file is created that says `2.7.11` and makes it so that directory always uses python 2.7.11.
 
 Now lets see what this looks like:
@@ -128,7 +125,7 @@ Notice that at this point we have isolated independent environments that do not 
 
 __tl;dr__ - pyenv-virtualenv can define custom isolated python environments and set them the same way pyenv sets python installations.
 
-## Conda
+## conda
 
 __[Conda Documentation](http://www.conda.io)__
 
@@ -142,7 +139,7 @@ For example, the command below will install R and the [R Tidyverse](https://www.
 conda install r-tidyverse
 ```
 
-### Conda integrates with pyenv and pyenv-virtualenv
+### conda integrates with pyenv and pyenv-virtualenv
 
 Important for our purposes, `conda` can be installed by `pyenv`. When I stated earlier that pyenv is used to install and manage versions of python I ommitted the fact that it can __also__ install conda to avoid confusion. __conda is not a version of python__, but it is written in python, and it can be used to install python modules in addition to lots of other stuff.
 
@@ -186,3 +183,73 @@ pyenv local env_2 env_1
 ```
 
 We would produce the green environment in the diagram. What you are seeing are two environments being combined. However, the order you specify them in matters. Notice that `bcftools v1.7` is used and not `bcftools v1.6`. This is because `env_2` is searched first when commands libraries are retrieved. After pulling all the libraries in `env_2`, the combined library will inherit anything remaining in `env_1`. This allows to easily combine environments for analysis.
+
+## andersen-lab-env structure
+
+The anderse-lab-env uses two conda environments:
+
+* __primary__ - The primary environment contains the majority of the tools required for performing sequence analysis.
+* __py2__ - For programs that require python 2.
+
+You can create and use your own conda environments for projects, but these are designed to be comprehensive.
+
+## Installing the andersen-lab-env
+
+The andersen-lab-env can be installed by running the following command:
+
+```
+cd && if cd ~/andersen-lab-env; then git pull; else git clone http://www.github.com/andersenlab/andersen-lab-env; fi
+bash setup.sh
+```
+
+This command will clone the repo, `cd` into it, and run the `setup.sh` script. 
+
+When you run the setup.sh script it will install the latest version of the primary and py2 environments, and it will assign these
+environments globally as:
+
+```
+pyenv primary-(date) py2-(date) mincondax-x.x.x
+```
+
+!!! note
+
+    If you have existing versions of the primary and py2 environments installed they will remain. You can set them locally at the project
+    level if necessary.
+
+## andersen-lab-env git structure
+
+The [andersen-lab-env](https://github.com/AndersenLab/andersen-lab-env) is used to manage and version the software environments. The repo has the following structure:
+
+```
+├── Brewfile                             
+├── LICENSE
+├── README.md                            
+├── primary.environment.yaml             
+├── py2.environment.yaml                 
+├── rebuild_envs.sh                      
+├── setup.sh                             
+├── user_bash_profile.sh
+└── versions
+    ├── Linux.2018-03-08.primary.yaml
+    ├── Linux.2018-03-08.py2.yaml
+    ├── Mac.2018-03-08.primary.yaml
+    └── Mac.2018-03-08.py2.yaml
+```
+
+* __primary.environment.yaml__ - base primary environment. This lists the software to be installed, but not specific versions of it.
+* __py2.environment.yaml__ - The base py2 environment. This lists the software to be installed, but not specific versions of it.
+* __Brewfile__ - Defines the software software-dependencies to be installed when running `setup.sh`
+* __rebuild_envs__ - Used to construct new versions of the environments. Note that you need to do this on a Linux and Mac computer.
+* __user_bash_profile.sh__ - The optional bash profile that is created with `setup.sh`.
+* __versions/__ - Software required for each environment with all dependencies. Versioned in git and by platform and date.
+
+## adding new software
+
+When you want to add new software a new version of the `primary` and `py2` environments should be created. You must modify the primary.environment.yaml or py2.environment.yaml files and build the files you see in the versions folder which define the required software by specific version and includes all the dependencies.
+
+```
+bash rebuild_envs.sh
+```
+
+This will output two new versions specific to your platform in the `versions/` folder. You must run this script and generate the appropriate version files on both Mac and Linux. Commit the updated versions to git. Other users can then install them by running the command in [installing the andersen-lab-env](#installing_the_andersen-lab-env)
+
