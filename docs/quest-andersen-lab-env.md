@@ -155,7 +155,7 @@ pip install requests # This version of pip is specific gto
 
 What is great about these environments is that we can create custom software environments to suit any project. We can install R packages, python modules, C/C++ executables, and more.
 
-## pyenv versions are inherited
+## pyenv environments are inherited
 
 We can now install custom environments for each project. Even better, pyenv allows you to specify multiple environments together. Consider the example in this diagram:
 
