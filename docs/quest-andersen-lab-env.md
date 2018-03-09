@@ -72,7 +72,7 @@ Now if we go into a particular directoy and type `pyenv local 2.7.11`, a `.pytho
 
 Now lets see what this looks like:
 
-<image src='/img/pyenv.svg' style='width: 400px;'/>
+![inherited](img/pyenv.svg)
 
 As is illustrated above, versions are inherited from parent directories. When you `cd` to a directory, pyenv searches up through each directory looking for a `.python-version` file to identify which version of python to use. If it reaches the top before finding one it uses the global version.
 
