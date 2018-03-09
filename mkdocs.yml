@@ -26,5 +26,6 @@ pages:
     - Concordance: pipeline-concordance.md
     - Cegwas: pipeline-cegwas.md
   - R: r.md
+  - Backup: backup.md
   - Cloud: cloud.md
   - Andersen Labsite: labsite.md
