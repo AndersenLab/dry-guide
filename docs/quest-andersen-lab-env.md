@@ -179,10 +179,12 @@ Those environments on their own appear in blue above.
 If we were to use the following command to specify these environments:
 
 ```
-pyenv local env_2 env_1
+pyenv local env_2 env_1 base_version
 ```
 
 We would produce the green environment in the diagram. What you are seeing are two environments being combined. However, the order you specify them in matters. Notice that `bcftools v1.7` is used and not `bcftools v1.6`. This is because `env_2` is searched first when commands libraries are retrieved. After pulling all the libraries in `env_2`, the combined library will inherit anything remaining in `env_1`. This allows to easily combine environments for analysis.
+
+Remember that each of these virtual environments is based on a version of python or conda. But you can also put a plain version of python or conda as your last environment. This is useful when using conda because the `conda` command does not inherit from conda-based virtualenvs.
 
 ## andersen-lab-env structure
 
@@ -219,12 +221,13 @@ bash setup.sh
 
 This command will clone the repo, `cd` into it, and run the `setup.sh` script. 
 
-When you run the setup.sh script it will install the latest version of the primary and py2 environments, and it will assign these
-environments globally as:
+When you run the setup.sh script it will install the latest version of the primary and py2 environments, and it will assign these environments globally as:
 
 ```
-pyenv primary-(date) py2-(date) mincondax-x.x.x
+pyenv primary-(date) py2-(date) minicondax-x.x.x
 ```
+
+__You should not need to change your global environment__
 
 !!! note
 
