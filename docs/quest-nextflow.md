@@ -3,9 +3,9 @@
 # Installation
 
 !!! Important
-    If you haven't already, take a look at [Quest Setup](quest-setup) for more information on how to setup your environment on Quest. That page has a script which can automate much of what you see on this page, although I am leaving this page here as it has a lot of detail on configuring nextflow.
+    If you haven't already, take a look at [Andersen-Lab-Env](pipeline-andersen-lab-env) for more information on how to setup your environment on Quest.
 
-Nextflow can be installed with [linuxbrew](quest-linuxbrew). Use:
+Nextflow can be installed with linuxbrew or homebrew. Use:
 
 ```
 brew tap homebrew/science
@@ -47,7 +47,15 @@ This configuration file does the following:
 * `workDir` - Sets the working directory to scratch space on b1042.
 * `tmpDir` - Creates a temporary working directory. This can be used within workflows when necessary.
 
+# Screen
+
+When jobs run for a very long time you should run them in screen. Screen lets you continue to run jobs in the background even if you get kicked off the cluster or log off.
+
+* [Screen Tutorial](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
+
+Keep in mind that quest has several login nodes. We use `quser10-13`. Screen sessions only persist on __ONE__ of these login nodes. You can jump between nodes by simply typing ssh and the login node you want (_e.g._ `ssh quser 10`). 
+
 # Resources
 
-* [Nextflow documentation](https://www.nextflow.io/docs/latest/) - 
+* [Nextflow documentation](https://www.nextflow.io/docs/latest/)
 * [Awesome Nextflow pipeline examples](https://github.com/nextflow-io/awesome-nextflow) - Repository of great nextflow pipelines.

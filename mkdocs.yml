@@ -21,10 +21,12 @@ pages:
     - Mounting Quest: quest-mount.md
   - Pipelines:
     - Overview: pipeline-overview.md
+    - Adding Sequencing Data: adding-seq-data.md
+    - Sample Sheets: sample-sheets.md
     - Trimming: pipeline-trimming.md
     - NIL / RIL: pipeline-nil-ril.md
-    - WI: pipeline-wi.md
     - Concordance: pipeline-concordance.md
+    - WI: pipeline-wi.md
     - Cegwas: pipeline-cegwas.md
   - R: r.md
   - Backup: backup.md

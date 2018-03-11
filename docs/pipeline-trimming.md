@@ -95,6 +95,10 @@ Additionally, the `raw/seq` and `processed/seq` will have `fastqc/` folders cont
 
 If you have triple-checked everything and are satisfied with the results, the original, raw sequence data can be deleted.
 
+### Poor quality data
+
+If you observe poor quality sequence data you should remove it.
+
 ### Backup
 
 Once you have completed the trimmomatic-nf pipeline you should backup the FASTQs. More information on this is available in the [backup](backup.md)

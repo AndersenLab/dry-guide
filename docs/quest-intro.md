@@ -27,6 +27,13 @@ If you are not familiar with what a bash profile is, [take a look at this](https
 !!! important
     When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
 
+### Login Nodes
+
+There are four login nodes we use: quser10-13. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh quser11`).
+
+!!! warning
+    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.
+
 ### Home Directory
 
 Logging in places you in your home directory. You can install software in your home directory for use when you run jobs, or for small files/analysis.
