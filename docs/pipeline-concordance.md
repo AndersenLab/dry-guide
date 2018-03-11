@@ -261,3 +261,4 @@ Filtered VCF, filtered for true SNPs (no monomorphic sites)
 ### concordance.stats
 
 Stats from concordance vcf. Contains the number of SNPs.
+
