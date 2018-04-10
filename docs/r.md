@@ -10,8 +10,8 @@ The Andersen lab maintains several R packages.
 
 #### linkagemapping
 
-[andersenlab/linkagemapping](https://github.com/andersenlab/cegwas-nf_
+[andersenlab/linkagemapping](https://github.com/andersenlab/cegwas-nf)
 
 #### easysorter
 
-[andersenlab/easysorter](https://github.com/andersenlab/cegwas-nf_
+[andersenlab/easysorter](https://github.com/andersenlab/cegwas-nf)

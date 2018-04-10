@@ -111,11 +111,12 @@ pyenv versions
 Output:
 
 ```
-  2.7.11
-  3.6.0
+    2.7.11
+  * 2.7.11/envs/c_elegans_project
+    3.6.0
 ```
 
-Now we can also install the module we need for that specific project. `pyenv` installs a python-specific package manager called `pip`:
+Virtual environments are designated as `<version>/envs/<name>`. Now we can also install the module we need for that specific project. `pyenv` installs a python-specific package manager called `pip`:
 
 ```
 pip install networkx==1.0
