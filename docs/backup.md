@@ -25,9 +25,10 @@ aws s3 sync s3://elegansvariation.org/bam .
 
 In addition to backing up BAMs on S3, we also backup FASTQs locally. There are four hard drives:
 
-* PortusTotus
-* Hawkeye
-* Elephant
-* Rhino
+* PortusTotus - FASTQ Backup 1
+* Hawkeye - FASTQ Backup 2
+* Armadillo - open
+* Rhino - open
 
-Each one is labeled with what is backed up on it. After you have added new sequenced data you should sync __FROM__ the data/fastq folder on b1059 __TO__ the drive (Do __not__ go the other way or do a two way sync).
+Each one is labeled with what is backed up on it. After you have added new sequenced data you should sync __FROM__ the data/fastq folder on b1059 __TO__ the the PortusTotus (FASTQ Backup 1) and Hawkeye (FASTQ Backup 2) hard drives.
+
