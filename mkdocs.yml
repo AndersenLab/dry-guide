@@ -24,10 +24,11 @@ pages:
     - Adding Sequencing Data: adding-seq-data.md
     - Sample Sheets: sample-sheets.md
     - Trimming: pipeline-trimming.md
-    - NIL / RIL: pipeline-nil-ril.md
+    - "NIL / RIL": pipeline-nil-ril.md
     - Concordance: pipeline-concordance.md
     - WI: pipeline-wi.md
     - Cegwas: pipeline-cegwas.md
+  - CeNDR: cendr.md
   - R: r.md
   - Backup: backup.md
   - Cloud: cloud.md
