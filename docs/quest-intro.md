@@ -51,3 +51,15 @@ The Andersen lab has access to two projects.
 __b1042__ - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days.
 
 __b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 10 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
+
+### Running interactive jobs on Quest
+
+If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands
+
+```
+msub -I -A b1042
+```
+
+!!! Important
+    Do not run commands on `quser11-13`. These are login nodes and are not meant for running heavy-load workflows.
+
