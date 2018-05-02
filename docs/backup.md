@@ -18,7 +18,7 @@ Currently, the only BAMs that we upload to s3 are wild isolate BAMs. Once you've
 # First, cd to the location of isotype bams
 cd /projects/b1059/data/alignments/WI/isotype
 # Then run the following command
-aws s3 sync s3://elegansvariation.org/bam .
+aws s3 sync . s3://elegansvariation.org/bam
 ```
 
 # Local Backup
