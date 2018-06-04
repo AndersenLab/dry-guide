@@ -1,6 +1,6 @@
 # alignment-nf
 
-The `alignment-nf` pipeline performs alignment for wild isolate sequence data on strain and isotype levels, and output BAMs and related information. Those BAMs can be used for downstream analysis of `concordance-nf`, `wi-nf` and variants calling.
+The `alignment-nf` pipeline performs alignment for wild isolate sequence data on strain and isotype levels, and output BAMs and related information. Those BAMs can be used for downstream analysis of [concordance-nf](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf](http://andersenlab.org/dry-guide/pipeline-wi/) and variants calling.
 
 [TOC]
 
