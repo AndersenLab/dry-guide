@@ -21,7 +21,7 @@ pages:
     - Mounting Quest: quest-mount.md
   - Pipelines:
     - Overview: pipeline-overview.md
-    - Adding Sequencing Data: adding-seq-data.md
+    - Adding NILs Sequencing Data: adding-seq-data.md
     - Sample Sheets: sample-sheets.md
     - Trimming: pipeline-trimming.md
     - "NIL / RIL": pipeline-nil-ril.md
