@@ -17,7 +17,7 @@ sudo gem install jekyll -v 3.6.0
 # If you get an error when trying to run pip, try:
 # brew link --overwrite python
 pip install metapub pyyaml
-```git
+```
 
 * __Ruby__ - Is used to run jekyll, which is the software that builds the site.
 * __Jekyll__ - As stated earlier, jekyll builds the static site and is written in Ruby.
