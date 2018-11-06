@@ -11,7 +11,7 @@ markdown_extensions:
     - fenced_code
     - sane_lists
 
-pages:
+nav:
   - Home: index.md
   - Bash: bash.md
   - Quest:

@@ -8,8 +8,8 @@ For full documentation visit [mkdocs.org](http://mkdocs.org).
 
 Any domain names the lab uses should be registered with Google Domains. The two ones currently are:
 
-* [andersenlab.org](andersenlab.org)
-* [elegansvariation.org](elegansvariation.org)
+* [andersenlab.org](http://andersenlab.org)
+* [elegansvariation.org](http://elegansvariation.org)
 
 Google domains can be used to forward domain-specific email addresses if necessary. 
 For example, example@andersenlab.org could be created and forwarded to an email address.
