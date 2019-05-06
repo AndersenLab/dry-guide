@@ -56,10 +56,14 @@ __b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associat
 
 If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands
 
-```
+~~```
 msub -I -A b1042
+```~~
+
+```
+srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
 ```
 
 !!! Important
-    Do not run commands on `quser11-13`. These are login nodes and are not meant for running heavy-load workflows.
+    Do not run commands on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
 
