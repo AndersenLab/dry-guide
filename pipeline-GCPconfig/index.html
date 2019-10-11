@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Running Nextflow pipeline on GCP - Andersen Lab Dry Guide</title>
+  <title>GCP configuration - Andersen Lab Dry Guide</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Running Nextflow pipeline on GCP";
+    var mkdocs_page_name = "GCP configuration";
     var mkdocs_page_input_path = "pipeline-GCPconfig.md";
     var mkdocs_page_url = null;
   </script>
@@ -97,6 +97,34 @@
                     
     <a class="" href="../sample-sheets/">Sample Sheets</a>
                 </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">GCP configuration</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#enable_api">Enable API</a></li>
+        
+            <li><a class="toctree-l4" href="#create_service_account">Create service account</a></li>
+        
+            <li><a class="toctree-l4" href="#generate_credential_for_the_service_account">Generate credential for the service account</a></li>
+        
+            <li><a class="toctree-l4" href="#nextflow_version_and_mode">Nextflow version and mode</a></li>
+        
+            <li><a class="toctree-l4" href="#configure_nextflow_for_gcp">Configure Nextflow for GCP</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-docker/">Build docker iamge</a>
+                </li>
                 <li class="">
                     
     <a class="" href="../pipeline-trimming/">Trimming</a>
@@ -170,8 +198,12 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
+        
+          <li>Pipelines &raquo;</li>
+        
+      
     
-    <li>Running Nextflow pipeline on GCP</li>
+    <li>GCP configuration</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-GCPconfig.md"
@@ -256,6 +288,15 @@ executor {
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-docker/" class="btn btn-neutral float-right" title="Build docker iamge">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../sample-sheets/" class="btn btn-neutral" title="Sample Sheets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -280,6 +321,10 @@ executor {
           <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../sample-sheets/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../pipeline-docker/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
