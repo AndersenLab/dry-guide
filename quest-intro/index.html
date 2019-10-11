@@ -253,6 +253,10 @@
 <p>The Andersen lab has access to two projects.</p>
 <p><strong>b1042</strong> - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at <code>/projects/b1042/AndersenLab/</code>. By default, files are deleted after 30 days.</p>
 <p><strong>b1059</strong> - The Andersen Lab Project. <strong>b1059</strong> does not have any nodes associated with it, but it does have 40 Tb of storage. b1059 storage is located at: <code>/projects/b1059/</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anyone who use quest should build your own project folder under <code>/projects/b1059/projects</code> with your name. You should only write and revise files under your project folder. You can read/copy data from <strong>b1059</strong> but don't write any data out of your project folder.</p>
+</div>
 <h3 id="running_interactive_jobs_on_quest">Running interactive jobs on Quest<a class="headerlink" href="#running_interactive_jobs_on_quest" title="Permanent link">&para;</a></h3>
 <p>If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands</p>
 <pre><code>srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
@@ -260,7 +264,7 @@
 
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Do not run commands on <code>quser21-24</code>. These are login nodes and are not meant for running heavy-load workflows.</p>
+<p>Do not run commands for big data on <code>quser21-24</code>. These are login nodes and are not meant for running heavy-load workflows.</p>
 </div>
               
             </div>
