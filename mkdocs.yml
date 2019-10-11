@@ -23,6 +23,8 @@ nav:
     - Overview: pipeline-overview.md
     - Adding NILs Sequencing Data: adding-seq-data.md
     - Sample Sheets: sample-sheets.md
+    - GCP configuration: pipeline-GCPconfig.md
+    - Build docker iamge: pipeline-docker.md
     - Trimming: pipeline-trimming.md
     - "NIL / RIL": pipeline-nil-ril.md
     - Alignment: pipeline-alignment.md
