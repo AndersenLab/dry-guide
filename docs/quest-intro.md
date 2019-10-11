@@ -52,6 +52,9 @@ __b1042__ - The 'Genomics' Project has 155 Tb of space and 100 nodes associated 
 
 __b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 40 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
 
+!!! Note
+    Anyone who use quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
+
 ### Running interactive jobs on Quest
 
 If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands
@@ -61,5 +64,5 @@ srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --p
 ```
 
 !!! Important
-    Do not run commands on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
+    Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
 
