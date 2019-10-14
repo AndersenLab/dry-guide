@@ -245,28 +245,22 @@ brew install nextflow
 <h3 id="global_configuration_nextflowconfig">Global Configuration: <code>~/.nextflow/config</code><a class="headerlink" href="#global_configuration_nextflowconfig" title="Permanent link">&para;</a></h3>
 <p>In order to use nextflow on quest you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Quest and request access to the genomics nodes and project <code>b1042</code>. Once you have access you will need to modify your global configuration. Set your <code>~/.nextflow/config</code> file to be the following:</p>
 <pre><code>process {
-    executor = 'pbs'
-    queue = 'genomicsguest'
-    clusterOptions = '-A b1042 -l walltime=24:00:00 -e errlog.txt'
-    genome = &quot;WS245&quot;
-    reference = &quot;/projects/b1059/data/genomes/c_elegans/${genome}/${genome}.fa.gz&quot;
+    executor = 'slurm'
+    queue = 'genomicsguestA'
+    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
 }
 
-workDir = &quot;/projects/b1042/AndersenLab/work&quot;
+workDir = &quot;/projects/b1042/AndersenLab/work/&lt;your folder&gt;&quot;
 tmpDir = &quot;/projects/b1042/AndersenLab/tmp&quot;
 
 </code></pre>
 
 <p>This configuration file does the following:</p>
 <ul>
-<li>Sets the executor to <code>pbs</code> (which is what Quest uses)</li>
-<li>Sets the queue to <code>genomicsguest</code> which submits jobs to genomics nodes.</li>
-<li>
-<p><code>clusterOptions</code> - Sets the account to <code>b1042</code>; granting access to genomics-dedicated scratch space.</p>
-</li>
-<li>
-<p><code>workDir</code> - Sets the working directory to scratch space on b1042.</p>
-</li>
+<li>Sets the executor to <code>slurm</code> (which is what Quest uses)</li>
+<li>Sets the queue to <code>genomicsguestA</code> which submits jobs to genomics nodes. The <code>genomicsguestA</code> will submit jobs to our dedicated nodes first, which we have high priority. If our dedicated nodes are full, it will submit to other nodes we don't have priority. So far, our lab have 2 dedicated nodes, with 28 cores and related memory (close to 1:5) for each dedicated node. We will have more in the future.  </li>
+<li><code>clusterOptions</code> - Sets the account to <code>b1042</code>; granting access to genomics-dedicated scratch space.</li>
+<li><code>workDir</code> - Sets the working directory to scratch space on b1042. To better organization, Please build your own folder under <code>/projects/b1042/AndersenLab/work/</code>, and define it here.</li>
 <li><code>tmpDir</code> - Creates a temporary working directory. This can be used within workflows when necessary.</li>
 </ul>
 <h1 id="screen">Screen<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h1>
@@ -274,7 +268,7 @@ tmpDir = &quot;/projects/b1042/AndersenLab/tmp&quot;
 <ul>
 <li><a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/">Screen Tutorial</a></li>
 </ul>
-<p>Keep in mind that quest has several login nodes. We use <code>quser10-13</code>. Screen sessions only persist on <strong>ONE</strong> of these login nodes. You can jump between nodes by simply typing ssh and the login node you want (<em>e.g.</em> <code>ssh quser 10</code>). </p>
+<p>Keep in mind that quest has several login nodes. We use <code>quser21-24</code>. Screen sessions only persist on <strong>ONE</strong> of these login nodes. You can jump between nodes by simply typing ssh and the login node you want (<em>e.g.</em> <code>ssh quser 22</code>). </p>
 <h1 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h1>
 <ul>
 <li><a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a></li>

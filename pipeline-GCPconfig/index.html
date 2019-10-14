@@ -216,7 +216,19 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP<a class="headerlink" href="#running_nextflow_pipeline_on_gcp" title="Permanent link">&para;</a></h1>
+                <div class="toc">
+<ul>
+<li><a href="#running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP</a><ul>
+<li><a href="#enable_api">Enable API</a></li>
+<li><a href="#create_service_account">Create service account</a></li>
+<li><a href="#generate_credential_for_the_service_account">Generate credential for the service account</a></li>
+<li><a href="#nextflow_version_and_mode">Nextflow version and mode</a></li>
+<li><a href="#configure_nextflow_for_gcp">Configure Nextflow for GCP</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP<a class="headerlink" href="#running_nextflow_pipeline_on_gcp" title="Permanent link">&para;</a></h1>
 <p>Google genomic API allows auto scale for computational resources by creating and closing VMs automatically. We have a dedicated google project <code>caendr</code> which using Google genomic APT for all the nextflow pipelines in our lab. To access it, you should provide your gmail accout to Erik and ask Erik give you a <code>project owner</code> role for <code>caendr</code>. I already preset the project to enable running Nextflow pipelines using <a href="https://cloud.google.com/life-sciences/docs/how-tos/migration">Google genomic API</a>. See below for more details.</p>
 <h2 id="enable_api">Enable API<a class="headerlink" href="#enable_api" title="Permanent link">&para;</a></h2>
 <p>Go the the main page of <a href="https://console.cloud.google.com/home/dashboard?project=caendr">google cloud platform</a>. In the Produck &amp; Services menu, click <code>APIs &amp; Services</code>, and then click <code>Enable APIs and Services</code>. The following APIs should be enabled to run nextflow pipeline on GCP.</p>
@@ -229,7 +241,7 @@
 <h2 id="create_service_account">Create service account<a class="headerlink" href="#create_service_account" title="Permanent link">&para;</a></h2>
 <p>Go to the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts?project=caendr">IAM &amp; admin</a>, find the <code>Service accounts</code>. Click <code>CREATE SERVICE ACCOUNT</code> to create a new service accounts. <strong>Note</strong> this service accounts must have a <code>project owner</code> role to run Nextflow pipelines. The service account I created here is called <code>nextflowRUN</code>.</p>
 <hr />
-<p>You don't need to do the above processes when you use GCP. But you need to do all the following processes to make sure you have the right permissions to <code>caendr</code></p>
+<p>You don't need to do the above processes when you use GCP. But you have to do all the following processes to make sure you have the right permissions to <code>caendr</code>.</p>
 <h2 id="generate_credential_for_the_service_account">Generate credential for the service account<a class="headerlink" href="#generate_credential_for_the_service_account" title="Permanent link">&para;</a></h2>
 <p>After you get the access to <code>caendr</code>, go to the <a href="https://console.cloud.google.com/apis/credentials?project=caendr">API &amp; Services</a>. Click the <code>Create credentials</code> button, select <code>Service account key</code>. And choose <code>nextflowRUN</code> to generate a JSON file, which is a privite key file for using <code>nextflowRUN</code>. Download the file and save it in a safe place. Finally, define the <code>GOOGLE_APPLICATION_CREDENTIALS</code> variable in <code>.bash_profile</code> with the directory of the JSON file. Which should looks like the example.</p>
 <pre><code>export GOOGLE_APPLICATION_CREDENTIALS=$HOME/google_creds/caendr-2cae6210c8d1.json
@@ -281,7 +293,7 @@ executor {
 
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The file system of google buckets is not like S3 that can read/write directly by most softwares. You have to use gsutil tool to interact with google buckets to read/write files. Even though Nextflow has built-in functions for google buckets, you still can not read/write files directly in your script. All the files have to be read and write via Nextflow channels!</p>
+<p>The file system of google buckets is not like S3 that can read/write directly by most softwares. You have to use gsutil tool to interact with google buckets to read/write files in most situations. Nextflow has built-in functions to interact with google buckets, but you still can not read/write files directly in your script. All the files have to be read and write via channels in Nextflow!</p>
 </div>
               
             </div>
