@@ -1,6 +1,8 @@
+[TOC]
+
 # Create docker iamge
 
-[Docker](https://www.docker.com) can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker iamge in our lab. and all the docker files should be avalible at [dockerfile](https://github.com/AndersenLab/dockerfile).
+[Docker](https://www.docker.com) can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker iamge in our lab. And all the docker files should be avalible at [dockerfile](https://github.com/AndersenLab/dockerfile).
 
 ## Dockerfile
 
@@ -28,7 +30,7 @@ dependencies:
   - r-tidyverse=1.2.1
 ```
 
-Then, build the `Dockerfile` like this.
+Then, build the `Dockerfile` as bellow.
 
 ```
 FROM continuumio/miniconda
@@ -45,7 +47,7 @@ RUN R -e "install.packages('roperators',dependencies=TRUE, repos='http://cran.us
 ```
 
 !!! Note
-    Put the `conda.ymal` and `Dockerfile` under the same folder
+    Put the `conda.ymal` and `Dockerfile` under the same folder.
 
 ## Build docker image
 
@@ -54,7 +56,7 @@ To build the docker iamge, you need [docker desktop](https://www.docker.com/prod
 Go to the folder which have `conda.ymal` and `Dockerfile`, run
 
 ```
-docker build -t <dockerhub account>/<name of the iamge> .
+docker build -t <dockerhub account>/<name of the iamge> . # don't ingore the dot here
 ```
 
 You can use `docker image ls` to check the image list you have in your local machine.

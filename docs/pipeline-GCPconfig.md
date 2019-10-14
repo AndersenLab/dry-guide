@@ -1,3 +1,5 @@
+[TOC]
+
 # Running Nextflow pipeline on GCP
 
 Google genomic API allows auto scale for computational resources by creating and closing VMs automatically. We have a dedicated google project `caendr` which using Google genomic APT for all the nextflow pipelines in our lab. To access it, you should provide your gmail accout to Erik and ask Erik give you a `project owner` role for `caendr`. I already preset the project to enable running Nextflow pipelines using [Google genomic API](https://cloud.google.com/life-sciences/docs/how-tos/migration). See below for more details.
@@ -16,7 +18,7 @@ Go the the main page of [google cloud platform](https://console.cloud.google.com
 Go to the [IAM & admin](https://console.cloud.google.com/iam-admin/serviceaccounts?project=caendr), find the `Service accounts`. Click `CREATE SERVICE ACCOUNT` to create a new service accounts. **Note** this service accounts must have a `project owner` role to run Nextflow pipelines. The service account I created here is called `nextflowRUN`.
 
 ---
-You don't need to do the above processes when you use GCP. But you need to do all the following processes to make sure you have the right permissions to `caendr`
+You don't need to do the above processes when you use GCP. But you have to do all the following processes to make sure you have the right permissions to `caendr`.
 
 
 ## Generate credential for the service account
@@ -81,6 +83,6 @@ executor {
 ```
 
 !!! Important
-    The file system of google buckets is not like S3 that can read/write directly by most softwares. You have to use gsutil tool to interact with google buckets to read/write files. Even though Nextflow has built-in functions for google buckets, you still can not read/write files directly in your script. All the files have to be read and write via Nextflow channels!
+    The file system of google buckets is not like S3 that can read/write directly by most softwares. You have to use gsutil tool to interact with google buckets to read/write files in most situations. Nextflow has built-in functions to interact with google buckets, but you still can not read/write files directly in your script. All the files have to be read and write via channels in Nextflow!
 
     
