@@ -78,7 +78,12 @@ We have used bigquery in the past for large query jobs. We are not actively usin
 
 ## S3
 
-S3 = simple storage service. We use it to store BAMs.
+S3 = simple storage service. We use it to store BAMs. The bucket name on AWS is `elegasnvariation.org`.
+
+S3 is used to store bam files. Originally, we stored BAM files of isotypes which represented groups of near-genetically identical strains. BAMs on S3 are stored as follows.
+
+* `/bam/` - Stores isotype-level bams.
+* `/bam/reference_strain/` - Stores reference-strain bams corresponding to each isotype.
 
 ## Fargate
 
