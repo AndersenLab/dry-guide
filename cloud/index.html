@@ -310,7 +310,12 @@ CeNDR. A github issue can be created for these errors and they can be addressed.
 <p>We have used bigquery in the past for large query jobs. We are not actively using it as of late.</p>
 <h1 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h1>
 <h2 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h2>
-<p>S3 = simple storage service. We use it to store BAMs.</p>
+<p>S3 = simple storage service. We use it to store BAMs. The bucket name on AWS is <code>elegasnvariation.org</code>.</p>
+<p>S3 is used to store bam files. Originally, we stored BAM files of isotypes which represented groups of near-genetically identical strains. BAMs on S3 are stored as follows.</p>
+<ul>
+<li><code>/bam/</code> - Stores isotype-level bams.</li>
+<li><code>/bam/reference_strain/</code> - Stores reference-strain bams corresponding to each isotype.</li>
+</ul>
 <h2 id="fargate">Fargate<a class="headerlink" href="#fargate" title="Permanent link">&para;</a></h2>
 <p>Amazon Fargate is used to run the mapping pipeline on CeNDR</p>
               
