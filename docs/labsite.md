@@ -8,7 +8,7 @@ The Andersen Lab website was built using [jekyll](https://jekyllrb.com/) and run
 
 #### Software-Dependencies
 
-Several software packages are required for editing/maintaining the Andersen Lab site. They can be installed using [Homebrew](brew.sh):
+Several software packages are required for editing/maintaining the Andersen Lab site. They can be installed using [Homebrew](https://brew.sh):
 
 ```
 brew install ruby imagemagick exiftool python ghostscript

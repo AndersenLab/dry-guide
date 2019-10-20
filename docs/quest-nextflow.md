@@ -26,25 +26,22 @@ In order to use nextflow on quest you will need to define some global variables 
 
 ```
 process {
-    executor = 'pbs'
-    queue = 'genomicsguest'
-    clusterOptions = '-A b1042 -l walltime=24:00:00 -e errlog.txt'
-    genome = "WS245"
-    reference = "/projects/b1059/data/genomes/c_elegans/${genome}/${genome}.fa.gz"
+    executor = 'slurm'
+    queue = 'genomicsguestA'
+    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
 }
 
-workDir = "/projects/b1042/AndersenLab/work"
+workDir = "/projects/b1042/AndersenLab/work/<your folder>"
 tmpDir = "/projects/b1042/AndersenLab/tmp"
 
 ```
 
 This configuration file does the following:
 
-* Sets the executor to `pbs` (which is what Quest uses)
-* Sets the queue to `genomicsguest` which submits jobs to genomics nodes.
+* Sets the executor to `slurm` (which is what Quest uses)
+* Sets the queue to `genomicsguestA` which submits jobs to genomics nodes. The `genomicsguestA` will submit jobs to our dedicated nodes first, which we have high priority. If our dedicated nodes are full, it will submit to other nodes we don't have priority. So far, our lab have 2 dedicated nodes, with 28 cores and related memory (close to 1:5) for each dedicated node. We will have more in the future.  
 * `clusterOptions` - Sets the account to `b1042`; granting access to genomics-dedicated scratch space.
-
-* `workDir` - Sets the working directory to scratch space on b1042.
+* `workDir` - Sets the working directory to scratch space on b1042. To better organization, Please build your own folder under `/projects/b1042/AndersenLab/work/`, and define it here.
 * `tmpDir` - Creates a temporary working directory. This can be used within workflows when necessary.
 
 # Screen
@@ -53,7 +50,7 @@ When jobs run for a very long time you should run them in screen. Screen lets yo
 
 * [Screen Tutorial](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/)
 
-Keep in mind that quest has several login nodes. We use `quser10-13`. Screen sessions only persist on __ONE__ of these login nodes. You can jump between nodes by simply typing ssh and the login node you want (_e.g._ `ssh quser 10`). 
+Keep in mind that quest has several login nodes. We use `quser21-24`. Screen sessions only persist on __ONE__ of these login nodes. You can jump between nodes by simply typing ssh and the login node you want (_e.g._ `ssh quser 22`). 
 
 # Resources
 

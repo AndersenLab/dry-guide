@@ -29,7 +29,7 @@ If you are not familiar with what a bash profile is, [take a look at this](https
 
 ### Login Nodes
 
-There are four login nodes we use: quser10-13. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh quser11`).
+There are four login nodes we use: quser21-24. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh quser21`).
 
 !!! warning
     When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.
@@ -50,4 +50,19 @@ The Andersen lab has access to two projects.
 
 __b1042__ - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days.
 
-__b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 10 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
+__b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 40 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
+
+!!! Note
+    Anyone who use quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
+
+### Running interactive jobs on Quest
+
+If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands
+
+```
+srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
+```
+
+!!! Important
+    Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
+
