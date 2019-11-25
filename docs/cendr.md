@@ -204,3 +204,12 @@ gsutil rsync -x ".DS_Store" . gs://elegansvariation.org/photos/isolation
 
 The `current` folder located in `gs://elegansvariation.org/releases` contains the latest variant datasets and is used by WormBase to display natural variation data. Once you've completed a new release, update the files in this folder `gs://elegansvariation.org/releases/current` folder. 
 
+## Updating Publications
+
+The publications page (`/about/publications`) is generated using a google spreadsheet. The spreadsheet can be accessed [here](https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit). You can request access to edit the spreadsheet by visiting that link.
+
+The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.
+
+Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.
+
+Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.
