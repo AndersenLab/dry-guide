@@ -145,6 +145,8 @@
         
             <li><a class="toctree-l3" href="#creating_a_new_release">Creating a new release</a></li>
         
+            <li><a class="toctree-l3" href="#updating_publications">Updating Publications</a></li>
+        
         </ul>
     
 
@@ -229,6 +231,7 @@
 <li><a href="#update_the_current_variant_datasets">Update the current variant datasets.</a></li>
 </ul>
 </li>
+<li><a href="#updating_publications">Updating Publications</a></li>
 </ul>
 </li>
 </ul>
@@ -376,6 +379,11 @@ gsutil rsync -x &quot;.DS_Store&quot; . gs://elegansvariation.org/photos/isolati
 
 <h3 id="update_the_current_variant_datasets">Update the <code>current</code> variant datasets.<a class="headerlink" href="#update_the_current_variant_datasets" title="Permanent link">&para;</a></h3>
 <p>The <code>current</code> folder located in <code>gs://elegansvariation.org/releases</code> contains the latest variant datasets and is used by WormBase to display natural variation data. Once you've completed a new release, update the files in this folder <code>gs://elegansvariation.org/releases/current</code> folder. </p>
+<h2 id="updating_publications">Updating Publications<a class="headerlink" href="#updating_publications" title="Permanent link">&para;</a></h2>
+<p>The publications page (<code>/about/publications</code>) is generated using a google spreadsheet. The spreadsheet can be accessed <a href="https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit">here</a>. You can request access to edit the spreadsheet by visiting that link.</p>
+<p>The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.</p>
+<p>Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.</p>
+<p>Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.</p>
               
             </div>
           </div>
