@@ -133,24 +133,15 @@
     
         <ul>
         
-            <li><a class="toctree-l4" href="#docker_file">Docker File</a></li>
-        
-            <li><a class="toctree-l4" href="#environments">Environments</a></li>
-        
-            <li><a class="toctree-l4" href="#--goal">--goal</a></li>
+            <li><a class="toctree-l4" href="#quick_start">Quick Start</a></li>
         
             <li><a class="toctree-l4" href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a></li>
         
-        </ul>
-    
-
-    <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
-    
-        <ul>
+            <li><a class="toctree-l4" href="#software">Software</a></li>
         
-            <li><a class="toctree-l4" href="#--cores">--cores</a></li>
+            <li><a class="toctree-l4" href="#debugging">Debugging</a></li>
         
-            <li><a class="toctree-l4" href="#--out">--out</a></li>
+            <li><a class="toctree-l4" href="#--output">--output</a></li>
         
             <li><a class="toctree-l4" href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
         
@@ -159,8 +150,6 @@
             <li><a class="toctree-l4" href="#--reference">--reference</a></li>
         
             <li><a class="toctree-l4" href="#--email">--email</a></li>
-        
-            <li><a class="toctree-l4" href="#--tmpdir">--tmpdir</a></li>
         
         </ul>
     
@@ -261,7 +250,8 @@
             <div class="section">
               
                 <h1 id="alignment-nf">alignment-nf<a class="headerlink" href="#alignment-nf" title="Permanent link">&para;</a></h1>
-<p>The <a href="https://github.com/AndersenLab/alignment-nf">alignment-nf</a> pipeline performs alignment for wild isolate sequence data on strain and isotype levels, and output BAMs and related information. Those BAMs can be used for downstream analysis of <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance-nf</a>, <a href="http://andersenlab.org/dry-guide/pipeline-wi/">wi-nf</a> and variants calling.</p>
+<p>The <a href="https://github.com/AndersenLab/alignment-nf">alignment-nf</a> pipeline performs alignment for wild isolate sequence data <strong>at the strain level</strong>, and outputs BAMs and related information. Those BAMs can be used for downstream analysis of <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance-nf</a>, <a href="http://andersenlab.org/dry-guide/pipeline-wi/">wi-nf</a> and variants calling.</p>
+<p>Note that historically, sequence processing was previously performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.</p>
 <div class="toc">
 <ul>
 <li><a href="#alignment-nf">alignment-nf</a><ul>
@@ -270,25 +260,15 @@
 </ul>
 </li>
 <li><a href="#usage_1">Usage</a><ul>
-<li><a href="#docker_file">Docker File</a></li>
-<li><a href="#environments">Environments</a></li>
-<li><a href="#--goal">--goal</a></li>
-<li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a><ul>
-<li><a href="#running_the_pipeline_locally">Running the pipeline locally</a></li>
-<li><a href="#debugging_the_pipeline_on_quest">Debugging the pipeline on Quest</a></li>
-<li><a href="#running_the_pipeline_on_quest">Running the pipeline on Quest</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#configuration">Configuration</a><ul>
-<li><a href="#--cores">--cores</a></li>
-<li><a href="#--out">--out</a></li>
+<li><a href="#quick_start">Quick Start</a></li>
+<li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a></li>
+<li><a href="#software">Software</a></li>
+<li><a href="#debugging">Debugging</a></li>
+<li><a href="#--output">--output</a></li>
 <li><a href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
 <li><a href="#--fqs_file_prefix">--fqs_file_prefix</a></li>
 <li><a href="#--reference">--reference</a></li>
 <li><a href="#--email">--email</a></li>
-<li><a href="#--tmpdir">--tmpdir</a></li>
 </ul>
 </li>
 <li><a href="#sample_sheet">Sample Sheet</a></li>
@@ -308,16 +288,12 @@
                          ▖▐
                          ▝▘
     parameters              description                    Set/Default
-    ==========              ===========                    ===========
+    ==========              ===========                    ========================
     --debug                 Set to 'true' to test          ${params.debug}
-    --cores                 Regular job cores              ${params.cores}
-    --goal                  for strain or isotype          ${params.goal}
-    --out                   Directory to output results    ${params.out}
     --fqs                   fastq file (see help)          ${params.fqs}
     --fq_file_prefix        fastq prefix                   ${params.fq_file_prefix}
     --reference             Reference Genome (w/ .gz)      ${params.reference}
-    --bamdir                Location for bams              ${params.bamdir}
-    --tmpdir                A temporary directory          ${params.tmpdir}
+    --output                Location for output            ${params.output}
     --email                 Email to be sent results       ${params.email}
 
     HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
@@ -326,53 +302,45 @@
 <h2 id="pipeline_overview">Pipeline Overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h2>
 <p><img alt="Pipeline-overview" src="../img/alignment-nf.png" /></p>
 <h1 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h1>
-<h2 id="docker_file">Docker File<a class="headerlink" href="#docker_file" title="Permanent link">&para;</a></h2>
-<p><a href="https://hub.docker.com/r/andersenlab/wi-nf/">andersenlab/wi-nf</a> is the docker image used within the alignment-nf pipeline. If Quest ever supports singularity, it can be converted to a singularity image and used with Nextflow.</p>
-<h2 id="environments">Environments<a class="headerlink" href="#environments" title="Permanent link">&para;</a></h2>
-<p>If Docker is not enable or need to run this pipeline on <code>Quest</code>, environments should be set up before running this pipeline. The <a href="http://andersenlab.org/dry-guide/quest-andersen-lab-env/">Andersen-Lab-Env</a> satisfy all the requirments of this pipeline, and highly recommend for the Quest users.</p>
-<h2 id="--goal">--goal<a class="headerlink" href="#--goal" title="Permanent link">&para;</a></h2>
-<p>As this pipeline can perform both strain and isotype alignments, a params <code>--goal</code> should be specified each time when you running this pipeline. Only <code>strain</code> and <code>isotype</code> are acceptable for this params. Usually, <strong>strain</strong> should be performed before <strong>isotype</strong>. <strong>isotype</strong> should not be performed until we update the isotype information.</p>
-<h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
-<p>The <code>nextflow.config</code> file in this pipeline contains three profiles, including local, quest_debug and quest.</p>
-<ul>
-<li><code>local</code> - Used for local development and enable running with docker.</li>
-<li><code>quest_debug</code> - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.</li>
-<li><code>quest</code> - Runs the entire dataset.</li>
-</ul>
-<h3 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h3>
-<p>When running locally, the pipeline will run using the <code>andersenlab/wi-nf</code> docker image. You must have docker installed.</p>
-<pre><code>nextflow run main.nf -profile local -resume -with-docker --goal &quot;strain&quot;
+<h2 id="quick_start">Quick Start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h2>
+<p>The pipeline can be run using the following command:</p>
+<pre><code>NXF_VER=19.09.0-edge nextflow run main.nf -profile local
 </code></pre>
 
-<h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
-<p>Before you run this pipeline, a debug process is needed and recommended. The debug profile use a smaller test data, which running much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
+<h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
+<p>There are three configuration profiles for this pipeline.</p>
+<ul>
+<li><code>local</code> - Used for local development.</li>
+<li><code>quest</code> - Used for running on Quest.</li>
+<li><code>gcp</code> - For running on Google Cloud.</li>
+</ul>
+<h2 id="software">Software<a class="headerlink" href="#software" title="Permanent link">&para;</a></h2>
+<p>Almost all processes within the pipeline are now managed using <a href="">conda</a>. To use the pipeline, you must have <code>conda</code> installed and available. Nextflow will take care of installing conda environments and managing software.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="https://www.github.com/brentp/mosdepth">mosdepth</a> is used to calculate coverage. <code>mosdepth</code> is available on Linux machines, but not on Mac OSX. That is why the conda environment for the <code>coverage</code> process is specified as <code>conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }</code>. This snippet allows mosdepth to run off the version present in the <code>bin</code> folder locally on Mac OSX, or using the conda-managed installation on a Linux Machine.</p>
+</div>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set using your specified config.</p>
+<p>This can be used locally or on quest. For example:</p>
 <pre><code>nextflow run main.nf -profile quest_debug -resume --goal &quot;strain&quot;
 </code></pre>
 
-<h3 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
-<p>The pipeline can be run on Quest using the following command:</p>
-<pre><code>nextflow run main.nf -profile quest -resume --goal &quot;strain&quot;
-</code></pre>
-
-<h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
-<p>Most configuration is handled using the <code>-profile</code> flag and <code>nextflow.config</code>; If you want to fine tune things you can use the options below.</p>
-<h2 id="--cores">--cores<a class="headerlink" href="#--cores" title="Permanent link">&para;</a></h2>
-<p>The number of cores to use during alignments.</p>
-<h2 id="--out">--out<a class="headerlink" href="#--out" title="Permanent link">&para;</a></h2>
-<p>A directory in which to output results. By default it will be <code>WI-YYYY-MM-DD</code> where YYYY-MM-DD is todays date.</p>
+<h2 id="--output">--output<a class="headerlink" href="#--output" title="Permanent link">&para;</a></h2>
+<p>A directory in which to output results. By default it will be <code>alignment-YYYY-MM-DD</code> where YYYY-MM-DD is todays date. If you have set <code>--debug true</code>, it will take the form of <code>alignment-YYYY-MM-DD-debug</code>.</p>
 <h2 id="--fqs_fastqs">--fqs (FASTQs)<a class="headerlink" href="#--fqs_fastqs" title="Permanent link">&para;</a></h2>
-<p>When running the <code>alignment-nf</code> pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using <code>--fqs</code> if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See <a href="# Sample Sheet">Sample Sheet</a> for more details.</p>
+<p>When running the <code>alignment-nf</code> pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using <code>--fqs</code> if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See <a href="# Sample Sheet">Sample Sheet</a> for more details on how it is generated.</p>
+<p>When using <code>--debug true</code>, the <code>test_data/sample_sheet.tsv</code> file is used.</p>
 <h2 id="--fqs_file_prefix">--fqs_file_prefix<a class="headerlink" href="#--fqs_file_prefix" title="Permanent link">&para;</a></h2>
 <p>A prefix path for FASTQs defined in a sample sheet. The sample sheet designed for usage on Quest (<code>SM_sample_sheet.tsv</code>) uses absolute paths so no FASTQ prefix is necessary. Additionally, there is no need to set this option as it is set for you when using the <code>-profile</code> flag. This option is only necessary (maybe) with a custom dataset where you are not using absolute paths to reference FASTQs.</p>
 <h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
-<p>A fasta reference indexed with BWA. On Quest, the reference is available here:</p>
+<p>A fasta reference indexed with BWA. This is packaged with the repo for convenience for running locally.</p>
+<p>On Quest, the reference is available here:</p>
 <pre><code>/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
 </code></pre>
 
 <h2 id="--email">--email<a class="headerlink" href="#--email" title="Permanent link">&para;</a></h2>
 <p>Enable a email notification when you use this params.</p>
-<h2 id="--tmpdir">--tmpdir<a class="headerlink" href="#--tmpdir" title="Permanent link">&para;</a></h2>
-<p>A directory for storing temporary data.</p>
 <h1 id="sample_sheet">Sample Sheet<a class="headerlink" href="#sample_sheet" title="Permanent link">&para;</a></h1>
 <p>A sample sheet is the only acceptable input style for sequences in this pipeline. Sample sheet should be constructed by using the scripts under <code>scripts</code> folder, or follow the format in <a href="http://andersenlab.org/dry-guide/sample-sheets/">Sample Sheets</a>.</p>
 <div class="admonition note">
