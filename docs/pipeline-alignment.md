@@ -1,6 +1,8 @@
 # alignment-nf
 
-The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data on strain and isotype levels, and output BAMs and related information. Those BAMs can be used for downstream analysis of [concordance-nf](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf](http://andersenlab.org/dry-guide/pipeline-wi/) and variants calling.
+The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis of [concordance-nf](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf](http://andersenlab.org/dry-guide/pipeline-wi/) and variants calling.
+
+Note that historically, sequence processing was previously performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
 
 [TOC]
 
@@ -14,16 +16,12 @@ The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline perform
                          ▖▐
                          ▝▘
     parameters              description                    Set/Default
-    ==========              ===========                    ===========
+    ==========              ===========                    ========================
     --debug                 Set to 'true' to test          ${params.debug}
-    --cores                 Regular job cores              ${params.cores}
-    --goal                  for strain or isotype          ${params.goal}
-    --out                   Directory to output results    ${params.out}
     --fqs                   fastq file (see help)          ${params.fqs}
     --fq_file_prefix        fastq prefix                   ${params.fq_file_prefix}
     --reference             Reference Genome (w/ .gz)      ${params.reference}
-    --bamdir                Location for bams              ${params.bamdir}
-    --tmpdir                A temporary directory          ${params.tmpdir}
+    --output                Location for output            ${params.output}
     --email                 Email to be sent results       ${params.email}
 
     HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
@@ -35,65 +33,49 @@ The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline perform
 
 # Usage
 
-## Docker File
+## Quick Start
 
-[andersenlab/wi-nf](https://hub.docker.com/r/andersenlab/wi-nf/) is the docker image used within the alignment-nf pipeline. If Quest ever supports singularity, it can be converted to a singularity image and used with Nextflow.
+The pipeline can be run using the following command:
 
-## Environments
-
-If Docker is not enable or need to run this pipeline on `Quest`, environments should be set up before running this pipeline. The [Andersen-Lab-Env](http://andersenlab.org/dry-guide/quest-andersen-lab-env/) satisfy all the requirments of this pipeline, and highly recommend for the Quest users.
-
-## --goal
-
-As this pipeline can perform both strain and isotype alignments, a params `--goal` should be specified each time when you running this pipeline. Only `strain` and `isotype` are acceptable for this params. Usually, __strain__ should be performed before __isotype__. __isotype__ should not be performed until we update the isotype information.
+```
+NXF_VER=19.09.0-edge nextflow run main.nf -profile local
+```
 
 ## Profiles and Running the Pipeline
 
-The `nextflow.config` file in this pipeline contains three profiles, including local, quest_debug and quest.
+There are three configuration profiles for this pipeline.
 
-* `local` - Used for local development and enable running with docker.
-* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
-* `quest` - Runs the entire dataset.
+* `local` - Used for local development.
+* `quest` - Used for running on Quest.
+* `gcp` - For running on Google Cloud.
 
-### Running the pipeline locally
+## Software
 
-When running locally, the pipeline will run using the `andersenlab/wi-nf` docker image. You must have docker installed.
+Almost all processes within the pipeline are now managed using [conda](). To use the pipeline, you must have `conda` installed and available. Nextflow will take care of installing conda environments and managing software.
 
-```
-nextflow run main.nf -profile local -resume -with-docker --goal "strain"
-```
+!!! note
+       
+       [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the version present in the `bin` folder locally on Mac OSX, or using the conda-managed installation on a Linux Machine.
 
-### Debugging the pipeline on Quest
+## Debugging
 
-Before you run this pipeline, a debug process is needed and recommended. The debug profile use a smaller test data, which running much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
+You should use `--debug true` for testing/debugging purposes. This will run the debug test set using your specified config.
+
+This can be used locally or on quest. For example:
 
 ```
 nextflow run main.nf -profile quest_debug -resume --goal "strain"
 ```
 
-### Running the pipeline on Quest
+## --output
 
-The pipeline can be run on Quest using the following command:
-
-```
-nextflow run main.nf -profile quest -resume --goal "strain"
-```
-
-# Configuration
-
-Most configuration is handled using the `-profile` flag and `nextflow.config`; If you want to fine tune things you can use the options below.
-
-## --cores
-
-The number of cores to use during alignments.
-
-## --out
-
-A directory in which to output results. By default it will be `WI-YYYY-MM-DD` where YYYY-MM-DD is todays date.
+A directory in which to output results. By default it will be `alignment-YYYY-MM-DD` where YYYY-MM-DD is todays date. If you have set `--debug true`, it will take the form of `alignment-YYYY-MM-DD-debug`.
 
 ## --fqs (FASTQs)
 
-When running the `alignment-nf` pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using `--fqs` if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See [Sample Sheet](# Sample Sheet) for more details.
+When running the `alignment-nf` pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using `--fqs` if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See [Sample Sheet](# Sample Sheet) for more details on how it is generated.
+
+When using `--debug true`, the `test_data/sample_sheet.tsv` file is used.
 
 ## --fqs_file_prefix
 
@@ -101,7 +83,9 @@ A prefix path for FASTQs defined in a sample sheet. The sample sheet designed fo
 
 ## --reference
 
-A fasta reference indexed with BWA. On Quest, the reference is available here:
+A fasta reference indexed with BWA. This is packaged with the repo for convenience for running locally.
+
+On Quest, the reference is available here:
 
 ```
 /projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
@@ -110,10 +94,6 @@ A fasta reference indexed with BWA. On Quest, the reference is available here:
 ## --email
 
 Enable a email notification when you use this params.
-
-## --tmpdir
-
-A directory for storing temporary data.
 
 # Sample Sheet
 
