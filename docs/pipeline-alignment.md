@@ -1,13 +1,15 @@
 # alignment-nf
 
-The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis of [concordance-nf](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf](http://andersenlab.org/dry-guide/pipeline-wi/) and variants calling.
+The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf (variant calling)](http://andersenlab.org/dry-guide/pipeline-wi/) and other analyses.
 
-Note that historically, sequence processing was previously performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
+!!! Note
+    Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
 
 [TOC]
 
 ## Usage
 ```
+
              ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
              ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
              ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
@@ -18,8 +20,9 @@ Note that historically, sequence processing was previously performed at the isot
     parameters              description                    Set/Default
     ==========              ===========                    ========================
     --debug                 Set to 'true' to test          ${params.debug}
-    --fqs                   fastq file (see help)          ${params.fqs}
-    --fq_file_prefix        fastq prefix                   ${params.fq_file_prefix}
+    --sample_sheet          sample_sheet                   ${params.sample_sheet}
+    --fq_prefix             fastq prefix                   ${params.fq_prefix}
+    --kmers                 count kmers                    ${params.kmers}
     --reference             Reference Genome (w/ .gz)      ${params.reference}
     --output                Location for output            ${params.output}
     --email                 Email to be sent results       ${params.email}
@@ -29,7 +32,7 @@ Note that historically, sequence processing was previously performed at the isot
 
 ## Pipeline Overview
 
-![Pipeline-overview](img/alignment-nf.png)
+![Pipeline-overview](img/alignment.png)
 
 # Usage
 
@@ -55,35 +58,64 @@ Almost all processes within the pipeline are now managed using [conda](). To use
 
 !!! note
        
-       [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the version present in the `bin` folder locally on Mac OSX, or using the conda-managed installation on a Linux Machine.
+       [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
 
-## Debugging
+# Parameters
 
-You should use `--debug true` for testing/debugging purposes. This will run the debug test set using your specified config.
+## --debug
 
-This can be used locally or on quest. For example:
+You should use `--debug true` for testing/debugging purposes. This will run the debug test set (located in the `test_data` folder) using your specified configuration profile (e.g. local / quest / gcp).
+
+For example:
 
 ```
-nextflow run main.nf -profile quest_debug -resume --goal "strain"
+nextflow run main.nf -profile local --debug -resume
 ```
 
-## --output
+Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
 
-A directory in which to output results. By default it will be `alignment-YYYY-MM-DD` where YYYY-MM-DD is todays date. If you have set `--debug true`, it will take the form of `alignment-YYYY-MM-DD-debug`.
+## --sample_sheet
 
-## --fqs (FASTQs)
+Below is a summary of the sample sheet. Please see [sample_sheet](/sample-sheets) for more information.
 
-When running the `alignment-nf` pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using `--fqs` if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See [Sample Sheet](# Sample Sheet) for more details on how it is generated.
+The sample sheet specifies the FASTQs and associated metadata required for alignment. An example sample sheet is bundled with the test data (`test_data/sample_sheet.tsv`). The first few lines look like this:
+
+| strain |   reference_strain |    isotype | id |  lb |  fq1 | fq2 | seq_folder    |                                              |
+|:------|------|----------|--|--|--|--|--|--------------------------------------------------------------------------|
+| AB1  | FALSE |   ISO1 |    BGI1-RET2-AB1 |   RET2 |    BGI1-RET2-AB1-trim-1P.fq.gz |BGI1-RET2-AB1-trim-2P.fq.gz | original_wi_set |
+| ECA243 |   TRUE |   ISO1 |    BGI3-RET3b-ECA243 |   RET3b |   BGI3-RET3b-ECA243-trim-1P.fq.gz                                  | BGI3-RET3b-ECA243-trim-2P.fq.gz  | original_wi_set
+
+
+The only required columns for running are:
+
+* __strain__ - the name of the strain
+* __id__ - A unique ID for each sequencing run.
+* __lb__ - A library ID.
+* __fq1__ - The path to FASTQ1
+* __fq2__ - The path to FASTQ2
+
+The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the `strain` and `id` level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain.
 
 When using `--debug true`, the `test_data/sample_sheet.tsv` file is used.
 
-## --fqs_file_prefix
+!!! Note
+    Previously this option was specified using `--fqs`.
 
-A prefix path for FASTQs defined in a sample sheet. The sample sheet designed for usage on Quest (`SM_sample_sheet.tsv`) uses absolute paths so no FASTQ prefix is necessary. Additionally, there is no need to set this option as it is set for you when using the `-profile` flag. This option is only necessary (maybe) with a custom dataset where you are not using absolute paths to reference FASTQs.
+## --fq_prefix
+
+Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the `--fq_prefix` to set the path that should be prefixed to each FASTQ.
+
+!!! Note
+    Previously, this option was `--fqs_file_prefix`
+## --kmers
+
+__default__ = true
+
+Toggles kmer-analysis
 
 ## --reference
 
-A fasta reference indexed with BWA. This is packaged with the repo for convenience for running locally.
+A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.
 
 On Quest, the reference is available here:
 
@@ -91,23 +123,19 @@ On Quest, the reference is available here:
 /projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
 ```
 
+## --output
+
+__Default__ - `Alignment-YYYYMMDD`
+
+A directory in which to output results. If you have set `--debug true`, the default output directory will be `alignment-YYYYMMDD-debug`.
+
 ## --email
 
-Enable a email notification when you use this params.
+Setting `--email` will trigger an email report following pipeline execution.
 
-# Sample Sheet
-
-A sample sheet is the only acceptable input style for sequences in this pipeline. Sample sheet should be constructed by using the scripts under `scripts` folder, or follow the format in [Sample Sheets](http://andersenlab.org/dry-guide/sample-sheets/).
-
-!!! note
-       
-       If you don't use `--fqs` to specify the directory of sample sheet, you should put sample sheet in the root of this repo. The name structure is restricted as `SM_strain_sheet.tsv` or `SM_isotype_sheet.tsv`.
-   
 # Output
 
 ## Strain
-
-When you use `--goal "strain"`
 
 ```
 ├── BAM
