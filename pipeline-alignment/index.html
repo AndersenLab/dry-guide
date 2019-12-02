@@ -139,22 +139,28 @@
         
             <li><a class="toctree-l4" href="#software">Software</a></li>
         
-            <li><a class="toctree-l4" href="#debugging">Debugging</a></li>
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#parameters">Parameters</a></li>
+    
+        <ul>
         
-            <li><a class="toctree-l4" href="#--output">--output</a></li>
+            <li><a class="toctree-l4" href="#--debug">--debug</a></li>
         
-            <li><a class="toctree-l4" href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
+            <li><a class="toctree-l4" href="#--sample_sheet">--sample_sheet</a></li>
         
-            <li><a class="toctree-l4" href="#--fqs_file_prefix">--fqs_file_prefix</a></li>
+            <li><a class="toctree-l4" href="#--fq_prefix">--fq_prefix</a></li>
+        
+            <li><a class="toctree-l4" href="#--kmers">--kmers</a></li>
         
             <li><a class="toctree-l4" href="#--reference">--reference</a></li>
+        
+            <li><a class="toctree-l4" href="#--output">--output</a></li>
         
             <li><a class="toctree-l4" href="#--email">--email</a></li>
         
         </ul>
-    
-
-    <li class="toctree-l3"><a href="#sample_sheet">Sample Sheet</a></li>
     
 
     <li class="toctree-l3"><a href="#output">Output</a></li>
@@ -162,8 +168,6 @@
         <ul>
         
             <li><a class="toctree-l4" href="#strain">Strain</a></li>
-        
-            <li><a class="toctree-l4" href="#isotype">Isotype</a></li>
         
         </ul>
     
@@ -250,8 +254,11 @@
             <div class="section">
               
                 <h1 id="alignment-nf">alignment-nf<a class="headerlink" href="#alignment-nf" title="Permanent link">&para;</a></h1>
-<p>The <a href="https://github.com/AndersenLab/alignment-nf">alignment-nf</a> pipeline performs alignment for wild isolate sequence data <strong>at the strain level</strong>, and outputs BAMs and related information. Those BAMs can be used for downstream analysis of <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance-nf</a>, <a href="http://andersenlab.org/dry-guide/pipeline-wi/">wi-nf</a> and variants calling.</p>
-<p>Note that historically, sequence processing was previously performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.</p>
+<p>The <a href="https://github.com/AndersenLab/alignment-nf">alignment-nf</a> pipeline performs alignment for wild isolate sequence data <strong>at the strain level</strong>, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance analysis</a>, <a href="http://andersenlab.org/dry-guide/pipeline-wi/">wi-nf (variant calling)</a> and other analyses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.</p>
+</div>
 <div class="toc">
 <ul>
 <li><a href="#alignment-nf">alignment-nf</a><ul>
@@ -263,24 +270,27 @@
 <li><a href="#quick_start">Quick Start</a></li>
 <li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a></li>
 <li><a href="#software">Software</a></li>
-<li><a href="#debugging">Debugging</a></li>
-<li><a href="#--output">--output</a></li>
-<li><a href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
-<li><a href="#--fqs_file_prefix">--fqs_file_prefix</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--debug">--debug</a></li>
+<li><a href="#--sample_sheet">--sample_sheet</a></li>
+<li><a href="#--fq_prefix">--fq_prefix</a></li>
+<li><a href="#--kmers">--kmers</a></li>
 <li><a href="#--reference">--reference</a></li>
+<li><a href="#--output">--output</a></li>
 <li><a href="#--email">--email</a></li>
 </ul>
 </li>
-<li><a href="#sample_sheet">Sample Sheet</a></li>
 <li><a href="#output">Output</a><ul>
 <li><a href="#strain">Strain</a></li>
-<li><a href="#isotype">Isotype</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<pre><code>             ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
+<pre><code>
+             ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
              ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
              ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
              ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
@@ -290,8 +300,9 @@
     parameters              description                    Set/Default
     ==========              ===========                    ========================
     --debug                 Set to 'true' to test          ${params.debug}
-    --fqs                   fastq file (see help)          ${params.fqs}
-    --fq_file_prefix        fastq prefix                   ${params.fq_file_prefix}
+    --sample_sheet          sample_sheet                   ${params.sample_sheet}
+    --fq_prefix             fastq prefix                   ${params.fq_prefix}
+    --kmers                 count kmers                    ${params.kmers}
     --reference             Reference Genome (w/ .gz)      ${params.reference}
     --output                Location for output            ${params.output}
     --email                 Email to be sent results       ${params.email}
@@ -300,7 +311,7 @@
 </code></pre>
 
 <h2 id="pipeline_overview">Pipeline Overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h2>
-<p><img alt="Pipeline-overview" src="../img/alignment-nf.png" /></p>
+<p><img alt="Pipeline-overview" src="../img/alignment.png" /></p>
 <h1 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h1>
 <h2 id="quick_start">Quick Start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h2>
 <p>The pipeline can be run using the following command:</p>
@@ -318,95 +329,142 @@
 <p>Almost all processes within the pipeline are now managed using <a href="">conda</a>. To use the pipeline, you must have <code>conda</code> installed and available. Nextflow will take care of installing conda environments and managing software.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a href="https://www.github.com/brentp/mosdepth">mosdepth</a> is used to calculate coverage. <code>mosdepth</code> is available on Linux machines, but not on Mac OSX. That is why the conda environment for the <code>coverage</code> process is specified as <code>conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }</code>. This snippet allows mosdepth to run off the version present in the <code>bin</code> folder locally on Mac OSX, or using the conda-managed installation on a Linux Machine.</p>
+<p><a href="https://www.github.com/brentp/mosdepth">mosdepth</a> is used to calculate coverage. <code>mosdepth</code> is available on Linux machines, but not on Mac OSX. That is why the conda environment for the <code>coverage</code> process is specified as <code>conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }</code>. This snippet allows mosdepth to run off the executable present in the <code>bin</code> folder locally on Mac OSX, or use the conda-based installation when on Linux.</p>
 </div>
-<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
-<p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set using your specified config.</p>
-<p>This can be used locally or on quest. For example:</p>
-<pre><code>nextflow run main.nf -profile quest_debug -resume --goal &quot;strain&quot;
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder) using your specified configuration profile (e.g. local / quest / gcp).</p>
+<p>For example:</p>
+<pre><code>nextflow run main.nf -profile local --debug -resume
 </code></pre>
 
-<h2 id="--output">--output<a class="headerlink" href="#--output" title="Permanent link">&para;</a></h2>
-<p>A directory in which to output results. By default it will be <code>alignment-YYYY-MM-DD</code> where YYYY-MM-DD is todays date. If you have set <code>--debug true</code>, it will take the form of <code>alignment-YYYY-MM-DD-debug</code>.</p>
-<h2 id="--fqs_fastqs">--fqs (FASTQs)<a class="headerlink" href="#--fqs_fastqs" title="Permanent link">&para;</a></h2>
-<p>When running the <code>alignment-nf</code> pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into strains/isotypes. By default, this is the sample sheet in the base of the alignment-nf repo , but can be specified using <code>--fqs</code> if an alternative is required. The sample sheet provides information on the strain/isotype, fastq_pairs, library, location of fastqs, and sequencing folder. See <a href="# Sample Sheet">Sample Sheet</a> for more details on how it is generated.</p>
+<p>Using <code>--debug</code> will automatically set the sample sheet to <code>test_data/sample_sheet.tsv</code></p>
+<h2 id="--sample_sheet">--sample_sheet<a class="headerlink" href="#--sample_sheet" title="Permanent link">&para;</a></h2>
+<p>Below is a summary of the sample sheet. Please see <a href="/sample-sheets">sample_sheet</a> for more information.</p>
+<p>The sample sheet specifies the FASTQs and associated metadata required for alignment. An example sample sheet is bundled with the test data (<code>test_data/sample_sheet.tsv</code>). The first few lines look like this:</p>
+<table>
+<thead>
+<tr>
+<th align="left">strain</th>
+<th>reference_strain</th>
+<th>isotype</th>
+<th>id</th>
+<th>lb</th>
+<th>fq1</th>
+<th>fq2</th>
+<th>seq_folder</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AB1</td>
+<td>FALSE</td>
+<td>ISO1</td>
+<td>BGI1-RET2-AB1</td>
+<td>RET2</td>
+<td>BGI1-RET2-AB1-trim-1P.fq.gz</td>
+<td>BGI1-RET2-AB1-trim-2P.fq.gz</td>
+<td>original_wi_set</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">ECA243</td>
+<td>TRUE</td>
+<td>ISO1</td>
+<td>BGI3-RET3b-ECA243</td>
+<td>RET3b</td>
+<td>BGI3-RET3b-ECA243-trim-1P.fq.gz</td>
+<td>BGI3-RET3b-ECA243-trim-2P.fq.gz</td>
+<td>original_wi_set</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The only required columns for running are:</p>
+<ul>
+<li><strong>strain</strong> - the name of the strain</li>
+<li><strong>id</strong> - A unique ID for each sequencing run.</li>
+<li><strong>lb</strong> - A library ID.</li>
+<li><strong>fq1</strong> - The path to FASTQ1</li>
+<li><strong>fq2</strong> - The path to FASTQ2</li>
+</ul>
+<p>The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the <code>strain</code> and <code>id</code> level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain.</p>
 <p>When using <code>--debug true</code>, the <code>test_data/sample_sheet.tsv</code> file is used.</p>
-<h2 id="--fqs_file_prefix">--fqs_file_prefix<a class="headerlink" href="#--fqs_file_prefix" title="Permanent link">&para;</a></h2>
-<p>A prefix path for FASTQs defined in a sample sheet. The sample sheet designed for usage on Quest (<code>SM_sample_sheet.tsv</code>) uses absolute paths so no FASTQ prefix is necessary. Additionally, there is no need to set this option as it is set for you when using the <code>-profile</code> flag. This option is only necessary (maybe) with a custom dataset where you are not using absolute paths to reference FASTQs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Previously this option was specified using <code>--fqs</code>.</p>
+</div>
+<h2 id="--fq_prefix">--fq_prefix<a class="headerlink" href="#--fq_prefix" title="Permanent link">&para;</a></h2>
+<p>Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the <code>--fq_prefix</code> to set the path that should be prefixed to each FASTQ.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Previously, this option was <code>--fqs_file_prefix</code></p>
+</div>
+<h2 id="--kmers">--kmers<a class="headerlink" href="#--kmers" title="Permanent link">&para;</a></h2>
+<p><strong>default</strong> = true</p>
+<p>Toggles kmer-analysis</p>
 <h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
-<p>A fasta reference indexed with BWA. This is packaged with the repo for convenience for running locally.</p>
+<p>A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.</p>
 <p>On Quest, the reference is available here:</p>
 <pre><code>/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
 </code></pre>
 
+<h2 id="--output">--output<a class="headerlink" href="#--output" title="Permanent link">&para;</a></h2>
+<p><strong>Default</strong> - <code>Alignment-YYYYMMDD</code></p>
+<p>A directory in which to output results. If you have set <code>--debug true</code>, the default output directory will be <code>alignment-YYYYMMDD-debug</code>.</p>
 <h2 id="--email">--email<a class="headerlink" href="#--email" title="Permanent link">&para;</a></h2>
-<p>Enable a email notification when you use this params.</p>
-<h1 id="sample_sheet">Sample Sheet<a class="headerlink" href="#sample_sheet" title="Permanent link">&para;</a></h1>
-<p>A sample sheet is the only acceptable input style for sequences in this pipeline. Sample sheet should be constructed by using the scripts under <code>scripts</code> folder, or follow the format in <a href="http://andersenlab.org/dry-guide/sample-sheets/">Sample Sheets</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you don't use <code>--fqs</code> to specify the directory of sample sheet, you should put sample sheet in the root of this repo. The name structure is restricted as <code>SM_strain_sheet.tsv</code> or <code>SM_isotype_sheet.tsv</code>.</p>
-</div>
+<p>Setting <code>--email</code> will trigger an email report following pipeline execution.</p>
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <h2 id="strain">Strain<a class="headerlink" href="#strain" title="Permanent link">&para;</a></h2>
-<p>When you use <code>--goal "strain"</code></p>
-<pre><code>├── BAM
-│   ├── WN2065.bam
-│   └── WN2065.bam.bai
-├── fq
-│   ├── fq_bam_idxstats.tsv
-│   ├── fq_bam_stats.tsv
-│   ├── fq_coverage.full.tsv
-│   └── fq_coverage.tsv
-├── log.txt
-└── SM
-    ├── bam_duplicates.tsv
-    ├── SM_bam_idxstats.tsv
-    ├── SM_bam_stats.tsv
-    ├── SM_coverage.full.tsv
-    ├── SM_coverage.mb.tsv.gz
-    └── SM_coverage.tsv
+<pre><code>├── _aggregate
+│   ├── kmers.tsv
+│   └── multiqc
+│       ├── id_data/
+│       │   ├── ... (same as strain_data/)
+│       ├── id_multiqc_report.html
+│       ├── strain_data/
+│       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
+│       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
+│       │   ├── mqc_mosdepth-coverage-plot-id_1.txt
+│       │   ├── mqc_picard_deduplication_1.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Counts.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Normalised_Counts.txt
+│       │   ├── mqc_samtools_alignment_plot_1.txt
+│       │   ├── multiqc.log
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc_picard_dups.txt
+│       │   ├── multiqc_qualimap_bamqc_genome_results.txt
+│       │   ├── multiqc_samtools_flagstat.txt
+│       │   ├── multiqc_samtools_idxstats.txt
+│       │   ├── multiqc_samtools_stats.txt
+│       │   └── multiqc_sources.txt
+│       └── strain_multiqc_report.html
+├── bam
+│   ├── [strain].bam
+│   └── [strain].bam.bai
+├── coverage
+│   ├── id
+│   │   ├── [id].mosdepth.global.dist.txt
+│   │   ├── [id].mosdepth.summary.txt
+│   │   ├── [id].per-base.bed.gz
+│   │   └── [id].per-base.bed.gz.csi
+│   └── strain
+│       ├── [strain].mosdepth.global.dist.txt
+│       ├── [strain].mosdepth.summary.txt
+│       ├── [strain].per-base.bed.gz
+│       └── [strain].per-base.bed.gz.csi
+├── software_versions.txt
+└── summary.txt
 </code></pre>
 
+<p>Most files should be obvious. A few are detailed below.</p>
 <ul>
-<li><strong>log.txt</strong> - A summary of nextflow run.</li>
-<li><strong>BAM</strong> - BAMs for strains are included in this folder.</li>
-<li><strong>fq</strong> - The coverage and BAMs information for each sample were included here.</li>
-<li><strong>SM</strong> - The coverage and BAMs information for each strain, samples come from the same strain were merged and presented here.</li>
-</ul>
-<h2 id="isotype">Isotype<a class="headerlink" href="#isotype" title="Permanent link">&para;</a></h2>
-<p>When you use <code>--goal "isotype"</code></p>
-<pre><code>├── BAM
-│   ├── RC301.bam
-│   └── RC301.bam.bai
-├── log.txt
-├── phenotype
-│   ├── MT_content.tsv
-│   └── telseq.tsv
-├── report
-│   ├── multiqc_data
-│   │   ├── multiqc_data.json
-│   │   ├── multiqc_fastqc.json
-│   │   ├── multiqc_general_stats.json
-│   │   ├── multiqc_picard_AlignmentSummaryMetrics.json
-│   │   ├── multiqc_picard_insertSize.json
-│   │   ├── multiqc_samtools_idxstats.json
-│   │   ├── multiqc_samtools_stats.json
-│   │   └── multiqc_sources.json
-│   └── multiqc.html
-└── SM
-    ├── isotype_bam_idxstats.tsv
-    ├── isotype_bam_stats.tsv
-    ├── isotype_coverage.full.tsv
-    └── isotype_coverage.tsv
-</code></pre>
-
-<ul>
-<li><strong>log.txt</strong> - A summary of nextflow run.</li>
-<li><strong>BAM</strong> - BAMs for isotype are included in this folder.</li>
-<li><strong>phenotype</strong> - Mitochondrial content and Telomere length for each isotype.</li>
-<li><strong>SM</strong> - Alignment statistics by isotype, samples come from the same isotype were merged.</li>
-<li><strong>report</strong> - A comprehensive report of isotype BAMs.</li>
+<li><strong>software_versions.txt</strong> - Outputs the fosftware versions used for every process (step) of the pipeline.</li>
+<li><strong>summary.txt</strong> - Outputs a summary of the parameters used.</li>
+<li><strong>aggregate</strong> - Stores data that has been aggregated across all strains or sequencing IDs. </li>
+<li><strong>coverage</strong> - Contains coverage data at the strain or id level, presented in a variety of ways.</li>
 </ul>
               
             </div>
