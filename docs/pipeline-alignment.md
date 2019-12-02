@@ -138,62 +138,53 @@ Setting `--email` will trigger an email report following pipeline execution.
 ## Strain
 
 ```
-├── BAM
-│   ├── WN2065.bam
-│   └── WN2065.bam.bai
-├── fq
-│   ├── fq_bam_idxstats.tsv
-│   ├── fq_bam_stats.tsv
-│   ├── fq_coverage.full.tsv
-│   └── fq_coverage.tsv
-├── log.txt
-└── SM
-    ├── bam_duplicates.tsv
-    ├── SM_bam_idxstats.tsv
-    ├── SM_bam_stats.tsv
-    ├── SM_coverage.full.tsv
-    ├── SM_coverage.mb.tsv.gz
-    └── SM_coverage.tsv
+├── _aggregate
+│   ├── kmers.tsv
+│   └── multiqc
+│       ├── id_data/
+│       │   ├── ... (same as strain_data/)
+│       ├── id_multiqc_report.html
+│       ├── strain_data/
+│       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
+│       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
+│       │   ├── mqc_mosdepth-coverage-plot-id_1.txt
+│       │   ├── mqc_picard_deduplication_1.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Counts.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Normalised_Counts.txt
+│       │   ├── mqc_samtools_alignment_plot_1.txt
+│       │   ├── multiqc.log
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc_picard_dups.txt
+│       │   ├── multiqc_qualimap_bamqc_genome_results.txt
+│       │   ├── multiqc_samtools_flagstat.txt
+│       │   ├── multiqc_samtools_idxstats.txt
+│       │   ├── multiqc_samtools_stats.txt
+│       │   └── multiqc_sources.txt
+│       └── strain_multiqc_report.html
+├── bam
+│   ├── [strain].bam
+│   └── [strain].bam.bai
+├── coverage
+│   ├── id
+│   │   ├── [id].mosdepth.global.dist.txt
+│   │   ├── [id].mosdepth.summary.txt
+│   │   ├── [id].per-base.bed.gz
+│   │   └── [id].per-base.bed.gz.csi
+│   └── strain
+│       ├── [strain].mosdepth.global.dist.txt
+│       ├── [strain].mosdepth.summary.txt
+│       ├── [strain].per-base.bed.gz
+│       └── [strain].per-base.bed.gz.csi
+├── software_versions.txt
+└── summary.txt
 ```
 
-* __log.txt__ - A summary of nextflow run.
-* __BAM__ - BAMs for strains are included in this folder.
-* __fq__ - The coverage and BAMs information for each sample were included here.
-* __SM__ - The coverage and BAMs information for each strain, samples come from the same strain were merged and presented here.
+Most files should be obvious. A few are detailed below.
 
-## Isotype
+* __software_versions.txt__ - Outputs the fosftware versions used for every process (step) of the pipeline.
+* __summary.txt__ - Outputs a summary of the parameters used.
+* __aggregate__ - Stores data that has been aggregated across all strains or sequencing IDs. 
+* __coverage__ - Contains coverage data at the strain or id level, presented in a variety of ways.
 
-When you use `--goal "isotype"`
-
-```
-├── BAM
-│   ├── RC301.bam
-│   └── RC301.bam.bai
-├── log.txt
-├── phenotype
-│   ├── MT_content.tsv
-│   └── telseq.tsv
-├── report
-│   ├── multiqc_data
-│   │   ├── multiqc_data.json
-│   │   ├── multiqc_fastqc.json
-│   │   ├── multiqc_general_stats.json
-│   │   ├── multiqc_picard_AlignmentSummaryMetrics.json
-│   │   ├── multiqc_picard_insertSize.json
-│   │   ├── multiqc_samtools_idxstats.json
-│   │   ├── multiqc_samtools_stats.json
-│   │   └── multiqc_sources.json
-│   └── multiqc.html
-└── SM
-    ├── isotype_bam_idxstats.tsv
-    ├── isotype_bam_stats.tsv
-    ├── isotype_coverage.full.tsv
-    └── isotype_coverage.tsv
-```
-
-* __log.txt__ - A summary of nextflow run.
-* __BAM__ - BAMs for isotype are included in this folder.
-* __phenotype__ - Mitochondrial content and Telomere length for each isotype.
-* __SM__ - Alignment statistics by isotype, samples come from the same isotype were merged.
-* __report__ - A comprehensive report of isotype BAMs.
 
