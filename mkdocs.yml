@@ -27,8 +27,8 @@ nav:
     - Build docker iamge: pipeline-docker.md
     - Trimming: pipeline-trimming.md
     - "NIL / RIL": pipeline-nil-ril.md
-    - Alignment: pipeline-alignment.md
-    - Concordance: pipeline-concordance.md
+    - WI-Alignment: pipeline-alignment.md
+    - WI-Concordance: pipeline-concordance.md
     - WI: pipeline-wi.md
     - Cegwas: pipeline-cegwas.md
   - CeNDR: cendr.md

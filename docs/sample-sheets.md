@@ -10,7 +10,7 @@ The `wi-nf`, `concordance-nf`, and `nil-ril-nf` pipelines all make use of sample
 
 For the `wi-nf` and `concordance-nf` pipelines, sample-sheets are generated using the file located (in each of these repos) in the `scripts/construct_sample_sheet.sh`. Importantly, these scripts are almost identical except that the `concordance-nf` pipeline constructs a sample sheet for __strains__ whereas the `wi-nf` sample sheet is for __isotypes__.
 
-When adding new sequence data you need to update these scripts. See [Adding Sequencing Data](adding-seq-data.md) for more information.
+When adding new sequence data you need to update these scripts.
 
 !!! note
 
