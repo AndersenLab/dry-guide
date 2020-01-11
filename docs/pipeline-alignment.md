@@ -48,7 +48,7 @@ __Testing locally__
 *This command uses a test dataset*
 
 ```
-NXF_VER=19.09.0-edge nextflow run main.nf --debug -profile local
+NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile local
 ```
 
 __Testing on Quest__
@@ -56,7 +56,7 @@ __Testing on Quest__
 *This command uses a test dataset*
 
 ```
-NXF_VER=19.09.0-edge nextflow run main.nf --debug -profile quest
+NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile quest
 ```
 
 __Running on Quest__
@@ -64,7 +64,7 @@ __Running on Quest__
 You should run this in a screen session.
 
 ```
-NXF_VER=19.09.0-edge nextflow run main.nf -profile quest -resume
+NXF_VER=19.12.0-edge nextflow run main.nf -profile quest -resume
 ```
 
 
