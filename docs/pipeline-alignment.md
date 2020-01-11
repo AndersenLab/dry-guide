@@ -197,7 +197,7 @@ There are three configuration profiles for this pipeline.
 
 ## Software
 
-Almost all processes within the pipeline are now managed using [conda](). To use the pipeline, you must have `conda` installed and available. Nextflow will take care of installing conda environments and managing software.
+Almost all processes within the pipeline are now managed using [conda](https://docs.conda.io/en/latest/). To use the pipeline, you must have `conda` installed and available. Nextflow will take care of installing conda environments and managing software.
 
 !!! note
        
