@@ -11,6 +11,12 @@ The Andersen lab [dry-lab computing guide](http://andersenlab.org/dry-guide/). T
 
 ## Versioning the site
 
-If you are making large changes to the docs, consider creating a new version.
+If you are:
 
-In the file 
+* Removing sections
+* Adding new sections
+* Making substantial changes to sections
+
+Consider creating a new 'version' of the documentation, so people can see prior versions.
+
+In the file `.github/actions/deploy_mkdocs.yml`, update the `$VERSION` variable to today's date and push your changes.
