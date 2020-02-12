@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <link href="../css/version-select.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -325,17 +326,17 @@
 <h2 id="quick_start">Quick Start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h2>
 <p><strong>Testing locally</strong></p>
 <p><em>This command uses a test dataset</em></p>
-<pre><code>NXF_VER=19.09.0-edge nextflow run main.nf --debug -profile local
+<pre><code>NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile local
 </code></pre>
 
 <p><strong>Testing on Quest</strong></p>
 <p><em>This command uses a test dataset</em></p>
-<pre><code>NXF_VER=19.09.0-edge nextflow run main.nf --debug -profile quest
+<pre><code>NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile quest
 </code></pre>
 
 <p><strong>Running on Quest</strong></p>
 <p>You should run this in a screen session.</p>
-<pre><code>NXF_VER=19.09.0-edge nextflow run main.nf -profile quest -resume
+<pre><code>NXF_VER=19.12.0-edge nextflow run main.nf -profile quest -resume
 </code></pre>
 
 <h2 id="sample_sheet">Sample Sheet<a class="headerlink" href="#sample_sheet" title="Permanent link">&para;</a></h2>
@@ -518,7 +519,7 @@ awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
 <li><code>gcp</code> - For running on Google Cloud.</li>
 </ul>
 <h2 id="software">Software<a class="headerlink" href="#software" title="Permanent link">&para;</a></h2>
-<p>Almost all processes within the pipeline are now managed using <a href="">conda</a>. To use the pipeline, you must have <code>conda</code> installed and available. Nextflow will take care of installing conda environments and managing software.</p>
+<p>Almost all processes within the pipeline are now managed using <a href="https://docs.conda.io/en/latest/">conda</a>. To use the pipeline, you must have <code>conda</code> installed and available. Nextflow will take care of installing conda environments and managing software.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><a href="https://www.github.com/brentp/mosdepth">mosdepth</a> is used to calculate coverage. <code>mosdepth</code> is available on Linux machines, but not on Mac OSX. That is why the conda environment for the <code>coverage</code> process is specified as <code>conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }</code>. This snippet allows mosdepth to run off the executable present in the <code>bin</code> folder locally on Mac OSX, or use the conda-based installation when on Linux.</p>
@@ -658,6 +659,7 @@ awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
 </div>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
       <script src="../search/main.js" defer></script>
 
 </body>
