@@ -21,6 +21,7 @@ jobs:
           python3 -m pipx ensurepath
           export PATH="/home/runner/.local/bin:${PATH}"
           python3 -m pipx install mike==0.4.2
+          python3 -m pipx install mkdocs
 
       - name: Deploy docs
         env:
