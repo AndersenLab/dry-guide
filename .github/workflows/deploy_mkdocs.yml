@@ -19,7 +19,6 @@ jobs:
           sudo apt-get install python3-venv
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
-          export PATH="/home/runner/.local/bin:${PATH}"
           python3 -m pipx install mike==0.4.2
           python3 -m pipx install mkdocs
 
@@ -31,6 +30,7 @@ jobs:
           pwd
           ls -lah
           export PATH="/home/runner/.local/bin:${PATH}"
-          mike deploy ${VERSION} latest --ignore --push
-          mike set-default latest --push
+          mike list
+          mike deploy ${VERSION} latest --ignore --push --config-file mkdocs.yml
+          mike set-default latest --push --config-file mkdocs.yml
 
