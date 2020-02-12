@@ -15,8 +15,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
-          pipx completions
+          export PATH=/home/runner/.local/bin
 
       - name: "Install mike"
         run: |
@@ -25,7 +24,7 @@ jobs:
       - name: Deploy docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          version: 0.1.2
+          VERSION: 0.1.2
         run: |
           mike set-default latest
-          mike deploy ${version} latest
+          mike deploy ${VERSION} latest
