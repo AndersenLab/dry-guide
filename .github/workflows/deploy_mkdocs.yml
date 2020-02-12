@@ -15,10 +15,10 @@ jobs:
       - name: "Install dependencies"
         run: |
           python3 -m pip install --user pipx
-          export PATH=/home/runner/.local/bin
 
       - name: "Install mike"
         run: |
+          export PATH=/home/runner/.local/bin:${PATH}
           pipx install mike==0.4.2
 
       - name: Deploy docs
