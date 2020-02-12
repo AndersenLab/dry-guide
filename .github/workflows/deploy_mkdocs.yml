@@ -14,12 +14,14 @@ jobs:
 
       - name: "Install dependencies"
         run: |
-          pip install mike==0.4.2
+          pip install pipx
+          pipx completions
+          pipx install mike==0.4.2
 
       - name: Deploy docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           version: 0.1.2
         run: |
-          mike set-default  latest
-          mike deploy 0.1.2 latest
+          mike set-default latest
+          mike deploy ${version} latest
