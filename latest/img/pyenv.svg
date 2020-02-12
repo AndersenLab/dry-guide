@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1105px" height="1256px" viewBox="0 0 1105 1256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(0.000000, -8.000000)">
+            <g id="Group-2" transform="translate(114.000000, 122.000000)" stroke="#979797" stroke-linecap="square" stroke-width="7">
+                <path d="M302.50171,136.514705 L1.5,136.514705" id="Line"></path>
+                <path d="M302.50171,441.514705 L1.5,441.514705" id="Line"></path>
+                <path d="M1.5,0.5 L1.5,441.5" id="Line"></path>
+            </g>
+            <text id="Python-3.6.0" font-family="Times-Bold, Times" font-size="48" font-weight="bold" fill="#000000">
+                <tspan x="0" y="102">Python 3.6.0</tspan>
+            </text>
+            <text id="global" font-family="LucidaGrande-Bold, Lucida Grande" font-size="48" font-weight="bold" fill="#000000">
+                <tspan x="37" y="46">global</tspan>
+            </text>
+            <g id="inherited" transform="translate(403.000000, 91.000000)">
+                <g id="Icons8_flat_folder" fill-rule="nonzero">
+                    <path d="M309.6,34.3333333 L154.8,34.3333333 L120.4,0 L34.4,0 C15.48,0 0,15.45 0,34.3333333 L0,103 L344,103 L344,68.6666667 C344,49.7833333 328.52,34.3333333 309.6,34.3333333 Z" id="Shape" fill="#FFA000"></path>
+                    <path d="M309.6,35 L34.4,35 C15.48,35 0,50.4928571 0,69.4285714 L0,241.571429 C0,260.507143 15.48,276 34.4,276 L309.6,276 C328.52,276 344,260.507143 344,241.571429 L344,69.4285714 C344,50.4928571 328.52,35 309.6,35 Z" id="Shape" fill="#FFCA28"></path>
+                </g>
+                <text id="Python-3.6.0" font-family="Times-Bold, Times" font-size="36" font-weight="bold" fill="#000000">
+                    <tspan x="76" y="97">Python 3.6.0</tspan>
+                </text>
+                <text id="inherited-from-globa" font-family="LucidaGrande-Bold, Lucida Grande" font-size="36" font-weight="bold" fill="#000000">
+                    <tspan x="88.6523438" y="194">inherited</tspan>
+                    <tspan x="256.347656" y="194" font-family="ArialHebrew-Bold, Arial Hebrew"></tspan>
+                    <tspan x="65.3143594" y="237">from</tspan>
+                    <tspan x="154.505766" y="237" font-family="ArialHebrew-Bold, Arial Hebrew"> </tspan>
+                    <tspan x="164.513766" y="237">global</tspan>
+                </text>
+            </g>
+            <g id="Group" transform="translate(403.000000, 411.000000)">
+                <path d="M474.50171,413.514705 L173.5,413.514705" id="Line" stroke="#979797" stroke-width="7" stroke-linecap="square"></path>
+                <path d="M474.50171,718.514705 L173.5,718.514705" id="Line" stroke="#979797" stroke-width="7" stroke-linecap="square"></path>
+                <g id="local">
+                    <g id="Icons8_flat_folder" fill-rule="nonzero">
+                        <path d="M309.6,34.3333333 L154.8,34.3333333 L120.4,0 L34.4,0 C15.48,0 0,15.45 0,34.3333333 L0,103 L344,103 L344,68.6666667 C344,49.7833333 328.52,34.3333333 309.6,34.3333333 Z" id="Shape" fill="#FFA000"></path>
+                        <path d="M309.6,35 L34.4,35 C15.48,35 0,50.4928571 0,69.4285714 L0,241.571429 C0,260.507143 15.48,276 34.4,276 L309.6,276 C328.52,276 344,260.507143 344,241.571429 L344,69.4285714 C344,50.4928571 328.52,35 309.6,35 Z" id="Shape" fill="#FFCA28"></path>
+                    </g>
+                    <text id="Python-2.7.11" font-family="Times-Bold, Times" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="65" y="146">Python 2.7.11</tspan>
+                    </text>
+                    <text id=".python-version==2.7" font-family="CourierNewPS-BoldMT, Courier New" font-size="24" font-weight="bold" fill="#000000">
+                        <tspan x="3" y="66">.python-version==2.7.11</tspan>
+                    </text>
+                    <text font-family="LucidaGrande-Bold, Lucida Grande" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="137" y="219">local</tspan>
+                    </text>
+                </g>
+                <g id="local" transform="translate(358.000000, 274.000000)">
+                    <g id="Icons8_flat_folder" fill-rule="nonzero">
+                        <path d="M309.6,34.3333333 L154.8,34.3333333 L120.4,0 L34.4,0 C15.48,0 0,15.45 0,34.3333333 L0,103 L344,103 L344,68.6666667 C344,49.7833333 328.52,34.3333333 309.6,34.3333333 Z" id="Shape" fill="#FFA000"></path>
+                        <path d="M309.6,35 L34.4,35 C15.48,35 0,50.4928571 0,69.4285714 L0,241.571429 C0,260.507143 15.48,276 34.4,276 L309.6,276 C328.52,276 344,260.507143 344,241.571429 L344,69.4285714 C344,50.4928571 328.52,35 309.6,35 Z" id="Shape" fill="#FFCA28"></path>
+                    </g>
+                    <text id="Python-3.6.0" font-family="Times-Bold, Times" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="76" y="146">Python 3.6.0</tspan>
+                    </text>
+                    <text id=".python-version==3.6" font-family="CourierNewPS-BoldMT, Courier New" font-size="24" font-weight="bold" fill="#000000">
+                        <tspan x="9" y="65">.python-version==3.6.0</tspan>
+                    </text>
+                    <text font-family="LucidaGrande-Bold, Lucida Grande" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="124" y="219">local</tspan>
+                    </text>
+                </g>
+                <g id="local" transform="translate(344.000000, 577.000000)">
+                    <g id="Icons8_flat_folder" fill-rule="nonzero">
+                        <path d="M309.6,34.3333333 L154.8,34.3333333 L120.4,0 L34.4,0 C15.48,0 0,15.45 0,34.3333333 L0,103 L344,103 L344,68.6666667 C344,49.7833333 328.52,34.3333333 309.6,34.3333333 Z" id="Shape" fill="#FFA000"></path>
+                        <path d="M309.6,35 L34.4,35 C15.48,35 0,50.4928571 0,69.4285714 L0,241.571429 C0,260.507143 15.48,276 34.4,276 L309.6,276 C328.52,276 344,260.507143 344,241.571429 L344,69.4285714 C344,50.4928571 328.52,35 309.6,35 Z" id="Shape" fill="#FFCA28"></path>
+                    </g>
+                    <text id="Python-2.7.11" font-family="Times-Bold, Times" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="68" y="129">Python 2.7.11</tspan>
+                    </text>
+                    <text id="inherited-from-paren" font-family="LucidaGrande-Bold, Lucida Grande" font-size="36" font-weight="bold" fill="#000000">
+                        <tspan x="88.6523438" y="202">inherited</tspan>
+                        <tspan x="61.6171875" y="245">from parent</tspan>
+                    </text>
+                </g>
+                <path d="M173.5,277.5 L173.5,718.5" id="Line" stroke="#979797" stroke-width="7" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>
