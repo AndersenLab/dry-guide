@@ -28,6 +28,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: 2020-02-12
         run: |
+          pwd
+          ls -lah
           export PATH="/home/runner/.local/bin:${PATH}"
           mike deploy ${VERSION} latest --ignore --push
           mike set-default latest --push
