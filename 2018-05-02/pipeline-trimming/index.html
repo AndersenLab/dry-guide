@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Trimming - Andersen Lab Dry Guide</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Trimming";
+    var mkdocs_page_input_path = "pipeline-trimming.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../bash/">Bash</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Quest</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../quest-intro/">Introduction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-andersen-lab-env/">Andersen-Lab-Env</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-nextflow/">Nextflow</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-mount/">Mounting Quest</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Pipelines</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../pipeline-overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../adding-seq-data/">Adding Sequencing Data</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../sample-sheets/">Sample Sheets</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Trimming</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#trimmomatic-nf">trimmomatic-nf</a></li>
+    
+
+    <li class="toctree-l3"><a href="#usage">Usage</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#prerequisites">Prerequisites</a></li>
+        
+            <li><a class="toctree-l4" href="#running_the_pipeline">Running the pipeline</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#overview">Overview</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#output">Output</a></li>
+        
+            <li><a class="toctree-l4" href="#cleanup">Cleanup</a></li>
+        
+            <li><a class="toctree-l4" href="#poor_quality_data">Poor quality data</a></li>
+        
+            <li><a class="toctree-l4" href="#backup">Backup</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-nil-ril/">NIL / RIL</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-concordance/">Concordance</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-wi/">WI</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-cegwas/">Cegwas</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../r/">R</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../backup/">Backup</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cloud/">Cloud</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../labsite/">Andersen Labsite</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Pipelines &raquo;</li>
+        
+      
+    
+    <li>Trimming</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-trimming.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="trimmomatic-nf">trimmomatic-nf<a class="headerlink" href="#trimmomatic-nf" title="Permanent link">&para;</a></h1>
+<p>The trimmomatic workflow performs trimming to remove poor quality sequences and technical sequences such as adapters. It should be used with high-coverage genomic DNA. You should not use the trimmomatic workflow on low-coverage NIL or RIL data.</p>
+<div class="toc">
+<ul>
+<li><a href="#trimmomatic-nf">trimmomatic-nf</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#running_the_pipeline">Running the pipeline</a><ul>
+<li><a href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#output">Output</a></li>
+<li><a href="#cleanup">Cleanup</a></li>
+<li><a href="#poor_quality_data">Poor quality data</a></li>
+<li><a href="#backup">Backup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>You have downloaded FASTQ Data to a subdirectory within a raw directory. For wild isolates this will be <code>/projects/b1059/data/fastq/WI/dna/raw/&lt;folder_name&gt;</code></li>
+<li>FASTQs <strong>must</strong> end in a <code>.fq.gz</code> extension for the pipeline to work..</li>
+<li>You have modified FASTQ names if necessary to add strain names or other identifying information.</li>
+<li>You have installed software-requirements, preferably using the <code>andersen-lab-env</code>. You can learn how to install the environment <a href="quest-setup">here</a>.</li>
+</ul>
+<p><strong>Software requirements</strong></p>
+<ul>
+<li>trimmomatic</li>
+<li>fastqc</li>
+<li>multiqc</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All FASTQs should end with a <code>_1.fq.gz</code> or a <code>_2.fq.gz</code>. You can rename FASTQs using the rename command:</p>
+<p><code>rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 _2 *.fastq.gz</code></p>
+<p>The <code>--dry-run</code> flag will output how files will be renamed. Review the output and remove
+the flag when you are ready. </p>
+</div>
+<h2 id="running_the_pipeline">Running the pipeline<a class="headerlink" href="#running_the_pipeline" title="Permanent link">&para;</a></h2>
+<p>First you will need to <code>cd</code> to the directory containing the raw FASTQs. This directory will be downloaded into a <code>raw</code> parent directory.
+When you run the pipeline it will create a sequence directory of the same name in an existing or newly created <code>processed</code> directory and dump FASTQs there.</p>
+<p>Unlike all other pipelines, the <code>trimmomatic-nf</code> pipeline is run directly from the git repo</p>
+<pre><code class="bash">nextflow run andersenlab/trimmomatic-nf -latest --email &lt;your email address&gt;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The pipeline is designed to not be destructive. Trimming creates from the <code>raw</code> parent directory to the processed parent directory as
+shown below.</p>
+<p><code>/projects/b1059/data/fastq/WI/dna/raw/&lt;seq_folder&gt;/S_1.fq.gz</code> </p>
+<p><strong>-- trimming --&gt;</strong></p>
+<p><code>/projects/b1059/data/fastq/WI/dna/processed/&lt;folder_name&gt;/S_1P.fq.gz</code></p>
+</div>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>--email</strong> - Specify an email address to be notified when the pipeline succeeds or fails.</li>
+</ul>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<p><img alt="" src="../img/trimmomatic-nf.svg" /></p>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<p>The resulting trimmed FASTQs will be output in the <code>processed</code> directory located up one level from the current directory. For example:</p>
+<p><strong>FASTQs are originally deposited in this directory</strong></p>
+<p><code>/projects/b1059/data/fastq/WI/dna/raw/new_wi_seq</code></p>
+<p><strong>You run the pipeline while sitting in the same directory:</strong></p>
+<p><code>/projects/b1059/data/fastq/WI/dna/raw/new_wi_seq</code></p>
+<p><strong>And results are output in the following directory:</strong></p>
+<p><code>/projects/b1059/data/fastq/WI/dna/processed/new_wi_seq</code></p>
+<p><strong>Report output</strong></p>
+<p>The <code>trimmomatic-nf</code> pipeline outputs four files, all of which are located in the <strong>processed</strong> directory. Continuing with the example above, report files will be located here:</p>
+<p><code>/projects/b1059/data/fastq/WI/dna/processed/new_wi_seq/report</code></p>
+<p>The report output files are:</p>
+<ul>
+<li><strong>md5sum.txt</strong> - md5 hashes of all the untrimmed FASTQs. These can be used to verify the integrity of the files.</li>
+<li><strong>trimming_log.txt</strong> - A summary of the pipeline-run and software environment.</li>
+<li><strong>multiqc_report_pre.html</strong> - Aggregated FASTQC report before trimming.</li>
+<li><strong>multiqc_report_post.html</strong> - Aggregated FASTQC report after trimming.</li>
+</ul>
+<p>Additionally, the <code>raw/seq</code> and <code>processed/seq</code> will have <code>fastqc/</code> folders containing the original, unaggregatred FASTQC reports.</p>
+<h3 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h3>
+<p>If you have triple-checked everything and are satisfied with the results, the original, raw sequence data can be deleted.</p>
+<h3 id="poor_quality_data">Poor quality data<a class="headerlink" href="#poor_quality_data" title="Permanent link">&para;</a></h3>
+<p>If you observe poor quality sequence data you should remove it.</p>
+<h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
+<p>Once you have completed the trimmomatic-nf pipeline you should backup the FASTQs. More information on this is available in the <a href="../backup/">backup</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-nil-ril/" class="btn btn-neutral float-right" title="NIL / RIL">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../sample-sheets/" class="btn btn-neutral" title="Sample Sheets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../sample-sheets/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../pipeline-nil-ril/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

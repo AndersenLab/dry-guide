@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>WI - Andersen Lab Dry Guide</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "WI";
+    var mkdocs_page_input_path = "pipeline-wi.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../bash/">Bash</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Quest</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../quest-intro/">Introduction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-andersen-lab-env/">Andersen-Lab-Env</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-nextflow/">Nextflow</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../quest-mount/">Mounting Quest</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Pipelines</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../pipeline-overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../adding-seq-data/">Adding Sequencing Data</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../sample-sheets/">Sample Sheets</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-trimming/">Trimming</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-nil-ril/">NIL / RIL</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-concordance/">Concordance</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">WI</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#wi-nf">wi-nf</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#usage">Usage</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#pipeline_overview">Pipeline Overview</a></li>
+    
+
+    <li class="toctree-l3"><a href="#usage_1">Usage</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#docker_file">Docker File</a></li>
+        
+            <li><a class="toctree-l4" href="#pyenv_environments">pyenv environments</a></li>
+        
+            <li><a class="toctree-l4" href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#--cores">--cores</a></li>
+        
+            <li><a class="toctree-l4" href="#--out">--out</a></li>
+        
+            <li><a class="toctree-l4" href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
+        
+            <li><a class="toctree-l4" href="#--fqs_file_prefix">--fqs_file_prefix</a></li>
+        
+            <li><a class="toctree-l4" href="#--reference">--reference</a></li>
+        
+            <li><a class="toctree-l4" href="#--tmpdir">--tmpdir</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#sample_sheet">Sample Sheet</a></li>
+    
+
+    <li class="toctree-l3"><a href="#output">Output</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#logtxt">log.txt</a></li>
+        
+            <li><a class="toctree-l4" href="#alignment">alignment/</a></li>
+        
+            <li><a class="toctree-l4" href="#cegwas">cegwas/</a></li>
+        
+            <li><a class="toctree-l4" href="#isotype">isotype</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../pipeline-cegwas/">Cegwas</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../r/">R</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../backup/">Backup</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cloud/">Cloud</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../labsite/">Andersen Labsite</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Pipelines &raquo;</li>
+        
+      
+    
+    <li>WI</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-wi.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="wi-nf">wi-nf<a class="headerlink" href="#wi-nf" title="Permanent link">&para;</a></h1>
+<p>The <code>wi-nf</code> pipeline aligns, calls variants, and performs analysis from wild isolate sequence data. The output of the <code>wi-nf</code> pipeline can be uploaded to google storage as a new release for the CeNDR website.</p>
+<div class="toc">
+<ul>
+<li><a href="#wi-nf">wi-nf</a><ul>
+<li><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#pipeline_overview">Pipeline Overview</a></li>
+<li><a href="#usage_1">Usage</a><ul>
+<li><a href="#docker_file">Docker File</a></li>
+<li><a href="#pyenv_environments">pyenv environments</a></li>
+<li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a><ul>
+<li><a href="#running_the_pipeline_locally">Running the pipeline locally</a></li>
+<li><a href="#debugging_the_pipeline_on_quest">Debugging the pipeline on Quest</a></li>
+<li><a href="#running_the_pipeline_on_quest">Running the pipeline on Quest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#configuration">Configuration</a><ul>
+<li><a href="#--cores">--cores</a></li>
+<li><a href="#--out">--out</a></li>
+<li><a href="#--fqs_fastqs">--fqs (FASTQs)</a></li>
+<li><a href="#--fqs_file_prefix">--fqs_file_prefix</a></li>
+<li><a href="#--reference">--reference</a></li>
+<li><a href="#--tmpdir">--tmpdir</a></li>
+</ul>
+</li>
+<li><a href="#sample_sheet">Sample Sheet</a></li>
+<li><a href="#output">Output</a><ul>
+<li><a href="#logtxt">log.txt</a></li>
+<li><a href="#alignment">alignment/</a></li>
+<li><a href="#cegwas">cegwas/</a></li>
+<li><a href="#isotype">isotype</a><ul>
+<li><a href="#isotypetsv">isotype/tsv/</a></li>
+<li><a href="#isotypevcf">isotype/vcf/</a></li>
+<li><a href="#phenotype">phenotype/</a></li>
+<li><a href="#popgen">popgen/</a></li>
+<li><a href="#report">report/</a></li>
+<li><a href="#track">track/</a></li>
+<li><a href="#variation">Variation/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code>
+     ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄                         ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄ 
+    ▐░▌       ▐░▌▐░░░░░░░░░░░▌                       ▐░░▌      ▐░▌▐░░░░░░░░░░░▌
+    ▐░▌       ▐░▌ ▀▀▀▀█░█▀▀▀▀                        ▐░▌░▌     ▐░▌▐░█▀▀▀▀▀▀▀▀▀ 
+    ▐░▌       ▐░▌     ▐░▌                            ▐░▌▐░▌    ▐░▌▐░▌          
+    ▐░▌   ▄   ▐░▌     ▐░▌           ▄▄▄▄▄▄▄▄▄▄▄      ▐░▌ ▐░▌   ▐░▌▐░█▄▄▄▄▄▄▄▄▄ 
+    ▐░▌  ▐░▌  ▐░▌     ▐░▌          ▐░░░░░░░░░░░▌     ▐░▌  ▐░▌  ▐░▌▐░░░░░░░░░░░▌
+    ▐░▌ ▐░▌░▌ ▐░▌     ▐░▌           ▀▀▀▀▀▀▀▀▀▀▀      ▐░▌   ▐░▌ ▐░▌▐░█▀▀▀▀▀▀▀▀▀ 
+    ▐░▌▐░▌ ▐░▌▐░▌     ▐░▌                            ▐░▌    ▐░▌▐░▌▐░▌          
+    ▐░▌░▌   ▐░▐░▌ ▄▄▄▄█░█▄▄▄▄                        ▐░▌     ▐░▐░▌▐░▌          
+    ▐░░▌     ▐░░▌▐░░░░░░░░░░░▌                       ▐░▌      ▐░░▌▐░▌          
+     ▀▀       ▀▀  ▀▀▀▀▀▀▀▀▀▀▀                         ▀        ▀▀  ▀           
+
+    parameters              description                    Set/Default
+    ==========              ===========                    =======
+
+    --debug                 Set to 'true' to test          ${params.debug}
+    --cores                 Regular job cores              ${params.cores}
+    --out                   Directory to output results    ${params.out}
+    --fqs                   fastq file (see help)          ${params.fqs}
+    --fq_file_prefix        fastq prefix                   ${params.fq_file_prefix}
+    --reference             Reference Genome               ${params.reference}
+    --annotation_reference  SnpEff annotation              ${params.annotation_reference}
+    --bamdir                Location for bams              ${params.bamdir}
+    --tmpdir                A temporary directory          ${params.tmpdir}
+    --email                 Email to be sent results       ${params.email}
+
+    HELP: http://andersenlab.org/dry-guide/pipeline-wi/
+
+</code></pre>
+
+<h1 id="pipeline_overview">Pipeline Overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<p><img alt="Pipeline-overview" src="../img/wi-nf.png" /></p>
+<h1 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h1>
+<h2 id="docker_file">Docker File<a class="headerlink" href="#docker_file" title="Permanent link">&para;</a></h2>
+<p><a href="https://hub.docker.com/r/andersenlab/wi-nf/">andersenlab/wi-nf</a> is the docker image used within the wi-nf pipeline. If Quest ever supports singularity, it can be converted to a singularity image and used with Nextflow.</p>
+<h2 id="pyenv_environments">pyenv environments<a class="headerlink" href="#pyenv_environments" title="Permanent link">&para;</a></h2>
+<p>The pipeline uses two python environments due to clashing dependencies. The two environments are:</p>
+<ul>
+<li><code>vcf-kit</code> - A python 2.7.14 environment with vcf-kit and cyvcf installed.</li>
+<li><code>multiqc</code> - A python 3.6.0 environment with multiqc installed.</li>
+</ul>
+<p>If you are not using the docker container you must install these virtual environments by running the <code>setup_pyenv.sh</code> script:</p>
+<pre><code>bash setup_pyenv.sh
+</code></pre>
+
+<p>If you require one of these environments for a process within the pipeline, add the following as the first line of your script:</p>
+<pre><code>source init_pyenv.sh &amp;&amp; pyenv activate &lt;environment name&gt;
+</code></pre>
+
+<h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
+<p>The <code>nextflow.config</code> file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
+<ul>
+<li><code>local</code> - Used for local development. Uses the docker container.</li>
+<li><code>quest_debug</code> - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.</li>
+<li><code>quest</code> - Runs the entire dataset.</li>
+</ul>
+<h3 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h3>
+<p>When running locally, the pipeline will run using the <code>andersenlab/wi-nf</code> docker image. You must have docker installed.</p>
+<pre><code>nextflow run main.nf -profile local -resume
+</code></pre>
+
+<h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
+<p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
+<pre><code>nextflow run main.nf -profile quest_debug -resume
+</code></pre>
+
+<h3 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
+<p>The pipeline can be run on Quest using the following command:</p>
+<pre><code>nextflow run main.nf -profile quest -resume
+</code></pre>
+
+<h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
+<p>Most configuration is handled using the <code>-profile</code> flag and <code>nextflow.config</code>; If you want to fine tune things you can use the options below.</p>
+<h2 id="--cores">--cores<a class="headerlink" href="#--cores" title="Permanent link">&para;</a></h2>
+<p>The number of cores to use during alignments and variant calling.</p>
+<h2 id="--out">--out<a class="headerlink" href="#--out" title="Permanent link">&para;</a></h2>
+<p>A directory in which to output results. By default it will be <code>WI-YYYY-MM-DD</code> where YYYY-MM-DD is todays date.</p>
+<h2 id="--fqs_fastqs">--fqs (FASTQs)<a class="headerlink" href="#--fqs_fastqs" title="Permanent link">&para;</a></h2>
+<p>When running the <code>wi-nf</code> pipeline you must provide a sample sheet that tells it where fastqs are and which samples group into isotypes. By default, this is the sample sheet in the base of the wi-nf repo (<code>SM_sample_sheet.tsv</code>), but can be specified using <code>--fqs</code> if an alternative is required. The sample sheet provides information on the isotype, fastq_pairs, library, location of fastqs, and sequencing folder.</p>
+<p>More information on the sample sheet and adding new sequence data in the <a href="#sample_sheet">Sample sheet</a> section.</p>
+<h2 id="--fqs_file_prefix">--fqs_file_prefix<a class="headerlink" href="#--fqs_file_prefix" title="Permanent link">&para;</a></h2>
+<p>A prefix path for FASTQs defined in a sample sheet. The sample sheet designed for usage on Quest (<code>SM_sample_sheet.tsv</code>) uses absolute paths so no FASTQ prefix is necessary. Additionally, there is no need to set this option as it is set for you when using the <code>-profile</code> flag. This option is only necessary (maybe) with a custom dataset where you are not using absolute paths to reference FASTQs.</p>
+<h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
+<p>A fasta reference indexed with BWA. On Quest, the reference is available here:</p>
+<pre><code>/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
+</code></pre>
+
+<h2 id="--tmpdir">--tmpdir<a class="headerlink" href="#--tmpdir" title="Permanent link">&para;</a></h2>
+<p>A directory for storing temporary data.</p>
+<h1 id="sample_sheet">Sample Sheet<a class="headerlink" href="#sample_sheet" title="Permanent link">&para;</a></h1>
+<p>The sample sheet defines which FASTQs belong to which isotypes, set FASTQ IDs, library, and more. The sample sheet is constructed using the <code>scripts/construct_SM_sheet.sh</code> script. When new sequence data is added, this needs to be modified to add information about the new FASTQs. Updates to this script should be committed to the repo.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You have to assign isotypes using the concordance script before they can be processed using wi-nf.</p>
+</div>
+<p>When you run the <code>scripts/construct_SM_sheet.sh</code>, it will output the <code>SM_Sample_sheet.tsv</code> file in the base of the repo. You should carefully examine the diff of this file using Git to ensure it is modifying the sample sheet correctly. <strong>Errors can be disasterous</strong>. Note that the output uses absolute paths to FASTQ files.</p>
+<p><strong>Sample sheet structure</strong></p>
+<pre><code>AB1 BGI1-RET2-AB1   RET2    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-1P.fq.gz /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-2P.fq.gz original_wi_set
+AB1 BGI2-RET2-AB1   RET2    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-1P.fq.gz /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-2P.fq.gz original_wi_set
+AB1 BGI3-RET2b-AB1  RET2b   /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-1P.fq.gz    /projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-2P.fq.gz    original_wi_set
+</code></pre>
+
+<p>Notice that the file does not include a header. The table with corresponding columns looks like this.</p>
+<table>
+<thead>
+<tr>
+<th align="left">isotype</th>
+<th align="left">fastq_pair_id</th>
+<th align="left">library</th>
+<th align="left">fastq-1-path</th>
+<th align="left">fastq-2-path</th>
+<th align="left">sequencing_folder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AB1</td>
+<td align="left">BGI1-RET2-AB1</td>
+<td align="left">RET2</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-1P.fq.gz</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI1-RET2-AB1-trim-2P.fq.gz</td>
+<td align="left">original_wi_set</td>
+</tr>
+<tr>
+<td align="left">AB1</td>
+<td align="left">BGI2-RET2-AB1</td>
+<td align="left">RET2</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-1P.fq.gz</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI2-RET2-AB1-trim-2P.fq.gz</td>
+<td align="left">original_wi_set</td>
+</tr>
+<tr>
+<td align="left">AB1</td>
+<td align="left">BGI3-RET2b-AB1</td>
+<td align="left">RET2b</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-1P.fq.gz</td>
+<td align="left">/projects/b1059/data/fastq/WI/dna/processed/original_wi_set/BGI3-RET2b-AB1-trim-2P.fq.gz</td>
+<td align="left">original_wi_set</td>
+</tr>
+</tbody>
+</table>
+<p>The columns are detailed below:</p>
+<ul>
+<li><strong>isotype</strong> - The name of the isotype. It is used to group FASTQ-pairs into BAMs which are treated as individuals.</li>
+<li><strong>fastq_pair_id</strong> - This must be unique identifier for all individual FASTQ pairs. There is (unfortunately) no standard for this.</li>
+<li><strong>library</strong> - A name identifying the DNA library. If the FASTQ-pairs for a strain were sequenced using different library preps they should be assigned different library names. Likewise, if they were the same DNA library they should have the same library name. Keep in mind that within an isotype the library names for each strain must be independent.</li>
+<li><strong>fastq-1-path</strong> - The <strong>absolute</strong> path of the first fastq.</li>
+<li><strong>fastq-2-path</strong> - The <strong>absolute</strong> path of the second fastq.</li>
+</ul>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<p>The output from the pipeline is structured to enable it to easily be integrated with CeNDR. The final output directory looks like this:</p>
+<pre><code>├── log.txt
+├── alignment
+│   ├── isotype_bam_idxstats.tsv
+│   ├── isotype_bam_stats.tsv
+│   ├── isotype_coverage.full.tsv
+│   └── isotype_coverage.tsv
+├── cegwas
+│   ├── kinship.Rda
+│   └── snps.Rda
+├── isotype
+│   ├── tsv
+│   │   ├── &lt;isotype&gt;.(date).tsv.gz
+│   │   └── &lt;isotype&gt;.(date).tsv.gz
+│   └── vcf
+│       ├── &lt;isotype&gt;.(date).vcf.gz
+│       └── &lt;isotype&gt;.(date).vcf.gz.tbi
+├── phenotype
+│   ├── MT_content.tsv
+│   ├── kmers.tsv
+│   └── telseq.tsv
+├── popgen
+│   ├── WI.(date).tajima.bed.gz
+│   ├── WI.(date).tajima.bed.gz.tbi
+│   └── trees
+│       ├── I.pdf
+│       ├── I.png
+│       ├── I.tree
+│       ├── ...
+│       ├── genome.pdf
+│       ├── genome.png
+│       └── genome.tree
+├── report
+│   ├── multiqc.html
+│   └── multiqc_data
+│       ├── multiqc_bcftools_stats.json
+│       ├── multiqc_data.json
+│       ├── multiqc_fastqc.json
+│       ├── multiqc_general_stats.json
+│       ├── multiqc_picard_AlignmentSummaryMetrics.json
+│       ├── multiqc_picard_dups.json
+│       ├── multiqc_picard_insertSize.json
+│       ├── multiqc_samtools_idxstats.json
+│       ├── multiqc_samtools_stats.json
+│       ├── multiqc_snpeff.json
+│       └── multiqc_sources.json
+├── tracks
+│   ├── (date).HIGH.bed.gz
+│   ├── (date).HIGH.bed.gz.tbi
+│   ├── (date).LOW.bed.gz
+│   ├── (date).LOW.bed.gz.tbi
+│   ├── (date).MODERATE.bed.gz
+│   ├── (date).MODERATE.bed.gz.tbi
+│   ├── (date).MODIFIER.bed.gz
+│   ├── (date).MODIFIER.bed.gz.tbi
+│   ├── phastcons.bed.gz
+│   ├── phastcons.bed.gz.tbi
+│   ├── phylop.bed.gz
+│   └── phylop.bed.gz.tbi
+└── variation
+    ├── WI.(date).soft-filter.vcf.gz
+    ├── WI.(date).soft-filter.vcf.gz.csi
+    ├── WI.(date).soft-filter.vcf.gz.tbi
+    ├── WI.(date).soft-filter.stats.txt
+    ├── WI.(date).hard-filter.vcf.gz
+    ├── WI.(date).hard-filter.vcf.gz.csi
+    ├── WI.(date).hard-filter.vcf.gz.tbi
+    ├── WI.(date).hard-filter.stats.txt
+    ├── WI.(date).hard-filter.genotypes.tsv
+    ├── WI.(date).hard-filter.genotypes.frequency.tsv
+    ├── WI.(date).impute.vcf.gz
+    ├── WI.(date).impute.vcf.gz.csi
+    ├── WI.(date).impute.vcf.gz.tbi
+    ├── WI.(date).impute.stats.txt
+    ├── sitelist.tsv.gz
+    └── sitelist.tsv.gz.tbi
+</code></pre>
+
+<h3 id="logtxt">log.txt<a class="headerlink" href="#logtxt" title="Permanent link">&para;</a></h3>
+<p>A summary of the nextflow run.</p>
+<h3 id="alignment">alignment/<a class="headerlink" href="#alignment" title="Permanent link">&para;</a></h3>
+<p>Alignment statistics by isotype</p>
+<ul>
+<li><strong>isotype_bam_idxstats.tsv</strong> - A summary of mapped and unmapped reads by sample.</li>
+<li><strong>isotype_bam_stats.tsv</strong> - BAM summary at the sample level</li>
+<li><strong>isotype_coverage.full.tsv</strong> - Coverage at the sample level</li>
+<li><strong>isotype_coverage.tsv</strong> - Simple coverage at the sample level.</li>
+</ul>
+<h3 id="cegwas">cegwas/<a class="headerlink" href="#cegwas" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>kinship.Rda</strong> - A kinship matrix constructed from <code>WI.(date).impute.vcf.gz</code></li>
+<li><strong>snps.Rda</strong> - A mapping snp set generated from <code>WI.(date).hard-filter.vcf.gz</code></li>
+</ul>
+<h3 id="isotype">isotype<a class="headerlink" href="#isotype" title="Permanent link">&para;</a></h3>
+<p>This directory contains files that integrate with the genome browser on CeDNR.</p>
+<h4 id="isotypetsv">isotype/tsv/<a class="headerlink" href="#isotypetsv" title="Permanent link">&para;</a></h4>
+<p>This directory contains tsv's that are used to show where variants are in CeNDR.</p>
+<h4 id="isotypevcf">isotype/vcf/<a class="headerlink" href="#isotypevcf" title="Permanent link">&para;</a></h4>
+<p>This direcoty contains the VCFs of isotypes.</p>
+<h4 id="phenotype">phenotype/<a class="headerlink" href="#phenotype" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>MT_content.tsv</strong> - Mitochondrial content (MtDNA cov / Nuclear cov).</li>
+<li><strong>kmers.tsv</strong> - 6-mers for each isotype.</li>
+<li><strong>telseq.tsv</strong> - Telomere length for each isotype ~ split out by read group.</li>
+</ul>
+<h4 id="popgen">popgen/<a class="headerlink" href="#popgen" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>WI.(date).tajima.bed.gz</strong> - Tajima's D bedfile for use on the report viewer of CeNDR.</li>
+<li><strong>WI.(date).tajima.bed.gz.tbi</strong> - Tajima's D index.</li>
+<li><strong>trees/</strong> - Phylogenetic trees for each chromosome and the entire genome.<ul>
+<li>I.(pdf|png|tree)</li>
+<li>...</li>
+<li>genome.(pdf|png|tree)</li>
+</ul>
+</li>
+</ul>
+<h4 id="report">report/<a class="headerlink" href="#report" title="Permanent link">&para;</a></h4>
+<ul>
+<li>multiqc.html - A comprehensive report of the sequencing run.</li>
+<li><strong>multiqc_data/</strong><ul>
+<li>multiqc_bcftools_stats.json</li>
+<li>multiqc_data.json</li>
+<li>multiqc_fastqc.json</li>
+<li>multiqc_general_stats.json</li>
+<li>multiqc_picard_AlignmentSummaryMetrics.json</li>
+<li>multiqc_picard_dups.json</li>
+<li>multiqc_picard_insertSize.json</li>
+<li>multiqc_samtools_idxstats.json</li>
+<li>multiqc_samtools_stats.json</li>
+<li>multiqc_snpeff.json</li>
+<li>multiqc_sources.json</li>
+</ul>
+</li>
+</ul>
+<h4 id="track">track/<a class="headerlink" href="#track" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>(date).LOW.bed.gz(+.tbi)</strong> - LOW effect mutations bed track and index.</li>
+<li><strong>(date).MODERATE.bed.gz(+.tbi)</strong> - MODERATE effect mutations bed track and index.</li>
+<li><strong>(date).HIGH.bed.gz(+.tbi)</strong> - HIGH effect mutations bed track and index.</li>
+<li><strong>(date).MODIFIER.bed.gz(+.tbi)</strong> - MODERATE effect mutations bed track and index.</li>
+<li><strong>phastcons.bed.gz(+.tbi)</strong> - Phastcons bed track and index.</li>
+<li><strong>phylop.bed.gz(+.tbi)</strong> - PhyloP bed track and index</li>
+</ul>
+<h4 id="variation">Variation/<a class="headerlink" href="#variation" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>WI.(date).soft-filter.vcf.gz(+.csi|+.tbi)</strong> -</li>
+<li><strong>WI.(date).soft-filter.stats.txt</strong> -</li>
+<li><strong>WI.(date).hard-filter.vcf.gz(+.csi|+.tbi)</strong> -</li>
+<li><strong>WI.(date).hard-filter.stats.txt</strong> - </li>
+<li><strong>WI.(date).hard-filter.genotypes.tsv</strong> - </li>
+<li><strong>WI.(date).hard-filter.genotypes.frequency.tsv</strong> - </li>
+<li><strong>WI.(date).impute.vcf.gz(+.csi|+.tbi)</strong> - </li>
+<li><strong>WI.(date).impute.stats.txt</strong> - </li>
+<li><strong>sitelist.tsv.gz(+.tbi)</strong> - Union of all sites identified in original SNV variant calling round.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-cegwas/" class="btn btn-neutral float-right" title="Cegwas">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-concordance/" class="btn btn-neutral" title="Concordance"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../pipeline-concordance/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../pipeline-cegwas/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
