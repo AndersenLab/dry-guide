@@ -27,5 +27,5 @@ jobs:
           VERSION: 2020-02-12
         run: |
           export PATH="/home/runner/.local/bin:${PATH}"
-          mike set-default latest
           mike deploy ${VERSION} latest --ignore --push
+          mike set-default latest --push
