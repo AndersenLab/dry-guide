@@ -17,8 +17,9 @@ jobs:
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
           pipx completions
-          ls ~/
-          source ~/.bashrc
+
+      - name: "Install mike"
+        run: |
           pipx install mike==0.4.2
 
       - name: Deploy docs
