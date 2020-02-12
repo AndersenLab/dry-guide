@@ -6,33 +6,37 @@ repo_url: https://github.com/Andersenlab/dry-guide
 markdown_extensions:
     - admonition
     - toc:
-        permalink: True
-        separator: "_"
+            permalink: true
+            separator: _
     - fenced_code
     - sane_lists
 
 nav:
-  - Home: index.md
-  - Bash: bash.md
-  - Quest:
-    - Introduction: quest-intro.md
-    - Andersen-Lab-Env: quest-andersen-lab-env.md
-    - Nextflow: quest-nextflow.md
-    - Mounting Quest: quest-mount.md
-  - Pipelines:
-    - Overview: pipeline-overview.md
-    - Adding NILs Sequencing Data: adding-seq-data.md
-    - Sample Sheets: sample-sheets.md
-    - GCP configuration: pipeline-GCPconfig.md
-    - Build docker iamge: pipeline-docker.md
-    - Trimming: pipeline-trimming.md
-    - "NIL / RIL": pipeline-nil-ril.md
-    - WI-Alignment: pipeline-alignment.md
-    - WI-Concordance: pipeline-concordance.md
-    - WI: pipeline-wi.md
-    - Cegwas: pipeline-cegwas.md
-  - CeNDR: cendr.md
-  - R: r.md
-  - Backup: backup.md
-  - Cloud: cloud.md
-  - Andersen Labsite: labsite.md
+    - Home: index.md
+    - Bash: bash.md
+    - Quest:
+          - Introduction: quest-intro.md
+          - Andersen-Lab-Env: quest-andersen-lab-env.md
+          - Nextflow: quest-nextflow.md
+          - Mounting Quest: quest-mount.md
+    - Pipelines:
+          - Overview: pipeline-overview.md
+          - Adding NILs Sequencing Data: adding-seq-data.md
+          - Sample Sheets: sample-sheets.md
+          - GCP configuration: pipeline-GCPconfig.md
+          - Build docker iamge: pipeline-docker.md
+          - Trimming: pipeline-trimming.md
+          - NIL / RIL: pipeline-nil-ril.md
+          - WI-Alignment: pipeline-alignment.md
+          - WI-Concordance: pipeline-concordance.md
+          - WI: pipeline-wi.md
+          - Cegwas: pipeline-cegwas.md
+    - CeNDR: cendr.md
+    - R: r.md
+    - Backup: backup.md
+    - Cloud: cloud.md
+    - Andersen Labsite: labsite.md
+extra_css:
+    - css/version-select.css
+extra_javascript:
+    - js/version-select.js
