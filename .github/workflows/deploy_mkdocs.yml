@@ -32,5 +32,7 @@ jobs:
           export PATH="/home/runner/.local/bin:${PATH}"
           mike list
           mike deploy ${VERSION} latest --ignore --push --config-file mkdocs.yml
-          mike set-default latest --push --config-file mkdocs.yml
+          ls -lah
+          echo "set default"
+          mike set-default ${VERSION} --push --config-file mkdocs.yml
 
