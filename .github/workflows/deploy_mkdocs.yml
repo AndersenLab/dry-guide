@@ -12,7 +12,14 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@v1
 
+      - name: "Install dependencies"
+        run: |
+          pip install mike=0.4.2
+
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          version: 0.1.2
+        run: |
+          mike set-default  latest
+          mike deploy 0.1.2 latest
