@@ -16,7 +16,7 @@ jobs:
         run: |
           python3 -m pip install --user pipx
           python3 -m pipx ensurepath
-          export PATH=/home/runner/.local/bin
+          export PATH="/home/runner/.local/bin:${PATH}"
           python3 -m pipx install mike==0.4.2
 
       - name: Deploy docs
