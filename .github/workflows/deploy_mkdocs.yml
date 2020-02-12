@@ -28,4 +28,4 @@ jobs:
         run: |
           export PATH="/home/runner/.local/bin:${PATH}"
           mike set-default latest
-          mike deploy ${VERSION} latest --ignore
+          mike deploy ${VERSION} latest --ignore --push
