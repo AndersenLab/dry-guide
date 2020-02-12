@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Adding NILs Sequencing Data - Andersen Lab Dry Guide</title>
+  <title>Adding Sequencing Data - Andersen Lab Dry Guide</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Adding NILs Sequencing Data";
+    var mkdocs_page_name = "Adding Sequencing Data";
     var mkdocs_page_input_path = "adding-seq-data.md";
     var mkdocs_page_url = null;
   </script>
@@ -91,19 +91,10 @@
                 </li>
                 <li class=" current">
                     
-    <a class="current" href="./">Adding NILs Sequencing Data</a>
+    <a class="current" href="./">Adding Sequencing Data</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
-    
-
-    <li class="toctree-l3"><a href="#basic_commands_to_know_prior">Basic Commands To Know Prior</a></li>
-    
-
-    <li class="toctree-l3"><a href="#your_sequencing_data">Your Sequencing Data</a></li>
-    
-
-    <li class="toctree-l3"><a href="#step_by_step_instructions">Step By Step Instructions</a></li>
+    <li class="toctree-l3"><a href="#adding_sequencing_data">Adding Sequencing Data</a></li>
     
 
     </ul>
@@ -114,23 +105,11 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../pipeline-GCPconfig/">GCP configuration</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../pipeline-docker/">Build docker iamge</a>
-                </li>
-                <li class="">
-                    
     <a class="" href="../pipeline-trimming/">Trimming</a>
                 </li>
                 <li class="">
                     
     <a class="" href="../pipeline-nil-ril/">NIL / RIL</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../pipeline-alignment/">Alignment</a>
                 </li>
                 <li class="">
                     
@@ -145,11 +124,6 @@
     <a class="" href="../pipeline-cegwas/">Cegwas</a>
                 </li>
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../cendr/">CeNDR</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -198,7 +172,7 @@
         
       
     
-    <li>Adding NILs Sequencing Data</li>
+    <li>Adding Sequencing Data</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/adding-seq-data.md"
@@ -211,51 +185,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p>This section is for adding genomic sequencing data (.tsv files) onto the existing dataset provided and displayed on the <a href="http://andersenlab.org/NILs/">NILs browser</a> page on <a href="http://andersenlab.org/">Andersenlab.org</a>. </p>
-<h1 id="basic_commands_to_know_prior">Basic Commands To Know Prior<a class="headerlink" href="#basic_commands_to_know_prior" title="Permanent link">&para;</a></h1>
-<p>You should freshen up on the following terminal commands. </p>
-<ul>
-<li><strong>cd</strong> - change directories</li>
-<li><strong>rm</strong> - delete files</li>
-<li><strong>cp</strong> - make a copy</li>
-<li><strong>git</strong> </li>
-</ul>
-<h1 id="your_sequencing_data">Your Sequencing Data<a class="headerlink" href="#your_sequencing_data" title="Permanent link">&para;</a></h1>
-<p>In order for your sequencing data to be properly added, it is important to make sure that there are no empty/additional lines located at the bottom of your .tsv file. </p>
-<p><strong>What you do not want</strong>
-<img alt="What you do not want" src="../img/WhatNotToDo.png" /></p>
-<p><strong>What you do want</strong>
-<img alt="What you do want" src="../img/WhatYouDoWant.png" /></p>
-<p>Once your file has no empty lines at the bottom, save the file and move onto the next instructions below. </p>
-<h1 id="step_by_step_instructions">Step By Step Instructions<a class="headerlink" href="#step_by_step_instructions" title="Permanent link">&para;</a></h1>
-<ol>
-<li>
-<p>Add your .tsv file into the <code>pages</code> folder of your Andersenlab github directory. </p>
-</li>
-<li>
-<p>Open terminal and use the <code>cd</code>command to change directories into the <code>pages</code> folder in your Andersenlab github directory. 
-If you did everything correctly, when you type <code>ls</code> into your terminal, it should look something like this. </p>
-</li>
-</ol>
-<p><img alt="What your terminal should look lik" src="../img/PagesDirectory.png" /></p>
-<ol start="3">
-<li>Then run the following commands in your terminal (while still in your <code>pages</code> directory): </li>
-</ol>
-<pre><code>$ cp yourFileName.tsv copy.tsv
-</code></pre>
-
-<pre><code>$ python addDataTogt_hmm.tsv.py
-</code></pre>
-
-<ol start="4">
-<li>
-<p>After running the above commands, your sequencing data has now been added to the existing NILs dataset on Andersenlab.org. You can now remove your .tsv from the <code>pages</code> directory by using the <code>rm</code> command in your terminal. </p>
-</li>
-<li>
-<p>Finally, commit your changes and push your code to update the Andersenlab github. </p>
-</li>
-</ol>
+                <h1 id="adding_sequencing_data">Adding Sequencing Data<a class="headerlink" href="#adding_sequencing_data" title="Permanent link">&para;</a></h1>
               
             </div>
           </div>

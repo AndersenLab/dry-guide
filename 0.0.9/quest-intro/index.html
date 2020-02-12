@@ -79,8 +79,6 @@
         
             <li><a class="toctree-l4" href="#projects">Projects</a></li>
         
-            <li><a class="toctree-l4" href="#running_interactive_jobs_on_quest">Running interactive jobs on Quest</a></li>
-        
         </ul>
     
 
@@ -111,19 +109,11 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
+    <a class="" href="../adding-seq-data/">Adding Sequencing Data</a>
                 </li>
                 <li class="">
                     
     <a class="" href="../sample-sheets/">Sample Sheets</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../pipeline-GCPconfig/">GCP configuration</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../pipeline-docker/">Build docker iamge</a>
                 </li>
                 <li class="">
                     
@@ -132,10 +122,6 @@
                 <li class="">
                     
     <a class="" href="../pipeline-nil-ril/">NIL / RIL</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../pipeline-alignment/">Alignment</a>
                 </li>
                 <li class="">
                     
@@ -150,11 +136,6 @@
     <a class="" href="../pipeline-cegwas/">Cegwas</a>
                 </li>
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../cendr/">CeNDR</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -224,7 +205,6 @@
 <li><a href="#login_nodes">Login Nodes</a></li>
 <li><a href="#home_directory">Home Directory</a></li>
 <li><a href="#projects">Projects</a></li>
-<li><a href="#running_interactive_jobs_on_quest">Running interactive jobs on Quest</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +227,7 @@
 <p>When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).</p>
 </div>
 <h3 id="login_nodes">Login Nodes<a class="headerlink" href="#login_nodes" title="Permanent link">&para;</a></h3>
-<p>There are four login nodes we use: quser21-24. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (<em>e.g.</em> <code>ssh quser21</code>).</p>
+<p>There are four login nodes we use: quser10-13. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (<em>e.g.</em> <code>ssh quser11</code>).</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When using <a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/">screen</a> to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.</p>
@@ -260,20 +240,7 @@
 <p>Quest is broadly organized into projects. Projects have associated with them storage, nodes, and users.</p>
 <p>The Andersen lab has access to two projects.</p>
 <p><strong>b1042</strong> - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at <code>/projects/b1042/AndersenLab/</code>. By default, files are deleted after 30 days.</p>
-<p><strong>b1059</strong> - The Andersen Lab Project. <strong>b1059</strong> does not have any nodes associated with it, but it does have 40 Tb of storage. b1059 storage is located at: <code>/projects/b1059/</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Anyone who use quest should build your own project folder under <code>/projects/b1059/projects</code> with your name. You should only write and revise files under your project folder. You can read/copy data from <strong>b1059</strong> but don't write any data out of your project folder.</p>
-</div>
-<h3 id="running_interactive_jobs_on_quest">Running interactive jobs on Quest<a class="headerlink" href="#running_interactive_jobs_on_quest" title="Permanent link">&para;</a></h3>
-<p>If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands</p>
-<pre><code>srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
-</code></pre>
-
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Do not run commands for big data on <code>quser21-24</code>. These are login nodes and are not meant for running heavy-load workflows.</p>
-</div>
+<p><strong>b1059</strong> - The Andersen Lab Project. <strong>b1059</strong> does not have any nodes associated with it, but it does have 10 Tb of storage. b1059 storage is located at: <code>/projects/b1059/</code>.</p>
               
             </div>
           </div>
