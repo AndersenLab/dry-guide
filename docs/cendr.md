@@ -18,13 +18,15 @@ __Switch to the development branch__
 git checkout --track origin/development
 ```
 
-Next you need to install the requirements. You should do this in a virtualenv or pyenv-based environment.
+### Setup a python environment
 
-```
-pip install -r requirements.txt
-```
+Use [miniconda](https://docs.conda.io/en/latest/miniconda.html) as it will make your life much easier.
 
-Once the requirements are installed you need to load credentials. Create a folder called `env_config` and download the appropriate credential files from the secret credentials location. Add these to the `env_config` folder. __Do not commit these credentials to github__.
+The conda environment has been specified in the `env.yaml` file, and can be installed using:
+
+```bash
+conda env create -f env.yaml
+```
 
 ### Download and install the gcloud-sdk
 
@@ -41,16 +43,72 @@ gcloud config configurations create cendr
 [direnv](https://direnv.net/) allows you to load a configuration file when you enter the development directory. Please read about how it works. CeNDR uses a `.envrc` file within the repo
 to set up the appropriate environmental variables.
 
-### Obtain credentials
+Once direnv is installed you can run `direnv allow` within the CeNDR repo:
 
-Credentials are located in a secret credentials location and should be downloaded to a new folder called `env_config` at the base of the repo.
+```bash
+direnv allow
+```
+
+### Test flask
+
+With direnv enabled, you are nearly able to run the site locally.
+
+Run `flask`, and you should see the following:
+
+```
+> flask
+Usage: flask [OPTIONS] COMMAND [ARGS]...
+
+  A general utility script for Flask applications.
+
+  Provides commands from Flask, extensions, and the application. Loads the
+  application defined in the FLASK_APP environment variable, or from a
+  wsgi.py file. Setting the FLASK_ENV environment variable to 'development'
+  will enable debug mode.
+
+    $ export FLASK_APP=hello.py
+    $ export FLASK_ENV=development
+    $ flask run
+
+Options:
+  --version  Show the flask version
+  --help     Show this message and exit.
+
+Commands:
+  decrypt_credentials  Decrypt credentials
+  download_db          Download the database (used in docker...
+  initdb               Initialize the database
+  routes               Show the routes for the app.
+  run                  Run a development server.
+  shell                Runs a shell in the app context.
+  update_credentials   Update credentials
+  update_strains       Updates the strain table of the database
+
+```
+
+If you do not see the full set of commands there - something is broken.
+
+### Setup Credentials
+
+1. Authenticate with gcloud.
+2. Run the following command:
+
+```bash
+mkdir -p env_config
+flask decrypt_credentials
+```
+
+This will create a directory with the site credentials (`env_config`). Keep these secret.
+
+!!! important
+    __DO NOT COMMIT THESE CREDENTIALS TO GITHUB__!!!
 
 ### Load the database
 
 The site uses an SQLite database that can be setup by running:
 
 ```
-flask init_db
+flask download_db
 ```
 
 This will update the SQLite database used by CeNDR (`base/cendr.db`). The tables are:
@@ -61,15 +119,18 @@ This will update the SQLite database used by CeNDR (`base/cendr.db`). The tables
 * `wormbase_gene_summary` - Summarizes gene information. One line per gene.
 * `metadata` - tracks how data was obtained. When. Where. etc.
 
-
-!!! Important
-    You must have credentials in place to install the database
-
 ### Test the site
 
 You can at this point test the site locally by running:
 
+```bash
+flask run
 ```
+
+Be sure you have direnv. Otherwise you should source the .envrc file prior to running:
+
+```bash
+source .envrc
 flask run
 ```
 
