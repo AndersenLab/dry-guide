@@ -6,6 +6,20 @@ The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take som
 
 __[Quest Documentation](http://www.it.northwestern.edu/research/user-services/quest/index.html)__
 
+### New Users
+
+To gain access to Quest: 
+
+Register new user with your NetID [here](https://app.smartsheet.com/b/form?EQBCT=9b3647a8cb2145929737ab4a0540cb46).
+		
+Get added to partition b1059 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
+Allocation manager: Erik Andersen, erik.andersen-at-northwestern.edu
+		
+Get added to partition b1042 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
+Allocation manager: Janna Nugent, janna.nugent-at-northwestern.edu
+
+Quest has its Slack channel: `genomics-rcs.slack.com`
+
 ### Signing into Quest
 
 After you gain access to the cluster you can login using:
@@ -42,15 +56,15 @@ Your home directory has a quota of 80 Gb. [More information on quotas, storage, 
 
 More information is provided below to help install and use software.
 
-### Projects
+### Projects and Queues
 
-Quest is broadly organized into projects. Projects have associated with them storage, nodes, and users.
+Quest is broadly organized into projects (or partitions). Projects have associated with them storage, nodes, and users.
 
 The Andersen lab has access to two projects.
 
-__b1042__ - The 'Genomics' Project has 155 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days.
+__b1042__ - The 'Genomics' Project has 200 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days. One can submit jobs to `--partition=genomicsguestA` to use this partition, with a max job duration of 48hr. 
 
-__b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associated with it, but it does have 40 Tb of storage. b1059 storage is located at: `/projects/b1059/`.
+__b1059__ - The Andersen Lab Project. __b1059__ has 3 computing nodes `qnode9031`-`qnode9033` with 192Gb of RAM and 40 cores each, and has 80 Tb of storage. b1059 storage is located at: `/projects/b1059/`. One can submit jobs to `--partition=b1059` to use this partition, with no limit on job duration. 
 
 !!! Note
     Anyone who use quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
@@ -60,9 +74,40 @@ __b1059__ - The Andersen Lab Project. __b1059__ does not have any nodes associat
 If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Quest. The command below will give you access to a node where you can run your commands
 
 ```
-srun -A b1042 --partition=genomicsguest -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
+srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
 ```
 
 !!! Important
     Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
+    
+### Submitting jobs to Quest
 
+Quest is managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to [SLURM](https://slurm.schedmd.com/). Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you digs into the Nextflow working directory, you can see Nextflow actually generate such scripts and submit them in your behave.
+
+```
+#!/bin/bash
+#SBATCH -J name                # Name of job
+#SBATCH -A b1042               # Allocation
+#SBATCH -p genomicsguestA      # Queue
+#SBATCH -t 24:00:00            # Walltime/duration of the job
+#SBATCH --cpus-per-task=1      # Number of cores (= processors = cpus) for each task
+#SBATCH --mem-per-cpu=3G       # Memory per core needed for a job
+#SBATCH --array=0-9            # number of parallel jobs to run counting from 0. Make sure to change this to match total number of files.
+
+# make a list of all the files you want to process
+# this script will run a parallel process for each file in this list
+name_list=(*.bam)
+
+# take the nth ($SGE_TASK_ID-th) file in name_list
+# don't change this line
+Input=${name_list[$SLURM_ARRAY_TASK_ID]} 
+
+# then do your operation on this file
+Output=`echo $Input | sed 's/.bam/.sam/'`
+```
+
+### Monitoring SLURM Jobs on Quest
+
+`squeue -u <netid>` to check all jobs of a user.
+`scancel <jobid>` to cancel a job.
+`sinfo | grep b1059` to check status of nodes. `alloc` means all cores on a node are completed engaged; `mix` means some cores on a node are engaged; `idle` means all cores on a node are available to accept jobs.
