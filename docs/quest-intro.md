@@ -86,7 +86,7 @@ srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --
 
 Quest has a collection of packages installed. 
 
-`module avail` to see what package are available.
+`module avail` to see what packages are available on Quest.
 
 `module load bcftools/1.10.1` to load packages (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
 
