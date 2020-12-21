@@ -12,13 +12,13 @@ To gain access to Quest:
 
 Register new user with your NetID [here](https://app.smartsheet.com/b/form?EQBCT=9b3647a8cb2145929737ab4a0540cb46).
 		
-Get added to partition b1059 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
+Apply to be added to partition b1059 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
 Allocation manager: Erik Andersen, erik.andersen-at-northwestern.edu
 		
-Get added to partition b1042 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
+Apply to be added to partition b1042 [here](https://app.smartsheet.com/b/form/797775d810274db5889b5199c4260328).
 Allocation manager: Janna Nugent, janna.nugent-at-northwestern.edu
 
-Quest has its Slack channel: `genomics-rcs.slack.com`
+Quest has its Slack channel: `genomics-rcs.slack.com` and help email: `quest-help@northwestern.edu` for users to get help. 
 
 ### Signing into Quest
 
@@ -27,6 +27,8 @@ After you gain access to the cluster you can login using:
 ```
 ssh <netid>@quest.it.northwestern.edu
 ```
+
+To avoid typing in the password everytime, one can [set up a ssh key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2).
 
 I recommend setting an alias in your `.bash_profile` to make logging in quicker:
 
@@ -79,10 +81,20 @@ srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --
 
 !!! Important
     Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
-    
+   
+### Using packages already installed on Quest
+
+Quest has a collection of packages installed. 
+
+`module avail` to see what package are available.
+
+`module load bcftools/1.10.1` to load packages (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
+
+`module purge` will remove all loaded packages and can be helpful to try when troubleshooting.
+   
 ### Submitting jobs to Quest
 
-Quest is managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to [SLURM](https://slurm.schedmd.com/). Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you digs into the Nextflow working directory, you can see Nextflow actually generate such scripts and submit them in your behave.
+Jobs on Quest are managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you digs into the Nextflow working directory, you can see Nextflow actually generate such scripts and submit them to SLURM on your behave.
 
 ```
 #!/bin/bash
@@ -109,5 +121,7 @@ Output=`echo $Input | sed 's/.bam/.sam/'`
 ### Monitoring SLURM Jobs on Quest
 
 `squeue -u <netid>` to check all jobs of a user.
-`scancel <jobid>` to cancel a job.
+
+`scancel <jobid>` to cancel a job. `scancel  {30000..32000}` to cancel a range of jobs (job id between 30000 and 32000).
+
 `sinfo | grep b1059` to check status of nodes. `alloc` means all cores on a node are completed engaged; `mix` means some cores on a node are engaged; `idle` means all cores on a node are available to accept jobs.
