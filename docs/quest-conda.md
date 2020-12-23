@@ -17,9 +17,19 @@ To track software, package and environment managers such as Conda and Docker (th
 
 Anaconda is a Python distribution that contains many packages including conda. Miniconda is a more compact version of Anaconda that also includes conda. So in order to install conda, we usually either install Miniconda or Anaconda. On Quest, Anaconda is already installed. However there are many versions of Anaconda, each can have a different version of Python and Conda. The current lab environments mainly used `module load python/anaconda`.
 
-In your home directory, create a file called `.condarc` and put the following lines into it. It sets the channel priority when conda search for packages. If possible, in one environment it is good to use packages from the same channel. 
-```
+In your home directory `~/`, create a file called `.condarc` and put the following lines into it. It sets the channel priority when conda search for packages. If possible, in one environment it is good to use packages from the same channel. 
 
+```
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  
+auto_activate_base: false
+
+envs_dirs:
+  - ~/.conda/envs/
+  - /projects/b1059/software/conda_envs/
 ```
 
 ## Using Conda
@@ -27,6 +37,7 @@ In your home directory, create a file called `.condarc` and put the following li
 __[Conda Documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html)__
 
 After loading the Anaconda module, one can create an environment:
+
 ```
 conda create
 ```
