@@ -4,15 +4,6 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 [TOC]
 
-# Docker image
-
-The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker image:
-
-#### [andersenlab/nil-ril-nf](https://hub.docker.com/r/andersenlab/nil-ril-nf/)
-
-The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
-
-# Usage
 
 ```
 
@@ -28,6 +19,7 @@ The __Dockerfile__ is stored in the root of the `nil-nf` github repo and is auto
     ==========           ===========                    =======
 
     --debug              Set to 'true' to test          false
+    --species            Choose species for analysis    null (option: c_elegans)
     --cores              Number of cores                4
     --A                  Parent A                       N2
     --B                  Parent B                       CB4856
@@ -65,6 +57,9 @@ The `nil-ril-nf` pipeline:
 1. `Merge VCF` - Merges in the parental VCF (which has been filtered only for variants with discordant calls).
 1. `Call HMM` - VCF-kit is run in various ways to infer the appropriate genotypes from the low-coverage sequence data.
 
+!!! Important
+    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+
 # Docker image
 
 The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker image:
@@ -74,6 +69,15 @@ The docker image used by the `nil-ril-nf` pipeline is the `nil-ril-nf` docker im
 The __Dockerfile__ is stored in the root of the `nil-ril-nf` github repo and is automatically built on [Dockerhub](http://www.dockerhub.com) whenever the repo is pushed.
 
 # Usage
+
+## Requirements
+
+* The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
+
+```
+module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+```
 
 ## Profiles and Running the Pipeline
 
@@ -89,8 +93,7 @@ The `nextflow.config` file included with this pipeline contains four profiles. T
 When running locally, the pipeline will run using the `andersenlab/nil-ril-nf` docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:
 
 ```
-curl https://storage.googleapis.com/elegansvariation.org/genome/WS245/WS245.tar.gz > WS245.tar.gz
-tar -xvzf WS245.tar.gz
+curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz > WS276.fa.gz
 ```
 
 Run the pipeline locally with:
@@ -100,6 +103,12 @@ nextflow run main.nf -profile local -resume
 
 ### Debugging the pipeline on Quest
 
+If running the pipeline on QUEST, you need to load `singularity` to access the docker container:
+
+```
+module load singularity
+```
+
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
@@ -107,6 +116,12 @@ nextflow run main.nf -profile quest_debug -resume
 ```
 
 ### Running the pipeline on Quest
+
+If running the pipeline on QUEST, you need to load `singularity` to access the docker container:
+
+```
+module load singularity
+```
 
 The pipeline can be run on Quest using the following command:
 
@@ -116,7 +131,7 @@ nextflow run main.nf -profile quest -resume
 
 # Testing
 
-If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the `-resume` option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly.
+If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the `-resume` option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly. 
 
 Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci [here](https://travis-ci.org/AndersenLab/nil-ril-nf), and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.
 
@@ -124,42 +139,22 @@ The command below can be used to test the pipeline locally.
 
 ```
 # Downloads a pre-indexed reference
-curl https://storage.googleapis.com/elegansvariation.org/genome/WS245/WS245.tar.gz > WS245.tar.gz
-tar -xvzf WS245.tar.gz
+curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz > WS276.fa.gz
+
 # Run nextflow
 nextflow run andersenlab/nil-ril-nf \
              -with-docker andersenlab/nil-ril-nf \
              --debug \
-             --reference=WS245.fa.gz \
+             --reference=WS276.fa.gz \
              -resume
 ```
 
-* Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-nf` pipeline for details.
+* Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-gatk` pipeline for details.
 * The command above will automatically place results in a folder: `NIL-N2-CB4856-YYYY-MM-DD`
 
 # Parameters
 
-## --debug
-
-The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the [Testing](#testing) section for more information.
-
-## --cores
-
-The number of cores to use during alignments and variant calling.
-
-## --A, --B
-
-Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided __must__ be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.
-
-## --cA, --cB
-
-The color to use for parental strain A and B on plots.
-
-## --out
-
-A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
-
-## --fqs (FASTQs)
+## --fqs
 
 In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq can be specified as *relative* or *absolute*. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
 
@@ -197,31 +192,60 @@ NIL_SEQ_DATA/
 Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
 
 !!! Important
-    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+    Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).
 
-If you want to specify fastqs using an absolute path use `--relative=false`
+## --species
 
-## --relative
+If `profile = quest`, you can choose species as `c_elegans` (`c_briggsae` and `c_tropicalis` to come soon) to populate the `--reference` and `--vcf` fields with the default values for that species. Otherwise, leave `--species` null (default) and provide your own `--reference` and `--vcf`. 
 
-Set to `true` by default. If you set `--relative=false`, fq's in the fq_sheet are expected to use an absolute path.
+!!! Note
+    `--species = c_elegans` populates the following parameters:
+    `--vcf = /projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz`
+    `--reference = /projects/b1059/data/genomes/c_elegans/c_elegans.PRJNA13758.WS276.genomic.fa.gz`
 
-## --vcf (Parental VCF)
+## --vcf
 
-Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, you would likely want to use:
+Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, the most recent _C. elegans_ VCF could be found here:
 
-`/projects/b1059/analysis/WI-20170531/vcf/WI.20170531.hard-filter.vcf.gz`
+```
+/projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz
+```
 
 This is the __hard-filtered__ VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.
 
-Set the parental VCF as `--vcf=/the/path/to/WI.20170531.hard-filter.vcf.gz`
+Set the parental VCF as `--vcf=/the/path/to/WI.20210121.hard-filter.isotype.vcf.gz`
 
 ## --reference
 
-A fasta reference indexed with BWA. On Quest, the reference is available here:
+A fasta reference indexed with BWA. For example, the _C. elegans_ reference could be found here:
 
 ```
-/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
+/projects/b1059/data/genomes/c_elegans/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genomic.fa.gz
 ```
+
+## --A, --B
+
+Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided __must__ be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.
+
+## --debug
+
+The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the [Testing](#testing) section for more information.
+
+## --cores
+
+The number of cores to use during alignments and variant calling. Default is 4.
+
+## --cA, --cB
+
+The color to use for parental strain A and B on plots. Default is orange and blue.
+
+## --out
+
+A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
+
+## --relative
+
+If you want to specify fastqs using an absolute path use `--relative=false`. Set to `true` by default. 
 
 ## --tmpdir
 
@@ -310,12 +334,14 @@ The `--infill` and `--endfill` options are applied to the __gt_hmm_fill.tsv__ fi
 
 ### plots/
 
-* __coverage_comparison.(png/svg/pdf)__ - Compares FASTQ and Sample-level coverage. Note that coverage is not simply cumulative. Only uniquely mapped reads count towards coverage, so it is possible that the sample-level coverage will not equal to the cumulative sum of the coverages of individual FASTQ pairs.
-* __duplicates.(png/svg/pdf)__ - Coverage vs. percent duplicated.
-* __unmapped_reads.(png/svg/pdf)__ - Coverage vs. unmapped read percent.
+* __coverage_comparison.png__ - Compares FASTQ and Sample-level coverage. Note that coverage is not simply cumulative. Only uniquely mapped reads count towards coverage, so it is possible that the sample-level coverage will not equal to the cumulative sum of the coverages of individual FASTQ pairs.
+* __duplicates.(png/pdf)__ - Coverage vs. percent duplicated.
+* __unmapped_reads.png__ - Coverage vs. unmapped read percent.
 
 ### sitelist/
 
 * `<A>.<B>.sitelist.tsv.gz[+.tbi]` - A tabix-indexed list of sites found to be different between both parental strains.
 * `<A>.<B>.sitelist.vcf.gz[+.tbi]` - A vcf of sites found to be different between both parental strains.
+
+# Organizing final data
 
