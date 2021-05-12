@@ -49,10 +49,10 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 * Currently only runs on Quest with conda environments installed at `/projects/b1059/software/conda_envs/`
 
 !!! Note
-    All FASTQs should end with a `_1.fq.gz`, `_2.fq.gz`, `_R1.fastq.gz` or a `_R2.fastq.gz`. You can rename FASTQs using the rename command:
+    All FASTQs should end with a `_R1_001.fastq.gz` or a `_R2_001.fastq.gz`. You can rename FASTQs using the rename command:
 
     ```
-    rename --dry-run --subst .fastq.gz .fq.gz --subst _R1_001 _1 --subst _R2_001 _2 *.fastq.gz
+    rename --dry-run --subst .fq.gz .fastq.gz --subst _1 _R1_001 --subst _2 _R2_001 *.fq.gz
     ```
 
     The `--dry-run` flag will output how files will be renamed. Review the output and remove
@@ -166,15 +166,15 @@ If a species check is run, the `multiqc_data/multiqc_samtools_stats.txt` will co
  
 * `species_check/species_check_{date}_{library}.html` is an HTML report showing how many strains have issues (not in master sheet, possibly different species, etc.)
 
-* `{library}_multiple_libraries.tsv` - strains sequenced in multiple libraries
+* `species_check/{library}_multiple_libraries.tsv` - strains sequenced in multiple libraries
 
-* `{library}_strains_most_likely_species.tsv` - list of all strains in library labeled by (1) the species in record and (2) most likely species by sequencing
+* `species_check/{library}_strains_most_likely_species.tsv` - list of all strains in library labeled by (1) the species in record and (2) most likely species by sequencing
 
-* `{library}_strains_not_in_master.tsv` - list of strains not found in Robyn's wild isolate master sheets for CE, CB, or CT
+* `species_check/{library}_strains_not_in_master.tsv` - list of strains not found in Robyn's wild isolate master sheets for CE, CB, or CT
 
-* `{library}_strains_possibly_diff_species.tsv` - list of strains whose species in record does not match the likely species by sequencing
+* `species_check/{library}_strains_possibly_diff_species.tsv` - list of strains whose species in record does not match the likely species by sequencing
 
-* `WI_all_{date}.tsv` - copy of all strains (CE, CB, and CT) and species designation in record
+* `species_check/WI_all_{date}.tsv` - copy of all strains (CE, CB, and CT) and species designation in record
 
 * `sample_sheet_{date}_{library}_all_temp.tsv` - temporary sample sheet with all strains for all species combined. DO NOT USE THIS FOR ALIGNMENT.
 
@@ -182,9 +182,9 @@ __Sample sheets__
 
 If a species check is run, the `species_check/sample_sheet` folder will also contain 6 sample sheets to be used for alignment:
 
-* `sample_sheet_{species}_{date}_ALL.tsv` - sample sheet for `alignment-nf` using ALL strains of a particular species (i.e. c_elegans). This is useful for species we have not performed any alignments for or when we update the reference genome and need to re-align all strains.
+* `sample_sheet/sample_sheet_{species}_{date}_ALL.tsv` - sample sheet for `alignment-nf` using ALL strains of a particular species (i.e. c_elegans). This is useful for species we have not performed any alignments for or when we update the reference genome and need to re-align all strains.
 
-* `sample_sheet_{species}_{date}_NEW.tsv` - sample sheet for `alignment-nf` using all fastq from any library for ONLY strains sequenced in this particular library of a particular species (i.e. c_elegans, RET63). This is useful when the reference genome does not change and there is no need to re-align thousands of strains to save on computational power.
+* `sample_sheet/sample_sheet_{species}_{date}_NEW.tsv` - sample sheet for `alignment-nf` using all fastq from any library for ONLY strains sequenced in this particular library of a particular species (i.e. c_elegans, RET63). This is useful when the reference genome does not change and there is no need to re-align thousands of strains to save on computational power.
 
 !!! Note
     The "new" sample sheet will still contain old fastq sequenced in a previous pool (i.e. RET55) if that strain was re-sequenced in the current pool (i.e. RET63). After running `alignment-nf`, this will create a new BAM file incorporating all fastq for that strain.
@@ -213,10 +213,10 @@ cd /projects/b1059/data/transfer/processed/20210510_RET63/
 file='/projects/b1059/Katie/trim-fq-nf/20210510_RET63/species_check/sample_sheet/sample_sheet_c_tropicalis_20201222a_NEW.tsv'
 
 # species
-sp="c.`echo $file | xargs -n1 basename | awk -F[__] '{print $4}'`"
+sp="c_`echo $file | xargs -n1 basename | awk -F[__] '{print $4}'`"
 
 # get list of files to move from file
-sed '1d;$d' $file > temp.tsv
+awk NR\>1 $file > temp.tsv
 cat temp.tsv | awk '{print $4}' > files_to_move.txt
 cat temp.tsv | awk '{print $5}' >> files_to_move.txt
 
@@ -228,6 +228,7 @@ done
 
 # remove temp file
 rm files_to_move.txt
+rm temp.tsv
 
 ```
 
