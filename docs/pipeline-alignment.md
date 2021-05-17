@@ -1,6 +1,6 @@
 # alignment-nf
 
-The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-nf (variant calling)](http://andersenlab.org/dry-guide/pipeline-wi/) and other analyses.
+The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-gatk-nf (variant calling)](http://andersenlab.org/dry-guide/pipeline-wi/) and other analyses.
 
 This page details how to run the pipeline and how to add new wild isolate sequencing data.
 
@@ -9,7 +9,8 @@ This page details how to run the pipeline and how to add new wild isolate sequen
 
 [TOC]
 
-## Usage
+# Pipeline overview
+
 ```
 
              ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
@@ -19,76 +20,84 @@ This page details how to run the pipeline and how to add new wild isolate sequen
             ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
                          ▖▐
                          ▝▘
-    parameters              description                    Set/Default
-    ==========              ===========                    ========================
-    --debug                 Set to 'true' to test          ${params.debug}
-    --sample_sheet          sample_sheet                   ${params.sample_sheet}
-    --fq_prefix             fastq prefix                   ${params.fq_prefix}
-    --kmers                 count kmers                    ${params.kmers}
-    --reference             Reference Genome (w/ .gz)      ${params.reference}
-    --output                Location for output            ${params.output}
-    --email                 Email to be sent results       ${params.email}
+    parameters              description                                 Set/Default
+    ==========              ===========                                 ========================
+    --debug                 Use --debug to indicate debug mode          null
+    --sample_sheet          See test_data/sample_sheet for example      null
+    --species               Species to map: 'ce', 'cb' or 'ct'          null
+    --fq_prefix             Path to fastq if not in sample_sheet        /projects/b1059/data/{species}/WI/fastq/dna/
+    --kmers                 Whether to count kmers                      false
+    --reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
+    --output                Output folder name.                         alignment-{date}
 
     HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
 ```
 
 <small>The logo above looks better in your terminal!</small>
 
-## Pipeline Overview
-
 ![Pipeline-overview](img/alignment.png)
+
+## Software requirements
+
+* Nextflow v20.01+ (see the dry guide on Nextflow [here](quest-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
+
+```
+module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+```
+
+* Currently only runs on Quest with conda environments installed at `/projects/b1059/software/conda_envs/`
+
+!!! Note  
+    [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
+
 
 # Usage
 
-## Quick Start
-
-
-__Testing locally__
+## Testing on Quest
 
 *This command uses a test dataset*
 
 ```
-NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile local
+nextflow run main.nf --debug -profile quest
 ```
 
-__Testing on Quest__
-
-*This command uses a test dataset*
-
-```
-NXF_VER=19.12.0-edge nextflow run main.nf --debug -profile quest
-```
-
-__Running on Quest__
+## Running on Quest
 
 You should run this in a screen session.
 
 ```
-NXF_VER=19.12.0-edge nextflow run main.nf -profile quest -resume
+Nnextflow run main.nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
 ```
 
+# Parameters
 
-## Sample Sheet
+## -profile
 
-The `sample sheet` for wild isolate data is located in the base of the [alignment-nf](https://github.com/AndersenLab/alignment-nf) repo and is called `WI_sample_sheet.tsv`. This file is generated by the `scripts/construct_sample_sheet.sh` script.
+There are three configuration profiles for this pipeline.
 
-Remember that in `--debug` mode the pipeline will use the sample sheet located in `test_data/sample_sheet.tsv`.
+* `local` - Used for local development.
+* `quest` - Used for running on Quest.
+* `gcp` - For running on Google Cloud.
 
-The `sample sheet` has the following columns:
+## --sample_sheet
+
+The `sample sheet` for alignment is the output from the [trim-fq-nf](https://github.com/AndersenLab/trim-fq-nf) pipeline. the `sample sheet` has the following columns:
 
 * __strain__ - the name of the strain. Multiple sequencing runs of the same strain are merged together.
-* __reference_strain__ - reference strain
-* __isotype__ - strain isotype
 * __id__ - A unique ID for each sequencing run. This must be unique for every single pair of FASTQs.
-* __library__ - A library ID. This should uniquely identify a DNA sequencing library.
+* __lb__ - A library ID. This should uniquely identify a DNA sequencing library.
 * __fq1__ - The path to FASTQ1
 * __fq2__ - The path to FASTQ2
 
-| strain   | reference_strain   | isotype   | id                      | library      | fq1                              | fq2                              | seq_folder                 |
-|:---------|:-------------------|:----------|:------------------------|:--------|:---------------------------------|:---------------------------------|:---------------------------|
-| AB1      | FALSE              | ISO1      | BGI1-RET2-AB1           | RET2    | BGI1-RET2-AB1-trim-1P.fq.gz      | BGI1-RET2-AB1-trim-2P.fq.gz      | original_wi_set            |
-| ECA243   | TRUE               | ISO1      | BGI3-RET3b-ECA243       | RET3b   | BGI3-RET3b-ECA243-trim-1P.fq.gz  | BGI3-RET3b-ECA243-trim-2P.fq.gz  | original_wi_set            |
-| ECA718   | TRUE               | ISO2      | ECA718_RET-S16_S26_L001 | RET-S16 | ECA718_RET-S16_S26_L001_1P.fq.gz | ECA718_RET-S16_S26_L001_2P.fq.gz | 20180306_Duke_NovaSeq_6000 |
+| strain   |  id                      | lb      | fq1                              | fq2                              | seq_folder                 |
+|:---------|:-------------------------|:--------|:---------------------------------|:---------------------------------|:---------------------------|
+| AB1      |  BGI1-RET2-AB1           | RET2    | BGI1-RET2-AB1-trim-1P.fq.gz      | BGI1-RET2-AB1-trim-2P.fq.gz      | original_wi_set            |
+| ECA243   |  BGI3-RET3b-ECA243       | RET3b   | BGI3-RET3b-ECA243-trim-1P.fq.gz  | BGI3-RET3b-ECA243-trim-2P.fq.gz  | original_wi_set            |
+| ECA718   |  ECA718_RET-S16_S26_L001 | RET-S16 | ECA718_RET-S16_S26_L001_1P.fq.gz | ECA718_RET-S16_S26_L001_2P.fq.gz | 20180306_Duke_NovaSeq_6000 |
+
+!!! Note
+    Remember that in `--debug` mode the pipeline will use the sample sheet located in `test_data/sample_sheet.tsv`.
 
 The `library` column is a useful tool for identifying errors by variant callers. For example, if the same library is sequenced twice, and a variant is only observed in one sequencing run then that variant may be excluded as a technical / PCR artifact depending on the variant caller being used.
 
@@ -97,6 +106,115 @@ The `library` column is a useful tool for identifying errors by variant callers.
 
 !!! Note
     The sample sheet is a critical tool. It allows us to associated metadata with each sequencing run (e.g. isotype, reference strain, id, library). It also allows us to quickly verify that all results have been output. It is much easier than working with a list of files!
+
+## --debug (optional)
+
+You should use `--debug true` for testing/debugging purposes. This will run the debug test set (located in the `test_data` folder) using your specified configuration profile (e.g. local / quest / gcp).
+
+For example:
+
+```
+nextflow run main.nf -profile quest --debug -resume
+```
+
+Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
+
+
+### --fq_prefix (optional)
+
+Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the `--fq_prefix` to set the path that should be prefixed to each FASTQ.
+
+!!! Note
+    Previously, this option was `--fqs_file_prefix`
+
+### --kmers (optional)
+
+__default__ = false
+
+Toggles kmer-analysis
+
+### --reference (optional)
+
+A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.
+
+On Quest, the default references are here:
+
+```
+c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+c_briggsae: /projects/b1059/projects/Lewis/c_briggsae/variant_calling/alignment/reference/caenorhabditis_briggsae_QX1410.v0.9.scaffolds.fa.gz
+c_tropicalis: /projects/b1059/projects/Lewis/c_tropicalis/variant_calling/alignment/reference/caenorhabditis_tropicalis_NIC58.v1.scaffolds.fa.gz
+```
+
+### --output (optional)
+
+__Default__ - `alignment-YYYYMMDD`
+
+A directory in which to output results. If you have set `--debug true`, the default output directory will be `alignment-YYYYMMDD-debug`.
+
+
+# Output
+
+```
+├── _aggregate
+│   ├── kmers.tsv
+│   └── multiqc
+│       ├── id_data/
+│       │   ├── ... (same as strain_data/)
+│       ├── id_multiqc_report.html
+│       ├── strain_data/
+│       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
+│       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
+│       │   ├── mqc_mosdepth-coverage-plot-id_1.txt
+│       │   ├── mqc_picard_deduplication_1.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Counts.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Normalised_Counts.txt
+│       │   ├── mqc_samtools_alignment_plot_1.txt
+│       │   ├── multiqc.log
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc_picard_dups.txt
+│       │   ├── multiqc_qualimap_bamqc_genome_results.txt
+│       │   ├── multiqc_samtools_flagstat.txt
+│       │   ├── multiqc_samtools_idxstats.txt
+│       │   ├── multiqc_samtools_stats.txt
+│       │   └── multiqc_sources.txt
+│       └── strain_multiqc_report.html
+├── bam
+│   ├── [strain].bam
+│   └── [strain].bam.bai
+├── coverage
+│   ├── id
+│   │   ├── [id].mosdepth.global.dist.txt
+│   │   ├── [id].mosdepth.summary.txt
+│   │   ├── [id].per-base.bed.gz
+│   │   └── [id].per-base.bed.gz.csi
+│   └── strain
+│       ├── [strain].mosdepth.global.dist.txt
+│       ├── [strain].mosdepth.summary.txt
+│       ├── [strain].per-base.bed.gz
+│       └── [strain].per-base.bed.gz.csi
+├── software_versions.txt
+└── summary.txt
+```
+
+Most files should be obvious. A few are detailed below.
+
+* __software_versions.txt__ - Outputs the software versions used for every process (step) of the pipeline.
+* __summary.txt__ - Outputs a summary of the parameters used.
+* __sample_sheet.tsv__ - The sample sheet that was used to produce the alignment directory.
+* __strain_sheet.tsv__ - A summary of all strains and bams in the alignment directory.
+* __aggregate__ - Stores data that has been aggregated across all strains or sequencing IDs. 
+* __coverage__ - Contains coverage data at the strain or id level, presented in a variety of ways.
+
+# Data storage
+
+## Cleanup
+
+Once the `alignment-nf` pipeline has completed successfully and you have removed low coverage strains (see [pipeline overview](pipeline-overview.md)), all BAM files can be moved to `/projects/b1059/data/{species}/WI/alignments/` prior to variant calling.
+
+# Archive
+
+The following sections have been integrated into other code that no longer needs to be run manually, but I am keeping the documentation here in case we need to go back to it. It is important to always check that the sample sheet is generated appropriately. If there are errors in teh sample sheet, one can be constructed manually using the following code:
 
 ### construct_sample_sheet.sh
 
@@ -186,131 +304,4 @@ Notes on this snippet:
 * Barcodes are extracted from each FASTQ in the first forloop. These are used to define the `library`.
 * The `id` is defined using the basename of the file.
 * A final column corresponding to the `seq_folder` is always added.
-
-## Profiles and Running the Pipeline
-
-There are three configuration profiles for this pipeline.
-
-* `local` - Used for local development.
-* `quest` - Used for running on Quest.
-* `gcp` - For running on Google Cloud.
-
-## Software
-
-Almost all processes within the pipeline are now managed using [conda](https://docs.conda.io/en/latest/). To use the pipeline, you must have `conda` installed and available. Nextflow will take care of installing conda environments and managing software.
-
-!!! note
-       
-       [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
-
-# Parameters
-
-## --debug
-
-You should use `--debug true` for testing/debugging purposes. This will run the debug test set (located in the `test_data` folder) using your specified configuration profile (e.g. local / quest / gcp).
-
-For example:
-
-```
-nextflow run main.nf -profile local --debug -resume
-```
-
-Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
-
-## --sample_sheet
-
-A custom sample sheet can be specified using `--sample_sheet`. The sample sheet format is described above in [sample sheet](#sample_sheet)
-
-When using `--debug true`, the `test_data/sample_sheet.tsv` file is used.
-
-!!! Note
-    Previously this option was specified using `--fqs`.
-
-## --fq_prefix
-
-Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the `--fq_prefix` to set the path that should be prefixed to each FASTQ.
-
-!!! Note
-    Previously, this option was `--fqs_file_prefix`
-## --kmers
-
-__default__ = true
-
-Toggles kmer-analysis
-
-## --reference
-
-A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.
-
-On Quest, the reference is available here:
-
-```
-/projects/b1059/data/genomes/c_elegans/WS245/WS245.fa.gz
-```
-
-## --output
-
-__Default__ - `Alignment-YYYYMMDD`
-
-A directory in which to output results. If you have set `--debug true`, the default output directory will be `alignment-YYYYMMDD-debug`.
-
-## --email
-
-Setting `--email` will trigger an email report following pipeline execution.
-
-# Output
-
-## Strain
-
-```
-├── _aggregate
-│   ├── kmers.tsv
-│   └── multiqc
-│       ├── id_data/
-│       │   ├── ... (same as strain_data/)
-│       ├── id_multiqc_report.html
-│       ├── strain_data/
-│       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
-│       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
-│       │   ├── mqc_mosdepth-coverage-plot-id_1.txt
-│       │   ├── mqc_picard_deduplication_1.txt
-│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Counts.txt
-│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Normalised_Counts.txt
-│       │   ├── mqc_samtools_alignment_plot_1.txt
-│       │   ├── multiqc.log
-│       │   ├── multiqc_data.json
-│       │   ├── multiqc_general_stats.txt
-│       │   ├── multiqc_picard_dups.txt
-│       │   ├── multiqc_qualimap_bamqc_genome_results.txt
-│       │   ├── multiqc_samtools_flagstat.txt
-│       │   ├── multiqc_samtools_idxstats.txt
-│       │   ├── multiqc_samtools_stats.txt
-│       │   └── multiqc_sources.txt
-│       └── strain_multiqc_report.html
-├── bam
-│   ├── [strain].bam
-│   └── [strain].bam.bai
-├── coverage
-│   ├── id
-│   │   ├── [id].mosdepth.global.dist.txt
-│   │   ├── [id].mosdepth.summary.txt
-│   │   ├── [id].per-base.bed.gz
-│   │   └── [id].per-base.bed.gz.csi
-│   └── strain
-│       ├── [strain].mosdepth.global.dist.txt
-│       ├── [strain].mosdepth.summary.txt
-│       ├── [strain].per-base.bed.gz
-│       └── [strain].per-base.bed.gz.csi
-├── software_versions.txt
-└── summary.txt
-```
-
-Most files should be obvious. A few are detailed below.
-
-* __software_versions.txt__ - Outputs the software versions used for every process (step) of the pipeline.
-* __summary.txt__ - Outputs a summary of the parameters used.
-* __sample_sheet.tsv__ - The sample sheet that was used to produce the alignment directory.
-* __strain_sheet.tsv__ - A summary of all strains and bams in the alignment directory.
-* __aggregate__ - Stores data that has been aggregated across all strains or sequencing IDs. 
-* __coverage__ - Contains coverage data at the strain or id level, presented in a variety of ways.
 

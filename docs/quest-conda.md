@@ -63,6 +63,40 @@ When looking to install a package, one resource to check out is [anaconda.org](h
 !!! Important
 	You can also install R packages with conda, however conda and R don't always work well together. Check out our quick fix [here](r.md)
 
+## Running Nextflow with conda
+
+When running Nextflow, conda environments can be specified as part of a process or in the `nextflow.config` file to apply to the entire pipeline (check out the [documentation](https://www.nextflow.io/docs/latest/conda.html)):
+
+**Conda within a process:**
+
+```
+process foo {
+  conda '/projects/b1059/software/conda_envs/cegwas2-nf_env'
+
+  '''
+  your_command --here
+  '''
+}
+```
+
+**Conda for the entire pipeline:**
+
+```
+// in the nextflow.config file:
+conda { 
+    conda.enabled = true 
+    conda.cacheDir = ".env"  
+}
+
+process {
+    conda = "/projects/b1059/software/conda_envs/cegwas2-nf_env"
+}
+```
+
+!!! Important
+    When running Nextflow with a docker container on QUEST, it is necessary to replace the `docker` command with `singularity` (although you still must build a docker container). You must also load singularity using `module load singularity` before starting a run.
+
+
 ## Notes on conda versions on Quest
 
 __tl;dr;__ If having trouble with conda, or Nextflow gives conda-related errors, try to load a different version of anaconda on Quest. At some point it may be worth re-creating all conda environments in the lab with a consistent version of conda. 

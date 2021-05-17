@@ -189,15 +189,17 @@ If a species check is run, the `species_check/sample_sheet` folder will also con
 !!! Note
     The "new" sample sheet will still contain old fastq sequenced in a previous pool (i.e. RET55) if that strain was re-sequenced in the current pool (i.e. RET63). After running `alignment-nf`, this will create a new BAM file incorporating all fastq for that strain.
 
-### Backup
+# Data storage
+
+## Backup
 
 Once you have completed the trim-fq-nf pipeline you should backup the **raw** FASTQs. More information on this is available in the [backup](backup.md)
 
-### Poor quality data
+## Poor quality data
 
 If you observe poor quality sequence data you should notify Robyn through the appropriate channels and then remove the data from further analysis.
 
-### Cleanup
+## Cleanup
 
 If you have triple-checked everything and are satisfied with the results, the original **raw** sequence data can be deleted. The **processed** sequence data (FASTQ files) should be moved to their appropriate location, split by species (`/projects/b1059/data/{species}/WI/fastq/dna/`). The following line can be used to move processed fastq prior to running `alignment-nf`:
 
