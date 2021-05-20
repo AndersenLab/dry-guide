@@ -113,7 +113,7 @@ The `sample sheet` has the following columns:
 
 ## --vcf
 
-Path to the hard-filtered vcf output from [`wi-gatk-nf`](https://github.com/AndersenLab/wi-gatk). VCF should contain **ALL** strains, the first step will be to subset isotype reference strains for further analysis.
+Path to the hard-filtered vcf output from [`wi-gatk`](https://github.com/AndersenLab/wi-gatk). VCF should contain **ALL** strains, the first step will be to subset isotype reference strains for further analysis.
 
 !!! Note
     This should be the **hard-filtered** VCF
@@ -185,7 +185,7 @@ Once the pipeline has complete successfully and you are satisfied with the resul
 * Strain-specific vcf and index files can be moved to `/projects/b1059/data/{species}/WI/variation/{date}/vcf/strain_vcf`
 * If applicable, all snpeff `.bed` files (HIGH, LOW, MODERATE, etc.) can be moved to `/projects/b1059/data/{species}/WI/variation/{date}/tracks/`
 
-## Updaing CeNDR
+## Updating CeNDR
 
 Check out the [CeNDR](cendr.md) page for more information about updating a new data release for CeNDR.
 

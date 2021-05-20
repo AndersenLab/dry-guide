@@ -1,17 +1,55 @@
 # R
 
-### R Packages
+[TOC]
 
-The Andersen lab maintains several R packages.
+## Andersen Lab R Packages
 
-#### cegwas
+The Andersen lab maintains several R packages useful for high-throughput data analysis.
 
-[andersenlab/cegwas](https://github.com/andersenlab/cegwas-nf)
+### cegwas2
 
-#### linkagemapping
+This package contains a set of functions to process phenotype data, perform GWAS, and perform post-mapping data processing for *C. elegans*. In 2019, the `cegwas2-nf` Nextflow pipeline was developed to perform GWA mapping on QUEST using this cegwas2 R package. However, mapping is rarely if never done with cegwas2 in R manually. To learn more about the `cegwas2` R package, see the [andersenlab/cegwas2](https://github.com/andersenlab/cegwas2) repo. For help running a GWA mapping using cegwas2, see [cegwas2-nf](https://github.com/andersenlab/cegwas2-nf) or [the dry guide](pipeline-cegwas.md)
 
-[andersenlab/linkagemapping](https://github.com/andersenlab/cegwas-nf)
+!!! Note
+	`cegwas2` was preceeded by `cegwas` and will soon be superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
 
-#### easysorter
+### linkagemapping
 
-[andersenlab/easysorter](https://github.com/andersenlab/cegwas-nf)
+This package includes all data and functions necessary to complete a mapping for the phenotype of your choice using the recombinant inbred lines from [Andersen, et al. 2015 (G3)](https://academic.oup.com/g3journal/article/5/5/911/6025542). Included with this package are the cross and map objects for this strain set as well a markers.rds file containing a lookup table for the physical positions of all markers used for mapping. To learn more about linkagemapping including how to install and use the package, check out the [andersenlab/linkagemapping](https://github.com/andersenlab/linkagemapping) repo.
+
+!!! Note
+	Also check out the [linkagemapping-nf](https://github.com/andersenlab/linkagemapping-nf)) repo for a reproducible Nextflow pipeline for linkage mapping and two-dimensional genome scans (scan2) for one or several traits.
+
+### COPASutils
+
+The R package `COPASutils` provides a logical workflow for the reading, processing, and visualization of data obtained from the Union Biometrica Complex Object Parametric Analyzer and Sorter (COPAS) or the BioSorter large-particle flow cytometers. Data obtained from these powerful experimental platforms can be unwieldy, leading to difficulties in the ability to process and visualize the data using existing tools. Researchers studying small organisms, such as Caenorhabditis elegans, Anopheles gambiae, and Danio rerio, and using these devices will benefit from this streamlined and extensible R package. `COPASutils` offers a powerful suite of functions for the rapid processing and analysis of large high-throughput screening data sets. To learn more about COPASutils including how to install and use the package, check out the [andersenlab/COPASutils](https://github.com/andersenlab/copasutils) repo and the COPASutils [manuscript](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111090)
+
+### easysorter
+
+This package is effectively version 2 of the `COPASutils` package. This package is specialized for use with worms and includes additional functionality on top of that provided by COPASutils, including division of recorded objects by larval stage and the ability to regress out control phenotypes from those recorded in experimental conditions To learn more about easysorter including how to install and use the package, check out the [andersenlab/easysorter](https://github.com/andersenlab/easysorter) repo. Here are some of the papers using `easysorter`:
+
+__The first easysorter paper__
+A Powerful New Quantitative Genetics Platform, Combining *Caenorhabditis elegans* High-Throughput Fitness Assays with a Large Collection of Recombinant Strains ([Andersen et al. 2015](https://academic.oup.com/g3journal/article/5/5/911/6025542))
+
+__The first "V3" easysorter paper__
+The Gene *scb-1* Underlies Variation in *Caenorhabditis elegans* Chemotherapeutic Responses ([Evans and Andersen 2020](https://academic.oup.com/g3journal/article/10/7/2353/6026329))
+
+__The first dominance/hemizygosity easysorter paper__
+A Novel Gene Underlies Bleomycin-Response Variation in *Caenorhabditis elegans* ([Brady et al. 2019](https://academic.oup.com/genetics/article/212/4/1453/5931413))
+
+*Almost every paper published from the lab has used easysorter, for more, check out [our lab papers](https://andersenlab.org/Publications/)*
+
+!!! Note
+	The `easysorter` package requires `COPASutils` installation as well.
+
+### easyXpress
+
+This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the [andersenlab/easyXpress](https://github.com/andersenlab/easyXpress) repo and the [easyXpress manuscript](https://www.biorxiv.org/content/10.1101/2021.05.11.443552v1). 
+
+## General R resources
+
+* [Tidyverse workshop and resources](https://github.com/katiesevans/nuit_tidyverse)
+* [Andersen Lab R Knowledge base & Cheatsheet]()
+* Also check out the `lab_code` slack channel for help/questions!
+
+
