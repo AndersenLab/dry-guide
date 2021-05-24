@@ -1,8 +1,8 @@
 ## AndersenLab cloud resources
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
-
 [TOC]
+
+For full documentation visit [mkdocs.org](http://mkdocs.org).
 
 # Google Domains
 
@@ -33,9 +33,10 @@ This bucket contains all the data associated with elegansvariation.org. It is br
 * __browser_tracks__ - for genome-browser tracks that rarely if ever change.
 * __db__ - Storage/access to the SQLite database.
 * __photos__ - sample collection photos.
-* __releases__ - dataset releases. For more detail, see [wi-nf](pipeline-wi.md).
+* __releases__ - dataset releases. For more detail, see [post-gatk-nf](pipeline-postGATK.md).
 * __reports__ - images and data files within reports.
 * __static__ - static assets used by the site.
+* __bam__ - stores all BAM files at the strain level
 
 ##### andersenlab.org
 
@@ -78,13 +79,8 @@ We have used bigquery in the past for large query jobs. We are not actively usin
 
 ## S3
 
-S3 = simple storage service. We use it to store BAMs. The bucket name on AWS is `elegasnvariation.org`.
-
-S3 is used to store bam files. Originally, we stored BAM files of isotypes which represented groups of near-genetically identical strains. BAMs on S3 are stored as follows.
-
-* `/bam/` - Stores isotype-level bams.
-* `/bam/reference_strain/` - Stores reference-strain bams corresponding to each isotype.
+In the past we stored BAMs on AWS at `elegansvariation.org`, however these data have now been migrated to GCP as of the 20210121 CeNDR release.
 
 ## Fargate
 
-Amazon Fargate is used to run the mapping pipeline on CeNDR
+Amazon Fargate was used to run the mapping pipeline on CeNDR in the past, but this is now moved to GCP as of 2021

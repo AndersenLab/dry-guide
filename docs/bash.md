@@ -1,15 +1,16 @@
 # Bash
 
+[TOC]
+
 [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) is the default unix shell on Mac OS and most Linux operating systems. Many bioinformatic programs are run using the command line, so becoming familiar with Bash is important.
 
-Start with the fo [Introduction to bash](http://cs.lmu.edu/~ray/notes/bash/). 
+Start with this [introduction to bash](http://cs.lmu.edu/~ray/notes/bash/). Also check out this [cheatsheet](https://gist.github.com/ssledz/9d244e4d5898fbd217d67bb62bdc22e5)
 
 ## Basic Commands
 
 You should familiarize yourself with the following commands.
 
 * __alias__ - create a shortcut for a command
-* __awk__ - file manipulation; Filtering; Rearranging columns
 * __cat__ - concatenate files
 * __zcat__ - concatenate zipped files
 * __cd__ - change directories
@@ -19,7 +20,6 @@ You should familiarize yourself with the following commands.
 * __grep__ - filter by pattern
 * __egrep__ - filter by regex
 * __rm__ - delete files
-* __sed__ - quick find/replace
 * __sudo__ - run as an administrator
 * __sort__ - sorts files
 * __source__ - runs a file
@@ -31,11 +31,19 @@ You should familiarize yourself with the following commands.
 
 You should learn these once you have the basics down.
 
-* __git__
+* __git__ - version control
+* __awk__ - file manipulation; Filtering; Rearranging columns
+* __sed__ - quick find/replace
+
 
 # Good Guides
 
-Below I link to some good guides for various bash utilities.
+Below are some good guides for various bash utilities.
+
+## grep
+
+* [using grep with regular expressions](https://linuxhint.com/grep_egrep_regex/)
+* [another regex grep guide](https://linuxize.com/post/regular-expressions-in-grep/)
 
 ## awk
 

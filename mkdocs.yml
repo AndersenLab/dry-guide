@@ -13,28 +13,32 @@ markdown_extensions:
 
 nav:
     - Home: index.md
-    - Bash: bash.md
+    - Knowledge Base:
+          - Bash: bash.md
+          - R: r.md
+          - Git and Github: github.md
     - Quest:
           - Introduction: quest-intro.md
-          - Andersen-Lab-Env: quest-andersen-lab-env.md
           - Nextflow: quest-nextflow.md
+          - GCP: pipeline-GCPconfig.md
+          - Conda: quest-conda.md
+          - Docker: pipeline-docker.md
           - Mounting Quest: quest-mount.md
     - Pipelines:
           - Overview: pipeline-overview.md
+          - trim-fq-nf: pipeline-trimming.md
+          - alignment-nf: pipeline-alignment.md
+          - concordance-nf: pipeline-concordance.md
+          - wi-gatk: pipeline-wiGATK.md
+          - post-gatk-nf: pipeline-postGATK.md
+          - genomes-nf: pipeline-genomes-nf.md
+          - nil-ril-nf: pipeline-nil-ril.md
           - Adding NILs Sequencing Data: adding-seq-data.md
-          - Sample Sheets: sample-sheets.md
-          - GCP configuration: pipeline-GCPconfig.md
-          - Build docker iamge: pipeline-docker.md
-          - Trimming: pipeline-trimming.md
-          - NIL / RIL: pipeline-nil-ril.md
-          - WI-Alignment: pipeline-alignment.md
-          - WI-Concordance: pipeline-concordance.md
-          - WI: pipeline-wi.md
-          - Cegwas: pipeline-cegwas.md
-    - CeNDR: cendr.md
-    - R: r.md
-    - Backup: backup.md
-    - Cloud: cloud.md
+          - cegwas2-nf: pipeline-cegwas.md
+    - Other things:
+          - CeNDR: cendr.md
+          - Backup: backup.md
+          - Cloud: cloud.md
     - Andersen Labsite: labsite.md
 extra_css:
     - css/version-select.css
