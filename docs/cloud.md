@@ -1,8 +1,8 @@
 ## AndersenLab cloud resources
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
-
 [TOC]
+
+For full documentation visit [mkdocs.org](http://mkdocs.org).
 
 # Google Domains
 

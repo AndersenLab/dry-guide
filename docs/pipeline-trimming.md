@@ -1,8 +1,9 @@
 # trim-fq-nf
 
+[TOC]
+
 The [trim-fq-nf](https://github.com/AndersenLab/trim-fq-nf) workflow performs FASTQ trimming to remove poor quality sequences and technical sequences such as adapters. It should be used with high-coverage genomic DNA. You should not use the trim-fq-nf workflow on low-coverage NIL or RIL data. Recent updates in 2021 also include running a species check on the FASTQ and generating a sample sheet of high-quality, species-confirmed samples for [alignment](https://github.com/AndersenLab/alignment-nf).
 
-[TOC]
 
 # Pipeline overview
 

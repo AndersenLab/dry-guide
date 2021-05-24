@@ -1,8 +1,9 @@
 # wi-gatk
 
+[TOC]
+
 The `wi-gatk` pipeline filters and calls variants from wild isolate sequence data.
 
-[TOC]
 
 # Pipeline Overview
 

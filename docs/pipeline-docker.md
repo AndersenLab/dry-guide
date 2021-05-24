@@ -1,6 +1,7 @@
+# Create docker image
+
 [TOC]
 
-# Create docker image
 
 [Docker](https://www.docker.com) can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at [dockerfile](https://github.com/AndersenLab/dockerfile).
 

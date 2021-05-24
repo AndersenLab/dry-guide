@@ -1,10 +1,11 @@
 # Nextflow
 
-Nextflow is an awesome program that allows you to write a computational pipeline by making it simpler to put together many different tasks, maybe even using different programming languages. Nextflow makes parallelism easy and works with SLURM to schedule jobs so you don't have to! Nextflow also supports docker containers and conda enviornments to streamline reproducible pipelines and can be easily adapted to run on different systems - including Google Cloud! Not convinced? Check out this [intro](https://www.nextflow.io/).
-
 [TOC]
 
-# Instalation
+
+Nextflow is an awesome program that allows you to write a computational pipeline by making it simpler to put together many different tasks, maybe even using different programming languages. Nextflow makes parallelism easy and works with SLURM to schedule jobs so you don't have to! Nextflow also supports docker containers and conda enviornments to streamline reproducible pipelines and can be easily adapted to run on different systems - including Google Cloud! Not convinced? Check out this [intro](https://www.nextflow.io/).
+
+# Installation
 
 Nextflow can be installed with two easy steps:
 
@@ -121,7 +122,7 @@ When Nextflow is running, it will print to the console the name of each process 
 
 For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the `fix_strain_names_bulk` process has already completed! Meanwhile, the `vcf_t_geno_matrix` process is still running. You can also see that the `prepare_gcta_files` is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).
 
-Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the `[ad/eea615]` next to the `fix_strain_names_bulk` process indicates that the working directory is located at `>path_to_nextflow_working_directory>/ad/eea615...`. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.
+Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the `[ad/eea615]` next to the `fix_strain_names_bulk` process indicates that the working directory is located at `path_to_nextflow_working_directory/ad/eea615...`. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.
 
 !!! Note
 	I highly recommend adding this function to your `~/.bash_profile` to easily access the Nexflow working directory: `gw() {cd /projects/b1042/AndersenLab/work/<your_name>/$1*}` so that when you type `gw 3f/6a21a5` (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.
@@ -152,6 +153,8 @@ There is usually no downside to adding `-resume`, so you can get into the habit 
 
 
 # Writing Nextflow Pipelines
+
+Check out the [Nextflow documentation](https://www.nextflow.io/docs/latest/) for help getting started!
 
 !!! Note
 	Learning to script with Nextflow definitely has a high learning curve. Don't get discouraged! Start with something small and simple. Maybe convert a current script you have that uses a large for loop into a nextflow pipeline to start getting the hang of things!

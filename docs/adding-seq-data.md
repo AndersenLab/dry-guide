@@ -1,5 +1,7 @@
 # Introduction
 
+[TOC]
+
 This section is for adding genomic sequencing data (.tsv files) onto the existing dataset provided and displayed on the [NILs browser](http://andersenlab.org/NILs/) page on [Andersenlab.org](http://andersenlab.org/). 
 
 #Basic Commands To Know Prior

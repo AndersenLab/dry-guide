@@ -1,11 +1,11 @@
 # genomes-nf
 
+[TOC]
+
 `genomes-nf` is a Nextflow pipeline for managing reference genomes and annotation files.
 
 !!! Important
 	When adding a new WormBase version reference genome, *especially for c_elegans* it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.
-
-[TOC]
 
 # Pipeline overview
 

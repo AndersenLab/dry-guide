@@ -18,7 +18,7 @@ This package contains a set of functions to process phenotype data, perform GWAS
 This package includes all data and functions necessary to complete a mapping for the phenotype of your choice using the recombinant inbred lines from [Andersen, et al. 2015 (G3)](https://academic.oup.com/g3journal/article/5/5/911/6025542). Included with this package are the cross and map objects for this strain set as well a markers.rds file containing a lookup table for the physical positions of all markers used for mapping. To learn more about linkagemapping including how to install and use the package, check out the [andersenlab/linkagemapping](https://github.com/andersenlab/linkagemapping) repo.
 
 !!! Note
-	Also check out the [linkagemapping-nf](https://github.com/andersenlab/linkagemapping-nf)) repo for a reproducible Nextflow pipeline for linkage mapping and two-dimensional genome scans (scan2) for one or several traits.
+	Also check out the [linkagemapping-nf](https://github.com/andersenlab/linkagemapping-nf) repo for a reproducible Nextflow pipeline for linkage mapping and two-dimensional genome scans (scan2) for one or several traits.
 
 ### COPASutils
 
@@ -28,13 +28,13 @@ The R package `COPASutils` provides a logical workflow for the reading, processi
 
 This package is effectively version 2 of the `COPASutils` package. This package is specialized for use with worms and includes additional functionality on top of that provided by COPASutils, including division of recorded objects by larval stage and the ability to regress out control phenotypes from those recorded in experimental conditions To learn more about easysorter including how to install and use the package, check out the [andersenlab/easysorter](https://github.com/andersenlab/easysorter) repo. Here are some of the papers using `easysorter`:
 
-__The first easysorter paper__
+- __The first easysorter paper__
 A Powerful New Quantitative Genetics Platform, Combining *Caenorhabditis elegans* High-Throughput Fitness Assays with a Large Collection of Recombinant Strains ([Andersen et al. 2015](https://academic.oup.com/g3journal/article/5/5/911/6025542))
 
-__The first "V3" easysorter paper__
+- __The first "V3" easysorter paper__
 The Gene *scb-1* Underlies Variation in *Caenorhabditis elegans* Chemotherapeutic Responses ([Evans and Andersen 2020](https://academic.oup.com/g3journal/article/10/7/2353/6026329))
 
-__The first dominance/hemizygosity easysorter paper__
+- __The first dominance/hemizygosity easysorter paper__
 A Novel Gene Underlies Bleomycin-Response Variation in *Caenorhabditis elegans* ([Brady et al. 2019](https://academic.oup.com/genetics/article/212/4/1453/5931413))
 
 *Almost every paper published from the lab has used easysorter, for more, check out [our lab papers](https://andersenlab.org/Publications/)*

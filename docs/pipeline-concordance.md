@@ -1,5 +1,7 @@
 # concordance-nf
 
+[TOC]
+
 The [`concordance-nf`](https://github.com/AndersenLab/concordance-nf) pipeline is used to detect sample swaps and determine which wild isolate strains should be grouped together as an isotype. 
 
 To determine which strains belong to the same isotype we use two criteria. First we look at the strains that group together with a concordance threshold of 99.95%. Generally this will group most isotypes without issue. However, it is possible that you will run into cases where the grouping is not clean. For example, strain A groups with B, B groups with C, but C does not group with A. In these cases you must examine the data closely to identify why strains are incompletely grouping. Our second criteria we use to group isotypes may address these types of groupings.
@@ -7,8 +9,6 @@ To determine which strains belong to the same isotype we use two criteria. First
 The second criteria that we use to group isotypes regards looking for regional differences among strains. If two strains are similar but possess a region of their genome (binned at 1 Mb) that differs by more than 2% then we will separate them out into their own isotypes.
 
 __The process of grouping isotypes is very hand-on. This pipeline will help process the data but you must carefully review the output and investigate closely.__
-
-[TOC]
 
 # Pipeline overview
 

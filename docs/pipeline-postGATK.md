@@ -1,11 +1,10 @@
 # post-gatk-nf
 
+[TOC]
 
 The [post-gatk-nf](https://github.com/AndersenLab/post-gatk-nf) pipeline performs two main tasks: (1) variant annotation for the VCF at the isotype level and (2) population genetics analyses (such as identifying shared haplotypes and divergent regions) at the isotype level. The VCFs output from this pipeline are used within the lab and also released to the world via CeNDR.
 
 This page details how to run the pipeline.
-
-[TOC]
 
 # Pipeline overview
 ```
@@ -217,7 +216,7 @@ wi <- gsheet::gsheet2tbl("<path_to_wi_master_sheet>") %>%
 ```
 
 !!! Note
-  Although users will have the option to use an older vcf, the divergent region data will always be pulled from the most recent release. There could be minor changes from release to release. If this is a concern, we could switch to pulling the divergent data directly from `b1059` instead of including it in the `bin/` of the mapping pipeline.
+    Although users will have the option to use an older vcf, the divergent region data will always be pulled from the most recent release. There could be minor changes from release to release. If this is a concern, we could switch to pulling the divergent data directly from `b1059` instead of including it in the `bin/` of the mapping pipeline.
 
 
 

@@ -1,6 +1,6 @@
-[TOC]
-
 # Running Nextflow pipeline on GCP
+
+[TOC]
 
 Google genomic API allows auto scale for computational resources by creating and closing VMs automatically. We have a dedicated google project `caendr` which using Google genomic APT for all the nextflow pipelines in our lab. To access it, you should provide your gmail accout to Erik and ask Erik give you a `project owner` role for `caendr`. I already preset the project to enable running Nextflow pipelines using [Google genomic API](https://cloud.google.com/life-sciences/docs/how-tos/migration). See below for more details.
 

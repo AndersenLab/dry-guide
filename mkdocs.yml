@@ -34,10 +34,11 @@ nav:
           - genomes-nf: pipeline-genomes-nf.md
           - nil-ril-nf: pipeline-nil-ril.md
           - Adding NILs Sequencing Data: adding-seq-data.md
-          - cegwas-nf: pipeline-cegwas.md
-    - CeNDR: cendr.md
-    - Backup: backup.md
-    - Cloud: cloud.md
+          - cegwas2-nf: pipeline-cegwas.md
+    - Other things:
+          - CeNDR: cendr.md
+          - Backup: backup.md
+          - Cloud: cloud.md
     - Andersen Labsite: labsite.md
 extra_css:
     - css/version-select.css

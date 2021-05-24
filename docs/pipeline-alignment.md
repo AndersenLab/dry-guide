@@ -1,13 +1,13 @@
 # alignment-nf
 
+[TOC]
+
 The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-gatk-nf (variant calling)](http://andersenlab.org/dry-guide/pipeline-wi/) and other analyses.
 
 This page details how to run the pipeline and how to add new wild isolate sequencing data.
 
 !!! Note
     Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
-
-[TOC]
 
 # Pipeline overview
 
@@ -95,6 +95,7 @@ The `sample sheet` for alignment is the output from the [trim-fq-nf](https://git
 | AB1      |  BGI1-RET2-AB1           | RET2    | BGI1-RET2-AB1-trim-1P.fq.gz      | BGI1-RET2-AB1-trim-2P.fq.gz      | original_wi_set            |
 | ECA243   |  BGI3-RET3b-ECA243       | RET3b   | BGI3-RET3b-ECA243-trim-1P.fq.gz  | BGI3-RET3b-ECA243-trim-2P.fq.gz  | original_wi_set            |
 | ECA718   |  ECA718_RET-S16_S26_L001 | RET-S16 | ECA718_RET-S16_S26_L001_1P.fq.gz | ECA718_RET-S16_S26_L001_2P.fq.gz | 20180306_Duke_NovaSeq_6000 |
+
 
 !!! Note
     Remember that in `--debug` mode the pipeline will use the sample sheet located in `test_data/sample_sheet.tsv`.
