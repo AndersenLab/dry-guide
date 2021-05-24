@@ -159,4 +159,4 @@ __Intermediate__
 * Overview of top Git GUI from 2021 [here](https://acodez.in/git-gui-clients/)
 * Great [intro video](https://www.youtube.com/watch?v=PBI2Rz-ZOxU) to the GitHub Flow
 * **HIGHLY RECOMMENDED** [introduction tutorial](https://lab.github.com/githubtraining/introduction-to-github) to GitHub Flow
-* Amazing article on different git branch strategies [here]([This](https://www.gitkraken.com/learn/git/best-practices/git-branch-strategy#github-flow-branch-strategy)
+* Amazing article on different git branch strategies [here](https://www.gitkraken.com/learn/git/best-practices/git-branch-strategy#github-flow-branch-strategy)
