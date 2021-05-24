@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>genomes-nf - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "genomes-nf";
+    var mkdocs_page_input_path = "pipeline-genomes-nf.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">genomes-nf</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Pipelines &raquo;</li>
+        
+      
+    
+    <li>genomes-nf</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-genomes-nf.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="genomes-nf">genomes-nf<a class="headerlink" href="#genomes-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#genomes-nf">genomes-nf</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software requirements</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#-profile_optional">-profile (optional)</a></li>
+<li><a href="#--wb_version_optional">--wb_version (optional)</a></li>
+<li><a href="#--projects_optional">--projects (optional)</a></li>
+<li><a href="#--output_optional">--output (optional)</a></li>
+</ul>
+</li>
+<li><a href="#output">Output</a><ul>
+<li><a href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><code>genomes-nf</code> is a Nextflow pipeline for managing reference genomes and annotation files.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When adding a new WormBase version reference genome, <em>especially for c_elegans</em> it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.</p>
+</div>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+    &gt;AAGACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAA
+    AGACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
+    GAAATA      CGCG       GA ATATA AAAA    TCG TCGAT GC       GGGC     CGATCGA TAGAT GA      TATATCGC
+    TTAAC ACTAGAGGGG CTATCGAC  CGAA CT GACTA CT  GCG  AT AGCATCACG TGGGGGCCTATC  CGAC AA TCAGCTACGAAAT
+    AGCCC TCTATCATAA    TATAT T TCT TC AGCGA GA A A T TC    ATAAAT TCGGGATCTAGC A CGC AT    ATATATATGC
+    GCGAT TCTAC   AG GCGGGGGA AT TA AA AAGAC CG TC AT GC AGCTGGGGGC    ACG   GA TA AT GA CTATATATATCGC
+    AATGC ACTAGAG GG CTATCGAC ACG A CT GACTA CT AGCGG AT AGCATCACGATGGG GCCTATC ACG C AA TCAGCTACGAAAT
+    ACTCC TCTATCA AA AAATATAT TCTC  TC AGCGA GA AAACT TC TTCATAAATCTCGG ATCTAGC ATCG  AT TATATATATATGC
+    TTAATA       FCG       GA ATATA AAA     TCG TCGAT GC        GG     ACGATCGA TAGAT GA CTATATATATCGC
+    AACACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAAT
+    CTACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
+
+
+        parameters          description                                    Set/Default
+        ==========          ===========                                    ========================
+        --wb_version        wormbase version to build                      WS276
+        --projects          comma-delimited list of `species/project_id`   c_elegans/PRJNA13758,c_briggsae/PRJNA10731,c_tropicalis/PRJNA53597
+        --output            Path of output folder                          /projects/b1059/data/
+
+
+</code></pre>
+<p>This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:</p>
+<ol>
+<li>A BWA Index</li>
+<li>SNPeff annotation database</li>
+<li>CSQ annotation database</li>
+<li>Samtools faidx index</li>
+<li>A GATK Sequence dictionary file</li>
+</ol>
+<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nextflow v20.01+ (see the dry guide on Nextflow <a href="../quest-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<ul>
+<li>If running pipeline on Quest, you must first load <code>singularity</code> to access the docker container:</li>
+</ul>
+<pre><code>module load singularity
+</code></pre>
+<ul>
+<li>If running locally, Docker must be installed. For further instructions, check out our <a href="../pipeline-docker/">docker guide</a></li>
+</ul>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p>The pipeline can be run locally or on Quest. For example:</p>
+<pre><code>nextflow run main.nf -resume -profile local --wb_version=WS276 --projects=c_elegans/PRJNA13758
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h3 id="-profile_optional"><code>-profile</code> (optional)<a class="headerlink" href="#-profile_optional" title="Permanent link">&para;</a></h3>
+<p>Can be set to <code>local</code> or <code>quest</code>. The pipeline uses the <code>andersenlab/genomes</code> docker image built from <a href="env/genome.Dockerfile"><code>env/genome.Dockerfile</code></a>. The image is automatically built using github actions. See <a href=".github/workflows/build.yml"><code>.github/workflows/build.yml</code></a> for details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default profile is set to <code>-profile=quest</code></p>
+</div>
+<h3 id="--wb_version_optional"><code>--wb_version</code> (optional)<a class="headerlink" href="#--wb_version_optional" title="Permanent link">&para;</a></h3>
+<p>The wormbase version to build. For example, <code>WS279</code>. Default is <code>WS276</code>.</p>
+<h3 id="--projects_optional"><code>--projects</code> (optional)<a class="headerlink" href="#--projects_optional" title="Permanent link">&para;</a></h3>
+<p>A comma-delimited list of <code>species/project_id</code> identifiers. A table below lists the current projects that can be downloaded. This table is regenerated as the first step of the pipeline, and stored as a file called <code>project_species.tsv</code> in the <code>params.output</code> folder (<code>./genomes</code> if working locally).</p>
+<p>By default, the pipeline will generate reference genome indices and annotations for:</p>
+<ul>
+<li><code>c_elegans/PRJNA13758</code> - N2 based reference genome</li>
+<li><code>c_briggsae/PRJNA10731</code></li>
+<li><code>c_tropicalis/PRJNA53597</code></li>
+</ul>
+<p>The current set of available species/projects that can be built are:</p>
+<table>
+<thead>
+<tr>
+<th align="left">species</th>
+<th align="left">project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">b_xylophilus</td>
+<td align="left">PRJEA64437</td>
+</tr>
+<tr>
+<td align="left">c_briggsae</td>
+<td align="left">PRJNA10731</td>
+</tr>
+<tr>
+<td align="left">c_angaria</td>
+<td align="left">PRJNA51225</td>
+</tr>
+<tr>
+<td align="left">a_ceylanicum</td>
+<td align="left">PRJNA231479</td>
+</tr>
+<tr>
+<td align="left">a_suum</td>
+<td align="left">PRJNA62057</td>
+</tr>
+<tr>
+<td align="left">a_suum</td>
+<td align="left">PRJNA80881</td>
+</tr>
+<tr>
+<td align="left">b_malayi</td>
+<td align="left">PRJNA10729</td>
+</tr>
+<tr>
+<td align="left">c_brenneri</td>
+<td align="left">PRJNA20035</td>
+</tr>
+<tr>
+<td align="left">c_elegans</td>
+<td align="left">PRJEB28388</td>
+</tr>
+<tr>
+<td align="left">c_elegans</td>
+<td align="left">PRJNA13758</td>
+</tr>
+<tr>
+<td align="left">c_elegans</td>
+<td align="left">PRJNA275000</td>
+</tr>
+<tr>
+<td align="left">c_latens</td>
+<td align="left">PRJNA248912</td>
+</tr>
+<tr>
+<td align="left">c_remanei</td>
+<td align="left">PRJNA248909</td>
+</tr>
+<tr>
+<td align="left">c_remanei</td>
+<td align="left">PRJNA248911</td>
+</tr>
+<tr>
+<td align="left">c_remanei</td>
+<td align="left">PRJNA53967</td>
+</tr>
+<tr>
+<td align="left">c_inopinata</td>
+<td align="left">PRJDB5687</td>
+</tr>
+<tr>
+<td align="left">c_japonica</td>
+<td align="left">PRJNA12591</td>
+</tr>
+<tr>
+<td align="left">c_sp11</td>
+<td align="left">PRJNA53597</td>
+</tr>
+<tr>
+<td align="left">c_sp5</td>
+<td align="left">PRJNA194557</td>
+</tr>
+<tr>
+<td align="left">c_nigoni</td>
+<td align="left">PRJNA384657</td>
+</tr>
+<tr>
+<td align="left">c_sinica</td>
+<td align="left">PRJNA194557</td>
+</tr>
+<tr>
+<td align="left">c_tropicalis</td>
+<td align="left">PRJNA53597</td>
+</tr>
+<tr>
+<td align="left">d_immitis</td>
+<td align="left">PRJEB1797</td>
+</tr>
+<tr>
+<td align="left">h_bacteriophora</td>
+<td align="left">PRJNA13977</td>
+</tr>
+<tr>
+<td align="left">l_loa</td>
+<td align="left">PRJNA60051</td>
+</tr>
+<tr>
+<td align="left">m_hapla</td>
+<td align="left">PRJNA29083</td>
+</tr>
+<tr>
+<td align="left">m_incognita</td>
+<td align="left">PRJEA28837</td>
+</tr>
+<tr>
+<td align="left">h_contortus</td>
+<td align="left">PRJEB506</td>
+</tr>
+<tr>
+<td align="left">h_contortus</td>
+<td align="left">PRJNA205202</td>
+</tr>
+<tr>
+<td align="left">n_americanus</td>
+<td align="left">PRJNA72135</td>
+</tr>
+<tr>
+<td align="left">p_exspectatus</td>
+<td align="left">PRJEB6009</td>
+</tr>
+<tr>
+<td align="left">o_tipulae</td>
+<td align="left">PRJEB15512</td>
+</tr>
+<tr>
+<td align="left">p_redivivus</td>
+<td align="left">PRJNA186477</td>
+</tr>
+<tr>
+<td align="left">s_ratti</td>
+<td align="left">PRJEA62033</td>
+</tr>
+<tr>
+<td align="left">s_ratti</td>
+<td align="left">PRJEB125</td>
+</tr>
+<tr>
+<td align="left">o_volvulus</td>
+<td align="left">PRJEB513</td>
+</tr>
+<tr>
+<td align="left">p_pacificus</td>
+<td align="left">PRJNA12644</td>
+</tr>
+<tr>
+<td align="left">t_muris</td>
+<td align="left">PRJEB126</td>
+</tr>
+<tr>
+<td align="left">t_spiralis</td>
+<td align="left">PRJNA12603</td>
+</tr>
+<tr>
+<td align="left">t_suis</td>
+<td align="left">PRJNA208415</td>
+</tr>
+<tr>
+<td align="left">t_suis</td>
+<td align="left">PRJNA208416</td>
+</tr>
+</tbody>
+</table>
+<h3 id="--output_optional"><code>--output</code> (optional)<a class="headerlink" href="#--output_optional" title="Permanent link">&para;</a></h3>
+<p>Path of output folder with results. Default is <code>/projects/b1059/data/{species}/genomes/{projectID}/{WSbuild}/</code></p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<p>Outputs are nested under <code>params.output</code> with the following structure:</p>
+<pre><code>c_elegans                                                                   (species)
+└── genomes
+    └── PRJNA13758                                                          (project)
+        └── WS276                                                           (build)
+            ├── c_elegans.PRJNA13758.WS276.genome.dict                      (dict file)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz                     (fasta)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.amb                 (bwa index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.ann                 (bwa index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.bwt                 (bwa index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.fai                 (samtools faidx index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.gzi                 (bwa index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.pac                 (bwa index)
+            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.sa                  (bwa index)
+            ├── csq
+            │   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz                  (CSQ annotation GFF3)
+            │   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz.tbi              (tabix index)
+            │   ├── c_elegans.PRJNA13758.WS276.AA_Length.tsv                (protein lengths)
+            │   └── c_elegans.PRJNA13758.WS276.AA_Scores.tsv                (blosum and grantham scores)
+            ├── lcr
+            │   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz         (low complexity regions)
+            │   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz.tbi     (tabix index)
+            │   ├── c_elegans.PRJNA13758.WS276.dust.bed.gz                  (low complexity regions)
+            │   └── c_elegans.PRJNA13758.WS276.dust.bed.gz.tbi              (tabix index)
+            └── snpeff
+                ├── c_elegans.PRJNA13758.WS276                              (tabix index)
+                │   ├── genes.gtf.gz                                        (Reference GTF)
+                │   ├── sequences.fa                                        (fasta genome (unzipped))
+                │   └── snpEffectPredictor.bin                              (snpEff annotation db)
+                └── snpEff.config                                           (snpEff configuration file)
+
+</code></pre>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The SNPeff databases are not collected together in one location as is often the case. Instead, they are stored individually with their own configuration files.</li>
+<li>The GFF3 files for some species are not as developed as <em>C. elegans</em>. As a consequence, the biotype is inferred from the Attributes column of the GFF. See <code>bin/format_csq.R</code> for more details.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The updated csq-formated gff script needs to be updated for other species besides <em>C. elegans</em></p>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-nil-ril/" class="btn btn-neutral float-right" title="nil-ril-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-postGATK/" class="btn btn-neutral" title="post-gatk-nf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../pipeline-postGATK/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../pipeline-nil-ril/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
