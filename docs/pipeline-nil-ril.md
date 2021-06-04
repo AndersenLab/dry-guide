@@ -19,7 +19,6 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
     ==========           ===========                    =======
 
     --debug              Set to 'true' to test          false
-    --species            Choose species for analysis    null (option: c_elegans)
     --cores              Number of cores                4
     --A                  Parent A                       N2
     --B                  Parent B                       CB4856
@@ -27,8 +26,8 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
     --cB                 Parent B color (for plots)     #FF8000
     --out                Directory to output results    NIL-N2-CB4856-2017-09-27
     --fqs                fastq file (see help)          (required)
-    --relative           use relative fastq prefix      ${params.relative}
-    --reference          Reference Genome               /Users/dancook/Documents/git/nil-nf/reference/WS245.fa.gz
+    --relative           use relative fastq prefix      true
+    --reference          Reference Genome               (required)
     --vcf                VCF to fetch parents from      (required)
     --tmpdir             A temporary directory          tmp/
 
@@ -194,21 +193,12 @@ Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
 !!! Important
     Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).
 
-## --species
-
-If `profile = quest`, you can choose species as `c_elegans` (`c_briggsae` and `c_tropicalis` to come soon) to populate the `--reference` and `--vcf` fields with the default values for that species. Otherwise, leave `--species` null (default) and provide your own `--reference` and `--vcf`. 
-
-!!! Note
-    `--species = c_elegans` populates the following parameters:
-    `--vcf = /projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz`
-    `--reference = /projects/b1059/data/genomes/c_elegans/c_elegans.PRJNA13758.WS276.genomic.fa.gz`
-
 ## --vcf
 
 Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, the most recent _C. elegans_ VCF could be found here:
 
 ```
-/projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz
+/projects/b1059/data/c_elegans/WI/variation/20210121/vcf/WI.20210121.hard-filter.isotype.vcf.gz
 ```
 
 This is the __hard-filtered__ VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.
@@ -220,34 +210,38 @@ Set the parental VCF as `--vcf=/the/path/to/WI.20210121.hard-filter.isotype.vcf.
 A fasta reference indexed with BWA. For example, the _C. elegans_ reference could be found here:
 
 ```
-/projects/b1059/data/genomes/c_elegans/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genomic.fa.gz
+/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
 ```
 
-## --A, --B
+### --A, --B (optional)
 
 Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided __must__ be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.
 
-## --debug
+### --debug (optional)
 
 The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the [Testing](#testing) section for more information.
 
-## --cores
+### --cores (optional)
 
 The number of cores to use during alignments and variant calling. Default is 4.
 
-## --cA, --cB
+### --cA, --cB (optional)
 
 The color to use for parental strain A and B on plots. Default is orange and blue.
 
-## --out
+### --out (optional)
 
 A directory in which to output results. By default it will be `NIL-A-B-YYYY-MM-DD` where A and be are the parental strains.
 
-## --relative
+### --relative (optional)
 
 If you want to specify fastqs using an absolute path use `--relative=false`. Set to `true` by default. 
 
-## --tmpdir
+### --cross_obj (optional)
+
+If you are running a set of RILs, you might want to add the `--cross_obj true` parameter. When `true`, the pipeline will run an additional step to pair down the total genetic variants to only the informative variants and output a smaller genotype matrix to input directly into a new cross object. An example of how to generate a cross object can be found in the `bin`. There is no need to run this option for NIL data.
+
+### --tmpdir (optional)
 
 A directory for storing temporary data.
 
@@ -344,4 +338,15 @@ The `--infill` and `--endfill` options are applied to the __gt_hmm_fill.tsv__ fi
 * `<A>.<B>.sitelist.vcf.gz[+.tbi]` - A vcf of sites found to be different between both parental strains.
 
 # Organizing final data
+
+After the run is complete and you are satisfied with the results, follow these steps to ensure correct data storage on QUEST:
+
+1. Move the raw fastq files to `/projects/b1059/data/{species}/{NIL or RIL}/fastq/`. You might want to use `mv -i` to ensure no files are overwritten.
+2. Move the BAM files from the output folder to `/projects/b1059/data/{species}/{NIL or RIL}/alignments/`. You might want to use `mv -i` to ensure no files are overwritten.
+3. Delete the now empty `bam` folder in the output directory.
+4. Move the sample sheet generated for analysis into the output directory.
+5. Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. `NIL-20200322-N2-CB4856` (if NIL/RIL analysis is performed for another lab, consider adding a `-{LabName}` like `-Baugh` to the end of the folder name)).
+6. Move the entire output folder to `/projects/b1059/data/{species}/{NIL or RIL}/variation`.
+
+
 
