@@ -67,7 +67,7 @@ nextflow run main.nf --debug -profile quest
 You should run this in a screen session.
 
 ```
-Nnextflow run main.nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
+nextflow run main.nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
 ```
 
 # Parameters
