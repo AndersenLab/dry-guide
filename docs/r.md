@@ -46,6 +46,45 @@ A Novel Gene Underlies Bleomycin-Response Variation in *Caenorhabditis elegans* 
 
 This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the [andersenlab/easyXpress](https://github.com/andersenlab/easyXpress) repo and the [easyXpress manuscript](https://www.biorxiv.org/content/10.1101/2021.05.11.443552v1). 
 
+## Using R on Quest
+
+Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:
+
+* __Docker container__ - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Quest or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions.
+
+* __Library Paths__ - For several recent pipelines on Quest, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (`/projects/b1059/software/R_lib_3.6.0`). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. 
+
+```
+# to manually install a package to this specific folder
+# make sure to first load the correct R version, our pipelines are currently using 3.6.0
+module load R/3.6.0
+
+# open R
+R
+
+# install package
+install.packages("tidyverse", lib = "/projects/b1059/software/R_lib_3.6.0")
+
+# if you load the package normally, it won't work (unless you also have it installed in your path)
+library(tidyverse) # won't work
+
+# load the package from the specific folder
+library(tidyverse, lib.loc = "/projects/b1059/software/R_lib_3.6.0")
+
+# or add the path to your local R library to make for easier loading
+.libPaths(c("/projects/b1059/software/R_lib_3.6.0", .libPaths() ))
+library(tidyverse) # works
+
+# you can add the following lines to a nextflow script to use these R packages
+# set a parameter for R library path in case it updates in the future
+params.R_libpath = "/projects/b1059/software/R_lib_3.6.0"
+
+# add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
+echo ".libPaths(c(\\"${params.R_libpath}\\", .libPaths() ))" | cat - ${workflow.projectDir}/bin/Script.R > Script.R
+Rscript --vanilla Script.R
+
+```
+
 ## General R resources
 
 * [Tidyverse workshop and resources](https://github.com/katiesevans/nuit_tidyverse)
