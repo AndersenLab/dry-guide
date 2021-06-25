@@ -120,6 +120,9 @@ nextflow run main.nf -profile quest --debug -resume
 
 Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
 
+### --species (optional)
+
+Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file.
 
 ### --fq_prefix (optional)
 
