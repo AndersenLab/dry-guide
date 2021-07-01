@@ -24,7 +24,6 @@ _/  |_ _______ |__|  _____           _/ ____\\  ______           ____  _/ ____\\
     --fastq_folder          Name of the raw fastq folder                  ${params.fastq_folder}
     --raw_path              Path to raw fastq folder                      ${params.raw_path}
     --processed_path        Path to processed fastq folder (output)       ${params.processed_path}
-    --trim_only             Whether to skip species check and only trim   ${params.trim_only}
     --genome_sheet          File with fasta locations for species check   ${params.genome_sheet}
     --out                   Folder name to write results                  ${params.out}
     --subsample_read_count  How many reads to use for species check       ${params.subsample_read_count}
@@ -79,6 +78,21 @@ nextflow run main.nf --fastq_folder <name_of_folder>
     The pipeline expects the folder containing raw fastq files to be located at `/projects/b1059/data/transfer/raw/`. And all processed fastq files will be output to `/projects/b1059/data/transfer/processed/`
 
 
+# Profiles
+
+## -profile standard (Default)
+
+If no profile is designated, the default profile will run both fastq trimming AND species check
+
+## -profile trim_only
+
+Use this profile to only trim fastq files and not perform species check.
+
+## -profile sp_check_only
+
+Use this profile to only run species check and not fastq trimming. This is useful for running species checks on previously trimmed fastqs.
+
+
 # Parameters
 
 ## --debug
@@ -104,10 +118,6 @@ The path to the `fastq_folder` if not default (`/projects/b1059/data/transfer/ra
 ### --processed_path (optional)
 
 The path to output folder if not default (`/projects/b1059/data/transfer/processed/`)
-
-### --trim_only (optional)
-
-Boolean option to only trim fastq files and not perform any species check or further analysis. Default = `FALSE`
 
 ### --genome_sheet (optional)
 
