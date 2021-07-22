@@ -90,11 +90,7 @@ The `sample sheet` for alignment is the output from the [trim-fq-nf](https://git
 * __fq1__ - The path to FASTQ1
 * __fq2__ - The path to FASTQ2
 
-| strain   |  id                      | lb      | fq1                              | fq2                              | seq_folder                 |
-|:---------|:-------------------------|:--------|:---------------------------------|:---------------------------------|:---------------------------|
-| AB1      |  BGI1-RET2-AB1           | RET2    | BGI1-RET2-AB1-trim-1P.fq.gz      | BGI1-RET2-AB1-trim-2P.fq.gz      | original_wi_set            |
-| ECA243   |  BGI3-RET3b-ECA243       | RET3b   | BGI3-RET3b-ECA243-trim-1P.fq.gz  | BGI3-RET3b-ECA243-trim-2P.fq.gz  | original_wi_set            |
-| ECA718   |  ECA718_RET-S16_S26_L001 | RET-S16 | ECA718_RET-S16_S26_L001_1P.fq.gz | ECA718_RET-S16_S26_L001_2P.fq.gz | 20180306_Duke_NovaSeq_6000 |
+![Sample_sheet](img/alignment_sample_sheet.png)
 
 
 !!! Note
@@ -145,8 +141,17 @@ On Quest, the default references are here:
 
 ```
 c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
-c_briggsae: /projects/b1059/projects/Lewis/c_briggsae/variant_calling/alignment/reference/caenorhabditis_briggsae_QX1410.v0.9.scaffolds.fa.gz
-c_tropicalis: /projects/b1059/projects/Lewis/c_tropicalis/variant_calling/alignment/reference/caenorhabditis_tropicalis_NIC58.v1.scaffolds.fa.gz
+c_briggsae: /projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
+c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
+```
+
+!!! Warning
+The current *C. briggsae* genome does not contain the Mitochondria DNA. This needs to be addressed later.
+
+!!! Note
+A different `--project` and `--wsbuild` can be used with the `--species` parameter to generate the path to other reference genomes such as:
+```
+nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
 ```
 
 ### --output (optional)
@@ -198,6 +203,14 @@ A directory in which to output results. If you have set `--debug true`, the defa
 │       ├── [strain].per-base.bed.gz
 │       └── [strain].per-base.bed.gz.csi
 ├── software_versions.txt
+├── sample_sheet.tsv
+├── strain_summary.tsv
+├── stats_strain_all.tsv
+├── stats_strains_with_low_values.tsv
+├── sample_sheet_for_seq_sheet.tsv
+├── sample_sheet_for_seq_sheet_ALL.tsv
+├── low_map_cov_for_seq_sheet.Rmd
+├── low_map_cov_for_seq_sheet.html
 └── summary.txt
 ```
 
@@ -205,16 +218,26 @@ Most files should be obvious. A few are detailed below.
 
 * __software_versions.txt__ - Outputs the software versions used for every process (step) of the pipeline.
 * __summary.txt__ - Outputs a summary of the parameters used.
-* __sample_sheet.tsv__ - The sample sheet that was used to produce the alignment directory.
-* __strain_sheet.tsv__ - A summary of all strains and bams in the alignment directory.
+* __sample_sheet.tsv__ - The sample sheet (input file) that was used to produce the alignment directory.
+* __strain_summary.tsv__ - A summary of all strains and bams in the alignment directory.
 * __aggregate__ - Stores data that has been aggregated across all strains or sequencing IDs. 
 * __coverage__ - Contains coverage data at the strain or id level, presented in a variety of ways.
+* __low_map_cov_for_seq_sheet.(Rmd/html)__ - Report showing low coverage or problematic strains to remove.
+* __stats_strain_all.tsv__ - contains stats for all strains, with all replicates combined
+* __stats_strains_with_low_values.tsv__ - contains stats for strains with either (1) low number of reads, (2) low mapping rate, and/or (3) low coverage
+* __sample_sheet_for_seq_sheet.tsv__ - sample sheet to be added to google sheet, filtered to remove low coverage strains
+* __sample_sheet_for_seq_sheet_ALL.tsv__ - sample sheet to be added to google sheet, contains all strains (use this one)
 
 # Data storage
 
 ## Cleanup
 
 Once the `alignment-nf` pipeline has completed successfully and you have removed low coverage strains (see [pipeline overview](pipeline-overview.md)), all BAM files can be moved to `/projects/b1059/data/{species}/WI/alignments/` prior to variant calling.
+
+!!! Note
+Low coverage or otherwise problematic BAM files can be moved to `/projects/b1059/data/{species}/WI/alignments/_bam_not_for_cendr/`. Make sure to update the `_README.md` file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.
+
+---
 
 # Archive
 

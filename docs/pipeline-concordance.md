@@ -87,11 +87,7 @@ The nextflow profiles configured in `nextflow.config` are designed to make it so
 
 The sample sheet to use. This is generally the same sample sheet used for `wi-gatk`. The sample sheet should look like this:
 
-| strain   | bam   | bai   | coverage  | percent_mapped   | 
-|:----|:-------|:------|:-----------|:-------------|
-| AB1 | AB1.bam  | AB1.bam.bai  | 64  | 99.4 | 
-| AB4 | AB4.bam  | AB4.bam.bai  | 52  | 99.2 | 
-| BRC20067 | BRC20067.bam  | BRC20067.bam.bai  | 30  | 92.5 | 
+![Sample_sheet](img/concordance_sample_sheet.png)
 
 !!! Important
     It is essential that you always use the pipelines and scripts to generate this sample sheet and **NEVER** manually. There are lots of strains and we want to make sure the entire process can be reproduced.
@@ -104,9 +100,9 @@ The hard-filtered VCF output from `wi-gatk`.
 
 Strain sheet containing existing isotype assignment. You can download the current wild isolate species master sheet for this input.
 
-## --species
+### --species (optional)
 
-Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'. If species == c_elegans, pipeline will check for *npr-1* variant, otherwise this step will be skipped.
+Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'. If species == c_elegans, pipeline will check for *npr-1* variant, otherwise this step will be skipped. Default = 'c_elegans'
 
 ### --concordance_cutoff (optional)
 
@@ -153,17 +149,7 @@ A directory in which to output results. By default it will be `concordance-YYYYM
 
 A file with the following structure:
 
-|   group | strain   | isotype   |   latitude |   longitude |   coverage |   unique_isotypes_per_group |   unique_groups_per_isotype | strain_in_multiple_isotypes   | location_issue   | strain_conflict   |
-|--------:|:---------|:----------|-----------:|------------:|-----------:|----------------------------:|----------------------------:|:------------------------------|:-----------------|:------------------|
-|       1 | AB1      | AB1       |   -34.93   |     138.59  |    69.4687 |                           1 |                           1 | FALSE                         | FALSE            | FALSE             |
-|     112 | AB4      | CB4858    |   -34.93   |     138.59  |   158.358  |                           1 |                           1 | FALSE                         | TRUE             | TRUE              |
-|     112 | ECA251   | CB4858    |    34.1    |    -118.1   |    73.5843 |                           1 |                           1 | FALSE                         | TRUE             | TRUE              |
-|     112 | JU1960   | CB4858    |    34.1897 |    -118.131 |    55.0373 |                           1 |                           1 | FALSE                         | TRUE             | TRUE              |
-|     175 | BRC20067 | BRC20067  |    24.073  |     121.17  |    33.5934 |                           1 |                           1 | FALSE                         | FALSE            | FALSE             |
-|     175 | BRC20113 | BRC20067  |    24.1242 |     121.283 |    38.9916 |                           1 |                           1 | FALSE                         | FALSE            | FALSE             |
-|     186 | BRC20231 | MY23      |    23.5415 |     120.908 |    44.1452 |                           1 |                           1 | FALSE                         | TRUE             | TRUE              |
-|     186 | MY23     | MY23      |    51.96   |       7.53  |   132.185  |                           1 |                           1 | FALSE                         | TRUE             | TRUE              |
-
+![pairwise](img/pairwise_output_example.png)
 
 * __group__ - A number used to group strains (in each row) into an isotype automatically. This number should be unique with the isotype column (e.g. 1--> AB1, 112 --> CB4858, BRC20067 --> 175). The number can change between analyses.
 * __strain__ - the strain

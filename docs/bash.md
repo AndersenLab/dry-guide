@@ -1,4 +1,4 @@
-# Bash
+# Command line
 
 [TOC]
 
@@ -68,7 +68,37 @@ cat example.tsv awk '$0 ~ "^#" { print }'
 
 ## bcftools
 
-* [bcftools manual](https://samtools.github.io/bcftools/howtos/index.html)
+*bcftools view*
+
+* __bcftools view <vcf>__ - view VCF
+	* __bcftools view -h <vcf>__ - view only header of VCF
+	* __bcftools view -H <vcf>__ - view VCF without header
+* __bcftools view -s CB4856,XZ1516,ECA701 <vcf>__ - subset vcf for only these three samples
+	* __bcftools view -S sample_file.txt <vcf>__ - subset vcf for only samples listed in `sample_file.txt`
+* __bcftools view -r III:1-800000 <vcf>__ - subset vcf for a region of interest
+	* can also just use `-r III` to get entire chromosome
+	* __bcftools view -R regions.txt <vcf>__ - subset vcf for a region(s) of interest in the `regions.txt` file
+
+*bcftools query*
+
+* __bcftools query -l <vcf>__ - print out list of samples in vcf
+* Print out contents of vcf in specified format (i.e. tsv):
+
+```
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' <vcf> > out.tsv
+```
+
+*Output of above line of code:*
+
+![bcftools_out](img/bcftools.png)
+
+* __bcftools query -i GT=="alt" <vcf>__ - keep rows that include a tag (like a filter)
+* __bcftools query -e GT=="ref" <vcf>__ - remove rows that include a tag
+
+!!! Note
+	`bcftools query -i/e` are not necessarily opposites. For example, if you have three genotype options (REF, ALT, or NA), including only ALT calls is different than exluding only REF calls...
+
+For more, check out the [bcftools manual](https://samtools.github.io/bcftools/howtos/index.html) and [this cheatsheet](https://gist.github.com/elowy01/93922762e131d7abd3c7e8e166a74a0b)
 
 ## Screen
 

@@ -32,7 +32,7 @@ _/  |_ _______ |__|  _____           _/ ____\\  ______           ____  _/ ____\\
 
 ![Pipeline-overview](img/trim-fq-nf.png)
 
-* You have downloaded FASTQ Data to a subdirectory within a raw directory. For wild isolates this will be `/projects/b1059/data/transfer/<folder_name>`
+* You have downloaded FASTQ Data to a subdirectory within a raw directory. For wild isolates this will be `/projects/b1059/data/transfer/raw/<folder_name>`
 * FASTQs __must__ end in a `.fq.gz` extension for the pipeline to work.
 * You have modified FASTQ names if necessary to add strain names or other identifying information.
 * You have installed software-requirements (see below for more info)

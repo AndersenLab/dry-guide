@@ -14,7 +14,7 @@ markdown_extensions:
 nav:
     - Home: index.md
     - Knowledge Base:
-          - Bash: bash.md
+          - Command Line: bash.md
           - R: r.md
           - Git and Github: github.md
     - Quest:
@@ -24,17 +24,19 @@ nav:
           - Conda: quest-conda.md
           - Docker: pipeline-docker.md
           - Mounting Quest: quest-mount.md
-    - Pipelines:
+    - WI Sequencing pipelines:
           - Overview: pipeline-overview.md
           - trim-fq-nf: pipeline-trimming.md
           - alignment-nf: pipeline-alignment.md
-          - concordance-nf: pipeline-concordance.md
           - wi-gatk: pipeline-wiGATK.md
+          - concordance-nf: pipeline-concordance.md
           - post-gatk-nf: pipeline-postGATK.md
+    - Other pipelines:
           - genomes-nf: pipeline-genomes-nf.md
           - nil-ril-nf: pipeline-nil-ril.md
           - Adding NILs Sequencing Data: adding-seq-data.md
           - cegwas2-nf: pipeline-cegwas.md
+          - NemaScan: pipeline-nemascan.md
     - Other things:
           - CeNDR: cendr.md
           - Backup: backup.md
