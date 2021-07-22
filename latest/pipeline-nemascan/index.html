@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>NemaScan - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "NemaScan";
+    var mkdocs_page_input_path = "pipeline-nemascan.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">NemaScan</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Other pipelines &raquo;</li>
+        
+      
+    
+    <li>NemaScan</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-nemascan.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="nemascan">NemaScan<a class="headerlink" href="#nemascan" title="Permanent link">&para;</a></h1>
+<p>GWA Mapping and Simulation with <em>C. elegans, C. tropicalis, and C. briggsae</em></p>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<p>&lt; fill in &gt;</p>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>This pipeline requires Nextflow version 20.0+. On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<p>Alternatively you can update Nextflow by running:</p>
+<pre><code>nextflow self-update
+</code></pre>
+<ul>
+<li>On QUEST, all software requirements are provided within the pipeline using conda environments or a docker image. To run the pipeline outside of QUEST, you can load the docker image containing all necessary software, see more in <code>profiles</code> below.</li>
+</ul>
+<h3 id="required_software_packages_loaded_with_conda_or_docker">Required Software Packages (Loaded with conda or docker)<a class="headerlink" href="#required_software_packages_loaded_with_conda_or_docker" title="Permanent link">&para;</a></h3>
+<p><em>Just for reference, pipeline keeps track of all software versions with conda or docker</em></p>
+<ol>
+<li><a href="https://www.r-project.org/">R-v3.6.0</a></li>
+<li><a href="https://www.nextflow.io/docs/latest/getstarted.html">nextflow-v20.0+</a></li>
+<li><a href="https://samtools.github.io/bcftools/bcftools.html">BCFtools-v1.9</a></li>
+<li><a href="https://www.cog-genomics.org/plink2">plink-v1.9</a></li>
+<li><a href="https://bedtools.readthedocs.io/en/latest/content/installation.html">bedtools-2.29.2</a></li>
+<li><a href="https://pandoc.org/installing.html">pandoc=2.12</a></li>
+<li><a href="https://cran.r-project.org/web/packages/coop/index.html">R-coop-0.6-2</a></li>
+<li><a href="https://cran.r-project.org/web/packages/cowplot/index.html">R-cowplot-1.0.0</a></li>
+<li><a href="https://cran.r-project.org/web/packages/data.table/index.html">R-data.table-1.12.8</a></li>
+<li><a href="https://cran.r-project.org/web/packages/DT/index.html">R-DT-0.12</a></li>
+<li><a href="https://cran.r-project.org/web/packages/genetics/index.html">R-genetics-1.3.8.1.2</a></li>
+<li><a href="https://github.com/eclarke/ggbeeswarm">R-ggbeeswarm-v0.6</a></li>
+<li><a href="https://cran.r-project.org/web/packages/ggnewscale/index.html">R-ggnewscale=0.4.5</a></li>
+<li><a href="https://cran.r-project.org/web/packages/ggrepel/index.html">R-ggrepel=0.8.2</a></li>
+<li><a href="https://cran.r-project.org/web/packages/knitr/index.html">R-knitr-1.28</a></li>
+<li><a href="https://cran.r-project.org/web/packages/plotly/index.html">R-plotly-4.9.2</a></li>
+<li><a href="https://cran.r-project.org/web/packages/Rcpp/index.html">R-Rcpp-1.0.1</a></li>
+<li><a href="https://cran.r-project.org/web/packages/rmarkdown/index.html">R-rmarkdown-2.1</a></li>
+<li><a href="https://github.com/yixuan/RSpectra">R-RSpectra-v0.13-1</a></li>
+<li><a href="https://cran.r-project.org/web/packages/sommer/index.html">R-sommer-4.0.4</a></li>
+<li><a href="https://www.tidyverse.org/">R-tidyverse-v1.3.0</a></li>
+</ol>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="downloading_nemascan">Downloading NemaScan<a class="headerlink" href="#downloading_nemascan" title="Permanent link">&para;</a></h2>
+<pre><code>git clone https://github.com/AndersenLab/NemaScan.git
+</code></pre>
+<h2 id="testingdebugging_the_mapping_profile">Testing/debugging the mapping profile<a class="headerlink" href="#testingdebugging_the_mapping_profile" title="Permanent link">&para;</a></h2>
+<p>If you are trying to run a GWAS mapping with NemaScan, it might be a good idea to first run the debug test. This test takes only a few minutes and if it completes successfully, there is a good chance your real data run will also finish.</p>
+<pre><code>nextflow run develop.nf --debug
+</code></pre>
+<p>To display the help message, run <code>nextflow develop.nf --help</code> </p>
+<h1 id="profiles_and_parameters">Profiles and Parameters<a class="headerlink" href="#profiles_and_parameters" title="Permanent link">&para;</a></h1>
+<h2 id="mappings_profile">Mappings Profile<a class="headerlink" href="#mappings_profile" title="Permanent link">&para;</a></h2>
+<p>This is the standard profile for running NemaScan. Use this profile to perform a genome-wide analysis with your trait of interest. To be explicit, you can use <code>-profile mappings</code>, however if no profile is provided, the pipeline will default to this one.</p>
+<pre><code>nextflow run develop.nf -profile mappings --vcf 20210121 --traitfile input_data/elegans/phenotypes/PC1.tsv
+</code></pre>
+<h3 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h3>
+<p>CeNDR release date for the VCF file with variant data (i.e. "20210121") Hard-filter VCF will be used for the GWA mapping and imputed VCF will be used for fine mapping. If this flag is not used, the most recent VCF for the <em>C. elegans</em> species will be downloaded from <a href="https://elegansvariation.org/data/release/latest">CeNDR</a>.</p>
+<h3 id="--traitfile">--traitfile<a class="headerlink" href="#--traitfile" title="Permanent link">&para;</a></h3>
+<p>A tab-delimited formatted (.tsv) file that contains trait information.  Each phenotype file should be in the following format (replace trait_name with the phenotype of interest):</p>
+<table>
+<thead>
+<tr>
+<th>strain</th>
+<th>trait_name_1</th>
+<th>trait_name_2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JU258</td>
+<td>32.73</td>
+<td>19.34</td>
+</tr>
+<tr>
+<td>ECA640</td>
+<td>34.065378</td>
+<td>12.32</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>ECA250</td>
+<td>34.096</td>
+<td>23.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="optional_mapping_parameters">Optional Mapping Parameters<a class="headerlink" href="#optional_mapping_parameters" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>--sthresh</code> - This determines the signficance threshold required for performing post-mapping analysis of a QTL. <code>BF</code> corresponds to Bonferroni correction, <code>EIGEN</code> corresponds to correcting for the number of independent markers in your data set, and <code>user-specified</code> corresponds to a user-defined threshold, where you replace user-specified with a number. For example <code>--sthresh=4</code> will set the threshold to a <code>-log10(p)</code> value of 4. We recommend using the strict <code>BF</code> correction as a first pass to see what the resulting data looks like. If the pipeline stops at the <code>summarize_maps</code> process, no significant QTL were discovered with the input threshold. You might want to consider lowering the threshold if this occurs. (Default: <code>BF</code>)</p>
+</li>
+<li>
+<p><code>--out</code> - A user-specified output directory name. (Default: <code>Analysis_Results-{date}</code>)</p>
+</li>
+<li>
+<p><code>--group_qtl</code> - QTL within this distance of each other (bp) will be grouped as a single QTL by <code>Find_GCTA_Intervals_*.R</code>. (Default: 1000)</p>
+</li>
+<li>
+<p><code>--ci_size</code> - The number of markers for which the detection interval will be extended past the last significant marker in the interval. (Default: 150)</p>
+</li>
+</ul>
+<h2 id="simulations_profile">Simulations Profile<a class="headerlink" href="#simulations_profile" title="Permanent link">&para;</a></h2>
+<p>This profile uses simulations to establish GWA performance benchmarks. Users can specify the heritability of simulated traits, the number of QTL underlying simulated traits of interest, the strains the user intends to use in a prospective GWA mapping experiment, or the location of previously detected QTL. Understanding the null expectations of GWA mappings within given parameter spaces may provide experimenters with additional guidance before initiating an experiment, or serve as a validation tool for previous mappings.</p>
+<pre><code>nextflow develop.nf -profile simulations --vcf 20210121 --simulate_nqtl input_data/all_species/simulate_nqtl.csv --simulate_reps 2 --simulate_h2 input_data/all_species/simulate_h2.csv --simulate_eff input_data/all_species/simulate_effect_sizes.csv --simulate_strains input_data/all_species/simulate_strains.tsv --out example_simulation_output
+module load R/3.6.3
+Rscript bin/Assess_Simulated_Mappings.R example_simulation_output
+</code></pre>
+<h3 id="--vcf_1">--vcf<a class="headerlink" href="#--vcf_1" title="Permanent link">&para;</a></h3>
+<p>CeNDR release date for the VCF file with variant data (i.e. "20210121") Hard-filter VCF will be used for the GWA mapping and imputed VCF will be used for fine mapping. If this flag is not used, the most recent VCF for the <em>C. elegans</em> species will be downloaded from <a href="https://elegansvariation.org/data/release/latest">CeNDR</a>.</p>
+<h3 id="--simulate_nqtl">--simulate_nqtl<a class="headerlink" href="#--simulate_nqtl" title="Permanent link">&para;</a></h3>
+<p>A single column CSV file that defines the number of QTL to simulate (format: one number per line, no column header) (Default is provided: <code>input_data/all_species/simulate_nqtl.csv</code>).</p>
+<h3 id="--simulate_reps">--simulate_reps<a class="headerlink" href="#--simulate_reps" title="Permanent link">&para;</a></h3>
+<p>The number of replicates to simulate per number of QTL and heritability (Default: 2).</p>
+<h3 id="--simulate_h2">--simulate_h2<a class="headerlink" href="#--simulate_h2" title="Permanent link">&para;</a></h3>
+<p>A CSV file with phenotype heritability. (format: one value per line, no column header) (Default is located: <code>input_data/all_species/simulate_h2.csv</code>).</p>
+<h3 id="--simulate_eff">--simulate_eff<a class="headerlink" href="#--simulate_eff" title="Permanent link">&para;</a></h3>
+<p>A CSV file specifying a range of causal QTL effects. QTL effects will be drawn from a uniform distribution bound by these two values. If the user wants to specify <em>Gamma</em> distributed effects, the value in this file can be simply specified as "gamma". (format: one value per line, no column header) (Default is located: input_data/all_species/simulate_effect_sizes.csv).</p>
+<h3 id="--simulate_strains">--simulate_strains<a class="headerlink" href="#--simulate_strains" title="Permanent link">&para;</a></h3>
+<p>A TSV file specifying the population in which to simulate GWA mappings. Multiple populations can be simulated at once, but causal QTL will be drawn independently for each population as a result of minor allele frequency and LD pruning prior to mapping. (format: one line per population; supplied population name and a comma-separated list of each strain in the population) (Default is located: input_data/all_species/simulate_strains.tsv).</p>
+<h4 id="optional_simulation_parameters">Optional Simulation Parameters<a class="headerlink" href="#optional_simulation_parameters" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>--simulate_maf</code> - A single column CSV file that defines the minor allele frequency threshold used to filter the VCF prior to simulations (Default: 0.05).</p>
+</li>
+<li>
+<p><code>--simulate_qtlloc</code> - A .bed file specifying genomic regions from which causal QTL are to be drawn after MAF filtering and LD pruning. (format: CHROM START END for each genomic region, with no header. NOTE: CHROM is specified as NUMERIC, not roman numerals as is convention in <em>C. elegans</em>)(Default is located: input_data/all_species/simulate_locations.bed).</p>
+</li>
+<li>
+<p><code>--group_qtl</code> - QTL within this distance of each other (bp) will be grouped as a single QTL by <code>Find_GCTA_Intervals_*.R</code>. (Default: 1000)</p>
+</li>
+<li>
+<p><code>--ci_size</code> - The number of markers for which the detection interval will be extended past the last significant marker in the interval. (Default: 150)</p>
+</li>
+</ul>
+<h2 id="annotations_profile_in_development">Annotations Profile (in development)<a class="headerlink" href="#annotations_profile_in_development" title="Permanent link">&para;</a></h2>
+<p><code>nextflow develop.nf --vcf 20210121 -profile annotations --species briggsae --wb_build WS270</code></p>
+<ul>
+<li>
+<p><code>--species</code> - specifies what species information to download from WormBase (options: elegans, briggsae, tropicalis).</p>
+</li>
+<li>
+<p><code>--wb_build</code> - specifies what WormBase build to download annotation information from (format: WSXXX, where XXX is a number greater than 270 and less than 277).</p>
+</li>
+</ul>
+<h1 id="input_data_folder_structure_nemascaninput_data">Input Data Folder Structure (<code>NemaScan/input_data</code>)<a class="headerlink" href="#input_data_folder_structure_nemascaninput_data" title="Permanent link">&para;</a></h1>
+<pre><code>all_species
+  ├── rename_chromosomes
+  ├── simulate_effect_sizes.csv
+  ├── simulate_h2.csv
+  ├── simulate_maf.csv
+  ├── simulate_nqtl.csv
+  ├── simulate_strains.tsv
+  ├── simulate_locations.bed
+briggsae
+  ├── annotations
+      ├── GTF file
+      ├── refFlat file
+elegans
+  ├── genotypes  
+      ├── test_vcf
+      ├── test_vcf_index
+      ├── test_bcsq_annotation
+  ├── phenotypes
+      ├── PC1.tsv
+      ├── abamectin_pheno.tsv
+  ├── annotations
+      ├── GTF file
+      ├── refFlat file
+  ├── isotypes
+      ├── div_isotype_list.txt
+      ├── divergent_bins.bed
+      ├── divergent_df_isotype.bed
+      ├── haplotype_df_isotype.bed
+      ├── strain_isotype_lookup.tsv
+tropicalis
+  ├── annotations
+      ├── GTF file
+      ├── refFlat file
+</code></pre>
+<h1 id="mapping_output_folder_structure">Mapping Output Folder Structure<a class="headerlink" href="#mapping_output_folder_structure" title="Permanent link">&para;</a></h1>
+<pre><code>Phenotypes
+  ├── strain_issues.txt
+  ├── pr_traitname.tsv
+Genotype_Matrix
+  ├── Genotype_Matrix.tsv
+  ├── total_independent_tests.txt
+ Mapping
+  ├── Raw
+      ├── traitname_lmm-exact_inbred.fastGWA
+      ├── traitname_lmm-exact.loco.mlma
+  ├── Processed
+      ├── traitname_AGGREGATE_qtl_region.tsv
+      ├── processed_traitname_AGGREGATE_mapping.tsv
+Plots
+  ├── ManhattanPlots
+      ├── traitname_manhattan.plot.png
+  ├── LDPlots
+      ├── traitname_LD.plot.png (if &gt; 1 QTL detected)
+  ├── EffectPlots
+      ├── traitname_[QTL.INFO]_LOCO_effect.plot.png (if detected)
+      ├── traitname_[QTL.INFO]_INBRED_effect.plot.png (if detected)
+Fine_Mappings
+  ├── Data             
+      ├── traitname_[QTL.INFO]_bcsq_genes.tsv
+      ├── traitname_[QTL.INFO]_ROI_Genotype_Matrix.tsv
+      ├── traitname_[QTL.INFO]_finemap_inbred.fastGWA
+      ├── traitname_[QTL.INFO]_LD.tsv
+  ├── Plots   
+      ├── traitname_[QTL.INFO]_finemap_plot.pdf
+      ├── traitname_[QTL.INFO]_gene_plot_bcsq.pdf
+Divergent_and_haplotype
+  ├── all_QTL_bins.bed
+  ├── all_QTL_div.bed
+  ├── div_isotype_list.txt
+  ├── haplotype_in_QTL_region.txt
+Reports
+  ├── NemaScan_Report_traitname_main.html
+  ├── NemaScan_Report_traitname_main.Rmd
+</code></pre>
+<h3 id="phenotypes_folder">Phenotypes folder<a class="headerlink" href="#phenotypes_folder" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>strain_issues.txt</code> - Output of any strain names that were changed to match vcf (i.e. isotypes that are not reference strains)</li>
+<li><code>pr_traitname.tsv</code> - Processed phenotype file for each trait. This is the file that goes into the mapping</li>
+</ul>
+<h3 id="genotype_matrix_folder">Genotype_Matrix folder<a class="headerlink" href="#genotype_matrix_folder" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Genotype_Matrix.tsv</code> - LD-pruned genotype matrix used for GWAS and construction of kinship matrix</li>
+<li><code>total_independent_tests.txt</code> - number of independent tests determined through spectral decomposition of the genotype matrix</li>
+</ul>
+<h3 id="mapping_folder">Mapping folder<a class="headerlink" href="#mapping_folder" title="Permanent link">&para;</a></h3>
+<h4 id="raw">Raw<a class="headerlink" href="#raw" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>traitname_lmm-exact_inbred.fastGWA</code> - Raw mapping results from GCTA's fastGWA program using an inbred kinship matrix</li>
+<li><code>traitname_lmm-exact.loco.mlma</code> - Raw mapping results from GCTA's mlma program using a kinship matrix constructed from all chromosomes except for the chromosome containing each tested variant</li>
+</ul>
+<h4 id="processed">Processed<a class="headerlink" href="#processed" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>traitname_LMM_EXACT_INBRED_mapping.tsv</code> - Processed mapping results from lmm-exact_inbred raw mappings. Contains additional information nested such as 1) rough intervals (see parameters for calculation) and estimates of the variance explained by the detected QTL 2) phenotype information and genotype status for each strain at the detected QTL.</li>
+<li><code>traitname_lmm-exact.loco.mlma</code> - Processed mapping results from lmm-exact.loco.mlma raw mappings. Contains same additional information as above.</li>
+</ul>
+<h5 id="qtl_regions">QTL_Regions<a class="headerlink" href="#qtl_regions" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>traitname_*_qtl_region.tsv</code> - Contains only QTL information for each mapping. If no QTL are detected, an empty data frame is written.</li>
+</ul>
+<h3 id="plots">Plots<a class="headerlink" href="#plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>traitname_manhattan.plot.png</code> - Standard output for GWA; association of marker differences with phenotypic variation in the population.</li>
+<li><code>traitname_LD.plot.png</code> - If more than 1 QTL are detected for a trait, a plot showing the linkage disequilibrium between each QTL is generated.</li>
+<li><code>traitname_[QTL.INFO]_INBRED_effect.plot.png</code> - Phenotypes for each strain are plotted against their marker genotype at the peak marker for each QTL detected for a trait. The dot representing each strain is shaded according to the percentage of the chromosome containing the QTL that is characterized as a selective sweep region.</li>
+</ul>
+<h4 id="fine_mappings_folder">Fine_Mappings folder<a class="headerlink" href="#fine_mappings_folder" title="Permanent link">&para;</a></h4>
+<h5 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>traitname_snpeff_genes.tsv</code> - Fine-mapping data frame for all significant QTL</li>
+</ul>
+<h5 id="plots_1">Plots<a class="headerlink" href="#plots_1" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>traitname_qtlinterval_finemap_plot.pdf</code> - Fine map plot of QTL interval, colored by marker LD with the peak QTL identified from the genome-wide scan</li>
+<li><code>traitname_qtlinterval_gene_plot.pdf</code> - variant annotation plot overlaid with gene CDS for QTL interval</li>
+</ul>
+<h1 id="simulation_output_folder_structure">Simulation Output Folder Structure<a class="headerlink" href="#simulation_output_folder_structure" title="Permanent link">&para;</a></h1>
+<pre><code>Genotype_Matrix
+  ├── [strain_set]_[MAF]_Genotype_Matrix.tsv
+  ├── [strain_set]_[MAF]_total_independent_tests.txt
+Simulations
+  ├── NemaScan_Performance.example_simulation_output.RData
+  ├── [specified effect range (simulate_effect_sizes.csv)]
+      ├── [specified number of simulated QTL (simulate_nqtl.csv)]
+          ├── Mappings
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_processed_LMM_EXACT_INBRED_mapping.tsv
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_processed_LMM_EXACT_LOCO_mapping.tsv
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_lmm-exact_inbred.fastGWA
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_lmm-exact.loco.mlma
+          ├── Phenotypes
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.phen
+              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.par
+  ├── (if applicable) [NEXT specified effect range]
+      ├── ...
+  ├── (if applicable) [NEXT specified effect range]
+      ├── ...
+</code></pre>
+<h3 id="genotype_matrix_folder_1">Genotype_Matrix folder<a class="headerlink" href="#genotype_matrix_folder_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>*Genotype_Matrix.tsv</code> - pruned LD-pruned genotype matrix used for GWAS and construction of kinship matrix. This will be appended with the chosen minor allele frequency cutoff and strain set, as they are generated separately for each strain set.</li>
+<li><code>*total_independent_tests.txt</code> - number of independent tests determined through spectral decomposition of the genotype matrix. This will be also be appended with the chosen minor allele frequency cutoff and strain set, as they are generated separately for each strain set.</li>
+</ul>
+<h3 id="simulations">Simulations<a class="headerlink" href="#simulations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>NemaScan_Performance.*.RData</code> - RData file containing all simulated and detected QTL from each successful simulated mapping. Contains:
+1. Simulated and Detected status for each QTL.
+2. Minor allele frequency and simulated or estimated effect for each QTL.
+3. Detection interval according to specified grouping size and CI extension.
+4. Estimated variance explained for each detected QTL.
+5. Simulation parameters and the algorithm used for that particular regime.</li>
+</ul>
+<h3 id="mappings">Mappings<a class="headerlink" href="#mappings" title="Permanent link">&para;</a></h3>
+<ul>
+<li>As with the mapping profile, raw and processed mappings for each simulation regime are nested within folders corresponding each specified effect range and number of simulated QTL. QTL region files are not provided in the simulation profile; this information along with other information related to mapping performance are iteratively gathered in the generation of the performance .RData file.</li>
+</ul>
+<h3 id="phenotypes">Phenotypes<a class="headerlink" href="#phenotypes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>[nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.phen</code> - Simulated strain phenotypes for each simulation regime.</li>
+<li><code>[nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.par</code> - Simulated QTL effects for each simulation regime. NOTE: Simulation regimes with identical numbers of simulated QTL, replicate indices, and simulated heritabilities should have <em>identical</em> simulated QTL and effects.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../cendr/" class="btn btn-neutral float-right" title="CeNDR">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-cegwas/" class="btn btn-neutral" title="cegwas2-nf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../pipeline-cegwas/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../cendr/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
                     </li>
@@ -76,7 +76,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
                 <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
@@ -84,14 +84,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">concordance-nf</a>
     <ul class="current">
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
@@ -99,6 +102,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -135,7 +140,7 @@
     
       
         
-          <li>Pipelines &raquo;</li>
+          <li>WI Sequencing pipelines &raquo;</li>
         
       
     
@@ -170,8 +175,8 @@
 <li><a href="#parameters">Parameters</a><ul>
 <li><a href="#--bam_coverage">--bam_coverage</a></li>
 <li><a href="#--vcf">--vcf</a></li>
-<li><a href="#--info_sheet">--info_sheet</a></li>
-<li><a href="#--species">--species</a><ul>
+<li><a href="#--info_sheet">--info_sheet</a><ul>
+<li><a href="#--species_optional">--species (optional)</a></li>
 <li><a href="#--concordance_cutoff_optional">--concordance_cutoff (optional)</a></li>
 <li><a href="#--cores_optional">--cores (optional)</a></li>
 <li><a href="#--out_optional">--out (optional)</a></li>
@@ -240,40 +245,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <p>The nextflow profiles configured in <code>nextflow.config</code> are designed to make it so that you don't need to change the parameters. However, the pipeline offers this flexibility if it is ever called for.</p>
 <h2 id="--bam_coverage">--bam_coverage<a class="headerlink" href="#--bam_coverage" title="Permanent link">&para;</a></h2>
 <p>The sample sheet to use. This is generally the same sample sheet used for <code>wi-gatk</code>. The sample sheet should look like this:</p>
-<table>
-<thead>
-<tr>
-<th align="left">strain</th>
-<th align="left">bam</th>
-<th align="left">bai</th>
-<th align="left">coverage</th>
-<th align="left">percent_mapped</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">AB1</td>
-<td align="left">AB1.bam</td>
-<td align="left">AB1.bam.bai</td>
-<td align="left">64</td>
-<td align="left">99.4</td>
-</tr>
-<tr>
-<td align="left">AB4</td>
-<td align="left">AB4.bam</td>
-<td align="left">AB4.bam.bai</td>
-<td align="left">52</td>
-<td align="left">99.2</td>
-</tr>
-<tr>
-<td align="left">BRC20067</td>
-<td align="left">BRC20067.bam</td>
-<td align="left">BRC20067.bam.bai</td>
-<td align="left">30</td>
-<td align="left">92.5</td>
-</tr>
-</tbody>
-</table>
+<p><img alt="Sample_sheet" src="../img/concordance_sample_sheet.png" /></p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>It is essential that you always use the pipelines and scripts to generate this sample sheet and <strong>NEVER</strong> manually. There are lots of strains and we want to make sure the entire process can be reproduced.</p>
@@ -282,8 +254,8 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <p>The hard-filtered VCF output from <code>wi-gatk</code>.</p>
 <h2 id="--info_sheet">--info_sheet<a class="headerlink" href="#--info_sheet" title="Permanent link">&para;</a></h2>
 <p>Strain sheet containing existing isotype assignment. You can download the current wild isolate species master sheet for this input.</p>
-<h2 id="--species">--species<a class="headerlink" href="#--species" title="Permanent link">&para;</a></h2>
-<p>Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'. If species == c_elegans, pipeline will check for <em>npr-1</em> variant, otherwise this step will be skipped.</p>
+<h3 id="--species_optional">--species (optional)<a class="headerlink" href="#--species_optional" title="Permanent link">&para;</a></h3>
+<p>Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'. If species == c_elegans, pipeline will check for <em>npr-1</em> variant, otherwise this step will be skipped. Default = 'c_elegans'</p>
 <h3 id="--concordance_cutoff_optional">--concordance_cutoff (optional)<a class="headerlink" href="#--concordance_cutoff_optional" title="Permanent link">&para;</a></h3>
 <p>Cutoff to use to determine isotype groups. Default is 0.9995.</p>
 <h3 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h3>
@@ -319,129 +291,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <li><strong>isotype_groups.tsv</strong> - <em>This is the one of the most important output files</em>. It illustrates the isotypes identified for each strain and identifies potential issues.</li>
 </ul>
 <p>A file with the following structure:</p>
-<table>
-<thead>
-<tr>
-<th align="right">group</th>
-<th align="left">strain</th>
-<th align="left">isotype</th>
-<th align="right">latitude</th>
-<th align="right">longitude</th>
-<th align="right">coverage</th>
-<th align="right">unique_isotypes_per_group</th>
-<th align="right">unique_groups_per_isotype</th>
-<th align="left">strain_in_multiple_isotypes</th>
-<th align="left">location_issue</th>
-<th align="left">strain_conflict</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="right">1</td>
-<td align="left">AB1</td>
-<td align="left">AB1</td>
-<td align="right">-34.93</td>
-<td align="right">138.59</td>
-<td align="right">69.4687</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="right">112</td>
-<td align="left">AB4</td>
-<td align="left">CB4858</td>
-<td align="right">-34.93</td>
-<td align="right">138.59</td>
-<td align="right">158.358</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="right">112</td>
-<td align="left">ECA251</td>
-<td align="left">CB4858</td>
-<td align="right">34.1</td>
-<td align="right">-118.1</td>
-<td align="right">73.5843</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="right">112</td>
-<td align="left">JU1960</td>
-<td align="left">CB4858</td>
-<td align="right">34.1897</td>
-<td align="right">-118.131</td>
-<td align="right">55.0373</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="right">175</td>
-<td align="left">BRC20067</td>
-<td align="left">BRC20067</td>
-<td align="right">24.073</td>
-<td align="right">121.17</td>
-<td align="right">33.5934</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="right">175</td>
-<td align="left">BRC20113</td>
-<td align="left">BRC20067</td>
-<td align="right">24.1242</td>
-<td align="right">121.283</td>
-<td align="right">38.9916</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="right">186</td>
-<td align="left">BRC20231</td>
-<td align="left">MY23</td>
-<td align="right">23.5415</td>
-<td align="right">120.908</td>
-<td align="right">44.1452</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="right">186</td>
-<td align="left">MY23</td>
-<td align="left">MY23</td>
-<td align="right">51.96</td>
-<td align="right">7.53</td>
-<td align="right">132.185</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-</tbody>
-</table>
+<p><img alt="pairwise" src="../img/pairwise_output_example.png" /></p>
 <ul>
 <li><strong>group</strong> - A number used to group strains (in each row) into an isotype automatically. This number should be unique with the isotype column (e.g. 1--&gt; AB1, 112 --&gt; CB4858, BRC20067 --&gt; 175). The number can change between analyses.</li>
 <li><strong>strain</strong> - the strain</li>
@@ -486,10 +336,10 @@ source activate /projects/b1059/software/conda_envs/nf20_env
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../pipeline-wiGATK/" class="btn btn-neutral float-right" title="wi-gatk">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../pipeline-postGATK/" class="btn btn-neutral float-right" title="post-gatk-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../pipeline-alignment/" class="btn btn-neutral" title="alignment-nf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline-wiGATK/" class="btn btn-neutral" title="wi-gatk"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -517,10 +367,10 @@ source activate /projects/b1059/software/conda_envs/nf20_env
           <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../pipeline-alignment/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../pipeline-wiGATK/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../pipeline-wiGATK/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../pipeline-postGATK/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

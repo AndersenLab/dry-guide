@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
                     </li>
@@ -76,7 +76,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
                 <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
@@ -86,12 +86,15 @@
     <ul class="current">
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
@@ -99,6 +102,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -135,7 +140,7 @@
     
       
         
-          <li>Pipelines &raquo;</li>
+          <li>WI Sequencing pipelines &raquo;</li>
         
       
     
@@ -170,6 +175,7 @@
 <li><a href="#-profile">-profile</a></li>
 <li><a href="#--sample_sheet">--sample_sheet</a></li>
 <li><a href="#--debug_optional">--debug (optional)</a><ul>
+<li><a href="#--species_optional">--species (optional)</a></li>
 <li><a href="#--fq_prefix_optional">--fq_prefix (optional)</a></li>
 <li><a href="#--kmers_optional">--kmers (optional)</a></li>
 <li><a href="#--reference_optional">--reference (optional)</a></li>
@@ -240,7 +246,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 </code></pre>
 <h2 id="running_on_quest">Running on Quest<a class="headerlink" href="#running_on_quest" title="Permanent link">&para;</a></h2>
 <p>You should run this in a screen session.</p>
-<pre><code>Nnextflow run main.nf --sample_sheet &lt;path_to_sample_sheet&gt; --species c_elegans -profile quest -resume
+<pre><code>nextflow run main.nf --sample_sheet &lt;path_to_sample_sheet&gt; --species c_elegans -profile quest -resume
 </code></pre>
 <h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
 <h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
@@ -259,44 +265,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <li><strong>fq1</strong> - The path to FASTQ1</li>
 <li><strong>fq2</strong> - The path to FASTQ2</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th align="left">strain</th>
-<th align="left">id</th>
-<th align="left">lb</th>
-<th align="left">fq1</th>
-<th align="left">fq2</th>
-<th align="left">seq_folder</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">AB1</td>
-<td align="left">BGI1-RET2-AB1</td>
-<td align="left">RET2</td>
-<td align="left">BGI1-RET2-AB1-trim-1P.fq.gz</td>
-<td align="left">BGI1-RET2-AB1-trim-2P.fq.gz</td>
-<td align="left">original_wi_set</td>
-</tr>
-<tr>
-<td align="left">ECA243</td>
-<td align="left">BGI3-RET3b-ECA243</td>
-<td align="left">RET3b</td>
-<td align="left">BGI3-RET3b-ECA243-trim-1P.fq.gz</td>
-<td align="left">BGI3-RET3b-ECA243-trim-2P.fq.gz</td>
-<td align="left">original_wi_set</td>
-</tr>
-<tr>
-<td align="left">ECA718</td>
-<td align="left">ECA718_RET-S16_S26_L001</td>
-<td align="left">RET-S16</td>
-<td align="left">ECA718_RET-S16_S26_L001_1P.fq.gz</td>
-<td align="left">ECA718_RET-S16_S26_L001_2P.fq.gz</td>
-<td align="left">20180306_Duke_NovaSeq_6000</td>
-</tr>
-</tbody>
-</table>
+<p><img alt="Sample_sheet" src="../img/alignment_sample_sheet.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Remember that in <code>--debug</code> mode the pipeline will use the sample sheet located in <code>test_data/sample_sheet.tsv</code>.</p>
@@ -316,6 +285,8 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <pre><code>nextflow run main.nf -profile quest --debug -resume
 </code></pre>
 <p>Using <code>--debug</code> will automatically set the sample sheet to <code>test_data/sample_sheet.tsv</code></p>
+<h3 id="--species_optional">--species (optional)<a class="headerlink" href="#--species_optional" title="Permanent link">&para;</a></h3>
+<p>Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file.</p>
 <h3 id="--fq_prefix_optional">--fq_prefix (optional)<a class="headerlink" href="#--fq_prefix_optional" title="Permanent link">&para;</a></h3>
 <p>Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the <code>--fq_prefix</code> to set the path that should be prefixed to each FASTQ.</p>
 <div class="admonition note">
@@ -329,8 +300,18 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <p>A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.</p>
 <p>On Quest, the default references are here:</p>
 <pre><code>c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
-c_briggsae: /projects/b1059/projects/Lewis/c_briggsae/variant_calling/alignment/reference/caenorhabditis_briggsae_QX1410.v0.9.scaffolds.fa.gz
-c_tropicalis: /projects/b1059/projects/Lewis/c_tropicalis/variant_calling/alignment/reference/caenorhabditis_tropicalis_NIC58.v1.scaffolds.fa.gz
+c_briggsae: /projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
+c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+</div>
+<p>The current <em>C. briggsae</em> genome does not contain the Mitochondria DNA. This needs to be addressed later.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>A different <code>--project</code> and <code>--wsbuild</code> can be used with the <code>--species</code> parameter to generate the path to other reference genomes such as:</p>
+<pre><code>nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
 </code></pre>
 <h3 id="--output_optional">--output (optional)<a class="headerlink" href="#--output_optional" title="Permanent link">&para;</a></h3>
 <p><strong>Default</strong> - <code>alignment-YYYYMMDD</code></p>
@@ -375,20 +356,38 @@ c_tropicalis: /projects/b1059/projects/Lewis/c_tropicalis/variant_calling/alignm
 │       ├── [strain].per-base.bed.gz
 │       └── [strain].per-base.bed.gz.csi
 ├── software_versions.txt
+├── sample_sheet.tsv
+├── strain_summary.tsv
+├── stats_strain_all.tsv
+├── stats_strains_with_low_values.tsv
+├── sample_sheet_for_seq_sheet.tsv
+├── sample_sheet_for_seq_sheet_ALL.tsv
+├── low_map_cov_for_seq_sheet.Rmd
+├── low_map_cov_for_seq_sheet.html
 └── summary.txt
 </code></pre>
 <p>Most files should be obvious. A few are detailed below.</p>
 <ul>
 <li><strong>software_versions.txt</strong> - Outputs the software versions used for every process (step) of the pipeline.</li>
 <li><strong>summary.txt</strong> - Outputs a summary of the parameters used.</li>
-<li><strong>sample_sheet.tsv</strong> - The sample sheet that was used to produce the alignment directory.</li>
-<li><strong>strain_sheet.tsv</strong> - A summary of all strains and bams in the alignment directory.</li>
+<li><strong>sample_sheet.tsv</strong> - The sample sheet (input file) that was used to produce the alignment directory.</li>
+<li><strong>strain_summary.tsv</strong> - A summary of all strains and bams in the alignment directory.</li>
 <li><strong>aggregate</strong> - Stores data that has been aggregated across all strains or sequencing IDs. </li>
 <li><strong>coverage</strong> - Contains coverage data at the strain or id level, presented in a variety of ways.</li>
+<li><strong>low_map_cov_for_seq_sheet.(Rmd/html)</strong> - Report showing low coverage or problematic strains to remove.</li>
+<li><strong>stats_strain_all.tsv</strong> - contains stats for all strains, with all replicates combined</li>
+<li><strong>stats_strains_with_low_values.tsv</strong> - contains stats for strains with either (1) low number of reads, (2) low mapping rate, and/or (3) low coverage</li>
+<li><strong>sample_sheet_for_seq_sheet.tsv</strong> - sample sheet to be added to google sheet, filtered to remove low coverage strains</li>
+<li><strong>sample_sheet_for_seq_sheet_ALL.tsv</strong> - sample sheet to be added to google sheet, contains all strains (use this one)</li>
 </ul>
 <h1 id="data_storage">Data storage<a class="headerlink" href="#data_storage" title="Permanent link">&para;</a></h1>
 <h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
 <p>Once the <code>alignment-nf</code> pipeline has completed successfully and you have removed low coverage strains (see <a href="../pipeline-overview/">pipeline overview</a>), all BAM files can be moved to <code>/projects/b1059/data/{species}/WI/alignments/</code> prior to variant calling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>Low coverage or otherwise problematic BAM files can be moved to <code>/projects/b1059/data/{species}/WI/alignments/_bam_not_for_cendr/</code>. Make sure to update the <code>_README.md</code> file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.</p>
+<hr />
 <h1 id="archive">Archive<a class="headerlink" href="#archive" title="Permanent link">&para;</a></h1>
 <p>The following sections have been integrated into other code that no longer needs to be run manually, but I am keeping the documentation here in case we need to go back to it. It is important to always check that the sample sheet is generated appropriately. If there are errors in teh sample sheet, one can be constructed manually using the following code:</p>
 <h3 id="construct_sample_sheetsh">construct_sample_sheet.sh<a class="headerlink" href="#construct_sample_sheetsh" title="Permanent link">&para;</a></h3>
@@ -500,7 +499,7 @@ awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../pipeline-concordance/" class="btn btn-neutral float-right" title="concordance-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../pipeline-wiGATK/" class="btn btn-neutral float-right" title="wi-gatk">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../pipeline-trimming/" class="btn btn-neutral" title="trim-fq-nf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -534,7 +533,7 @@ awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
         <span><a href="../pipeline-trimming/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../pipeline-concordance/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../pipeline-wiGATK/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

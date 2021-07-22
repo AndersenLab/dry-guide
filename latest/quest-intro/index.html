@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
                     </li>
@@ -98,7 +98,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
@@ -106,12 +106,15 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
@@ -119,6 +122,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -258,7 +263,7 @@ Allocation manager: Janna Nugent, <code>janna.nugent@northwestern.edu</code></p>
 <p>Perhaps the most common way to deal with scripts that run for a long time is <a href="https://linuxize.com/post/how-to-use-linux-screen/"><code>screen</code></a>. For the most simple case use, type <code>screen</code> to open a new screen session and then run your script like normal. Below are some more intermediate commands for taking full advantage of <code>screen</code>:</p>
 <ul>
 <li><code>screen -S &lt;some_descriptive_name&gt;</code>: Use this command to name your screen session. Especially useful if you have several scren sessions running and/or want to get back to this particular one later.</li>
-<li><code>Ctrl+a</code> + <code>Ctrl+d</code> to detach from the current screen session</li>
+<li><code>Ctrl+a</code> follwed by <code>Ctrl+d</code> to detach from the current screen session (NOT <code>Ctrl+a+d</code>!)</li>
 <li><code>exit</code> to end the current screen session</li>
 <li><code>screen -ls</code> lists the IDs of all screen sessions currently running </li>
 <li><code>screen -r &lt;screen_id&gt;</code>: Use this command to resume a particular screen session. If you only have one session running you can simply use <code>screen -r</code></li>

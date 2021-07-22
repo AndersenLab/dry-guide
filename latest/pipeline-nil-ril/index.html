@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
                     </li>
@@ -76,20 +76,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
-                <ul class="current">
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">nil-ril-nf</a>
@@ -99,6 +102,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -135,7 +140,7 @@
     
       
         
-          <li>Pipelines &raquo;</li>
+          <li>Other pipelines &raquo;</li>
         
       
     
@@ -172,16 +177,18 @@
 <li><a href="#testing">Testing</a></li>
 <li><a href="#parameters">Parameters</a><ul>
 <li><a href="#--fqs">--fqs</a></li>
-<li><a href="#--species">--species</a></li>
 <li><a href="#--vcf">--vcf</a></li>
-<li><a href="#--reference">--reference</a></li>
-<li><a href="#--a_--b">--A, --B</a></li>
-<li><a href="#--debug">--debug</a></li>
-<li><a href="#--cores">--cores</a></li>
-<li><a href="#--ca_--cb">--cA, --cB</a></li>
-<li><a href="#--out">--out</a></li>
-<li><a href="#--relative">--relative</a></li>
-<li><a href="#--tmpdir">--tmpdir</a></li>
+<li><a href="#--reference">--reference</a><ul>
+<li><a href="#--a_--b_optional">--A, --B (optional)</a></li>
+<li><a href="#--debug_optional">--debug (optional)</a></li>
+<li><a href="#--cores_optional">--cores (optional)</a></li>
+<li><a href="#--ca_--cb_optional">--cA, --cB (optional)</a></li>
+<li><a href="#--out_optional">--out (optional)</a></li>
+<li><a href="#--relative_optional">--relative (optional)</a></li>
+<li><a href="#--cross_obj_optional">--cross_obj (optional)</a></li>
+<li><a href="#--tmpdir_optional">--tmpdir (optional)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#output">Output</a><ul>
@@ -211,7 +218,6 @@
     ==========           ===========                    =======
 
     --debug              Set to 'true' to test          false
-    --species            Choose species for analysis    null (option: c_elegans)
     --cores              Number of cores                4
     --A                  Parent A                       N2
     --B                  Parent B                       CB4856
@@ -219,8 +225,8 @@
     --cB                 Parent B color (for plots)     #FF8000
     --out                Directory to output results    NIL-N2-CB4856-2017-09-27
     --fqs                fastq file (see help)          (required)
-    --relative           use relative fastq prefix      ${params.relative}
-    --reference          Reference Genome               /Users/dancook/Documents/git/nil-nf/reference/WS245.fa.gz
+    --relative           use relative fastq prefix      true
+    --reference          Reference Genome               (required)
     --vcf                VCF to fetch parents from      (required)
     --tmpdir             A temporary directory          tmp/
 
@@ -362,37 +368,31 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <p class="admonition-title">Important</p>
 <p>Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).</p>
 </div>
-<h2 id="--species">--species<a class="headerlink" href="#--species" title="Permanent link">&para;</a></h2>
-<p>If <code>profile = quest</code>, you can choose species as <code>c_elegans</code> (<code>c_briggsae</code> and <code>c_tropicalis</code> to come soon) to populate the <code>--reference</code> and <code>--vcf</code> fields with the default values for that species. Otherwise, leave <code>--species</code> null (default) and provide your own <code>--reference</code> and <code>--vcf</code>. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>--species = c_elegans</code> populates the following parameters:
-<code>--vcf = /projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz</code>
-<code>--reference = /projects/b1059/data/genomes/c_elegans/c_elegans.PRJNA13758.WS276.genomic.fa.gz</code></p>
-</div>
 <h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
 <p>Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, the most recent <em>C. elegans</em> VCF could be found here:</p>
-<pre><code>/projects/b1059/analysis/WI-20210121/isotype_only/WI.20210121.hard-filter.isotype.vcf.gz
+<pre><code>/projects/b1059/data/c_elegans/WI/variation/20210121/vcf/WI.20210121.hard-filter.isotype.vcf.gz
 </code></pre>
 <p>This is the <strong>hard-filtered</strong> VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.</p>
 <p>Set the parental VCF as <code>--vcf=/the/path/to/WI.20210121.hard-filter.isotype.vcf.gz</code></p>
 <h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
 <p>A fasta reference indexed with BWA. For example, the <em>C. elegans</em> reference could be found here:</p>
-<pre><code>/projects/b1059/data/genomes/c_elegans/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genomic.fa.gz
+<pre><code>/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
 </code></pre>
-<h2 id="--a_--b">--A, --B<a class="headerlink" href="#--a_--b" title="Permanent link">&para;</a></h2>
+<h3 id="--a_--b_optional">--A, --B (optional)<a class="headerlink" href="#--a_--b_optional" title="Permanent link">&para;</a></h3>
 <p>Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided <strong>must</strong> be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.</p>
-<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<h3 id="--debug_optional">--debug (optional)<a class="headerlink" href="#--debug_optional" title="Permanent link">&para;</a></h3>
 <p>The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the <a href="#testing">Testing</a> section for more information.</p>
-<h2 id="--cores">--cores<a class="headerlink" href="#--cores" title="Permanent link">&para;</a></h2>
+<h3 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h3>
 <p>The number of cores to use during alignments and variant calling. Default is 4.</p>
-<h2 id="--ca_--cb">--cA, --cB<a class="headerlink" href="#--ca_--cb" title="Permanent link">&para;</a></h2>
+<h3 id="--ca_--cb_optional">--cA, --cB (optional)<a class="headerlink" href="#--ca_--cb_optional" title="Permanent link">&para;</a></h3>
 <p>The color to use for parental strain A and B on plots. Default is orange and blue.</p>
-<h2 id="--out">--out<a class="headerlink" href="#--out" title="Permanent link">&para;</a></h2>
+<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
 <p>A directory in which to output results. By default it will be <code>NIL-A-B-YYYY-MM-DD</code> where A and be are the parental strains.</p>
-<h2 id="--relative">--relative<a class="headerlink" href="#--relative" title="Permanent link">&para;</a></h2>
+<h3 id="--relative_optional">--relative (optional)<a class="headerlink" href="#--relative_optional" title="Permanent link">&para;</a></h3>
 <p>If you want to specify fastqs using an absolute path use <code>--relative=false</code>. Set to <code>true</code> by default. </p>
-<h2 id="--tmpdir">--tmpdir<a class="headerlink" href="#--tmpdir" title="Permanent link">&para;</a></h2>
+<h3 id="--cross_obj_optional">--cross_obj (optional)<a class="headerlink" href="#--cross_obj_optional" title="Permanent link">&para;</a></h3>
+<p>If you are running a set of RILs, you might want to add the <code>--cross_obj true</code> parameter. When <code>true</code>, the pipeline will run an additional step to pair down the total genetic variants to only the informative variants and output a smaller genotype matrix to input directly into a new cross object. An example of how to generate a cross object can be found in the <code>bin</code>. There is no need to run this option for NIL data.</p>
+<h3 id="--tmpdir_optional">--tmpdir (optional)<a class="headerlink" href="#--tmpdir_optional" title="Permanent link">&para;</a></h3>
 <p>A directory for storing temporary data.</p>
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <p>The final output directory looks like this:</p>
@@ -475,6 +475,15 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <li><code>&lt;A&gt;.&lt;B&gt;.sitelist.vcf.gz[+.tbi]</code> - A vcf of sites found to be different between both parental strains.</li>
 </ul>
 <h1 id="organizing_final_data">Organizing final data<a class="headerlink" href="#organizing_final_data" title="Permanent link">&para;</a></h1>
+<p>After the run is complete and you are satisfied with the results, follow these steps to ensure correct data storage on QUEST:</p>
+<ol>
+<li>Move the raw fastq files to <code>/projects/b1059/data/{species}/{NIL or RIL}/fastq/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Move the BAM files from the output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/alignments/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Delete the now empty <code>bam</code> folder in the output directory.</li>
+<li>Move the sample sheet generated for analysis into the output directory.</li>
+<li>Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. <code>NIL-20200322-N2-CB4856</code> (if NIL/RIL analysis is performed for another lab, consider adding a <code>-{LabName}</code> like <code>-Baugh</code> to the end of the folder name)).</li>
+<li>Move the entire output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/variation</code>.</li>
+</ol>
               
             </div>
           </div>

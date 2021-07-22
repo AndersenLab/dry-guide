@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Bash - Andersen Lab Dry Guide</title>
+  <title>Command Line - Andersen Lab Dry Guide</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -19,7 +19,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Bash";
+    var mkdocs_page_name = "Command Line";
     var mkdocs_page_input_path = "bash.md";
     var mkdocs_page_url = null;
   </script>
@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Bash</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Command Line</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#basic_commands">Basic Commands</a>
     </li>
@@ -82,7 +82,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
@@ -90,12 +90,15 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
@@ -103,6 +106,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -143,7 +148,7 @@
         
       
     
-    <li>Bash</li>
+    <li>Command Line</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/bash.md"
@@ -157,10 +162,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="bash">Bash<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h1>
+                <h1 id="command_line">Command line<a class="headerlink" href="#command_line" title="Permanent link">&para;</a></h1>
 <div class="toc">
 <ul>
-<li><a href="#bash">Bash</a><ul>
+<li><a href="#command_line">Command line</a><ul>
 <li><a href="#basic_commands">Basic Commands</a></li>
 <li><a href="#more_advanced">More Advanced</a></li>
 </ul>
@@ -228,9 +233,41 @@
 <pre><code>cat example.tsv awk '$0 ~ &quot;^#&quot; { print }'
 </code></pre>
 <h2 id="bcftools">bcftools<a class="headerlink" href="#bcftools" title="Permanent link">&para;</a></h2>
+<p><em>bcftools view</em></p>
 <ul>
-<li><a href="https://samtools.github.io/bcftools/howtos/index.html">bcftools manual</a></li>
+<li><strong>bcftools view <vcf></strong> - view VCF<ul>
+<li><strong>bcftools view -h <vcf></strong> - view only header of VCF</li>
+<li><strong>bcftools view -H <vcf></strong> - view VCF without header</li>
 </ul>
+</li>
+<li><strong>bcftools view -s CB4856,XZ1516,ECA701 <vcf></strong> - subset vcf for only these three samples<ul>
+<li><strong>bcftools view -S sample_file.txt <vcf></strong> - subset vcf for only samples listed in <code>sample_file.txt</code></li>
+</ul>
+</li>
+<li><strong>bcftools view -r III:1-800000 <vcf></strong> - subset vcf for a region of interest<ul>
+<li>can also just use <code>-r III</code> to get entire chromosome</li>
+<li><strong>bcftools view -R regions.txt <vcf></strong> - subset vcf for a region(s) of interest in the <code>regions.txt</code> file</li>
+</ul>
+</li>
+</ul>
+<p><em>bcftools query</em></p>
+<ul>
+<li><strong>bcftools query -l <vcf></strong> - print out list of samples in vcf</li>
+<li>Print out contents of vcf in specified format (i.e. tsv):</li>
+</ul>
+<pre><code>bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' &lt;vcf&gt; &gt; out.tsv
+</code></pre>
+<p><em>Output of above line of code:</em></p>
+<p><img alt="bcftools_out" src="../img/bcftools.png" /></p>
+<ul>
+<li><strong>bcftools query -i GT=="alt" <vcf></strong> - keep rows that include a tag (like a filter)</li>
+<li><strong>bcftools query -e GT=="ref" <vcf></strong> - remove rows that include a tag</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>bcftools query -i/e</code> are not necessarily opposites. For example, if you have three genotype options (REF, ALT, or NA), including only ALT calls is different than exluding only REF calls...</p>
+</div>
+<p>For more, check out the <a href="https://samtools.github.io/bcftools/howtos/index.html">bcftools manual</a> and <a href="https://gist.github.com/elowy01/93922762e131d7abd3c7e8e166a74a0b">this cheatsheet</a></p>
 <h2 id="screen">Screen<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h2>
 <p>Screen can be used to run things in the background. It is extremely useful if you need to run things on quest without worry that they will be terminated if you log out or get kicked off. This is essential when running <strong>nextflow</strong> because pipelines can sometimes run for many hours and its likely you will be kicked off in that time or lose your connection.</p>
 <ul>

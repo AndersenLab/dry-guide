@@ -54,7 +54,7 @@
                 </ul>
                 <p class="caption"><span class="caption-text">Knowledge Base</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Bash</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">R</a>
     <ul class="current">
@@ -71,6 +71,8 @@
     <li class="toctree-l3"><a class="reference internal" href="#easyxpress">easyXpress</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_r_on_quest">Using R on Quest</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#general_r_resources">General R resources</a>
     </li>
@@ -94,7 +96,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../quest-mount/">Mounting Quest</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Pipelines</span></p>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
                     </li>
@@ -102,12 +104,15 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
                     </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
@@ -115,6 +120,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../adding-seq-data/">Adding NILs Sequencing Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Other things</span></p>
@@ -181,6 +188,7 @@
 <li><a href="#easyxpress">easyXpress</a></li>
 </ul>
 </li>
+<li><a href="#using_r_on_quest">Using R on Quest</a></li>
 <li><a href="#general_r_resources">General R resources</a></li>
 </ul>
 </li>
@@ -225,6 +233,45 @@ A Novel Gene Underlies Bleomycin-Response Variation in <em>Caenorhabditis elegan
 </div>
 <h3 id="easyxpress">easyXpress<a class="headerlink" href="#easyxpress" title="Permanent link">&para;</a></h3>
 <p>This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the <a href="https://github.com/andersenlab/easyXpress">andersenlab/easyXpress</a> repo and the <a href="https://www.biorxiv.org/content/10.1101/2021.05.11.443552v1">easyXpress manuscript</a>. </p>
+<h2 id="using_r_on_quest">Using R on Quest<a class="headerlink" href="#using_r_on_quest" title="Permanent link">&para;</a></h2>
+<p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:</p>
+<ul>
+<li>
+<p><strong>Docker container</strong> - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Quest or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions.</p>
+</li>
+<li>
+<p><strong>Library Paths</strong> - For several recent pipelines on Quest, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (<code>/projects/b1059/software/R_lib_3.6.0</code>). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. </p>
+</li>
+</ul>
+<pre><code># to manually install a package to this specific folder
+# make sure to first load the correct R version, our pipelines are currently using 3.6.0
+module load R/3.6.0
+
+# open R
+R
+
+# install package
+install.packages(&quot;tidyverse&quot;, lib = &quot;/projects/b1059/software/R_lib_3.6.0&quot;)
+
+# if you load the package normally, it won't work (unless you also have it installed in your path)
+library(tidyverse) # won't work
+
+# load the package from the specific folder
+library(tidyverse, lib.loc = &quot;/projects/b1059/software/R_lib_3.6.0&quot;)
+
+# or add the path to your local R library to make for easier loading
+.libPaths(c(&quot;/projects/b1059/software/R_lib_3.6.0&quot;, .libPaths() ))
+library(tidyverse) # works
+
+# you can add the following lines to a nextflow script to use these R packages
+# set a parameter for R library path in case it updates in the future
+params.R_libpath = &quot;/projects/b1059/software/R_lib_3.6.0&quot;
+
+# add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
+echo &quot;.libPaths(c(\\&quot;${params.R_libpath}\\&quot;, .libPaths() ))&quot; | cat - ${workflow.projectDir}/bin/Script.R &gt; Script.R
+Rscript --vanilla Script.R
+
+</code></pre>
 <h2 id="general_r_resources">General R resources<a class="headerlink" href="#general_r_resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/katiesevans/nuit_tidyverse">Tidyverse workshop and resources</a></li>
@@ -241,7 +288,7 @@ A Novel Gene Underlies Bleomycin-Response Variation in <em>Caenorhabditis elegan
         <a href="../github/" class="btn btn-neutral float-right" title="Git and Github">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../bash/" class="btn btn-neutral" title="Bash"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../bash/" class="btn btn-neutral" title="Command Line"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
