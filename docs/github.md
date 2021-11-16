@@ -35,7 +35,7 @@ The following 8 steps can be done on the command line or with a GUI. Below I wil
 !!! Note
 	When you are maintaining a project repo that only you are updating, it is *less important* to follow the GitHub Flow with creating short-lived branches. However, if you are developing/maintaining code that other people will use and/or working collaboratively this is an **essential** skill to master. 
 
-1. Clone/pull
+### 1. Clone/pull
 
 ```
 
@@ -50,7 +50,7 @@ git pull
 
 ```
 
-2. Branch
+### 2. Branch
 
 ```
 
@@ -65,11 +65,11 @@ git checkout < name of branch >
 
 ```
 
-3. Edit
+### 3. Edit
 
 No code here... make any edits to the repo.
 
-4. Commit
+### 4. Commit
 
 ```
 
@@ -84,7 +84,7 @@ git commit -m "<some message about what changes you made>"
 
 ```
 
-5. Push
+### 5. Push
 
 ```
 
@@ -96,7 +96,7 @@ git push --set-upstream origin new_branch
 
 ```
 
-6. Pull request
+### 6. Pull request
 
 I generally like to do this step online at github.com because I think it is useful to visually see the changes I made
 
@@ -107,11 +107,11 @@ I generally like to do this step online at github.com because I think it is usef
 - update the title/comment for the pull request to let yourself and others know what changes were made and why
 
 
-7. Inspect
+### 7. Inspect
 
 I generally like to do this step online at github.com because I think it is useful to visually see the changes I made. If you scroll down you should be able to see which files were changed and what exact changes were made. If there are merge conflicts, github will walk you through fixing them.
 
-8. Merge
+### 8. Merge
 
 When you are satisfied with your merge, click the green "merge pull request" button. Also make sure the delete the old branch when you are done as part of keeping the repo clean and clutter-free
 

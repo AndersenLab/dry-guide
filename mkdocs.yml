@@ -23,7 +23,6 @@ nav:
           - GCP: pipeline-GCPconfig.md
           - Conda: quest-conda.md
           - Docker: pipeline-docker.md
-          - Mounting Quest: quest-mount.md
     - WI Sequencing pipelines:
           - Overview: pipeline-overview.md
           - trim-fq-nf: pipeline-trimming.md
@@ -31,6 +30,7 @@ nav:
           - wi-gatk: pipeline-wiGATK.md
           - concordance-nf: pipeline-concordance.md
           - post-gatk-nf: pipeline-postGATK.md
+          - annotation-nf: pipeline-annotation-nf.md
     - Other pipelines:
           - genomes-nf: pipeline-genomes-nf.md
           - nil-ril-nf: pipeline-nil-ril.md

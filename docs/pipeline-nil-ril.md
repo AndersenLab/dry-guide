@@ -111,8 +111,11 @@ module load singularity
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run main.nf -profile quest_debug -resume
+nextflow run andersenlab/nil-ril-nf -profile quest_debug -resume
 ```
+
+!!! Note
+    There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.
 
 ### Running the pipeline on Quest
 
@@ -125,7 +128,7 @@ module load singularity
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run main.nf -profile quest -resume
+nextflow run andersenlab/nil-ril-nf -profile quest -resume
 ```
 
 # Testing

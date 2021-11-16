@@ -1,5 +1,8 @@
 # cegwas2-nf
 
+!!! Warning
+    As of 2021, `cegwas2-nf` is being phased out for `NemaScan`. If you are looking to run a genome-wide association mapping, please check out `NemaScan` as all new updates will be there.
+
 [TOC]
 
 GWA mapping with C. elegans

@@ -7,7 +7,7 @@
 
 ## Dockerfile
 
-To simplify the image building, we can use conda to install most of the tools. We can collect the tools avalible on [conda cloud](https://anaconda.org) into a `conda.yml` file, which might looks like this.
+To simplify the image building, we can use conda to install most of the tools. We can collect the tools available on [conda cloud](https://anaconda.org) into a `conda.yml` file, which might looks like this.
 
 ```
 name: concordance-nf
