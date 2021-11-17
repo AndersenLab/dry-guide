@@ -87,7 +87,7 @@ Rscript --vanilla Script.R
 
 **Running Rstudio on QUEST**
 
-The Quest Analytics Nodes allow users with active Quest allocations to use RStudio from a web browser. See [Research Computing: Quest Analytics Nodes](https://www.it.northwestern.edu/research/user-services/quest/analytic-nodes.html) for an overview of the system.
+The Quest Analytics Nodes allow users with active Quest allocations to use RStudio from a web browser. See [Research Computing: Quest Analytics Nodes](https://kb.northwestern.edu/quest-rstudio) for an overview of the system.
 
 Go to the [Rstudio browser](https://rstudio.questanalytics.northwestern.edu) (*make sure you are connected with VPN if you are off campus*). Log in with your netid and password just like you would on QUEST.
 
