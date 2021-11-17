@@ -11,7 +11,7 @@ The Andersen lab maintains several R packages useful for high-throughput data an
 This package contains a set of functions to process phenotype data, perform GWAS, and perform post-mapping data processing for *C. elegans*. In 2019, the `cegwas2-nf` Nextflow pipeline was developed to perform GWA mapping on QUEST using this cegwas2 R package. However, mapping is rarely if never done with cegwas2 in R manually. To learn more about the `cegwas2` R package, see the [andersenlab/cegwas2](https://github.com/andersenlab/cegwas2) repo. For help running a GWA mapping using cegwas2, see [cegwas2-nf](https://github.com/andersenlab/cegwas2-nf) or [the dry guide](pipeline-cegwas.md)
 
 !!! Note
-	`cegwas2` was preceeded by `cegwas` and will soon be superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
+	`cegwas2` was preceeded by `cegwas` and is now (as of 2021) superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
 
 ### linkagemapping
 
@@ -84,6 +84,17 @@ echo ".libPaths(c(\\"${params.R_libpath}\\", .libPaths() ))" | cat - ${workflow.
 Rscript --vanilla Script.R
 
 ```
+
+**Running Rstudio on QUEST**
+
+The Quest Analytics Nodes allow users with active Quest allocations to use RStudio from a web browser. See [Research Computing: Quest Analytics Nodes](https://www.it.northwestern.edu/research/user-services/quest/analytic-nodes.html) for an overview of the system.
+
+Go to the [Rstudio browser](https://rstudio.questanalytics.northwestern.edu) (*make sure you are connected with VPN if you are off campus*). Log in with your netid and password just like you would on QUEST.
+
+!!! Note
+	The version of R on the Rstudio browser is currently 4.1.1, which is likely different from the version of R you run on QUEST. Therefore, you will need to re-install any packages you want to use in the browser.
+
+You can set the working directory with `setwd("path_to_directory")` and then open and save files and data in Rstudio just like you were using it locally on your computer -- but with data and files on Quest!!
 
 ## General R resources
 

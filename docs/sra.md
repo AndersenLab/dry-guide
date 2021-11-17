@@ -25,6 +25,7 @@ For each CENDR release, it is important to also upload the FASTQ files to NCBI's
     a. Create a list of files to upload to the FTP server by combining the filename1 and filename2 from the SRA metadata sheet (above).
     b. Begin submission by creating an NCBI account (or signing in -- personal account). Then follow the link to the [SRA submission portal](https://submit.ncbi.nlm.nih.gov/subs/sra/)
     c. Follow the instructions under the "FTP upload":
+
     ```
     # establish FTP connection from terminal (on QUEST!)
     # ftp <address>
@@ -44,6 +45,7 @@ For each CENDR release, it is important to also upload the FASTQ files to NCBI's
     module load parallel
     parallel --verbose lftp -e \"put -O /uploads/kathrynevans2015_u.northwestern.edu_YSlKSXQ4/20210121_submission {}\; bye\" -u subftp,w4pYB9VQ ftp-private.ncbi.nlm.nih.gov < files_to_upload.tsv
     ```
+    
     d. *Note: it is important that this step is completely finished before you complete your SRA submission*
 4. Complete submission
     a. When finished, in the SRA portal you will be asked to select which folder you want to pull files from

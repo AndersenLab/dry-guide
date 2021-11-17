@@ -351,5 +351,9 @@ After the run is complete and you are satisfied with the results, follow these s
 5. Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. `NIL-20200322-N2-CB4856` (if NIL/RIL analysis is performed for another lab, consider adding a `-{LabName}` like `-Baugh` to the end of the folder name)).
 6. Move the entire output folder to `/projects/b1059/data/{species}/{NIL or RIL}/variation`.
 
+# Adding NIL sequence data to lab website
 
+If your sequencing was N2-CB4856 NILs (and maybe other *C. elegans* NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.
+
+Check out [this page](adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
 

@@ -93,10 +93,6 @@ process {
 }
 ```
 
-!!! Important
-    When running Nextflow with a docker container on QUEST, it is necessary to replace the `docker` command with `singularity` (although you still must build a docker container). You must also load singularity using `module load singularity` before starting a run.
-
-
 ## Notes on conda versions on Quest
 
 __tl;dr;__ If having trouble with conda, or Nextflow gives conda-related errors, try to load a different version of anaconda on Quest. At some point it may be worth re-creating all conda environments in the lab with a consistent version of conda. 
