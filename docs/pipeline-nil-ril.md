@@ -4,6 +4,7 @@
 
 The `nil-ril-nf` pipeline will align, call variants, and generate datasets for NIL and RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
 
+# Overview
 
 ```
 
@@ -38,12 +39,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 ```
 
-# Overview
-
-The `nil-ril-nf` pipeline:
-
-
-![Overview](img/nil-ril-overview.svg)
+![Overview](img/nil_ril.drawio.png)
 
 
 1. `Alignment` - Performed using bwa-mem
