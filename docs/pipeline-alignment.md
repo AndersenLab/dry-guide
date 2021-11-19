@@ -33,9 +33,7 @@ This page details how to run the pipeline and how to add new wild isolate sequen
     HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
 ```
 
-<small>The logo above looks better in your terminal!</small>
-
-![Pipeline-overview](img/alignment.png)
+![Pipeline-overview](img/alignment-nf.drawio.svg)
 
 ## Software requirements
 

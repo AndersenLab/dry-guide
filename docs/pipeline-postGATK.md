@@ -34,7 +34,7 @@ This page details how to run the pipeline.
 
 ```
 
-![Pipeline-overview](img/post-gatk-nf-flow.png)
+![Pipeline-overview](img/post-gatk.drawio.svg)
 
 ## Software Requirements
 

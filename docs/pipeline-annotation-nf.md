@@ -32,7 +32,7 @@ nextflow main.nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions
     HELP: http://andersenlab.org/dry-guide/pipeline-annotation-nf
 ```
 
-![Pipeline-overview](img/annotation-nf.drawio.png)
+![Pipeline-overview](img/annotation-nf.drawio.svg)
 
 ## Software Requirements
 

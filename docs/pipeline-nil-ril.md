@@ -39,7 +39,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 ```
 
-![Overview](img/nil_ril.drawio.png)
+![Overview](img/nil_ril.drawio.svg)
 
 
 1. `Alignment` - Performed using bwa-mem

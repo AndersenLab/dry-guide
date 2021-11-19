@@ -32,7 +32,7 @@ __The process of grouping isotypes is very hand-on. This pipeline will help proc
 
 ```
 
-![concordance-pipeline](img/concordance-nf-flow.png)
+![concordance-pipeline](img/concordance-nf.drawio.svg)
 
 
 ## Software Requirements

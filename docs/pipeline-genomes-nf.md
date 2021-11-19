@@ -2,7 +2,13 @@
 
 [TOC]
 
-`genomes-nf` is a Nextflow pipeline for managing reference genomes and annotation files.
+This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:
+
+1. A BWA Index
+2. SNPeff annotation database
+3. CSQ annotation database
+4. Samtools faidx index
+5. A GATK Sequence dictionary file
 
 !!! Important
 	When adding a new WormBase version reference genome, *especially for c_elegans* it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.
@@ -33,13 +39,7 @@
 
 ```
 
-This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:
-
-1. A BWA Index
-2. SNPeff annotation database
-3. CSQ annotation database
-4. Samtools faidx index
-5. A GATK Sequence dictionary file
+![](img/genomes-nf.drawio.svg)
 
 ## Software requirements
 

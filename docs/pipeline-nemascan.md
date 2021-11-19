@@ -4,7 +4,28 @@ GWA Mapping and Simulation with _C. elegans, C. tropicalis, and C. briggsae_
 
 # Pipeline overview
 
-< fill in >
+```
+O~~~     O~~                                   O~~ ~~
+O~ O~~   O~~                                 O~~    O~~
+O~~ O~~  O~~   O~~    O~~~ O~~ O~~    O~~     O~~         O~~~   O~~    O~~ O~~
+O~~  O~~ O~~ O~   O~~  O~~  O~  O~~ O~~  O~~    O~~     O~~    O~~  O~~  O~~  O~~
+O~~   O~ O~~O~~~~~ O~~ O~~  O~  O~~O~~   O~~       O~~ O~~    O~~   O~~  O~~  O~~
+O~~    O~ ~~O~         O~~  O~  O~~O~~   O~~ O~~    O~~ O~~   O~~   O~~  O~~  O~~
+O~~      O~~  O~~~~   O~~~  O~  O~~  O~~ O~~~  O~~ ~~     O~~~  O~~ O~~~O~~~  O~~
+
+parameters              description                                            Set/Default
+==========              ===========                                            ========================
+--traitfile             Name of file containing strain and phenotype           (required)
+--vcf                   Generally a CeNDR release date or path to vcf          (optional - 20210121)
+--species               c_elegans, c_briggsae, or c_tropicalis                 (optional - c_elegans)
+--sthresh               Significance level for QTL                             (optional - BF)
+--maf                   Minimum minor allele frequency                         (optional - 0.05)
+
+# just a subset of main parameters for the mapping profle...
+
+```
+
+![](img/nemascan.drawio.svg)
 
 ## Software Requirements
 
@@ -83,6 +104,8 @@ nextflow run andersenlab/nemascan -profile mappings --vcf 20210121 --traitfile i
 nextflow run andersenlab/nemascan --vcf 20210121 --traitfile input_data/c_elegans/phenotypes/PC1.tsv -r fa7046475fcfd06a49b375b4ef24a761f5133600
 
 ```
+
+**Check out [this page](quest-nextflow.md) for more tips and troubleshooting running Nextflow.**
 
 ### --vcf
 
