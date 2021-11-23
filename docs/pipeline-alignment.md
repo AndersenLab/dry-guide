@@ -76,7 +76,7 @@ There are three configuration profiles for this pipeline.
 
 * `local` - Used for local development.
 * `quest` - Used for running on Quest.
-* `gcp` - For running on Google Cloud.
+* `gcp` - For running on Google Cloud (not currently active?).
 
 ## --sample_sheet
 
@@ -97,7 +97,7 @@ The `sample sheet` for alignment is the output from the [trim-fq-nf](https://git
 The `library` column is a useful tool for identifying errors by variant callers. For example, if the same library is sequenced twice, and a variant is only observed in one sequencing run then that variant may be excluded as a technical / PCR artifact depending on the variant caller being used.
 
 !!! Important
-    The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the `strain` and `id` level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain.
+    The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the `strain` and `id` level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain. **For this reason, it is important that each id be unique and not just the strain name**
 
 !!! Note
     The sample sheet is a critical tool. It allows us to associated metadata with each sequencing run (e.g. isotype, reference strain, id, library). It also allows us to quickly verify that all results have been output. It is much easier than working with a list of files!
@@ -152,6 +152,12 @@ A different `--project` and `--wsbuild` can be used with the `--species` paramet
 nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
 ```
 
+### --ncbi (optional)
+
+__Default__ - `/projects/b1059/data/other/ncbi_blast_db/`
+
+Path to the NCBI blast database used for blobtool analysis. Should not need to change.
+
 ### --output (optional)
 
 __Default__ - `alignment-YYYYMMDD`
@@ -165,9 +171,6 @@ A directory in which to output results. If you have set `--debug true`, the defa
 ├── _aggregate
 │   ├── kmers.tsv
 │   └── multiqc
-│       ├── id_data/
-│       │   ├── ... (same as strain_data/)
-│       ├── id_multiqc_report.html
 │       ├── strain_data/
 │       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
 │       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
@@ -185,21 +188,17 @@ A directory in which to output results. If you have set `--debug true`, the defa
 │       │   ├── multiqc_samtools_idxstats.txt
 │       │   ├── multiqc_samtools_stats.txt
 │       │   └── multiqc_sources.txt
-│       └── strain_multiqc_report.html
+│       ├── strain_multiqc_report.html
+│       ├── id_data/
+│       │   └──... (same as strain_data/)
+│       └── id_multiqc_report.html
 ├── bam
 │   ├── [strain].bam
 │   └── [strain].bam.bai
-├── coverage
-│   ├── id
-│   │   ├── [id].mosdepth.global.dist.txt
-│   │   ├── [id].mosdepth.summary.txt
-│   │   ├── [id].per-base.bed.gz
-│   │   └── [id].per-base.bed.gz.csi
-│   └── strain
-│       ├── [strain].mosdepth.global.dist.txt
-│       ├── [strain].mosdepth.summary.txt
-│       ├── [strain].per-base.bed.gz
-│       └── [strain].per-base.bed.gz.csi
+├── blobtools
+│   ├── {strain}.*.blobplot.bam0.png
+│   ├── {strain}.*.blobplot.read_cov.bam0.png
+│   └── {strain}.*.blobplot.stats.txt
 ├── software_versions.txt
 ├── sample_sheet.tsv
 ├── strain_summary.tsv
@@ -225,6 +224,7 @@ Most files should be obvious. A few are detailed below.
 * __stats_strains_with_low_values.tsv__ - contains stats for strains with either (1) low number of reads, (2) low mapping rate, and/or (3) low coverage
 * __sample_sheet_for_seq_sheet.tsv__ - sample sheet to be added to google sheet, filtered to remove low coverage strains
 * __sample_sheet_for_seq_sheet_ALL.tsv__ - sample sheet to be added to google sheet, contains all strains (use this one)
+* __blobplot/__ - contains plots for low coverage strains to see if they show contamination issues and if they should be resequenced.
 
 # Data storage
 

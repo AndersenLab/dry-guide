@@ -20,6 +20,7 @@ nav:
           - Git and Github: github.md
     - Quest:
           - Introduction: quest-intro.md
+          - Data on b1059: b1059.md
           - Nextflow: quest-nextflow.md
           - Conda: quest-conda.md
           - Docker: pipeline-docker.md
@@ -35,6 +36,7 @@ nav:
           - annotation-nf: pipeline-annotation-nf.md
     - Other pipelines:
           - NemaScan: pipeline-nemascan.md
+          - Image Analysis: pipeline-cellprofiler.md
           - nil-ril-nf: pipeline-nil-ril.md
           - genomes-nf: pipeline-genomes-nf.md
           - cegwas2-nf: pipeline-cegwas.md

@@ -74,19 +74,57 @@ You must create an output in the `server` and then display that output in the `u
 | `shiny::renderUI()` | `shiny::uiOutput()` |
 | `shiny::renderText()` | `shiny::textOutput()` |
 
-**Simple example**
+## Simple example
+
+```
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- shiny::fluidPage(
+    # Application title
+    shiny::titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    shiny::sidebarLayout(
+        shiny::sidebarPanel(
+            shiny::sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        shiny::mainPanel(
+            shiny::plotOutput("distPlot")
+        )
+    )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- shiny::renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    })
+}
+
+# Run the application 
+shiny::shinyApp(ui = ui, server = server)
 
 ```
 
+## Reactivity
 
-```
+Check out this great overview on [reactivity](https://shiny.rstudio.com/articles/reactivity-overview.html), the cornerstone of shiny applications. It talks about how the inputs are related to outputs and when outputs update in response to inputs.
 
+## Publishing your shiny app to shinyapps.io
 
+After testing your new shiny app in Rstudio, you might be ready to deploy to the web for other people to access! The Andersen Lab has their own shinyapps.io account, so if you are making a lab-related app it is best to use this account (for login details, ask Robyn!)
 
-## Reactive values
-
-XXX
-
-## Publishing your shiny app to shiny.io
-
-XXX
+Publishing is simple - press the "publish" button in the upper right-hand corner of your running application and follow the prompts to select the right account. Once published, your application will be available at `https://andersen-lab.shinyapps.io/{your_app_name}`
