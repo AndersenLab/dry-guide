@@ -24,6 +24,7 @@ Not every analysis needs to be a Nextflow pipeline. For smaller analyses (especi
 All input and output files in Nextflow are piped through "channels". You can create a channel with an input file or parameter and then feed these channels to a "process" (or step). Channels can be merged, split, or rearranged. Check out the Nextflow documentation for [channels](https://www.nextflow.io/docs/latest/channel.html) to learn more. Also check out this [cheatsheet](https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_cheatsheet.pdf) for useful operators.
 
 *Miscellaneous channels tips:*
+
 - `Channel.from("A.txt")` will put `A.txt` as is into the channel 
 - `Channel.fromPath("A.txt")` will add a full path (usually current directory) and put `/path/A.txt` into the channel. 
 - `Channel.fromPath("folder/A.txt")` will add a full path (usually current directory) and put `/path/folder/A.txt` into the channel. 
@@ -65,6 +66,7 @@ workflow {
 ```
 
 *Miscellaneous notes on input paths for process:*
+
 - With `input: path("A.txt")` one can refer to the file in the script as `A.txt`. Side note `A.txt` doesn't have to be the same name as in channel creation, it can be anything, `input: path("B.txt")`, `input: path("n")` etc. 
 - With `input: path(A)` one can refer to the file in the script as `$A`, and the value of `$A` will be the original file name (without path, see section above). 
 - `input: path("A.txt")` and `input: path "A.txt"` generally both work. Occasionally had errors that required the following (tip from [@danielecook](https://github.com/danielecook)): 
@@ -87,6 +89,7 @@ One of the main distinctions of Nextflow is that each execution of a process hap
     * You can also find the working directory in the `.nextflow.log` file or in the `report.html` if one is generated.
 
 *Miscellaneous tips on the working directory:*
+
 - Note that with `publishDir "path", mode: 'move'`, the output file will be moved outside of the working directory and Nextflow will not be able to use it as input for another process, so only use it when there is not a following process that uses the output file. 
 - Be mindful that if the `""" (script section) """` involves changing directory, such as `cd` or `rmarkdown::render( knit_root_dir = "folder/" )`, Nextflow will still only search the working directory for output files. 
 - Run `nextflow clean -f` in the excecution folder to clean up the working directories.
@@ -124,6 +127,7 @@ One of the main distinctions of Nextflow is that each execution of a process hap
 ```
 
 **Notes on transition to DSL2**
+
 If you are new to nextflow or don't know anything about DSL1 or DSL2, you can disregard this section and use DSL2 syntax!
 - Moving to DSL2 is a one-way street. It's so intuitive with clean and readable code.
 - In DSL1, each queue channel can only be used once. 
@@ -134,6 +138,7 @@ If you are new to nextflow or don't know anything about DSL1 or DSL2, you can di
 - [Deprecated operators](https://www.nextflow.io/docs/latest/dsl2.html#dsl2-migration-notes).
 
 **Run reports**
+
 - `nextflow main.nf -with-report -with-timeline -with-dag`
 - `-with-report` Nextflow html report contains resource usage for each process, and details (most useful being the status and working directory) for each process 
 - `-with-timeline` How much wait time and run time each process took for the run. Very useful reference for optimizing resource allocation and improving run time.
@@ -162,6 +167,7 @@ report {
 ```
 
 **How to require users to sepcify a parameter value**
+
 - There are 2 types of paramters: (a) one with no actual value (b) one with actual values. 
 - **(a)** If a parameter is specified but no value is given, it is implicitly considered `true`. So one can use this to run debug mode `nextflow main.nf --debug`
 ```
