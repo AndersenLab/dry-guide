@@ -2,7 +2,13 @@
 
 [TOC]
 
-`genomes-nf` is a Nextflow pipeline for managing reference genomes and annotation files.
+This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:
+
+1. A BWA Index
+2. SNPeff annotation database
+3. CSQ annotation database
+4. Samtools faidx index
+5. A GATK Sequence dictionary file
 
 !!! Important
 	When adding a new WormBase version reference genome, *especially for c_elegans* it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.
@@ -33,13 +39,7 @@
 
 ```
 
-This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:
-
-1. A BWA Index
-2. SNPeff annotation database
-3. CSQ annotation database
-4. Samtools faidx index
-5. A GATK Sequence dictionary file
+![](img/genomes-nf.drawio.svg)
 
 ## Software requirements
 
@@ -74,6 +74,10 @@ Can be set to `local` or `quest`. The pipeline uses the `andersenlab/genomes` do
 
 !!! Note
 	The default profile is set to `-profile=quest`
+
+## Default usage: downloading genome files from Wormbase
+
+This is how the pipeline is mostly run, especially for *C. elegans*.
 
 ### `--wb_version` (optional)
 
@@ -139,6 +143,21 @@ The current set of available species/projects that can be built are:
 
 Path of output folder with results. Default is `/projects/b1059/data/{species}/genomes/{projectID}/{WSbuild}/`
 
+---
+
+## Alternative usage: using manually selected genomes 
+
+This step is mostly for making the snpEff database and making sure that the gff is in the proper format for BCSQ annotation when you have a manually curated genome/gff file. This is common for *C. briggsae* and *C. tropicalis* and might start to be used if we want to annotate *C. elegans* wild isolates like CB4856.
+
+## `--genome`
+
+Path to manually curated genome (for genomes not downloaded from wormbase)
+
+## `--gff`
+
+Path to manually curated gff generated using the above genome (for genomes not downloaded from wormbase)
+
+---
 
 # Output
 
@@ -183,5 +202,5 @@ c_elegans                                                                   (spe
 * The GFF3 files for some species are not as developed as _C. elegans_. As a consequence, the biotype is inferred from the Attributes column of the GFF. See `bin/format_csq.R` for more details.
 
 !!! Warning
-	The updated csq-formated gff script needs to be updated for other species besides *C. elegans*
+	The updated csq-formated gff script needs to be updated for other species besides *C. elegans* (if running the default mode)
 

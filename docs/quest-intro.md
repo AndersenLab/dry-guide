@@ -73,13 +73,13 @@ The Andersen lab has access to two projects.
 
 __b1042__ - The 'Genomics' Project has 200 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at `/projects/b1042/AndersenLab/`. By default, files are deleted after 30 days. One can submit jobs to `--partition=genomicsguestA` to use this partition, with a max job duration of 48hr. 
 
-__b1059__ - The Andersen Lab Project. __b1059__ has 3 computing nodes `qnode9031`-`qnode9033` with 192Gb of RAM and 40 cores each, and has 60 Tb of storage. b1059 storage is located at: `/projects/b1059/`. One can submit jobs to `--partition=b1059` to use this partition, with no limit on job duration. 
+__b1059__ - The Andersen Lab Project. __b1059__ has 5 computing nodes `qnode9031`-`qnode9033` (192Gb of RAM and 40 cores eacy) and `qnode0277`-`qnode0278` (192Gb of RAM and 52 cores each), and has 77 Tb of storage. b1059 storage is located at: `/projects/b1059/` (Check out [this page](b1059.md) to learn more about how data is stored on `b1059`). One can submit jobs to `--partition=b1059` to use this partition, with no limit on job duration. 
 
 !!! Note
     Anyone who uses quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
 
 !!! Important
-	It is important that we keep the 60 Tb of storage space on **b1059** from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months.
+	It is important that we keep the 77 Tb of storage space on **b1059** from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months. You can check the percent of space remaining with `checkproject b1059`
 
 ## Running interactive jobs on Quest
 
@@ -94,7 +94,7 @@ srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --
 
 ## Using `screen` or `nohup` to keep jobs from timing out
 
-If you have ever tried to run a pipeline or script that takes a long time (think `cegwas2-nf`), you know that if you close down your terminal or if your QUEST session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:
+If you have ever tried to run a pipeline or script that takes a long time (think `NemaScan`), you know that if you close down your terminal or if your QUEST session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:
 
 **screen**
 

@@ -4,7 +4,28 @@ GWA Mapping and Simulation with _C. elegans, C. tropicalis, and C. briggsae_
 
 # Pipeline overview
 
-< fill in >
+```
+O~~~     O~~                                   O~~ ~~
+O~ O~~   O~~                                 O~~    O~~
+O~~ O~~  O~~   O~~    O~~~ O~~ O~~    O~~     O~~         O~~~   O~~    O~~ O~~
+O~~  O~~ O~~ O~   O~~  O~~  O~  O~~ O~~  O~~    O~~     O~~    O~~  O~~  O~~  O~~
+O~~   O~ O~~O~~~~~ O~~ O~~  O~  O~~O~~   O~~       O~~ O~~    O~~   O~~  O~~  O~~
+O~~    O~ ~~O~         O~~  O~  O~~O~~   O~~ O~~    O~~ O~~   O~~   O~~  O~~  O~~
+O~~      O~~  O~~~~   O~~~  O~  O~~  O~~ O~~~  O~~ ~~     O~~~  O~~ O~~~O~~~  O~~
+
+parameters              description                                            Set/Default
+==========              ===========                                            ========================
+--traitfile             Name of file containing strain and phenotype           (required)
+--vcf                   Generally a CeNDR release date or path to vcf          (optional - 20210121)
+--species               c_elegans, c_briggsae, or c_tropicalis                 (optional - c_elegans)
+--sthresh               Significance level for QTL                             (optional - BF)
+--maf                   Minimum minor allele frequency                         (optional - 0.05)
+
+# just a subset of main parameters for the mapping profle...
+
+```
+
+![](img/nemascan.drawio.svg)
 
 ## Software Requirements
 
@@ -51,20 +72,18 @@ nextflow self-update
 
 # Usage
 
-## Downloading NemaScan
-```
-git clone https://github.com/AndersenLab/NemaScan.git
-```
+!!! Note
+  It is not necessary to first download the git repo before running. However, you could still choose to do so with `git clone https://github.com/AndersenLab/NemaScan.git`
 
 ## Testing/debugging the mapping profile
 
 If you are trying to run a GWAS mapping with NemaScan, it might be a good idea to first run the debug test. This test takes only a few minutes and if it completes successfully, there is a good chance your real data run will also finish.
 
 ```
-nextflow run develop.nf --debug
+nextflow run andersenlab/nemascan --debug
 ```
 
-To display the help message, run `nextflow develop.nf --help` 
+To display the help message, run `nextflow run andersenlab/nemascan --help` 
 
 # Profiles and Parameters
 
@@ -73,11 +92,27 @@ To display the help message, run `nextflow develop.nf --help`
 This is the standard profile for running NemaScan. Use this profile to perform a genome-wide analysis with your trait of interest. To be explicit, you can use `-profile mappings`, however if no profile is provided, the pipeline will default to this one.
 
 ```
-nextflow run develop.nf -profile mappings --vcf 20210121 --traitfile input_data/elegans/phenotypes/PC1.tsv
+nextflow run andersenlab/nemascan -profile mappings --vcf 20210121 --traitfile input_data/c_elegans/phenotypes/PC1.tsv
 ```
+
+!!! Note
+  You can also run specific branches or previous git commits easily. This can be especially useful to ensure that the version of NemaScan that you use doesn't change as you prepare your manuscript even if the code is updated.
+  All you need to do is add a `-r XXX` to the end of your command, where `XXX` can be either (1) name of git branch, (2) name of git repo release, or (3) git commit ID
+  **For all runs, you can find the exact git commit used to run your analysis in the Nextflow report output after each run**
+
+```
+nextflow run andersenlab/nemascan --vcf 20210121 --traitfile input_data/c_elegans/phenotypes/PC1.tsv -r fa7046475fcfd06a49b375b4ef24a761f5133600
+
+```
+
+**Check out [this page](quest-nextflow.md) for more tips and troubleshooting running Nextflow.**
+
 ### --vcf
 
 CeNDR release date for the VCF file with variant data (i.e. "20210121") Hard-filter VCF will be used for the GWA mapping and imputed VCF will be used for fine mapping. If this flag is not used, the most recent VCF for the _C. elegans_ species will be downloaded from [CeNDR](https://elegansvariation.org/data/release/latest).
+
+!!! Note
+  If you want to use a custom VCF, you may provide the full path to the vcf in place of the CeNDR release date. This custom VCF will be used for BOTH GWA mapping and fine-mapping steps (instead of the imputed vcf).
 
 ### --traitfile
 
@@ -90,9 +125,14 @@ A tab-delimited formatted (.tsv) file that contains trait information.  Each phe
 | ... | ... | ... | 124.33 |
 | ECA250 | 34.096 | 23.1 |
 
+
 #### Optional Mapping Parameters
 
+* `--species` - Choose between `c_elegans` (DEFAULT), `c_tropicalis` or `c_briggsae`
+
 * `--sthresh` - This determines the signficance threshold required for performing post-mapping analysis of a QTL. `BF` corresponds to Bonferroni correction, `EIGEN` corresponds to correcting for the number of independent markers in your data set, and `user-specified` corresponds to a user-defined threshold, where you replace user-specified with a number. For example `--sthresh=4` will set the threshold to a `-log10(p)` value of 4. We recommend using the strict `BF` correction as a first pass to see what the resulting data looks like. If the pipeline stops at the `summarize_maps` process, no significant QTL were discovered with the input threshold. You might want to consider lowering the threshold if this occurs. (Default: `BF`)
+
+* `--mediation` - 'true' or 'false' input for whether or not to run the mediation analysis (overlapping expression variation with phenotypic variation to drive a QTL). (Default: `true`)
 
 * `--out` - A user-specified output directory name. (Default: `Analysis_Results-{date}`)
 
@@ -100,6 +140,30 @@ A tab-delimited formatted (.tsv) file that contains trait information.  Each phe
 
 * `--ci_size` - The number of markers for which the detection interval will be extended past the last significant marker in the interval. (Default: 150)
 
+* `--maf` - The minor allele frequency for filtering variants to use for gwas mapping (default 0.05)
+
+## Genomatrix Profile
+
+This profile takes a list of strains and outputs the genotype matrix but does not perform any other analysis for the genome-wide association. 
+
+```
+nextflow run develop.nf -profile genomatrix --vcf 20210121 --strains input_data/elegans/phenotypes/strain_file.tsv
+```
+
+### --vcf
+
+CeNDR release date for the VCF file with variant data (i.e. "20210121") Hard-filter VCF will be used for the GWA mapping and imputed VCF will be used for fine mapping. If this flag is not used, the most recent VCF for the _C. elegans_ species will be downloaded from [CeNDR](https://elegansvariation.org/data/release/latest). **Alternatively, you could choose to provide the full path to a custom VCF**
+
+### --strains
+
+A file (.tsv) that contains a list of strains used for generating the genotype matrix. There is no header:
+
+```
+JU258
+ECA640
+...
+ECA250
+```
 
 ## Simulations Profile
 
@@ -148,6 +212,25 @@ A TSV file specifying the population in which to simulate GWA mappings. Multiple
 
 * `--wb_build` - specifies what WormBase build to download annotation information from (format: WSXXX, where XXX is a number greater than 270 and less than 277).
 
+
+## GWA Mapping with Docker Profile
+
+This profile uses a docker image instead of local conda environments to perform the GWA mapping. Use this profile if you have issue with conda on QUEST or if you are running the pipeline outside of quest. *NOTE: Docker or singularity is required*
+
+**On QUEST:**
+```
+module load singularity
+nextflow run andersenlab/nemascan --traitfile <file> --vcf 20210121 -profile mappings_docker
+```
+
+**Local**
+*make sure you have installed docker and that it is actively running. See [here](http://andersenlab.org/dry-guide/latest/pipeline-docker/) for help.*
+
+```
+nextflow run andersenlab/nemascan --traitfile <file> --vcf 20210121 -profile local
+
+```
+
 # Input Data Folder Structure (`NemaScan/input_data`)
 
 ```
@@ -158,32 +241,25 @@ all_species
   ├── simulate_maf.csv
   ├── simulate_nqtl.csv
   ├── simulate_strains.tsv
-  ├── simulate_locations.bed
-briggsae
-  ├── annotations
-      ├── GTF file
-      ├── refFlat file
-elegans
-  ├── genotypes  
+  └── simulate_locations.bed
+c_elegans (repeated for c_tropicalis and c_briggsae)
+  └── genotypes  
       ├── test_vcf
       ├── test_vcf_index
-      ├── test_bcsq_annotation
-  ├── phenotypes
+      └── test_bcsq_annotation
+  └── phenotypes
       ├── PC1.tsv
-      ├── abamectin_pheno.tsv
-  ├── annotations
+      ├── strain_file.tsv
+      └── test_pheno.tsv
+  └── annotations
       ├── GTF file
-      ├── refFlat file
-  ├── isotypes
+      └── refFlat file
+  └── isotypes
       ├── div_isotype_list.txt
       ├── divergent_bins.bed
       ├── divergent_df_isotype.bed
       ├── haplotype_df_isotype.bed
-      ├── strain_isotype_lookup.tsv
-tropicalis
-  ├── annotations
-      ├── GTF file
-      ├── refFlat file
+      └── strain_isotype_lookup.tsv
 ```
 
 # Mapping Output Folder Structure
@@ -191,42 +267,43 @@ tropicalis
 ```
 Phenotypes
   ├── strain_issues.txt
-  ├── pr_traitname.tsv
+  └── pr_traitname.tsv
 Genotype_Matrix
   ├── Genotype_Matrix.tsv
-  ├── total_independent_tests.txt
+  └── total_independent_tests.txt
  Mapping
-  ├── Raw
+  └── Raw
       ├── traitname_lmm-exact_inbred.fastGWA
-      ├── traitname_lmm-exact.loco.mlma
-  ├── Processed
+      └── traitname_lmm-exact.loco.mlma
+  └── Processed
       ├── traitname_AGGREGATE_qtl_region.tsv
       ├── processed_traitname_AGGREGATE_mapping.tsv
+      └── QTL_peaks.tsv
 Plots
-  ├── ManhattanPlots
-      ├── traitname_manhattan.plot.png
-  ├── LDPlots
-      ├── traitname_LD.plot.png (if > 1 QTL detected)
-  ├── EffectPlots
+  └── ManhattanPlots
+      └── traitname_manhattan.plot.png
+  └── LDPlots
+      └── traitname_LD.plot.png (if > 1 QTL detected)
+  └── EffectPlots
       ├── traitname_[QTL.INFO]_LOCO_effect.plot.png (if detected)
-      ├── traitname_[QTL.INFO]_INBRED_effect.plot.png (if detected)
+      └── traitname_[QTL.INFO]_INBRED_effect.plot.png (if detected)
 Fine_Mappings
-  ├── Data             
+  └── Data             
       ├── traitname_[QTL.INFO]_bcsq_genes.tsv
       ├── traitname_[QTL.INFO]_ROI_Genotype_Matrix.tsv
       ├── traitname_[QTL.INFO]_finemap_inbred.fastGWA
-      ├── traitname_[QTL.INFO]_LD.tsv
-  ├── Plots   
+      └── traitname_[QTL.INFO]_LD.tsv
+  └── Plots   
       ├── traitname_[QTL.INFO]_finemap_plot.pdf
-      ├── traitname_[QTL.INFO]_gene_plot_bcsq.pdf
+      └── traitname_[QTL.INFO]_gene_plot_bcsq.pdf
 Divergent_and_haplotype
   ├── all_QTL_bins.bed
   ├── all_QTL_div.bed
   ├── div_isotype_list.txt
-  ├── haplotype_in_QTL_region.txt
+  └── haplotype_in_QTL_region.txt
 Reports
   ├── NemaScan_Report_traitname_main.html
-  ├── NemaScan_Report_traitname_main.Rmd
+  └── NemaScan_Report_traitname_main.Rmd
 ```
 
 ### Phenotypes folder
@@ -244,10 +321,10 @@ Reports
 * `traitname_lmm-exact.loco.mlma` - Raw mapping results from GCTA's mlma program using a kinship matrix constructed from all chromosomes except for the chromosome containing each tested variant
 
 #### Processed
-* `traitname_LMM_EXACT_INBRED_mapping.tsv` - Processed mapping results from lmm-exact_inbred raw mappings. Contains additional information nested such as 1) rough intervals (see parameters for calculation) and estimates of the variance explained by the detected QTL 2) phenotype information and genotype status for each strain at the detected QTL.
-* `traitname_lmm-exact.loco.mlma` - Processed mapping results from lmm-exact.loco.mlma raw mappings. Contains same additional information as above.
-##### QTL_Regions
-* `traitname_*_qtl_region.tsv` - Contains only QTL information for each mapping. If no QTL are detected, an empty data frame is written.
+* `traitname_AGGREGATE_mapping.tsv` - Combined processed mapping results from lmm-exact_inbred and lmm-exact.loco.mlma raw mappings. Contains additional information nested such as 1) rough intervals (see parameters for calculation) and estimates of the variance explained by the detected QTL 2) phenotype information and genotype status for each strain at the detected QTL.
+* `traitname_AGGREGATE_qtl_region.tsv` - Contains only QTL information for each mapping. If no QTL are detected, an empty data frame is written.
+* `QTL_peaks.tsv` - contains QTL information for each mapping for all traits combined.
+
 
 ### Plots
 * `traitname_manhattan.plot.png` - Standard output for GWA; association of marker differences with phenotypic variation in the population.
@@ -257,7 +334,7 @@ Reports
 #### Fine_Mappings folder
 
 ##### Data
-* `traitname_snpeff_genes.tsv` - Fine-mapping data frame for all significant QTL
+* `traitname_bcsq_genes.tsv` - Fine-mapping data frame for all significant QTL
 
 ##### Plots
 * `traitname_qtlinterval_finemap_plot.pdf` - Fine map plot of QTL interval, colored by marker LD with the peak QTL identified from the genome-wide scan
@@ -269,23 +346,23 @@ Reports
 ```
 Genotype_Matrix
   ├── [strain_set]_[MAF]_Genotype_Matrix.tsv
-  ├── [strain_set]_[MAF]_total_independent_tests.txt
+  └── [strain_set]_[MAF]_total_independent_tests.txt
 Simulations
   ├── NemaScan_Performance.example_simulation_output.RData
-  ├── [specified effect range (simulate_effect_sizes.csv)]
-      ├── [specified number of simulated QTL (simulate_nqtl.csv)]
-          ├── Mappings
+  └── [specified effect range (simulate_effect_sizes.csv)]
+      └── [specified number of simulated QTL (simulate_nqtl.csv)]
+          └── Mappings
               ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_processed_LMM_EXACT_INBRED_mapping.tsv
               ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_processed_LMM_EXACT_LOCO_mapping.tsv
               ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_lmm-exact_inbred.fastGWA
-              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_lmm-exact.loco.mlma
-          ├── Phenotypes
+              └── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_lmm-exact.loco.mlma
+          └── Phenotypes
               ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.phen
-              ├── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.par
-  ├── (if applicable) [NEXT specified effect range]
-      ├── ...
-  ├── (if applicable) [NEXT specified effect range]
-      ├── ...
+              └── [nQTL]_[rep]_[h2]_[MAF]_[effect range]_[strain_set]_sims.par
+  └── (if applicable) [NEXT specified effect range]
+      └── ...
+  └── (if applicable) [NEXT specified effect range]
+      └── ...
 ```
 
 ### Genotype_Matrix folder

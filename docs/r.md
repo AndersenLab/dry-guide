@@ -2,6 +2,19 @@
 
 [TOC]
 
+## General R resources
+
+If you are looking for some help getting started with R or taking your R to the next level, check out these useful resources:
+
+* [Swirl - interactive R learning](https://swirlstats.com/students.html)
+* [Tidyverse workshop and resources](https://github.com/katiesevans/nuit_tidyverse)
+* [Andersen Lab R Knowledge base & Cheatsheet](https://github.com/AndersenLab/code_club/blob/main/R_cheatsheet.md)
+* [R-bloggers - tips and tricks](https://www.r-bloggers.com/)
+* [Using Rprojects to organize scripts](https://www.r-bloggers.com/2020/01/rstudio-projects-and-working-directories-a-beginners-guide/)
+* [Using workflowR for reproducible work](https://www.rdocumentation.org/packages/workflowr/versions/0.7.0)
+* [Using Rmarkdown to generate reports](https://rmarkdown.rstudio.com/articles_intro.html)
+* Also check out the `lab_code` slack channel for help/questions!
+
 ## Andersen Lab R Packages
 
 The Andersen lab maintains several R packages useful for high-throughput data analysis.
@@ -11,7 +24,7 @@ The Andersen lab maintains several R packages useful for high-throughput data an
 This package contains a set of functions to process phenotype data, perform GWAS, and perform post-mapping data processing for *C. elegans*. In 2019, the `cegwas2-nf` Nextflow pipeline was developed to perform GWA mapping on QUEST using this cegwas2 R package. However, mapping is rarely if never done with cegwas2 in R manually. To learn more about the `cegwas2` R package, see the [andersenlab/cegwas2](https://github.com/andersenlab/cegwas2) repo. For help running a GWA mapping using cegwas2, see [cegwas2-nf](https://github.com/andersenlab/cegwas2-nf) or [the dry guide](pipeline-cegwas.md)
 
 !!! Note
-	`cegwas2` was preceeded by `cegwas` and will soon be superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
+	`cegwas2` was preceeded by `cegwas` and is now (as of 2021) superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
 
 ### linkagemapping
 
@@ -44,7 +57,11 @@ A Novel Gene Underlies Bleomycin-Response Variation in *Caenorhabditis elegans* 
 
 ### easyXpress
 
-This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the [andersenlab/easyXpress](https://github.com/andersenlab/easyXpress) repo and the [easyXpress manuscript](https://www.biorxiv.org/content/10.1101/2021.05.11.443552v1). 
+This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the [andersenlab/easyXpress](https://github.com/andersenlab/easyXpress) repo and the [easyXpress manuscript](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252000). 
+
+### easyFulcrum
+
+This package is designed for processing and analyzing ecological sampling data generated using the Fulcrum mobile application. To learn more about how to use easyFulcrum, check out the [andersenlab/easyFulcrum](https://github.com/AndersenLab/easyfulcrum) repo and the [easyFulcrum manuscript](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254293).
 
 ## Using R on Quest
 
@@ -85,10 +102,15 @@ Rscript --vanilla Script.R
 
 ```
 
-## General R resources
+**Running Rstudio on QUEST**
 
-* [Tidyverse workshop and resources](https://github.com/katiesevans/nuit_tidyverse)
-* [Andersen Lab R Knowledge base & Cheatsheet]()
-* Also check out the `lab_code` slack channel for help/questions!
+The Quest Analytics Nodes allow users with active Quest allocations to use RStudio from a web browser. See [Research Computing: Quest Analytics Nodes](https://kb.northwestern.edu/quest-rstudio) for an overview of the system.
+
+Go to the [Rstudio browser](https://rstudio.questanalytics.northwestern.edu) (*make sure you are connected with VPN if you are off campus*). Log in with your netid and password just like you would on QUEST.
+
+!!! Note
+	The version of R on the Rstudio browser is currently 4.1.1, which is likely different from the version of R you run on QUEST. Therefore, you will need to re-install any packages you want to use in the browser.
+
+You can set the working directory with `setwd("path_to_directory")` and then open and save files and data in Rstudio just like you were using it locally on your computer -- but with data and files on Quest!!
 
 

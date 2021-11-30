@@ -41,7 +41,7 @@ The `wi-gatk` pipeline filters and calls variants from wild isolate sequence dat
 
 ```
 
-![Pipeline-overview](img/wi-gatk-nf-flow.png)
+![Pipeline-overview](img/wi-gatk.drawio.svg)
 
 ## Software Requirements
 

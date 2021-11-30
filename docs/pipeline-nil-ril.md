@@ -4,6 +4,7 @@
 
 The `nil-ril-nf` pipeline will align, call variants, and generate datasets for NIL and RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.
 
+# Overview
 
 ```
 
@@ -38,12 +39,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 ```
 
-# Overview
-
-The `nil-ril-nf` pipeline:
-
-
-![Overview](img/nil-ril-overview.svg)
+![Overview](img/nil_ril.drawio.svg)
 
 
 1. `Alignment` - Performed using bwa-mem
@@ -111,8 +107,11 @@ module load singularity
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run main.nf -profile quest_debug -resume
+nextflow run andersenlab/nil-ril-nf -profile quest_debug -resume
 ```
+
+!!! Note
+    There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.
 
 ### Running the pipeline on Quest
 
@@ -125,7 +124,7 @@ module load singularity
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run main.nf -profile quest -resume
+nextflow run andersenlab/nil-ril-nf -profile quest -resume
 ```
 
 # Testing
@@ -348,5 +347,9 @@ After the run is complete and you are satisfied with the results, follow these s
 5. Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. `NIL-20200322-N2-CB4856` (if NIL/RIL analysis is performed for another lab, consider adding a `-{LabName}` like `-Baugh` to the end of the folder name)).
 6. Move the entire output folder to `/projects/b1059/data/{species}/{NIL or RIL}/variation`.
 
+# Adding NIL sequence data to lab website
 
+If your sequencing was N2-CB4856 NILs (and maybe other *C. elegans* NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.
+
+Check out [this page](adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
 
