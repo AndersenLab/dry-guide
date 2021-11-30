@@ -34,7 +34,7 @@ This page details how to run the pipeline.
 
 ```
 
-![Pipeline-overview](img/post-gatk.drawio.svg)
+![Pipeline-overview](img/drawio/post-gatk.drawio.svg)
 
 ## Software Requirements
 
@@ -71,6 +71,17 @@ nextflow run andersenlab/post-gatk-nf --debug
 ## Running on Quest
 
 You should run this in a screen session.
+
+### Profiles
+
+There are now three ways to run this pipeline:
+1. `-profile standard` (default): runs original processes including subseting VCF and divergent and haplotype calls. 
+    - sample_sheet, vcf_folder, (species) 
+2. `-profile pca`: does not run the original post-gatk processes, only the PCA analysis. *Note: requires different parameters*
+    - snv_vcf, species, anc, eigen_ld, pops
+3. `-profile standard --pca`: runs all processes including subseting VCF, divergent and haplotype calls, PCA analysis of isotypes. *Requires additional parameters relating to PCA*
+    - sample_sheet, vcf_folder, species, anc, eigen_ld
+    - Note: the `-profile standard` is optional, just adding the `--pca` param is enough.
 
 ```
 nextflow run andersenlab/post-gatk-nf --vcf <path_to_vcf> --sample_sheet <path_to_sample_sheet>
@@ -122,6 +133,33 @@ __default__ = c_elegans
 
 Options: c_elegans, c_briggsae, or c_tropicalis
 
+### --snv_vcf (pca profile)
+
+File path to SNV-filtered VCF
+
+### --pops (pca profile)
+
+Strain list to filter VCF for PCA analysis. No header:
+
+| AB1 |
+| --- |
+| CB4856 |
+| ECA788 |
+
+!!!Note
+    If you run the standard profile with pca this file will be automatically generated to include all isotypes.
+
+### --eigen_ld (pca)
+
+LD thresholds to test for PCA. Can provide multiple with `--eigen_ld 0.8,0.6,0.4`
+
+### --anc (pca)
+
+Ancestor strain to use for PCA. 
+
+!!!Note 
+    Make sure this strain is in your VCF*
+
 ### --output (optional)
 
 __default__ - `popgen-YYYYMMDD`
@@ -131,6 +169,25 @@ A directory in which to output results. If you have set `--debug true`, the defa
 # Output
 
 ```
+├── ANNOTATE_VCF
+│   ├── ANC.bed.gz
+│   ├── ANC.bed.gz.tbi
+│   ├── Ce330_annotated.vcf.gz
+|   └── Ce330_annotated.vcf.tbi
+├── EIGESTRAT
+│   └── LD_{eigen_ld}
+│       ├── INPUT_FILES
+│       │   └── *
+│       ├── OUTLIER_REMOVAL
+│       │   ├── eigenstrat_outliers_removed_relatedness
+│       │   ├── eigenstrat_outliers_removed_relatedness.id
+│       │   ├── eigenstrat_outliers_removed.evac
+│       │   ├── eigenstrat_outliers_removed.eval
+│       │   ├── logfile_outlier.txt
+│       │   └── TracyWidom_statistics_outlier_removal.tsv
+│       └── NO_REMOVAL
+│           └── same as outlier_removal
+├── pca_report.html
 ├── divergent_regions
 │   ├── Mask_DF
 │   │   └── [strain]_Mask_DF.tsv
@@ -177,6 +234,7 @@ Once the pipeline has complete successfully and you are satisfied with the resul
 * Everything in the `tree` folder can be moved to `/projects/b1059/data/{species}/WI/tree/{date}`
 * Everything in the `variation` folder can be moved to `/projects/b1059/data/{species}/WI/variation/{date}/vcf`
 * Everything in the `NemaScan` folder can replace the old verions in NemaScan when ready `NemaScan/input_data/{species}/isotypes`
+* Everything in the `EIGENSTRAT` folder can be moved to `/projects/b1059/data/{species}/WI/pca/{date}`
 
 
 ## Updating CeNDR
