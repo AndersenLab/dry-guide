@@ -5,8 +5,29 @@ The Andersen lab [dry-lab computing guide](http://andersenlab.org/dry-guide/). T
 ## Editing the site
 
 1. Clone the repo
-1. Install `mkdocs` and `mike=0.4.2`
-1. When edits are complete, use `mike deploy`.
+
+```
+git clone https://github.com/AndersenLab/dry-guide.git
+```
+
+2. Install `mkdocs` and `mike=0.4.2`
+
+```
+# first, you need python3 - make sure you have it, otherwise download
+
+# if you don't have pip...
+curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+python3 get-pip.py
+
+# download mkdocs
+pip install mkdocs
+
+# download mike
+pip install -Iv mike==0.4.2
+
+```
+
+3. When edits are complete, use `mike deploy`.
 
 If you are making minor changes, use the same version:
 
@@ -22,16 +43,3 @@ If you have made substantial changes to the site, like adding new sections or re
 ```bash
 mike deploy [today's date] latest --update-aliases --ignore --push
 ```
-
-
-## Versioning the site
-
-If you are:
-
-* Removing sections
-* Adding new sections
-* Making substantial changes to sections
-
-Consider creating a new 'version' of the documentation, so people can see prior versions.
-
-In the file `.github/actions/deploy_mkdocs.yml`, update the `$VERSION` variable to today's date and push your changes.
