@@ -35,4 +35,3 @@ If you are:
 Consider creating a new 'version' of the documentation, so people can see prior versions.
 
 In the file `.github/actions/deploy_mkdocs.yml`, update the `$VERSION` variable to today's date and push your changes.
-/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.10/bin

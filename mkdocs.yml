@@ -47,7 +47,7 @@ nav:
           - Cloud: cloud.md
           - Globus file sharing: sharing-globus.md
           - Andersen Labsite: labsite.md
-extra_css:
-    - css/version-select.css
-extra_javascript:
-    - js/version-select.js
+# extra_css:
+# - css/version-select.css
+# extra_javascript:
+# - js/version-select.js
