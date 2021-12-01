@@ -260,14 +260,22 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <h2 id="running_on_quest">Running on Quest<a class="headerlink" href="#running_on_quest" title="Permanent link">&para;</a></h2>
 <p>You should run this in a screen session.</p>
 <h3 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h3>
-<p>There are now three ways to run this pipeline:
-1. <code>-profile standard</code> (default): runs original processes including subseting VCF and divergent and haplotype calls. 
-    - sample_sheet, vcf_folder, (species) 
-2. <code>-profile pca</code>: does not run the original post-gatk processes, only the PCA analysis. <em>Note: requires different parameters</em>
-    - snv_vcf, species, anc, eigen_ld, pops
-3. <code>-profile standard --pca</code>: runs all processes including subseting VCF, divergent and haplotype calls, PCA analysis of isotypes. <em>Requires additional parameters relating to PCA</em>
-    - sample_sheet, vcf_folder, species, anc, eigen_ld
-    - Note: the <code>-profile standard</code> is optional, just adding the <code>--pca</code> param is enough.</p>
+<p>There are now three ways to run this pipeline:</p>
+<ol>
+<li><code>-profile standard</code> (default): runs original processes including subseting VCF and divergent and haplotype calls. <ul>
+<li>sample_sheet, vcf_folder, (species) </li>
+</ul>
+</li>
+<li><code>-profile pca</code>: does not run the original post-gatk processes, only the PCA analysis. <em>Note: requires different parameters</em><ul>
+<li>snv_vcf, species, anc, eigen_ld, pops</li>
+</ul>
+</li>
+<li><code>-profile standard --pca</code>: runs all processes including subseting VCF, divergent and haplotype calls, PCA analysis of isotypes. <em>Requires additional parameters relating to PCA</em><ul>
+<li>sample_sheet, vcf_folder, species, anc, eigen_ld</li>
+<li>Note: the <code>-profile standard</code> is optional, just adding the <code>--pca</code> param is enough.</li>
+</ul>
+</li>
+</ol>
 <pre><code>nextflow run andersenlab/post-gatk-nf --vcf &lt;path_to_vcf&gt; --sample_sheet &lt;path_to_sample_sheet&gt;
 </code></pre>
 <h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
