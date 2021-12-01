@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>alignment-nf - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "alignment-nf";
+    var mkdocs_page_input_path = "pipeline-alignment.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">alignment-nf</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>WI Sequencing pipelines &raquo;</li>
+        
+      
+    
+    <li>alignment-nf</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-alignment.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="alignment-nf">alignment-nf<a class="headerlink" href="#alignment-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#alignment-nf">alignment-nf</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software requirements</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_quest">Testing on Quest</a></li>
+<li><a href="#running_on_quest">Running on Quest</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#-profile">-profile</a></li>
+<li><a href="#--sample_sheet">--sample_sheet</a></li>
+<li><a href="#--debug_optional">--debug (optional)</a><ul>
+<li><a href="#--species_optional">--species (optional)</a></li>
+<li><a href="#--fq_prefix_optional">--fq_prefix (optional)</a></li>
+<li><a href="#--kmers_optional">--kmers (optional)</a></li>
+<li><a href="#--reference_optional">--reference (optional)</a></li>
+<li><a href="#--ncbi_optional">--ncbi (optional)</a></li>
+<li><a href="#--output_optional">--output (optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#output">Output</a></li>
+<li><a href="#data_storage">Data storage</a><ul>
+<li><a href="#cleanup">Cleanup</a></li>
+</ul>
+</li>
+<li><a href="#archive">Archive</a><ul>
+<li><a href="#construct_sample_sheetsh">construct_sample_sheet.sh</a></li>
+<li><a href="#adding_new_sequencing_datasets">Adding new sequencing datasets</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/alignment-nf">alignment-nf</a> pipeline performs alignment for wild isolate sequence data <strong>at the strain level</strong>, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance analysis</a>, <a href="http://andersenlab.org/dry-guide/pipeline-wi/">wi-gatk-nf (variant calling)</a> and other analyses.</p>
+<p>This page details how to run the pipeline and how to add new wild isolate sequencing data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.</p>
+</div>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+             ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
+             ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
+             ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
+             ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
+            ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
+                         ▖▐
+                         ▝▘
+    parameters              description                                 Set/Default
+    ==========              ===========                                 ========================
+    --debug                 Use --debug to indicate debug mode          null
+    --sample_sheet          See test_data/sample_sheet for example      null
+    --species               Species to map: 'ce', 'cb' or 'ct'          null
+    --fq_prefix             Path to fastq if not in sample_sheet        /projects/b1059/data/{species}/WI/fastq/dna/
+    --kmers                 Whether to count kmers                      false
+    --reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
+    --output                Output folder name.                         alignment-{date}
+
+    HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
+</code></pre>
+<p><img alt="Pipeline-overview" src="../img/alignment-nf.drawio.svg" /></p>
+<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nextflow v20.01+ (see the dry guide on Nextflow <a href="../quest-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<ul>
+<li>Currently only runs on Quest with conda environments installed at <code>/projects/b1059/software/conda_envs/</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="https://www.github.com/brentp/mosdepth">mosdepth</a> is used to calculate coverage. <code>mosdepth</code> is available on Linux machines, but not on Mac OSX. That is why the conda environment for the <code>coverage</code> process is specified as <code>conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }</code>. This snippet allows mosdepth to run off the executable present in the <code>bin</code> folder locally on Mac OSX, or use the conda-based installation when on Linux.</p>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="testing_on_quest">Testing on Quest<a class="headerlink" href="#testing_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run main.nf --debug -profile quest
+</code></pre>
+<h2 id="running_on_quest">Running on Quest<a class="headerlink" href="#running_on_quest" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen session.</p>
+<pre><code>nextflow run main.nf --sample_sheet &lt;path_to_sample_sheet&gt; --species c_elegans -profile quest -resume
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
+<p>There are three configuration profiles for this pipeline.</p>
+<ul>
+<li><code>local</code> - Used for local development.</li>
+<li><code>quest</code> - Used for running on Quest.</li>
+<li><code>gcp</code> - For running on Google Cloud (not currently active?).</li>
+</ul>
+<h2 id="--sample_sheet">--sample_sheet<a class="headerlink" href="#--sample_sheet" title="Permanent link">&para;</a></h2>
+<p>The <code>sample sheet</code> for alignment is the output from the <a href="https://github.com/AndersenLab/trim-fq-nf">trim-fq-nf</a> pipeline. the <code>sample sheet</code> has the following columns:</p>
+<ul>
+<li><strong>strain</strong> - the name of the strain. Multiple sequencing runs of the same strain are merged together.</li>
+<li><strong>id</strong> - A unique ID for each sequencing run. This must be unique for every single pair of FASTQs.</li>
+<li><strong>lb</strong> - A library ID. This should uniquely identify a DNA sequencing library.</li>
+<li><strong>fq1</strong> - The path to FASTQ1</li>
+<li><strong>fq2</strong> - The path to FASTQ2</li>
+</ul>
+<p><img alt="Sample_sheet" src="../img/alignment_sample_sheet.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that in <code>--debug</code> mode the pipeline will use the sample sheet located in <code>test_data/sample_sheet.tsv</code>.</p>
+</div>
+<p>The <code>library</code> column is a useful tool for identifying errors by variant callers. For example, if the same library is sequenced twice, and a variant is only observed in one sequencing run then that variant may be excluded as a technical / PCR artifact depending on the variant caller being used.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the <code>strain</code> and <code>id</code> level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain. <strong>For this reason, it is important that each id be unique and not just the strain name</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The sample sheet is a critical tool. It allows us to associated metadata with each sequencing run (e.g. isotype, reference strain, id, library). It also allows us to quickly verify that all results have been output. It is much easier than working with a list of files!</p>
+</div>
+<h2 id="--debug_optional">--debug (optional)<a class="headerlink" href="#--debug_optional" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder) using your specified configuration profile (e.g. local / quest / gcp).</p>
+<p>For example:</p>
+<pre><code>nextflow run main.nf -profile quest --debug -resume
+</code></pre>
+<p>Using <code>--debug</code> will automatically set the sample sheet to <code>test_data/sample_sheet.tsv</code></p>
+<h3 id="--species_optional">--species (optional)<a class="headerlink" href="#--species_optional" title="Permanent link">&para;</a></h3>
+<p>Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file.</p>
+<h3 id="--fq_prefix_optional">--fq_prefix (optional)<a class="headerlink" href="#--fq_prefix_optional" title="Permanent link">&para;</a></h3>
+<p>Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the <code>--fq_prefix</code> to set the path that should be prefixed to each FASTQ.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Previously, this option was <code>--fqs_file_prefix</code></p>
+</div>
+<h3 id="--kmers_optional">--kmers (optional)<a class="headerlink" href="#--kmers_optional" title="Permanent link">&para;</a></h3>
+<p><strong>default</strong> = false</p>
+<p>Toggles kmer-analysis</p>
+<h3 id="--reference_optional">--reference (optional)<a class="headerlink" href="#--reference_optional" title="Permanent link">&para;</a></h3>
+<p>A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.</p>
+<p>On Quest, the default references are here:</p>
+<pre><code>c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+c_briggsae: /projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
+c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+</div>
+<p>The current <em>C. briggsae</em> genome does not contain the Mitochondria DNA. This needs to be addressed later.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>A different <code>--project</code> and <code>--wsbuild</code> can be used with the <code>--species</code> parameter to generate the path to other reference genomes such as:</p>
+<pre><code>nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
+</code></pre>
+<h3 id="--ncbi_optional">--ncbi (optional)<a class="headerlink" href="#--ncbi_optional" title="Permanent link">&para;</a></h3>
+<p><strong>Default</strong> - <code>/projects/b1059/data/other/ncbi_blast_db/</code></p>
+<p>Path to the NCBI blast database used for blobtool analysis. Should not need to change.</p>
+<h3 id="--output_optional">--output (optional)<a class="headerlink" href="#--output_optional" title="Permanent link">&para;</a></h3>
+<p><strong>Default</strong> - <code>alignment-YYYYMMDD</code></p>
+<p>A directory in which to output results. If you have set <code>--debug true</code>, the default output directory will be <code>alignment-YYYYMMDD-debug</code>.</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<pre><code>├── _aggregate
+│   ├── kmers.tsv
+│   └── multiqc
+│       ├── strain_data/
+│       │   ├── mqc_mosdepth-coverage-dist-id_1.txt
+│       │   ├── mqc_mosdepth-coverage-per-contig_1.txt
+│       │   ├── mqc_mosdepth-coverage-plot-id_1.txt
+│       │   ├── mqc_picard_deduplication_1.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Counts.txt
+│       │   ├── mqc_samtools-idxstats-mapped-reads-plot_Normalised_Counts.txt
+│       │   ├── mqc_samtools_alignment_plot_1.txt
+│       │   ├── multiqc.log
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc_picard_dups.txt
+│       │   ├── multiqc_qualimap_bamqc_genome_results.txt
+│       │   ├── multiqc_samtools_flagstat.txt
+│       │   ├── multiqc_samtools_idxstats.txt
+│       │   ├── multiqc_samtools_stats.txt
+│       │   └── multiqc_sources.txt
+│       ├── strain_multiqc_report.html
+│       ├── id_data/
+│       │   └──... (same as strain_data/)
+│       └── id_multiqc_report.html
+├── bam
+│   ├── [strain].bam
+│   └── [strain].bam.bai
+├── blobtools
+│   ├── {strain}.*.blobplot.bam0.png
+│   ├── {strain}.*.blobplot.read_cov.bam0.png
+│   └── {strain}.*.blobplot.stats.txt
+├── software_versions.txt
+├── sample_sheet.tsv
+├── strain_summary.tsv
+├── stats_strain_all.tsv
+├── stats_strains_with_low_values.tsv
+├── sample_sheet_for_seq_sheet.tsv
+├── sample_sheet_for_seq_sheet_ALL.tsv
+├── low_map_cov_for_seq_sheet.Rmd
+├── low_map_cov_for_seq_sheet.html
+└── summary.txt
+</code></pre>
+<p>Most files should be obvious. A few are detailed below.</p>
+<ul>
+<li><strong>software_versions.txt</strong> - Outputs the software versions used for every process (step) of the pipeline.</li>
+<li><strong>summary.txt</strong> - Outputs a summary of the parameters used.</li>
+<li><strong>sample_sheet.tsv</strong> - The sample sheet (input file) that was used to produce the alignment directory.</li>
+<li><strong>strain_summary.tsv</strong> - A summary of all strains and bams in the alignment directory.</li>
+<li><strong>aggregate</strong> - Stores data that has been aggregated across all strains or sequencing IDs. </li>
+<li><strong>coverage</strong> - Contains coverage data at the strain or id level, presented in a variety of ways.</li>
+<li><strong>low_map_cov_for_seq_sheet.(Rmd/html)</strong> - Report showing low coverage or problematic strains to remove.</li>
+<li><strong>stats_strain_all.tsv</strong> - contains stats for all strains, with all replicates combined</li>
+<li><strong>stats_strains_with_low_values.tsv</strong> - contains stats for strains with either (1) low number of reads, (2) low mapping rate, and/or (3) low coverage</li>
+<li><strong>sample_sheet_for_seq_sheet.tsv</strong> - sample sheet to be added to google sheet, filtered to remove low coverage strains</li>
+<li><strong>sample_sheet_for_seq_sheet_ALL.tsv</strong> - sample sheet to be added to google sheet, contains all strains (use this one)</li>
+<li><strong>blobplot/</strong> - contains plots for low coverage strains to see if they show contamination issues and if they should be resequenced.</li>
+</ul>
+<h1 id="data_storage">Data storage<a class="headerlink" href="#data_storage" title="Permanent link">&para;</a></h1>
+<h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
+<p>Once the <code>alignment-nf</code> pipeline has completed successfully and you have removed low coverage strains (see <a href="../pipeline-overview/">pipeline overview</a>), all BAM files can be moved to <code>/projects/b1059/data/{species}/WI/alignments/</code> prior to variant calling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>Low coverage or otherwise problematic BAM files can be moved to <code>/projects/b1059/data/{species}/WI/alignments/_bam_not_for_cendr/</code>. Make sure to update the <code>_README.md</code> file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.</p>
+<hr />
+<h1 id="archive">Archive<a class="headerlink" href="#archive" title="Permanent link">&para;</a></h1>
+<p>The following sections have been integrated into other code that no longer needs to be run manually, but I am keeping the documentation here in case we need to go back to it. It is important to always check that the sample sheet is generated appropriately. If there are errors in teh sample sheet, one can be constructed manually using the following code:</p>
+<h3 id="construct_sample_sheetsh">construct_sample_sheet.sh<a class="headerlink" href="#construct_sample_sheetsh" title="Permanent link">&para;</a></h3>
+<p>The <code>scripts/construct_sample_sheet.sh</code> script generates the <code>WI_sample_sheet.tsv</code> file. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>WI_sample_sheet.tsv</code> file should never be generated and/or edited by hand. It should only be generated using the <code>scripts/construct_sample_sheet.tsv</code> script.</p>
+</div>
+<p>The <code>construct_sample_sheet.sh</code> script does a few things.</p>
+<p><strong>(1) Parses FASTQ Filenames</strong></p>
+<p>Unfortunately, no two sequencing centers are alike and they use different formats for naming sequencing files. For example:</p>
+<pre><code>ECA768_RET-S11_S79_L001_2P.fq.gz      [strain]_[lib_lib#]_[sample_#]_[lane]_[read].fq.gz
+XZ1734_S573_L007_2P.fq.gz             [strain]_[sample_#]_[lane]_[read].fq.gz
+</code></pre>
+<p>In some cases they even changed formats over time!</p>
+<p>The script parses the FASTQ filenames from different sequencing centers, extracting the strain name, and a unique ID. Note that the <code>library</code> and unique sequencing run ID (<code>id</code>) are named somewhat arbitrarily. The most imporant aspect of these columns is that any DNA library that has been sequenced multiple times possess the same <code>library</code>, and that every pair of FASTQs possess a unique sequencing ID.</p>
+<p>Consider the following (fake) example:</p>
+<table>
+<thead>
+<tr>
+<th align="left">strain</th>
+<th align="left">isotype</th>
+<th align="left">reference_strain</th>
+<th align="left">id</th>
+<th align="left">library</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AB1</td>
+<td align="left">AB1</td>
+<td align="left">TRUE</td>
+<td align="left">BGI2-RET2-AB1</td>
+<td align="left">RET2</td>
+</tr>
+<tr>
+<td align="left">AB1</td>
+<td align="left">AB1</td>
+<td align="left">TRUE</td>
+<td align="left">BGI2-RET3-AB1</td>
+<td align="left">RET3</td>
+</tr>
+<tr>
+<td align="left">AB4</td>
+<td align="left">CB4858</td>
+<td align="left">FALSE</td>
+<td align="left">BGI1-RET2-AB4</td>
+<td align="left">RET2</td>
+</tr>
+<tr>
+<td align="left">AB4</td>
+<td align="left">CB4858</td>
+<td align="left">FALSE</td>
+<td align="left">BGI2-RET2-AB4</td>
+<td align="left">RET2</td>
+</tr>
+</tbody>
+</table>
+<p><code>AB1</code> was sequenced twice, however two different DNA libraries were produced for each sequencing run (<code>RET2</code> and <code>RET3</code>). <code>AB4</code> was also sequenced twice, but both sequencing runs were of the same DNA library (called <code>RET2</code>). Note that the <code>id</code> column is always unique across all sequencing runs.</p>
+<p>If you look at the <code>WI_sample_sheet.tsv</code> in more detail you will observe that the <code>id</code> and <code>library</code> columns are not consistantly named. This is not ideal, but it works. The inconsistancy does not affect analysis, and exists because the filenames are not consistant, but unique library and sequencing run IDs must be derived from them.</p>
+<p><strong>(2) Clean up strain names</strong></p>
+<p>The second thing the <code>construct_sample_sheet.sh</code> script does is that it replaces shorthand strain names or innapropriately named strains with the 3-letter system. For example, <code>N2Baer</code> is renamed to <code>ECA254</code>.</p>
+<p><strong>(3) Integrate metadata</strong></p>
+<p>The <code>C. elegans WI Strain Info</code> google spreadsheet is a master spreadlist containing every strain, reference_strain, and isotype for <em>C. elegans</em> wild isolates. The script downloads this dataset and uses it to integrate the isotype and reference strain into the sample sheet.</p>
+<h3 id="adding_new_sequencing_datasets">Adding new sequencing datasets<a class="headerlink" href="#adding_new_sequencing_datasets" title="Permanent link">&para;</a></h3>
+<p>Sequencing data should be added to QUEST and processed through the trimming pipeline before being added to <code>WI_sample_sheet.tsv</code>. Before proceeding, be sure to read <a href="/pipeline-trimming/">pipeline-trimming</a></p>
+<p>To add new sequencing datasets you will need to devise a strategy for extracting the strain name, a unique ID, and sequencing library from the FASTQ filenames. This may be the same as a past dataset, in which case you can append the sequencing run folder name to the list with that format. Alternatively, you may need to create a custom set of bash commands for generating the rows corresponding to each FASTQ pair.</p>
+<p>Here is an example from the <code>construct_sample_sheet.sh</code> script.</p>
+<pre><code class="language-bash">#===================================#
+# BGI-20161012-ECA23                #
+#===================================#
+
+out=`mktemp`
+seq_folder=BGI-20161012-ECA23
+&gt;&amp;2 echo ${seq_folder}
+prefix=${fastq_dir}/WI/dna/processed/$seq_folder
+for i in `ls -1 $prefix/*1P.fq.gz`; do
+    bname=`basename ${i}`;
+    barcode=`zcat ${i} | grep '@' | cut -f 10 -d ':' | sed 's/_//g' | head -n 100 | uniq -c | sort -k 1,1n | cut -c 9-100 | tail -n 1`
+    echo -e &quot;${bname}\t${i}\t${barcode}&quot; &gt;&gt; ${out}
+done;
+
+cat ${out} |\
+awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
+    fq1 = $1;
+    fq2 = $1;
+    LB = $3;
+    gsub(&quot;N&quot;, &quot;&quot;, LB);
+    gsub(&quot;1P.fq.gz&quot;, &quot;2P.fq.gz&quot;, fq2);
+    ID = $1;
+    gsub(&quot;_1P.fq.gz&quot;, &quot;&quot;, ID);
+    split(ID, a, &quot;[-_]&quot;)
+    SM=a[2];
+    print SM &quot;\t&quot; ID &quot;\t&quot; LB &quot;\t&quot; prefix &quot;/&quot; fq1 &quot;\t&quot; prefix &quot;/&quot; fq2 &quot;\t&quot; seq_folder;
+}' &gt;&gt; ${fq_sheet}
+</code></pre>
+<p>Notes on this snippet:</p>
+<ul>
+<li><code>SM</code>=<code>strain</code>, <code>LB</code>=<code>library</code>, and <code>ID</code>=<code>id</code> in the final output file.</li>
+<li>The sequencing run is listed in the comment box at the top.</li>
+<li>Barcodes are extracted from each FASTQ in the first forloop. These are used to define the <code>library</code>.</li>
+<li>The <code>id</code> is defined using the basename of the file.</li>
+<li>A final column corresponding to the <code>seq_folder</code> is always added.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-wiGATK/" class="btn btn-neutral float-right" title="wi-gatk">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-trimming/" class="btn btn-neutral" title="trim-fq-nf"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-trimming/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-wiGATK/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

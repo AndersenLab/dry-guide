@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>GCP - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "GCP";
+    var mkdocs_page_input_path = "pipeline-GCPconfig.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">GCP</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#enable_api">Enable API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#create_service_account">Create service account</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generate_credential_for_the_service_account">Generate credential for the service account</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nextflow_version_and_mode">Nextflow version and mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure_nextflow_for_gcp">Configure Nextflow for GCP</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Quest &raquo;</li>
+        
+      
+    
+    <li>GCP</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-GCPconfig.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP<a class="headerlink" href="#running_nextflow_pipeline_on_gcp" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#running_nextflow_pipeline_on_gcp">Running Nextflow pipeline on GCP</a><ul>
+<li><a href="#enable_api">Enable API</a></li>
+<li><a href="#create_service_account">Create service account</a></li>
+<li><a href="#generate_credential_for_the_service_account">Generate credential for the service account</a></li>
+<li><a href="#nextflow_version_and_mode">Nextflow version and mode</a></li>
+<li><a href="#configure_nextflow_for_gcp">Configure Nextflow for GCP</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Google genomic API allows auto scale for computational resources by creating and closing VMs automatically. We have a dedicated google project <code>caendr</code> which using Google genomic APT for all the nextflow pipelines in our lab. To access it, you should provide your gmail accout to Erik and ask Erik give you a <code>project owner</code> role for <code>caendr</code>. I already preset the project to enable running Nextflow pipelines using <a href="https://cloud.google.com/life-sciences/docs/how-tos/migration">Google genomic API</a>. See below for more details.</p>
+<h2 id="enable_api">Enable API<a class="headerlink" href="#enable_api" title="Permanent link">&para;</a></h2>
+<p>Go the the main page of <a href="https://console.cloud.google.com/home/dashboard?project=caendr">google cloud platform</a>. In the Produck &amp; Services menu, click <code>APIs &amp; Services</code>, and then click <code>Enable APIs and Services</code>. The following APIs should be enabled to run nextflow pipeline on GCP.</p>
+<ul>
+<li>Genomics API</li>
+<li>Cloud Life Sciences API</li>
+<li>Compute Engine API</li>
+<li>Google Container Registry API</li>
+</ul>
+<h2 id="create_service_account">Create service account<a class="headerlink" href="#create_service_account" title="Permanent link">&para;</a></h2>
+<p>Go to the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts?project=caendr">IAM &amp; admin</a>, find the <code>Service accounts</code>. Click <code>CREATE SERVICE ACCOUNT</code> to create a new service accounts. <strong>Note</strong> this service accounts must have a <code>project owner</code> role to run Nextflow pipelines. The service account I created here is called <code>nextflowRUN</code>.</p>
+<hr />
+<p>You don't need to do the above processes when you use GCP. But you have to do all the following processes to make sure you have the right permissions to <code>caendr</code>.</p>
+<h2 id="generate_credential_for_the_service_account">Generate credential for the service account<a class="headerlink" href="#generate_credential_for_the_service_account" title="Permanent link">&para;</a></h2>
+<p>After you get the access to <code>caendr</code>, go to the <a href="https://console.cloud.google.com/apis/credentials?project=caendr">API &amp; Services</a>. Click the <code>Create credentials</code> button, select <code>Service account key</code>. And choose <code>nextflowRUN</code> to generate a JSON file, which is a privite key file for using <code>nextflowRUN</code>. Download the file and save it in a safe place. Finally, define the <code>GOOGLE_APPLICATION_CREDENTIALS</code> variable in <code>.bash_profile</code> with the directory of the JSON file. Which should looks like the example.</p>
+<pre><code>export GOOGLE_APPLICATION_CREDENTIALS=$HOME/google_creds/caendr-2cae6210c8d1.json
+</code></pre>
+<h2 id="nextflow_version_and_mode">Nextflow version and mode<a class="headerlink" href="#nextflow_version_and_mode" title="Permanent link">&para;</a></h2>
+<p>Only the version of 19.07.0 or higher of Nextflow are compatible with GCP. And also, the Nextflow should have a google mode. You can define the version and mode in <code>.bash_profile</code>.</p>
+<pre><code>export NXF_VER=19.07.0
+export NXF_MODE=google
+</code></pre>
+<p>Then, run the following code to update or install Nextflow.</p>
+<pre><code>curl https://get.nextflow.io | bash
+</code></pre>
+<h2 id="configure_nextflow_for_gcp">Configure Nextflow for GCP<a class="headerlink" href="#configure_nextflow_for_gcp" title="Permanent link">&para;</a></h2>
+<p>To run Nextflow pipelines on GCP, you need to build docker images for them. Check the <a href="https://github.com/AndersenLab/dockerfile">docker file repo</a> of our lab for more information.</p>
+<p>The google genomic API has its own executor called <code>google-pipelines</code>, you need to define the <code>executor</code> variable with <code>google-pipelines</code> in the <code>nextflow.config</code> file. Here is the example for <a href="http://andersenlab.org/dry-guide/pipeline-concordance/">concordance-nf</a>.</p>
+<pre><code>docker {
+
+    enabled = true
+
+}
+
+process {
+    executor = 'google-pipelines'
+
+    withLabel: bam_coverage {
+        container = 'faithman/bam_toolbox:latest'
+    }
+
+    container = 'faithman/concordance:latest'
+    machineType = 'n1-standard-4'
+}
+
+google {
+    project = 'caendr'
+    zone = 'us-central1-a'
+}
+
+cloud {
+    preemptible = true
+}
+
+executor {
+    queueSize = 500
+}
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The file system of google buckets is not like S3 that can read/write directly by most softwares. You have to use gsutil tool to interact with google buckets to read/write files in most situations. Nextflow has built-in functions to interact with google buckets, but you still can not read/write files directly in your script. All the files have to be read and write via channels in Nextflow!</p>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-overview/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-docker/" class="btn btn-neutral" title="Docker"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-docker/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Docker - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Docker";
+    var mkdocs_page_input_path = "pipeline-docker.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Docker</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#dockerfile">Dockerfile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#build_docker_image">Build docker image</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tag_image_with_a_version">Tag image with a version</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#push_docker_image_to_dockerhub">Push docker image to dockerhub</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running_nextflow_with_docker">Running Nextflow with docker</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Quest &raquo;</li>
+        
+      
+    
+    <li>Docker</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-docker.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="create_docker_image">Create docker image<a class="headerlink" href="#create_docker_image" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#create_docker_image">Create docker image</a><ul>
+<li><a href="#dockerfile">Dockerfile</a></li>
+<li><a href="#build_docker_image">Build docker image</a></li>
+<li><a href="#tag_image_with_a_version">Tag image with a version</a></li>
+<li><a href="#push_docker_image_to_dockerhub">Push docker image to dockerhub</a></li>
+<li><a href="#running_nextflow_with_docker">Running Nextflow with docker</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://www.docker.com">Docker</a> can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at <a href="https://github.com/AndersenLab/dockerfile">dockerfile</a>.</p>
+<h2 id="dockerfile">Dockerfile<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h2>
+<p>To simplify the image building, we can use conda to install most of the tools. We can collect the tools available on <a href="https://anaconda.org">conda cloud</a> into a <code>conda.yml</code> file, which might looks like this.</p>
+<pre><code>name: concordance-nf
+channels:
+  - defaults
+  - bioconda
+  - r
+  - biobuilds
+  - conda-forge
+dependencies:
+  - bwa=0.7.17
+  - sambamba=0.7.0
+  - samtools=1.9
+  - picard=2.20.6
+  - bcftools=1.9
+#  - vcfkit=0.1.6
+  - csvtk=0.18.2
+  - r=3.6.0
+  - r-ggplot2=3.1.1
+  - r-readr=1.3.1
+  - r-tidyverse=1.2.1
+</code></pre>
+<p>Then, build the <code>Dockerfile</code> as below.</p>
+<pre><code>FROM continuumio/miniconda
+MAINTAINER XXX &lt;email&gt;
+
+COPY conda.yml .
+RUN \
+   conda env update -n root -f conda.yml \
+&amp;&amp; conda clean -a
+
+# install other tools not avalible on conda cloud -- tidyverse sometimes need to be installed here separately...
+RUN apt-get update &amp;&amp; apt-get install -y procps
+RUN R -e &quot;install.packages('roperators',dependencies=TRUE, repos='http://cran.us.r-project.org')&quot;
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Put the <code>conda.ymal</code> and <code>Dockerfile</code> under the same folder.</p>
+</div>
+<h2 id="build_docker_image">Build docker image<a class="headerlink" href="#build_docker_image" title="Permanent link">&para;</a></h2>
+<p>To build the docker image, you need <a href="https://www.docker.com/products/docker-desktop">docker desktop</a> installed on your local machine. Also you should sign up the dockerhub to enable pushing docker image to cloud.</p>
+<p>Go to the folder which have <code>conda.ymal</code> and <code>Dockerfile</code>, run</p>
+<pre><code>docker build -t &lt;dockerhub account&gt;/&lt;name of the image&gt; . # don't ingore the dot here
+</code></pre>
+<p>You can use <code>docker image ls</code> to check the image list you have in your local machine.</p>
+<p>Importantly, you have to check if the tools were installed sucessfully in your docker image. To test the docker image, run </p>
+<pre><code>docker run -ti &lt;dockerhub account&gt;/&lt;name of the image&gt; sh
+</code></pre>
+<p>The above command will let you into the docker image, where you can check the tools by their normal commands. Make sure all the tools you need have been installed appropriately. </p>
+<h2 id="tag_image_with_a_version">Tag image with a version<a class="headerlink" href="#tag_image_with_a_version" title="Permanent link">&para;</a></h2>
+<p>There are sometimes issues with Nextflow thinking it has the latest docker image when it really doesn't. To avoid this issue, it is useful to tag each updated docker image with a version tag. Remember to update the docker call in nextflow to use the new version!</p>
+<pre><code>docker image tag &lt;dockerhub account&gt;/&lt;name of the image&gt;:latest &lt;dockerhub account&gt;/&lt;name of the image&gt;:&lt;version tag&gt;
+</code></pre>
+<h2 id="push_docker_image_to_dockerhub">Push docker image to dockerhub<a class="headerlink" href="#push_docker_image_to_dockerhub" title="Permanent link">&para;</a></h2>
+<p>After the image check, you are ready to push the image to dockerhub which allows you to download the image when ever you need to use.</p>
+<pre><code>docker push &lt;dockerhub account&gt;/&lt;name of the image&gt;:&lt;version tag&gt;
+</code></pre>
+<h2 id="running_nextflow_with_docker">Running Nextflow with docker<a class="headerlink" href="#running_nextflow_with_docker" title="Permanent link">&para;</a></h2>
+<p>If running Nextflow locally, a docker container can be used with the following line (check out the <a href="https://www.nextflow.io/docs/latest/docker.html">documentation</a>):</p>
+<pre><code>nextflow run &lt;your script&gt; -with-docker [docker image]
+</code></pre>
+<p>Alternatively, a docker container can be specified within the <code>nextflow.config</code> script to avoid adding an extra parameter:</p>
+<pre><code>process.container = 'nextflow/examples:latest'
+docker.enabled = true
+
+// if on quest:
+// singularity.enabled = true
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When running Nextflow with a docker container on QUEST, it is necessary to replace the <code>docker</code> command with <code>singularity</code> (although you still must build a docker container). You must also load singularity using <code>module load singularity</code> before starting a run.</p>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-GCPconfig/" class="btn btn-neutral float-right" title="GCP">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../quest-conda/" class="btn btn-neutral" title="Conda"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../quest-conda/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-GCPconfig/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

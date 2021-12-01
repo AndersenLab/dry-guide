@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>nil-ril-nf - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "nil-ril-nf";
+    var mkdocs_page_input_path = "pipeline-nil-ril.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">nil-ril-nf</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Other pipelines &raquo;</li>
+        
+      
+    
+    <li>nil-ril-nf</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-nil-ril.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="nil-ril-nf">nil-ril-nf<a class="headerlink" href="#nil-ril-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#nil-ril-nf">nil-ril-nf</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#docker_image">Docker image</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a><ul>
+<li><a href="#running_the_pipeline_locally">Running the pipeline locally</a></li>
+<li><a href="#debugging_the_pipeline_on_quest">Debugging the pipeline on Quest</a></li>
+<li><a href="#running_the_pipeline_on_quest">Running the pipeline on Quest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--fqs">--fqs</a></li>
+<li><a href="#--vcf">--vcf</a></li>
+<li><a href="#--reference">--reference</a><ul>
+<li><a href="#--a_--b_optional">--A, --B (optional)</a></li>
+<li><a href="#--debug_optional">--debug (optional)</a></li>
+<li><a href="#--cores_optional">--cores (optional)</a></li>
+<li><a href="#--ca_--cb_optional">--cA, --cB (optional)</a></li>
+<li><a href="#--out_optional">--out (optional)</a></li>
+<li><a href="#--relative_optional">--relative (optional)</a></li>
+<li><a href="#--cross_obj_optional">--cross_obj (optional)</a></li>
+<li><a href="#--tmpdir_optional">--tmpdir (optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#output">Output</a><ul>
+<li><a href="#logtxt">log.txt</a></li>
+<li><a href="#duplicates">duplicates/</a></li>
+<li><a href="#fq">fq/</a></li>
+<li><a href="#sm">SM/</a></li>
+<li><a href="#hmm">hmm/</a></li>
+<li><a href="#plots">plots/</a></li>
+<li><a href="#sitelist">sitelist/</a></li>
+</ul>
+</li>
+<li><a href="#organizing_final_data">Organizing final data</a></li>
+<li><a href="#adding_nil_sequence_data_to_lab_website">Adding NIL sequence data to lab website</a></li>
+</ul>
+</div>
+<p>The <code>nil-ril-nf</code> pipeline will align, call variants, and generate datasets for NIL and RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.</p>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+    ███╗   ██╗██╗██╗      ██████╗ ██╗██╗      ███╗   ██╗███████╗
+    ████╗  ██║██║██║      ██╔══██╗██║██║      ████╗  ██║██╔════╝
+    ██╔██╗ ██║██║██║█████╗██████╔╝██║██║█████╗██╔██╗ ██║█████╗
+    ██║╚██╗██║██║██║╚════╝██╔══██╗██║██║╚════╝██║╚██╗██║██╔══╝
+    ██║ ╚████║██║███████╗ ██║  ██║██║███████╗ ██║ ╚████║██║
+    ╚═╝  ╚═══╝╚═╝╚══════╝ ╚═╝  ╚═╝╚═╝╚══════╝ ╚═╝  ╚═══╝╚═╝
+
+
+    parameters           description                    Set/Default
+    ==========           ===========                    =======
+
+    --debug              Set to 'true' to test          false
+    --cores              Number of cores                4
+    --A                  Parent A                       N2
+    --B                  Parent B                       CB4856
+    --cA                 Parent A color (for plots)     #0080FF
+    --cB                 Parent B color (for plots)     #FF8000
+    --out                Directory to output results    NIL-N2-CB4856-2017-09-27
+    --fqs                fastq file (see help)          (required)
+    --relative           use relative fastq prefix      true
+    --reference          Reference Genome               (required)
+    --vcf                VCF to fetch parents from      (required)
+    --tmpdir             A temporary directory          tmp/
+
+
+    The Set/Default column shows what the value is currently set to
+    or would be set to if it is not specified (it's default).
+
+
+</code></pre>
+<p><img alt="Overview" src="../img/nil_ril.drawio.svg" /></p>
+<ol>
+<li><code>Alignment</code> - Performed using bwa-mem</li>
+<li><code>Merge Bams</code> - Combines bam files aligned individually for each fastq-pair. <a href="http://lomereiter.github.io/sambamba/">Sambamba</a> is actually used in place of samtools, but it's a drop-in, faster replacement.</li>
+<li><code>Bam Stats</code> - A variety of metrics are calculated for bams and combined into individual files for downstream analsyis.</li>
+<li><code>Mark Duplicates</code> - Duplicate reads are marked using Picard.</li>
+<li><code>Call Variants individual</code> - Variants are called for each strain inidividually first. This generates a sitelist which is used to identify all variant sites in the population.</li>
+<li><code>Pull parental genotypes</code> - Pulls out parental genotypes from the given VCF. The list of genotypes is filtered for discordant calls (i.e. different genotypes). This is VCF is used to generate a sitelist for calling low-coverage bams and later is merged into the resulting VCF.</li>
+<li><code>Call variants union</code> - Uses the sitelist from the previous step to call variants on low-coverage sequence data. The resulting VCF will have a lot of missing calls.</li>
+<li><code>Merge VCF</code> - Merges in the parental VCF (which has been filtered only for variants with discordant calls).</li>
+<li><code>Call HMM</code> - VCF-kit is run in various ways to infer the appropriate genotypes from the low-coverage sequence data.</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.</p>
+</div>
+<h1 id="docker_image">Docker image<a class="headerlink" href="#docker_image" title="Permanent link">&para;</a></h1>
+<p>The docker image used by the <code>nil-ril-nf</code> pipeline is the <code>nil-ril-nf</code> docker image:</p>
+<p><a href="https://hub.docker.com/r/andersenlab/nil-ril-nf/">andersenlab/nil-ril-nf</a></p>
+<p>The <strong>Dockerfile</strong> is stored in the root of the <code>nil-ril-nf</code> github repo and is automatically built on <a href="http://www.dockerhub.com">Dockerhub</a> whenever the repo is pushed.</p>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
+<p>The <code>nextflow.config</code> file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
+<ul>
+<li><code>local</code> - Used for local development. Uses the docker container.</li>
+<li><code>quest_debug</code> - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.</li>
+<li><code>quest</code> - Runs the entire dataset.</li>
+<li><code>travis</code> - Used by travis-ci for testing purposes.</li>
+</ul>
+<h3 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h3>
+<p>When running locally, the pipeline will run using the <code>andersenlab/nil-ril-nf</code> docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:</p>
+<pre><code>curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
+</code></pre>
+<p>Run the pipeline locally with:</p>
+<pre><code>nextflow run main.nf -profile local -resume
+</code></pre>
+<h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
+<p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>
+<pre><code>module load singularity
+</code></pre>
+<p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
+<pre><code>nextflow run andersenlab/nil-ril-nf -profile quest_debug -resume
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.</p>
+</div>
+<h3 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
+<p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>
+<pre><code>module load singularity
+</code></pre>
+<p>The pipeline can be run on Quest using the following command:</p>
+<pre><code>nextflow run andersenlab/nil-ril-nf -profile quest -resume
+</code></pre>
+<h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
+<p>If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the <code>-resume</code> option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly. </p>
+<p>Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci <a href="https://travis-ci.org/AndersenLab/nil-ril-nf">here</a>, and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.</p>
+<p>The command below can be used to test the pipeline locally.</p>
+<pre><code># Downloads a pre-indexed reference
+curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
+
+# Run nextflow
+nextflow run andersenlab/nil-ril-nf \
+             -with-docker andersenlab/nil-ril-nf \
+             --debug \
+             --reference=WS276.fa.gz \
+             -resume
+</code></pre>
+<ul>
+<li>Note that the path to the vcf will change slightly in releases later than WI-20170531; See the <code>wi-gatk</code> pipeline for details.</li>
+<li>The command above will automatically place results in a folder: <code>NIL-N2-CB4856-YYYY-MM-DD</code></li>
+</ul>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="--fqs">--fqs<a class="headerlink" href="#--fqs" title="Permanent link">&para;</a></h2>
+<p>In order to process NIL/RIL data, you need to move the sequence data to a folder and create a <code>fq_sheet.tsv</code>. This file defines the fastqs that should be processed. The fastq can be specified as <em>relative</em> or <em>absolute</em>. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:</p>
+<pre><code>NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
+NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
+</code></pre>
+<p>Notice that the file does not include a header. The table with corresponding columns looks like this.</p>
+<table>
+<thead>
+<tr>
+<th align="left">strain</th>
+<th align="left">fastq_pair_id</th>
+<th align="left">library</th>
+<th align="left">fastq-1-path</th>
+<th align="left">fastq-2-path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">NIL_01</td>
+<td align="left">NIL_01_ID</td>
+<td align="left">S16</td>
+<td align="left">NIL_01_1.fq.gz</td>
+<td align="left">NIL_01_2.fq.gz</td>
+</tr>
+<tr>
+<td align="left">NIL_02</td>
+<td align="left">NIL_02_ID</td>
+<td align="left">S1</td>
+<td align="left">NIL_02_1.fq.gz</td>
+<td align="left">NIL_02_2.fq.gz</td>
+</tr>
+</tbody>
+</table>
+<p>The columns are detailed below:</p>
+<ul>
+<li><strong>strain</strong> - The name of the strain. If a strain was sequenced multiple times this file is used to identify that fact and merge those fastq-pairs together following alignment.</li>
+<li><strong>fastq_pair_id</strong> - This must be unique identifier for all individual FASTQ pairs.</li>
+<li><strong>library</strong> - A string identifying the DNA library. If you sequenced a strain from different library preps it can be beneficial when calling variants. The string can be arbitrary (e.g. LIB1) as well if only one library prep was used.</li>
+<li><strong>fastq-1-path</strong> - The <strong>relative</strong> path of the first fastq.</li>
+<li><strong>fastq-2-path</strong> - The <strong>relative</strong> path of the second fastq.</li>
+</ul>
+<p>This file needs to be placed along with the sequence data into a folder. The tree will look like this:</p>
+<pre><code>NIL_SEQ_DATA/
+├── NIL_01_1.fq.gz
+├── NIL_01_2.fq.gz
+├── NIL_02_1.fq.gz
+├── NIL_02_2.fq.gz
+└── fq_sheet.tsv
+</code></pre>
+<p>Set <code>--fqs</code> as <code>--fqs=/the/path/to/fq_sheet.tsv</code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).</p>
+</div>
+<h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
+<p>Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, the most recent <em>C. elegans</em> VCF could be found here:</p>
+<pre><code>/projects/b1059/data/c_elegans/WI/variation/20210121/vcf/WI.20210121.hard-filter.isotype.vcf.gz
+</code></pre>
+<p>This is the <strong>hard-filtered</strong> VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.</p>
+<p>Set the parental VCF as <code>--vcf=/the/path/to/WI.20210121.hard-filter.isotype.vcf.gz</code></p>
+<h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
+<p>A fasta reference indexed with BWA. For example, the <em>C. elegans</em> reference could be found here:</p>
+<pre><code>/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+</code></pre>
+<h3 id="--a_--b_optional">--A, --B (optional)<a class="headerlink" href="#--a_--b_optional" title="Permanent link">&para;</a></h3>
+<p>Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided <strong>must</strong> be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.</p>
+<h3 id="--debug_optional">--debug (optional)<a class="headerlink" href="#--debug_optional" title="Permanent link">&para;</a></h3>
+<p>The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the <a href="#testing">Testing</a> section for more information.</p>
+<h3 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h3>
+<p>The number of cores to use during alignments and variant calling. Default is 4.</p>
+<h3 id="--ca_--cb_optional">--cA, --cB (optional)<a class="headerlink" href="#--ca_--cb_optional" title="Permanent link">&para;</a></h3>
+<p>The color to use for parental strain A and B on plots. Default is orange and blue.</p>
+<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
+<p>A directory in which to output results. By default it will be <code>NIL-A-B-YYYY-MM-DD</code> where A and be are the parental strains.</p>
+<h3 id="--relative_optional">--relative (optional)<a class="headerlink" href="#--relative_optional" title="Permanent link">&para;</a></h3>
+<p>If you want to specify fastqs using an absolute path use <code>--relative=false</code>. Set to <code>true</code> by default. </p>
+<h3 id="--cross_obj_optional">--cross_obj (optional)<a class="headerlink" href="#--cross_obj_optional" title="Permanent link">&para;</a></h3>
+<p>If you are running a set of RILs, you might want to add the <code>--cross_obj true</code> parameter. When <code>true</code>, the pipeline will run an additional step to pair down the total genetic variants to only the informative variants and output a smaller genotype matrix to input directly into a new cross object. An example of how to generate a cross object can be found in the <code>bin</code>. There is no need to run this option for NIL data.</p>
+<h3 id="--tmpdir_optional">--tmpdir (optional)<a class="headerlink" href="#--tmpdir_optional" title="Permanent link">&para;</a></h3>
+<p>A directory for storing temporary data.</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<p>The final output directory looks like this:</p>
+<pre><code>.
+├── log.txt
+├── fq
+│   ├── fq_bam_idxstats.tsv
+│   ├── fq_bam_stats.tsv
+│   ├── fq_coverage.full.tsv
+│   └── fq_coverage.tsv
+├── SM
+│   ├── SM_bam_idxstats.tsv
+│   ├── SM_bam_stats.tsv
+│   ├── SM_coverage.full.tsv
+│   ├── SM_union_vcfs.txt
+│   └── SM_coverage.tsv
+├── hmm
+│   ├── gt_hmm.(png/svg)
+│   ├── gt_hmm.tsv
+│   ├── gt_hmm_fill.tsv
+│   ├── NIL.filtered.stats.txt
+│   ├── NIL.filtered.vcf.gz
+│   ├── NIL.filtered.vcf.gz.csi
+│   ├── NIL.hmm.vcf.gz
+│   ├── NIL.hmm.vcf.gz.csi
+│   └── gt_hmm_genotypes.tsv
+├── bam
+│   └── &lt;BAMS + indices&gt;
+├── duplicates
+│   └── bam_duplicates.tsv
+└─ sitelist
+    ├── N2.CB4856.sitelist.[tsv/vcf].gz
+    └── N2.CB4856.sitelist.[tsv/vcf].gz.[tbi/csi]
+</code></pre>
+<h3 id="logtxt">log.txt<a class="headerlink" href="#logtxt" title="Permanent link">&para;</a></h3>
+<p>A summary of the nextflow run.</p>
+<h3 id="duplicates">duplicates/<a class="headerlink" href="#duplicates" title="Permanent link">&para;</a></h3>
+<p><strong>bam_duplicates.tsv</strong> - A summary of duplicate reads from aligned bams.</p>
+<h3 id="fq">fq/<a class="headerlink" href="#fq" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>fq_bam_idxstats.tsv</strong> - A summary of mapped and unmapped reads by fastq pair.</li>
+<li><strong>fq_bam_stats.tsv</strong> - BAM summary by fastq pair.</li>
+<li><strong>fq_coverage.full.tsv</strong> - Coverage summary by chromosome</li>
+<li><strong>fq_coverage.tsv</strong> - Simple coverage file by fastq</li>
+</ul>
+<h3 id="sm">SM/<a class="headerlink" href="#sm" title="Permanent link">&para;</a></h3>
+<p>If you have multiple fastq pairs per sample, their alignments will be combined into a strain or sample-level BAM and the results will be output to this directory.</p>
+<ul>
+<li><strong>SM_bam_idxstats.tsv</strong> - A summary of mapped and unmapped reads by sample.</li>
+<li><strong>SM_bam_stats.tsv</strong> - BAM summary at the sample level</li>
+<li><strong>SM_coverage.full.tsv</strong> - Coverage at the sample level</li>
+<li><strong>SM_coverage.tsv</strong> - Simple coverage at the sample level.</li>
+<li><strong>SM_union_vcfs.txt</strong> - A list of VCFs that were merged to generate RIL.filter.vcf.gz</li>
+</ul>
+<h3 id="hmm">hmm/<a class="headerlink" href="#hmm" title="Permanent link">&para;</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>gt_hmm_fill.tsv</strong> is for visualization purposes only. To determine breakpoints you should use <strong>gt_hmm.tsv</strong>.</p>
+</div>
+<p><img alt="hmm_fill" src="http://vcf-kit.readthedocs.io/en/latest/hmm_opts.png" /></p>
+<p>The <code>--infill</code> and <code>--endfill</code> options are applied to the <strong>gt_hmm_fill.tsv</strong> file. You need to be cautious when examining this data as it is <strong>generated primarily for visualization purposes</strong>.</p>
+<ul>
+<li><strong>gt_hmm.(png/svg)</strong> - Haplotype plot <strong>using</strong> <code>--infill</code> and <code>--endfill</code>.</li>
+<li><strong>gt_hmm_fill.tsv</strong> - Same as above, but using <code>--infill</code> and <code>--endfill</code> with VCF-Kit. For more information, see <a href="http://vcf-kit.readthedocs.io/en/latest/">VCF-Kit Documentation</a>. This file is used to generate the plots.</li>
+<li><strong>gt_hmm.tsv</strong> - Haplotypes defined by region with associated information. Does <strong>not</strong> use <code>--infill</code> and <code>--endfill</code></li>
+<li><strong>gt_hmm_genotypes.tsv</strong> - Long form genotypes file.</li>
+<li><strong>NIL/RIL.filtered.vcf.gz</strong> - A VCF genotypes including the NILs and parental genotypes.</li>
+<li><strong>NIL/RIL.filtered.stats.txt</strong> - Summary of filtered genotypes. Generated by <code>bcftools stats NIL.filtered.vcf.gz</code></li>
+<li><strong>NIL/RIL.hmm.vcf.gz</strong> - The NIL/RIL VCF as output by VCF-Kit; HMM applied to determine genotypes.</li>
+</ul>
+<h3 id="plots">plots/<a class="headerlink" href="#plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>coverage_comparison.png</strong> - Compares FASTQ and Sample-level coverage. Note that coverage is not simply cumulative. Only uniquely mapped reads count towards coverage, so it is possible that the sample-level coverage will not equal to the cumulative sum of the coverages of individual FASTQ pairs.</li>
+<li><strong>duplicates.(png/pdf)</strong> - Coverage vs. percent duplicated.</li>
+<li><strong>unmapped_reads.png</strong> - Coverage vs. unmapped read percent.</li>
+</ul>
+<h3 id="sitelist">sitelist/<a class="headerlink" href="#sitelist" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>&lt;A&gt;.&lt;B&gt;.sitelist.tsv.gz[+.tbi]</code> - A tabix-indexed list of sites found to be different between both parental strains.</li>
+<li><code>&lt;A&gt;.&lt;B&gt;.sitelist.vcf.gz[+.tbi]</code> - A vcf of sites found to be different between both parental strains.</li>
+</ul>
+<h1 id="organizing_final_data">Organizing final data<a class="headerlink" href="#organizing_final_data" title="Permanent link">&para;</a></h1>
+<p>After the run is complete and you are satisfied with the results, follow these steps to ensure correct data storage on QUEST:</p>
+<ol>
+<li>Move the raw fastq files to <code>/projects/b1059/data/{species}/{NIL or RIL}/fastq/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Move the BAM files from the output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/alignments/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Delete the now empty <code>bam</code> folder in the output directory.</li>
+<li>Move the sample sheet generated for analysis into the output directory.</li>
+<li>Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. <code>NIL-20200322-N2-CB4856</code> (if NIL/RIL analysis is performed for another lab, consider adding a <code>-{LabName}</code> like <code>-Baugh</code> to the end of the folder name)).</li>
+<li>Move the entire output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/variation</code>.</li>
+</ol>
+<h1 id="adding_nil_sequence_data_to_lab_website">Adding NIL sequence data to lab website<a class="headerlink" href="#adding_nil_sequence_data_to_lab_website" title="Permanent link">&para;</a></h1>
+<p>If your sequencing was N2-CB4856 NILs (and maybe other <em>C. elegans</em> NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.</p>
+<p>Check out <a href="../adding-seq-data/">this page</a> for instructions on how to do that. Once done, you should be able to view your NILs on the <a href="https://andersen-lab.shinyapps.io/nil-browser/">NIL browser shiny app</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-genomes-nf/" class="btn btn-neutral float-right" title="genomes-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-cellprofiler/" class="btn btn-neutral" title="Image Analysis"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-cellprofiler/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-genomes-nf/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
