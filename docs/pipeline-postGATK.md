@@ -75,6 +75,7 @@ You should run this in a screen session.
 ### Profiles
 
 There are now three ways to run this pipeline:
+
 1. `-profile standard` (default): runs original processes including subseting VCF and divergent and haplotype calls. 
     - sample_sheet, vcf_folder, (species) 
 2. `-profile pca`: does not run the original post-gatk processes, only the PCA analysis. *Note: requires different parameters*
