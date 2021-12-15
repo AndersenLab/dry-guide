@@ -275,6 +275,7 @@
 source activate /projects/b1059/software/conda_envs/nf20_env
 </code></pre>
 <h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
 <p>The <code>nextflow.config</code> file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
 <ul>
 <li><code>local</code> - Used for local development. Uses the docker container.</li>
@@ -287,7 +288,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <pre><code>curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
 </code></pre>
 <p>Run the pipeline locally with:</p>
-<pre><code>nextflow run main.nf -profile local -resume
+<pre><code>nextflow run andersenlab/nil-ril-nf -profile local -resume
 </code></pre>
 <h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
 <p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>

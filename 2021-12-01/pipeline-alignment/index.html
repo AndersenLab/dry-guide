@@ -250,11 +250,12 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <h2 id="testing_on_quest">Testing on Quest<a class="headerlink" href="#testing_on_quest" title="Permanent link">&para;</a></h2>
 <p><em>This command uses a test dataset</em></p>
-<pre><code>nextflow run main.nf --debug -profile quest
+<pre><code>nextflow run andersenlab/alignment-nf --debug -profile quest
 </code></pre>
 <h2 id="running_on_quest">Running on Quest<a class="headerlink" href="#running_on_quest" title="Permanent link">&para;</a></h2>
 <p>You should run this in a screen session.</p>
-<pre><code>nextflow run main.nf --sample_sheet &lt;path_to_sample_sheet&gt; --species c_elegans -profile quest -resume
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
+<pre><code>nextflow run andersenlab/alignment-nf --sample_sheet &lt;path_to_sample_sheet&gt; --species c_elegans -profile quest -resume
 </code></pre>
 <h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
 <h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
@@ -265,7 +266,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <li><code>gcp</code> - For running on Google Cloud (not currently active?).</li>
 </ul>
 <h2 id="--sample_sheet">--sample_sheet<a class="headerlink" href="#--sample_sheet" title="Permanent link">&para;</a></h2>
-<p>The <code>sample sheet</code> for alignment is the output from the <a href="https://github.com/AndersenLab/trim-fq-nf">trim-fq-nf</a> pipeline. the <code>sample sheet</code> has the following columns:</p>
+<p>The <code>sample sheet</code> for alignment is the output from the <a href="https://github.com/AndersenLab/trim-fq-nf">trim-fq-nf</a> pipeline. The <code>sample sheet</code> <strong>must be tsv formatted</strong>, is the <strong>full path to the sample sheet</strong> (even if it is in your current directory), and has the following columns:</p>
 <ul>
 <li><strong>strain</strong> - the name of the strain. Multiple sequencing runs of the same strain are merged together.</li>
 <li><strong>id</strong> - A unique ID for each sequencing run. This must be unique for every single pair of FASTQs.</li>
@@ -290,7 +291,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <h2 id="--debug_optional">--debug (optional)<a class="headerlink" href="#--debug_optional" title="Permanent link">&para;</a></h2>
 <p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder) using your specified configuration profile (e.g. local / quest / gcp).</p>
 <p>For example:</p>
-<pre><code>nextflow run main.nf -profile quest --debug -resume
+<pre><code>nextflow run andersenlab/alignment-nf -profile quest --debug -resume
 </code></pre>
 <p>Using <code>--debug</code> will automatically set the sample sheet to <code>test_data/sample_sheet.tsv</code></p>
 <h3 id="--species_optional">--species (optional)<a class="headerlink" href="#--species_optional" title="Permanent link">&para;</a></h3>
@@ -319,7 +320,7 @@ c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/
 <p class="admonition-title">Note</p>
 </div>
 <p>A different <code>--project</code> and <code>--wsbuild</code> can be used with the <code>--species</code> parameter to generate the path to other reference genomes such as:</p>
-<pre><code>nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
+<pre><code>nextflow run andersenlab/alignment-nf --species c_elegans --project PRJNA13758 --wsbuild WS280
 </code></pre>
 <h3 id="--ncbi_optional">--ncbi (optional)<a class="headerlink" href="#--ncbi_optional" title="Permanent link">&para;</a></h3>
 <p><strong>Default</strong> - <code>/projects/b1059/data/other/ncbi_blast_db/</code></p>

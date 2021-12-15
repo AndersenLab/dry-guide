@@ -243,11 +243,12 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 </div>
 <h2 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
 <p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use the test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
-<pre><code>nextflow run main.nf -profile quest_debug -resume
+<pre><code>nextflow run andersenlab/concordance-nf -profile quest_debug -resume
 </code></pre>
 <h2 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
 <p>The pipeline can be run on Quest using the following command:</p>
-<pre><code>nextflow run main.nf -profile quest --bam_coverage &lt;path_to_file&gt; --vcf &lt;path_to_file&gt; --species c_elegans --info_sheet &lt;path_to_file&gt; -resume 
+<pre><code>nextflow run andersenlab/concordance-nf -profile quest --bam_coverage &lt;path_to_file&gt; --vcf &lt;path_to_file&gt; --species c_elegans --info_sheet &lt;path_to_file&gt; -resume 
 </code></pre>
 <h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
 <p>The nextflow profiles configured in <code>nextflow.config</code> are designed to make it so that you don't need to change the parameters. However, the pipeline offers this flexibility if it is ever called for.</p>

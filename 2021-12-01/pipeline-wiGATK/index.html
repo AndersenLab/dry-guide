@@ -252,6 +252,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <pre><code>module load singularity
 </code></pre>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
 <h2 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h2>
 <p>The <code>nextflow.config</code> file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
 <ul>
@@ -265,15 +266,15 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 </div>
 <h2 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h2>
 <p>When running locally, the pipeline will run using the <code>andersenlab/gatk4</code> docker image. You must have docker installed.</p>
-<pre><code>nextflow run main.nf -profile local -resume
+<pre><code>nextflow run andersenlab/wi-gatk -profile local -resume
 </code></pre>
 <h2 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
 <p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
-<pre><code>nextflow run main.nf -profile quest_debug -resume
+<pre><code>nextflow run andersenlab/wi-gatk -profile quest_debug -resume
 </code></pre>
 <h2 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
 <p>The pipeline can be run on Quest using the following command:</p>
-<pre><code>nextflow run main.nf -profile quest --sample_sheet &lt;path_to_sheet&gt; -resume
+<pre><code>nextflow run andersenlab/wi-gatk -profile quest --sample_sheet &lt;path_to_sheet&gt; -resume
 </code></pre>
 <h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
 <p>Most configuration is handled using the <code>-profile</code> flag and <code>nextflow.config</code>; If you want to fine tune things you can use the options below.</p>

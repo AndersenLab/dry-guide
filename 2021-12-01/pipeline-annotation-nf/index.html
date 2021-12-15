@@ -209,9 +209,9 @@
 ANNOTATION-NF
 -------------
 
-nextflow main.nf --debug
+nextflow andersenlab/annotation-nf --debug
 
-nextflow main.nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions=divergent_regions_strain.bed
+nextflow andersenlab/annotation-nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions=divergent_regions_strain.bed
 
     parameters           description                                              Set/Default
     ==========           ===========                                              ========================
@@ -251,6 +251,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <pre><code>nextflow run andersenlab/annotation-nf --debug
 </code></pre>
 <h2 id="running_on_quest">Running on Quest<a class="headerlink" href="#running_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
 <p>You should run this in a screen session.</p>
 <pre><code>nextflow run andersenlab/annotation-nf --vcf &lt;path_to_vcf&gt; --species &lt;species&gt; --divergent_regions &lt;path_to_file&gt;
 </code></pre>

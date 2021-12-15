@@ -256,10 +256,11 @@ the flag when you are ready. </p>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <h2 id="testing_the_pipeline_on_quest">Testing the pipeline on QUEST<a class="headerlink" href="#testing_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
 <p><em>This command uses a test dataset</em></p>
-<pre><code>nextflow run main.nf --debug
+<pre><code>nextflow run andersenlab/trim-fq-nf --debug
 </code></pre>
 <h2 id="running_the_pipeline_on_quest">Running the pipeline on QUEST<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
-<pre><code>nextflow run main.nf --fastq_folder &lt;name_of_folder&gt;
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
+<pre><code>nextflow run andersenlab/trim-fq-nf --fastq_folder &lt;name_of_folder&gt;
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -276,7 +277,7 @@ the flag when you are ready. </p>
 <h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
 <p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data/raw</code> folder).</p>
 <p>For example:</p>
-<pre><code>nextflow run main.nf --debug -resume
+<pre><code>nextflow run andersenlab/trim-fq-nf --debug -resume
 </code></pre>
 <p>Using <code>--debug</code> will automatically set the fastq_folder to <code>test_data/raw/20210406_test1</code></p>
 <h2 id="--fastq_folder">--fastq_folder<a class="headerlink" href="#--fastq_folder" title="Permanent link">&para;</a></h2>

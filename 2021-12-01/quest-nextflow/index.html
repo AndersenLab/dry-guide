@@ -187,6 +187,7 @@
 </li>
 <li><a href="#running_nextflow_from_a_local_directory">Running Nextflow from a local directory</a></li>
 <li><a href="#resume">Resume</a></li>
+<li><a href="#getting_an_email_or_text_when_complete">Getting an email or text when complete</a></li>
 </ul>
 </li>
 <li><a href="#writing_nextflow_pipelines">Writing Nextflow Pipelines</a></li>
@@ -346,6 +347,14 @@ nextflow run main.nf --debug
 <p class="admonition-title">Important</p>
 <p>There is some confusion with how the <code>-resume</code> works and sometimes it doesn't work as expected. Check out <a href="https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html">this</a> and <a href="https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html">this other</a> guide for more help. One thing I've learned is there is a difference between <code>process.cache = 'deep' vs. 'lenient'</code>.</p>
 </div>
+<h2 id="getting_an_email_or_text_when_complete">Getting an email or text when complete<a class="headerlink" href="#getting_an_email_or_text_when_complete" title="Permanent link">&para;</a></h2>
+<p>If you would like to receive an email or text from Nextflow when your pipeline finishes (either successfully or with error), all you need to do is add <code>-N &lt;email&gt;</code> to your code. Most phone companies have a way to "email" your phone as an SMS, so you can use this email address to get a text alert. For example:</p>
+<pre><code># send email
+nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
+
+# send text to 801-867-5309 with verizon
+nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
+</code></pre>
 <h1 id="writing_nextflow_pipelines">Writing Nextflow Pipelines<a class="headerlink" href="#writing_nextflow_pipelines" title="Permanent link">&para;</a></h1>
 <p>See <a href="../writing-nextflow/">this page</a> for tips on how to get started with your own nextflow pipeline.</p>
 <p>Also check out the <a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a> for help getting started!</p>
