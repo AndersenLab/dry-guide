@@ -70,6 +70,9 @@ nextflow run andersenlab/post-gatk-nf --debug
 
 ## Running on Quest
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
+
 You should run this in a screen session.
 
 ### Profiles

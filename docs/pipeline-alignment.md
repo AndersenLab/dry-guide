@@ -57,15 +57,17 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 *This command uses a test dataset*
 
 ```
-nextflow run main.nf --debug -profile quest
+nextflow run andersenlab/alignment-nf --debug -profile quest
 ```
 
 ## Running on Quest
 
 You should run this in a screen session.
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
 ```
-nextflow run main.nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
+nextflow run andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
 ```
 
 # Parameters
@@ -80,7 +82,7 @@ There are three configuration profiles for this pipeline.
 
 ## --sample_sheet
 
-The `sample sheet` for alignment is the output from the [trim-fq-nf](https://github.com/AndersenLab/trim-fq-nf) pipeline. the `sample sheet` has the following columns:
+The `sample sheet` for alignment is the output from the [trim-fq-nf](https://github.com/AndersenLab/trim-fq-nf) pipeline. The `sample sheet` **must be tsv formatted**, is the **full path to the sample sheet** (even if it is in your current directory), and has the following columns:
 
 * __strain__ - the name of the strain. Multiple sequencing runs of the same strain are merged together.
 * __id__ - A unique ID for each sequencing run. This must be unique for every single pair of FASTQs.
@@ -109,7 +111,7 @@ You should use `--debug true` for testing/debugging purposes. This will run the 
 For example:
 
 ```
-nextflow run main.nf -profile quest --debug -resume
+nextflow run andersenlab/alignment-nf -profile quest --debug -resume
 ```
 
 Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
@@ -149,7 +151,7 @@ The current *C. briggsae* genome does not contain the Mitochondria DNA. This nee
 !!! Note
 A different `--project` and `--wsbuild` can be used with the `--species` parameter to generate the path to other reference genomes such as:
 ```
-nextflow run main.nf --species c_elegans --project PRJNA13758 --wsbuild WS280
+nextflow run andersenlab/alignment-nf --species c_elegans --project PRJNA13758 --wsbuild WS280
 ```
 
 ### --ncbi (optional)

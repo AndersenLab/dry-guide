@@ -66,6 +66,9 @@ module load singularity
 
 # Usage
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
+
 ## Profiles
 
 The `nextflow.config` file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
@@ -82,7 +85,7 @@ The `nextflow.config` file included with this pipeline contains three profiles. 
 When running locally, the pipeline will run using the `andersenlab/gatk4` docker image. You must have docker installed.
 
 ```
-nextflow run main.nf -profile local -resume
+nextflow run andersenlab/wi-gatk -profile local -resume
 ```
 
 ## Debugging the pipeline on Quest
@@ -90,7 +93,7 @@ nextflow run main.nf -profile local -resume
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run main.nf -profile quest_debug -resume
+nextflow run andersenlab/wi-gatk -profile quest_debug -resume
 ```
 
 ## Running the pipeline on Quest
@@ -98,7 +101,7 @@ nextflow run main.nf -profile quest_debug -resume
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run main.nf -profile quest --sample_sheet <path_to_sheet> -resume
+nextflow run andersenlab/wi-gatk -profile quest --sample_sheet <path_to_sheet> -resume
 ```
 
 # Parameters

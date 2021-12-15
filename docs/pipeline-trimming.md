@@ -65,13 +65,15 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 *This command uses a test dataset*
 
 ```
-nextflow run main.nf --debug
+nextflow run andersenlab/trim-fq-nf --debug
 ```
 
 ## Running the pipeline on QUEST
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
 ```
-nextflow run main.nf --fastq_folder <name_of_folder>
+nextflow run andersenlab/trim-fq-nf --fastq_folder <name_of_folder>
 ```
 
 !!! Important
@@ -102,7 +104,7 @@ You should use `--debug true` for testing/debugging purposes. This will run the 
 For example:
 
 ```
-nextflow run main.nf --debug -resume
+nextflow run andersenlab/trim-fq-nf --debug -resume
 ```
 
 Using `--debug` will automatically set the fastq_folder to `test_data/raw/20210406_test1`

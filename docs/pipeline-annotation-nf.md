@@ -14,9 +14,9 @@ The [annotation-nf](https://github.com/AndersenLab/annotation-nf) pipeline perfo
 ANNOTATION-NF
 -------------
 
-nextflow main.nf --debug
+nextflow andersenlab/annotation-nf --debug
 
-nextflow main.nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions=divergent_regions_strain.bed
+nextflow andersenlab/annotation-nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions=divergent_regions_strain.bed
 
     parameters           description                                              Set/Default
     ==========           ===========                                              ========================
@@ -67,6 +67,9 @@ nextflow run andersenlab/annotation-nf --debug
 ```
 
 ## Running on Quest
+
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
 
 You should run this in a screen session.
 

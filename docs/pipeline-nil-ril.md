@@ -76,6 +76,9 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 
 ## Profiles and Running the Pipeline
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
+
 The `nextflow.config` file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
 
 * `local` - Used for local development. Uses the docker container.
@@ -93,7 +96,7 @@ curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758
 
 Run the pipeline locally with:
 ```
-nextflow run main.nf -profile local -resume
+nextflow run andersenlab/nil-ril-nf -profile local -resume
 ```
 
 ### Debugging the pipeline on Quest

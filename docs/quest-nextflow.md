@@ -199,6 +199,17 @@ There is usually no downside to adding `-resume`, so you can get into the habit 
 !!! Important
 	There is some confusion with how the `-resume` works and sometimes it doesn't work as expected. Check out [this](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) and [this other](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) guide for more help. One thing I've learned is there is a difference between `process.cache = 'deep' vs. 'lenient'`.
 
+## Getting an email or text when complete
+
+If you would like to receive an email or text from Nextflow when your pipeline finishes (either successfully or with error), all you need to do is add `-N <email>` to your code. Most phone companies have a way to "email" your phone as an SMS, so you can use this email address to get a text alert. For example:
+
+```
+# send email
+nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
+
+# send text to 801-867-5309 with verizon
+nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
+```
 
 # Writing Nextflow Pipelines
 

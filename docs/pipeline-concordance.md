@@ -68,15 +68,18 @@ The `nextflow.config` file included with this pipeline contains three profiles. 
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use the test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run main.nf -profile quest_debug -resume
+nextflow run andersenlab/concordance-nf -profile quest_debug -resume
 ```
 
 ## Running the pipeline on Quest
 
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+
+
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run main.nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans --info_sheet <path_to_file> -resume 
+nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans --info_sheet <path_to_file> -resume 
 ```
 
 # Parameters
