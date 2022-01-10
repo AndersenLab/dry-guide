@@ -2,139 +2,35 @@
 
 [TOC]
 
-## Setting up CeNDR
+## CeNDR User privileges
 
-### Clone the repo
+To view, modify, or edit a user account, navigate to the 'Admin -> Users' menu. You can promote existing users to 'Admin' through this form as well.
 
-Clone the repo first.
+## Updating Staff/Collaborator/Committee Profiles
 
-```
-git clone http://www.github.com/andersenlab/cendr
-```
+To modify the personal profiles of individuals associated with the project on the 'Staff', 'Scientific Advisory Committee', and 'Collaborators' pages:
 
-__Switch to the development branch__
+- Admin -> Profile Pages
 
-```
-git checkout --track origin/development
-```
+From there you can create, modify, or delete user profiles and select on which page the profile should be published.
 
-### Setup a python environment
+## Updating Publications
 
-Use [miniconda](https://docs.conda.io/en/latest/miniconda.html) as it will make your life much easier.
+The publications page (`/about/publications`) is generated using a google spreadsheet. The spreadsheet can be accessed [here](https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit) or through the 'Admin' menu. You can request access to edit the spreadsheet by visiting that link.
 
-The conda environment has been specified in the `env.yaml` file, and can be installed using:
+The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.
 
-```bash
-conda env create -f env.yaml
-```
+Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.
 
-### Download and install the gcloud-sdk
+Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.
 
-Install the [gcloud-sdk](https://cloud.google.com/sdk/downloads)
+## Updating Site Tools
 
-### Create a cendr gcloud configuration
+To change the version of the container that CeNDR uses for a tool:
 
-```
-gcloud config configurations create cendr
-```
+- Admin -> Tool Versions
 
-### Install direnv
-
-[direnv](https://direnv.net/) allows you to load a configuration file when you enter the development directory. Please read about how it works. CeNDR uses a `.envrc` file within the repo
-to set up the appropriate environmental variables.
-
-Once direnv is installed you can run `direnv allow` within the CeNDR repo:
-
-```bash
-direnv allow
-```
-
-### Test flask
-
-With direnv enabled, you are nearly able to run the site locally.
-
-Run `flask`, and you should see the following:
-
-```
-> flask
-Usage: flask [OPTIONS] COMMAND [ARGS]...
-
-  A general utility script for Flask applications.
-
-  Provides commands from Flask, extensions, and the application. Loads the
-  application defined in the FLASK_APP environment variable, or from a
-  wsgi.py file. Setting the FLASK_ENV environment variable to 'development'
-  will enable debug mode.
-
-    $ export FLASK_APP=hello.py
-    $ export FLASK_ENV=development
-    $ flask run
-
-Options:
-  --version  Show the flask version
-  --help     Show this message and exit.
-
-Commands:
-  decrypt_credentials  Decrypt credentials
-  download_db          Download the database (used in docker...
-  initdb               Initialize the database
-  routes               Show the routes for the app.
-  run                  Run a development server.
-  shell                Runs a shell in the app context.
-  update_credentials   Update credentials
-  update_strains       Updates the strain table of the database
-
-```
-
-If you do not see the full set of commands there - something is broken.
-
-### Setup Credentials
-
-1. Authenticate with gcloud.
-2. Run the following command:
-
-```bash
-mkdir -p env_config
-flask decrypt_credentials
-```
-
-This will create a directory with the site credentials (`env_config`). Keep these secret.
-
-!!! important
-    __DO NOT COMMIT THESE CREDENTIALS TO GITHUB__!!!
-
-### Load the database
-
-The site uses an SQLite database that can be setup by running:
-
-```
-flask download_db
-```
-
-This will update the SQLite database used by CeNDR (`base/cendr.db`). The tables are:
-
-* `homologs` - A table of homologs+orthologs.
-* `strain` - Strain info pulled from the google spreadsheet __C. elegans WI Strain Info__.
-* `wormbase_gene` - Summarizes gene information; Broken into component parts (e.g. exons, introns etc.).
-* `wormbase_gene_summary` - Summarizes gene information. One line per gene.
-* `metadata` - tracks how data was obtained. When. Where. etc.
-
-### Test the site
-
-You can at this point test the site locally by running:
-
-```bash
-flask run
-```
-
-Be sure you have direnv. Otherwise you should source the .envrc file prior to running:
-
-```bash
-source .envrc
-flask run
-```
-
-----
+The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CeNDR uses for all future operations.
 
 ## Creating a new release
 
@@ -144,133 +40,343 @@ __See [Add new sequence data for further details](adding-seq-data.md)__.
 
 1. Add new wild isolate sequence data, and process with the `trimmomatic-nf` pipeline.
 1. Identified new isotypes using the `concordance-nf`
-1. Updated the `C. elegans WI Strain Info` spreadsheet, adding in new isotypes. 
+1. Updated the `C. elegans WI Strain Info` spreadsheet, adding in new isotypes.
 1. Update the release column to reflect the release data in the `C. elegans WI Strain Info` spreadsheet
 1. Run and process sequence data with the `wi-nf` pipeline.
 
 Pushing a new release requires a series of steps described below.
 
-### Uploading BAMs
+### Uploading BAMs to Google Storage
 
-You will need AWS credentials to upload BAMs to Amazon S3. These are available in the secret credentials location. 
+You will need Google Cloud credentials to upload BAMs to Google Storage.
 
-```
-pip install aws-shell
-aws configure # Use s3 user credentials
+Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) and configure with your GCP credentials and the `caendr` project ID.
+
+```bash
+gcloud init 
 ```
 
 Once configured, navigate to the BAM location on b1059.
 
-```
+```bash
 cd /projects/b1059/data/alignments/WI/isotype
 # CD to bams folder...
-aws s3 sync . s3://elegansvariation.org/bam
+gsutil rsync . gs://caendr-site-private-bucket/bam/c_elegans/
 ```
 
 Run this command in screen to ensure that it completes (it's going to take a while)
-
-### Uploading Release Data
-
-When you run the `wi-nf` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
-
-```
-# First cd to the path of the results folder (WI-YYYYMMDD) from the `wi-nf` pipeline.
-gsutil rsync . gs://elegansvariation.org/releases/YYYYMMDD/
-```
-
-!!! Important
-    Use rsync to copy the files up to google storage. Note that the `WI-` prefix has been dropped from the `YYYYMMDD` declaration.
-
-### Bump the CeNDR version number and change-log
-
-Because we are creating a new data release, we need to "bump" or move up the CeNDR version. The CeNDR version number is specified in a file at the base of the repo: `travis.yml`. Modify this line:
-
-```
-- export VERSION_NUM=1-2-8
-```
-
-And increase the version number by 1 (e.g. 1-2-9).
-
-You should also update the change log and/or add a news item. The change-log is a markdown file located at `base/static/content/help/Change-Log.md`; News items are located at `base/static/news/`. Look at existing content to get an idea of how to add new items. It is fairly straightforward. You should be able to see changes on the test site.
-
-### Adding the release to the CeNDR website
-
-After the site is loaded, the BAMs and release data are up, and the database is updated, you need to modify the file `base/constants.py` to add the new release. The date must match the date of the release that was uploaded. Add your release with the appropriate 
-date and the annotation database used (e.g. `("YYYYMMDD", "Annotation Database")`).
-
-```
-RELEASES = [("20180413", "WS263"),
-            ("20170531", "WS258"),
-            ("20160408", "WS245")]
-```
-
-Commit your changes to the __development branch__ of CeNDR and push them to github. Once pushed, travis-ci will build the app and deploy it to a test branch. Use the google app engine interface to identify and test the app.
-
-If everything looks good open a pull request bringing the changes on the development branch to the master branch. Again, travis-ci will launch the new site.
-
-!!! Important
-    You need to shut down development instances and older versions of the site on the google-app engine interface once you are done testing/deploying new instances to prevent us from incurring charges for those running instances.
 
 ### Adding isotype images
 
 Isolation photos are initially prepared on dropbox and are located in the folder here:
 
-```
+```bash
 ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
 ```
 
 Each file should be named using the isotype name and the strain name strain name in the following format:
 
-```
-<isotype>_<strain>.jpg
-```
-
-Then you will use __[imagemagick](https://www.imagemagick.org/)__ (a commandline-based utility) to scale the images down to 1000 pixels (width) and generate a 150px thumbnail.
-
-```
-for img in `ls *.jpg`; do
-    convert ${img} -density 300 -resize 1000 ${img}
-    convert ${img} -density 300 -resize 150  ${img/.jpg/}.thumb.jpg
-done;
+```bash
+<strain>.jpg
 ```
 
-Once you have generated the images you can upload them to google storage. They should be uploaded to the following location:
+Upload the image files to Google Storage. Thumbnails for the images will be automatically generated by a cloud function that monitors the photos bucket.
+Images should be uploaded to:
 
-```
-gs://elegansvariation.org/photos/isolation
+```bash
+gs://caendr-photos-bucket/c_elegans
 ```
 
 You can drag/drop the photos using the web-based browser or use __gsutil__:
 
-```
+```bash
 # First cd to the appropriate directory
 # cd ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
 
-gsutil rsync -x ".DS_Store" . gs://elegansvariation.org/photos/isolation
+gsutil rsync -x ".DS_Store" . gs://caendr-photos-bucket/c_elegans
 ```
 
-The script for processing files is located in the dropbox folder and is called 'process_images.sh'. It's also here:
+### Uploading Release Data to Google Storage
 
-```
-for img in `ls *.jpg`; do
-    convert ${img} -density 300 -resize 1000 ${img}
-    convert ${img} -density 300 -resize 150  ${img/.jpg/}.thumb.jpg
-done;
+When you run the `wi-nf` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
 
-# Copy using rsync; Skip .DS_Store files.
-gsutil rsync -x ".DS_Store" . gs://elegansvariation.org/photos/isolation
+```bash
+# First cd to the path of the results folder (WI-YYYYMMDD) from the `wi-nf` pipeline.
+gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20210121/
 ```
 
-### Update the `current` variant datasets.
+!!! Important
+    Use rsync to copy the files up to google storage. Note that the `WI-` prefix has been dropped from the `YYYYMMDD` declaration.
 
-The `current` folder located in `gs://elegansvariation.org/releases` contains the latest variant datasets and is used by WormBase to display natural variation data. Once you've completed a new release, update the files in this folder `gs://elegansvariation.org/releases/current` folder. 
+There are 2 different expected filename and directory structures for dataset releases, V1 (the legacy format) and V2 (the current format).
+You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CeNDR.
+Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20210121
 
-## Updating Publications
+V2 Structure:
 
-The publications page (`/about/publications`) is generated using a google spreadsheet. The spreadsheet can be accessed [here](https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit). You can request access to edit the spreadsheet by visiting that link.
+- [RELEASE_VERSION]/alignment_report.html
+- [RELEASE_VERSION]/concordance_report.html
+- [RELEASE_VERSION]/divergent_regions_strain.[RELEASE_VERSION].bed.gz
+- [RELEASE_VERSION]/gatk_report.html
+- [RELEASE_VERSION]/haplotype/haplotype.png
+- [RELEASE_VERSION]/haplotype/haplotype.pdf
+- [RELEASE_VERSION]/haplotype/sweep.pdf
+- [RELEASE_VERSION]/haplotype/sweep_summary.tsv
+- [RELEASE_VERSION]/methods.md
+- [RELEASE_VERSION]/release_notes.md
+- [RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.min4.tree
+- [RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.min4.tree.pdf
+- [RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.isotype.min4.tree
+- [RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.isotype.min4.tree.pdf
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz.tbi
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.isotype.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.isotype.vcf.gz.tbi
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz.tbi
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.isotype.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.isotype.vcf.gz.tbi
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.isotype.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.isotype.vcf.gz.tbi
 
-The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.
+V1 Structure:
 
-Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.
+- [RELEASE_VERSION]/methods.md
+- [RELEASE_VERSION]/haplotype/haplotype.png
+- [RELEASE_VERSION]/haplotype/haplotype.thumb.png
+- [RELEASE_VERSION]/popgen/tajima_d.png
+- [RELEASE_VERSION]/popgen/tajima_d.thumb.png
+- [RELEASE_VERSION]/popgen/trees/genome.svg
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz
+- [RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.vcf.gz
+- [RELEASE_VERSION]/multiqc_bcftools_stats.json
+- [RELEASE_VERSION]/popgen/trees/genome.pdf
 
-Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.
+### Adding the release to the CeNDR website
+
+To publish the release data on the CeNDR website, you must be logged into the CeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CeNDR user account.
+
+Perform the following steps in order:
+
+Updating the site's internal database of Strains (~5 minutes). This data is populated from the `C. elegans WI Strain Info` Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...
+
+- Admin -> Database Operations
+  - Click the 'New Operation' button
+  - Select 'Rebuild strain table from Google Sheet'
+  - Add any (optional) notes about why the operation is being run
+  - Click 'Start'
+
+If the wormbase version used in the release is different from the previous release, that gene data must also be loaded into the site's internal database (~15 minutes). Gene data is compiled from several external databases and used to look up chromosome:start-stop intervals using Wormbase Gene IDs, gene names, Homologenes from other species, etc..:
+
+- Admin -> Database Operations
+  - Click the 'New Operation' button
+  - Select 'Rebuild wormbase gene table from external sources'
+  - Enter the wormbase version number to use (ie: 280 to use version WS280)
+  - Click 'Start'
+
+Finally, you can publish the release files on the site:
+
+- Admin -> Dataset Releases
+  - Click 'Create Release'
+  - Enter the RELEASE_VERSION of the release that was uploaded to Google Storage in previous section (format: YYYYMMDD)
+  - Enter the WORMBASE_VERSION that the release uses (ie: 280 to use version WS280)
+  - Leave the Report Type as 'V2' for new releases (if you are adding a legacy format release created before 20200101, use V1)
+  - Click 'Save'
+
+The release should now show as a new tab on the 'Data -> Genomic Data' page
+
+## Adding Strain Variant Annotation Data
+
+Strain Variant Annotation data must first be gzipped and uploaded to Google Storage. The CSV should be named with the pattern:
+WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
+Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20210401
+
+```bash
+ # First cd to the appropriate directory
+gzip WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
+gsutil cp WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz gs://caendr-db-bucket/strain_variant_annotation/c_elegans/WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz
+```
+
+You can also upload the gzipped file directly through the Google Cloud Console to this locations:
+
+```bash
+gs://caendr-db-bucket/strain_variant_annotation/c_elegans/
+```
+
+Then update the CeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):
+
+- Admin -> Database Operations
+  - Click the 'New Operation' button
+  - Select 'Rebuild Strain Annotated Variant table from .csv.gz file'
+  - Enter the [VERSION_NUMBER] to use (ie: 20210401)
+  - Click 'Start'
+
+## Google Storage Details
+
+### caendr-photos-bucket
+
+This bucket contains photos of the environment from where a strain was isolated.
+
+Photos follow the naming pattern:
+'gs://<bucket>/<species>/<strain>.jpg'
+
+Examples:
+'gs://caendr-photos-bucket/c_elegans/ECA1217.jpg'
+'gs://caendr-photos-bucket/c_elegans/WN2082.jpg'
+
+When an image is uploaded to the bucket, a scaled down thumbnail will automatically be generated with the naming pattern:
+'<strain>.thumb.jpg'
+
+Examples:
+'gs://caendr-photos-bucket/c_elegans/ECA1217.thumb.jpg'
+'gs://caendr-photos-bucket/c_elegans/WN2082.thumb.jpg'
+
+### caendr-db-bucket
+
+This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CeNDR's internal database.
+Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20210401'.
+
+- caendr-db-bucket
+  - strain_variant_annotation
+    - c_elegans
+      - WI.strain-annotation.bcsq.20210401.csv.gz
+
+### caendr-main-terraform-state
+
+This bucket contains the state information about the cloud infrastructure for CeNDR as well as a zipped backup of the secret.env file
+
+### caendr-nextflow-work-bucket
+
+Work bucket for storing intermediate files in between Nextflow stages
+
+### caendr-site-private-bucket
+
+This bucket contains any files that may (now or in the future) require custom access permissions and should not necessarily be globally public.
+tools - This directory contains any data or file depencies for an associated tool.
+bam - contains the BAM and BAI files for each sequenced strain of each species. It also contains the 'Download All BAM/BAI Files' script that is automatically generated by CAENDR (bam_bai_signed_download_script.sh)
+reports - This directory contains the source data and the output from running the associated tool. The data and results are organized by the container and version (with the exception of the indel primer), and the hash of the tool's input data.
+
+- tools
+  - pairwise_indel_primer
+    - sv.20200815.bed.gz
+    - sv.20200815.bed.gz.tbi
+    - sv.20200815.vcf.gz
+    - sv.20200815.vcf.gz.csi
+    - sv.20200815.vcf.gz.tbi
+  - nemascan
+    - input_data
+      - all_species
+      - c_elegans
+        - annotations
+        - genotypes
+        - isotypes
+        - phenotypes
+      - c_briggsae
+        - ...
+      - c_tropicalis
+        - ...
+  - bam
+  - c_elegans
+    - AB1.bam
+    - AB1.bam.bai
+    - AB4.bam
+    - AB4.bam.bai
+    - etc...
+  - reports
+  - heritability
+    - v0.01a
+      - 15251d73f683450317089dae6736dee3
+        - data.tsv
+        - result.tsv
+    - indel-primer
+      - 00d67eecc8a9ea13b7eb5e615b3a6860
+        - input.json
+        - result.tsv
+  - nemascan-nxf
+    - v1.0
+      - 00d67eecc8a9ea13b7eb5e615b3a6860
+        - data.tsv
+        - results
+          - Divergent_and_haplotype
+          - Genotype_Matrix
+          - Mapping
+          - Nextflow
+          - Phenotypes
+          - Plots
+          - Reports
+    - v1.0a
+      - 3facbf334a99a2cde3b6c4372cbe7da6
+        - data.tsv
+        - results
+          - Divergent_and_haplotype
+          - Genotype_Matrix
+          - Mapping
+          - Nextflow
+          - Phenotypes
+          - Plots
+          - Reports
+
+### caendr-site-public-bucket
+
+This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CeNDR depends on these files and their contents.
+
+dataset_release:
+This is the directory where formal releases of CeNDR data are uploaded
+
+- dataset_release
+  - c_elegans
+    - 20160408
+    - 20170531
+    - 20180527
+    - 20200815
+    - 20210121
+      - release_notes.md
+      - methods.md
+      - alignment_report.html
+      - gatk_report.html
+      - concordance_report.html
+      - divergent_regions_strain.20210121.bed.gz
+      - variation
+        - WI.20210121.soft-filter.vcf.gz
+        - WI.20210121.soft-filter.vcf.gz.tbi
+        - WI.20210121.soft-filter.isotype.vcf.gz
+        - WI.20210121.soft-filter.isotype.vcf.gz.tbi
+        - WI.20210121.hard-filter.vcf.gz
+        - WI.20210121.hard-filter.vcf.gz.tbi
+        - WI.20210121.hard-filter.isotype.vcf.gz
+        - WI.20210121.hard-filter.isotype.vcf.gz.tbi
+        - WI.20210121.impute.isotype.vcf.gz
+        - WI.20210121.impute.isotype.vcf.gz.tbi
+      - tree
+        - WI.20210121.hard-filter.min4.tree
+        - WI.20210121.hard-filter.min4.tree.pdf
+        - WI.20210121.hard-filter.isotype.min4.tree
+        - WI.20210121.hard-filter.isotype.min4.tree.pdf
+      - haplotype
+        - haplotype.png
+        - haplotype.pdf
+        - sweep.pdf
+        - sweep_summary.tsv
+
+Profile:
+User Profile photos for Staff, Advisory Committee, etc... are uploaded here when managed using the 'Admin' portal
+
+- profile
+  - photos
+    - 0f7394fa0d48431884e673b34f4c4dea.jpg
+
+### caendr-site-static-bucket
+
+This bucket contains static site resources like images, videos, example data, etc...
+These files are stored in the CAENDR git repo, but are not accessible from the CeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()
+
+example:
+
+```html
+<img src="{{ ext_asset('img/logo.png') }}">
+```
+
+### caendr-src-bucket
+
+This bucket is used by Terraform during the deployment process to store source code before it gets provisioned
