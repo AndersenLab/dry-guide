@@ -36,13 +36,16 @@ The container versions are populated from the andersenlab docker hub repository.
 
 Before a new release is possible, you must have first completed the following tasks:
 
-__See [Add new sequence data for further details](adding-seq-data.md)__.
+__See [Pipeline Overview](pipeline-overivew.md) for details__.
 
-1. Add new wild isolate sequence data, and process with the `trimmomatic-nf` pipeline.
-1. Identified new isotypes using the `concordance-nf`
-1. Updated the `C. elegans WI Strain Info` spreadsheet, adding in new isotypes.
-1. Update the release column to reflect the release data in the `C. elegans WI Strain Info` spreadsheet
-1. Run and process sequence data with the `wi-nf` pipeline.
+1. Add new wild isolate sequence data, and process with the [trim-fq-nf](pipeline-trimming.md) pipeline.
+1. Align reads with [alignment-nf](pipeline-alignment.md).
+1. Call variants with [wi-gatk](pipeline-wiGATK.md).
+1. Identify new isotypes using the [concordance-nf](pipeline-concordance.md).
+1. Update the *C. elegans* WI Strain Info [spreadsheet](https://docs.google.com/spreadsheets/u/1/d/10x-CcKNCl80F9hMcrGWC4fhP_cbekSzi5_IYBY2UqCc/edit?usp=drive_web&ouid=113810443554564955854) with the new isotypes and update the release column to reflect the release date.
+1. Perform population genetic analysis with [post-gatk-nf](pipeline-postGATK.md).
+1. [Impute](pipeline-impute.md) the VCF.
+1. Annotate the VCF with the [annotation-nf](pipeline-annotation-nf.md) pipeline.
 
 Pushing a new release requires a series of steps described below.
 
@@ -59,12 +62,14 @@ gcloud init
 Once configured, navigate to the BAM location on b1059.
 
 ```bash
-cd /projects/b1059/data/alignments/WI/isotype
 # CD to bams folder...
+cd /projects/b1059/data/c_elegans/WI/alignments/
+```
+Run this command in screen to ensure that it completes (it's going to take a while)
+
+```
 gsutil rsync . gs://caendr-site-private-bucket/bam/c_elegans/
 ```
-
-Run this command in screen to ensure that it completes (it's going to take a while)
 
 ### Adding isotype images
 
@@ -91,17 +96,20 @@ You can drag/drop the photos using the web-based browser or use __gsutil__:
 
 ```bash
 # First cd to the appropriate directory
-# cd ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
+cd ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
 
 gsutil rsync -x ".DS_Store" . gs://caendr-photos-bucket/c_elegans
 ```
 
 ### Uploading Release Data to Google Storage
 
-When you run the `wi-nf` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
+When you run the `wi-gatk` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
+
+!!! Note 
+    Data from several different pipelines are combined to form a CeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. 
 
 ```bash
-# First cd to the path of the results folder (WI-YYYYMMDD) from the `wi-nf` pipeline.
+# first cd into the folder you want to upload
 gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20210121/
 ```
 
@@ -157,9 +165,10 @@ V1 Structure:
 
 To publish the release data on the CeNDR website, you must be logged into the CeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CeNDR user account.
 
-Perform the following steps in order:
+__Perform the following steps in order:__
 
-Updating the site's internal database of Strains (~5 minutes). This data is populated from the `C. elegans WI Strain Info` Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...
+__1. Updating the site's internal database of Strains (~5 minutes).__
+This data is populated from the `C. elegans WI Strain Info` Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...
 
 - Admin -> Database Operations
   - Click the 'New Operation' button
@@ -167,7 +176,8 @@ Updating the site's internal database of Strains (~5 minutes). This data is popu
   - Add any (optional) notes about why the operation is being run
   - Click 'Start'
 
-If the wormbase version used in the release is different from the previous release, that gene data must also be loaded into the site's internal database (~15 minutes). Gene data is compiled from several external databases and used to look up chromosome:start-stop intervals using Wormbase Gene IDs, gene names, Homologenes from other species, etc..:
+__2. (Optional) If the wormbase version used in the release is different from the previous release, that gene data must also be loaded into the site's internal database (~15 minutes).__
+ Gene data is compiled from several external databases and used to look up chromosome:start-stop intervals using Wormbase Gene IDs, gene names, Homologenes from other species, etc..:
 
 - Admin -> Database Operations
   - Click the 'New Operation' button
@@ -175,7 +185,7 @@ If the wormbase version used in the release is different from the previous relea
   - Enter the wormbase version number to use (ie: 280 to use version WS280)
   - Click 'Start'
 
-Finally, you can publish the release files on the site:
+__3. Finally, you can publish the release files on the site:__
 
 - Admin -> Dataset Releases
   - Click 'Create Release'
@@ -253,9 +263,8 @@ Work bucket for storing intermediate files in between Nextflow stages
 ### caendr-site-private-bucket
 
 This bucket contains any files that may (now or in the future) require custom access permissions and should not necessarily be globally public.
-tools - This directory contains any data or file depencies for an associated tool.
-bam - contains the BAM and BAI files for each sequenced strain of each species. It also contains the 'Download All BAM/BAI Files' script that is automatically generated by CAENDR (bam_bai_signed_download_script.sh)
-reports - This directory contains the source data and the output from running the associated tool. The data and results are organized by the container and version (with the exception of the indel primer), and the hash of the tool's input data.
+
+__tools__ - This directory contains any data or file depencies for an associated tool.
 
 - tools
   - pairwise_indel_primer
@@ -276,6 +285,9 @@ reports - This directory contains the source data and the output from running th
         - ...
       - c_tropicalis
         - ...
+
+__bam__ - contains the BAM and BAI files for each sequenced strain of each species. It also contains the 'Download All BAM/BAI Files' script that is automatically generated by CAENDR (bam_bai_signed_download_script.sh)
+
   - bam
   - c_elegans
     - AB1.bam
@@ -283,6 +295,9 @@ reports - This directory contains the source data and the output from running th
     - AB4.bam
     - AB4.bam.bai
     - etc...
+
+__reports__ - This directory contains the source data and the output from running the associated tool. The data and results are organized by the container and version (with the exception of the indel primer), and the hash of the tool's input data.
+
   - reports
   - heritability
     - v0.01a
@@ -321,8 +336,7 @@ reports - This directory contains the source data and the output from running th
 
 This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CeNDR depends on these files and their contents.
 
-dataset_release:
-This is the directory where formal releases of CeNDR data are uploaded
+__dataset_release__ - This is the directory where formal releases of CeNDR data are uploaded
 
 - dataset_release
   - c_elegans
@@ -359,8 +373,7 @@ This is the directory where formal releases of CeNDR data are uploaded
         - sweep.pdf
         - sweep_summary.tsv
 
-Profile:
-User Profile photos for Staff, Advisory Committee, etc... are uploaded here when managed using the 'Admin' portal
+__Profile__ - User Profile photos for Staff, Advisory Committee, etc... are uploaded here when managed using the 'Admin' portal
 
 - profile
   - photos
