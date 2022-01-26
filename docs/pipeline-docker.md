@@ -107,4 +107,10 @@ docker.enabled = true
 !!! Important
     When running Nextflow with a docker container on QUEST, it is necessary to replace the `docker` command with `singularity` (although you still must build a docker container). You must also load singularity using `module load singularity` before starting a run.
 
+### Caching singularity images on QUEST
 
+To make the most out of using a shared cache directory for singularity on b1059, make sure to add this line to your `~/.bash_profile` before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).
+
+```
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
