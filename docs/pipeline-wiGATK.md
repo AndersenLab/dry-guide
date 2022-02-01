@@ -74,7 +74,7 @@ module load singularity
 The `nextflow.config` file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
 
 * `local` - Used for local development. Uses the docker container.
-* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
+* `debug` - Runs a small subset of available test data. Should complete within a couple of minutes. For testing/diagnosing issues on Quest.
 * `quest` - Runs the entire dataset.
 
 !!! Note
@@ -93,7 +93,7 @@ nextflow run andersenlab/wi-gatk -profile local -resume
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run andersenlab/wi-gatk -profile quest_debug -resume
+nextflow run andersenlab/wi-gatk -profile debug -resume
 ```
 
 ## Running the pipeline on Quest

@@ -57,7 +57,7 @@ nextflow self-update
 The `nextflow.config` file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
 
 * `local` - Used for local development. Uses the docker container.
-* `quest_debug` - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.
+* `debug` - Runs a small subset of available test data. Should complete within a couple of minutes. For testing/diagnosing issues on Quest.
 * `quest` - Runs the entire dataset.
 
 !!! Note
@@ -68,7 +68,7 @@ The `nextflow.config` file included with this pipeline contains three profiles. 
 When running on Quest, you should first run the quest debug profile. The Quest debug profile will use the test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
 
 ```
-nextflow run andersenlab/concordance-nf -profile quest_debug -resume
+nextflow run andersenlab/concordance-nf -profile debug -resume
 ```
 
 ## Running the pipeline on Quest
@@ -79,7 +79,7 @@ nextflow run andersenlab/concordance-nf -profile quest_debug -resume
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans --info_sheet <path_to_file> -resume 
+nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans -resume 
 ```
 
 # Parameters
@@ -98,10 +98,6 @@ The sample sheet to use. This is generally the same sample sheet used for `wi-ga
 ## --vcf
 
 The hard-filtered VCF output from `wi-gatk`.
-
-## --info_sheet
-
-Strain sheet containing existing isotype assignment. You can download the current wild isolate species master sheet for this input.
 
 ### --species (optional)
 
