@@ -129,7 +129,7 @@ The `sample sheet` has the following columns:
 Path to the **folder** containing both the hard-filtered and soft-filtered vcf outputs from [`wi-gatk`](https://github.com/AndersenLab/wi-gatk). VCF should contain **ALL** strains, the first step will be to subset isotype reference strains for further analysis.
 
 !!! Note
-    This should be the **path to the folder**, we want to isotype-subset both hard and soft filtered VCFs. For example: `--vcf_folder /projects/b1059/projects/Katie/wi-gatk/WI-20210121/variation/`
+    This should be the **path to the folder**, we want to isotype-subset both hard and soft filtered VCFs. For example: `--vcf_folder /projects/b1059/projects/Katie/wi-gatk/WI-20210121/variation/` or `--vcf_folder /projects/b1059/data/c_elegans/WI/variation/20210121/vcf/`
 
 ### --species (optional)
 
