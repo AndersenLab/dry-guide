@@ -44,7 +44,26 @@ module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
 ```
 
-* Currently only runs on Quest with conda environments installed at `/projects/b1059/software/conda_envs/`
+### Relevant Docker Images
+
+*Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/alignment-nf -r 20220216-Release`*
+
+* `andersenlab/alignment` ([link](https://hub.docker.com/r/andersenlab/alignment)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/align.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/blobtools` ([link](https://hub.docker.com/r/andersenlab/blobtools)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/blobtools) repo.
+* `andersenlab/multiqc` ([link](https://hub.docker.com/r/andersenlab/multiqc)): Docker image is created within the [trim-fq-nf](https://github.com/andersenlab/trim-fq-nf/) pipeline using GitHub actions. Whenever a change is made to `env/multiqc.Dockerfile` or `.github/workflows/build_multiqc_docker.yml` GitHub actions will create a new docker image and push if successful
+
+To access these docker images, first load the `singularity` module on QUEST.
+
+```
+module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
 
 !!! Note  
     [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
@@ -57,7 +76,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 *This command uses a test dataset*
 
 ```
-nextflow run andersenlab/alignment-nf --debug -profile quest
+nextflow run andersenlab/alignment-nf --debug
 ```
 
 ## Running on Quest
@@ -67,7 +86,7 @@ You should run this in a screen session.
 *Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
 
 ```
-nextflow run andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest -resume
+nextflow run andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest
 ```
 
 # Parameters
@@ -79,6 +98,9 @@ There are three configuration profiles for this pipeline.
 * `local` - Used for local development.
 * `quest` - Used for running on Quest.
 * `gcp` - For running on Google Cloud (not currently active?).
+
+!!! Note
+    If you forget to add a `-profile`, the `quest` profile will be chosen as default
 
 ## --sample_sheet
 
@@ -118,7 +140,7 @@ Using `--debug` will automatically set the sample sheet to `test_data/sample_she
 
 ### --species (optional)
 
-Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file.
+Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file. If species == "c_elegans", a check will be run for the *npr-1* allele. *Note: this process used to happen later in `concordance-nf`, however it was moved up to `alignment-nf` to avoid having to rerun the long `wi-gatk` process if an incorrect strain is included.* 
 
 ### --fq_prefix (optional)
 
@@ -140,13 +162,10 @@ A fasta reference indexed with BWA. WS245 is packaged with the pipeline for conv
 On Quest, the default references are here:
 
 ```
-c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS283/c_elegans.PRJNA13758.WS283.genome.fa.gz
 c_briggsae: /projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
 c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
 ```
-
-!!! Warning
-The current *C. briggsae* genome does not contain the Mitochondria DNA. This needs to be addressed later.
 
 !!! Note
 A different `--project` and `--wsbuild` can be used with the `--species` parameter to generate the path to other reference genomes such as:
@@ -159,6 +178,10 @@ nextflow run andersenlab/alignment-nf --species c_elegans --project PRJNA13758 -
 __Default__ - `/projects/b1059/data/other/ncbi_blast_db/`
 
 Path to the NCBI blast database used for blobtool analysis. Should not need to change.
+
+### --blob (optional)
+
+Defaults to true. Change to false if you don't need to run blobtool analysis on low coverage strains. This step can take a while, so if you don't need it you might want to exclude it.
 
 ### --output (optional)
 
@@ -227,6 +250,10 @@ Most files should be obvious. A few are detailed below.
 * __sample_sheet_for_seq_sheet.tsv__ - sample sheet to be added to google sheet, filtered to remove low coverage strains
 * __sample_sheet_for_seq_sheet_ALL.tsv__ - sample sheet to be added to google sheet, contains all strains (use this one)
 * __blobplot/__ - contains plots for low coverage strains to see if they show contamination issues and if they should be resequenced.
+* __npr1_allele_strain.tsv__ - if species == c_elegans, this file will be output to show problematic strains that contain the N2 *npr-1* allele and should be manually checked. 
+
+!!! Important
+    If a new strain is flagged in the `npr1_allele_strain.tsv file`, tell Erik, Robyn, and the wild isolate team ASAP so they can address the issue. This strain will likely be removed from further analysis.
 
 # Data storage
 

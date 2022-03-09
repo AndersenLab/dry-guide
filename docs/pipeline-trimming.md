@@ -58,6 +58,27 @@ source activate /projects/b1059/software/conda_envs/nf20_env
     The `--dry-run` flag will output how files will be renamed. Review the output and remove
     the flag when you are ready. 
 
+### Relevant Docker Images
+
+*Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/alignment-nf -r 20220216-Release`*
+
+* `andersenlab/trim-fq` ([link](https://hub.docker.com/r/andersenlab/trim-fq)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/trim-fq.Dockerfile` or `.github/workflows/build_trimfq_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/multiqc` ([link](https://hub.docker.com/r/andersenlab/multiqc)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/multiqc.Dockerfile` or `.github/workflows/build_multiqc_docker.yml` GitHub actions will create a new docker image and push if successful
+
+To access these docker images, first load the `singularity` module on QUEST.
+
+```
+module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
+
+
 # Usage
 
 ## Testing the pipeline on QUEST

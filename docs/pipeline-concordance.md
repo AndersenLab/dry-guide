@@ -50,6 +50,26 @@ Alternatively you can update Nextflow by running:
 nextflow self-update
 ```
 
+### Relevant Docker Images
+
+*Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/concordance-nf -r 20220216-Release`*
+
+* `andersenlab/concordance` ([link](https://hub.docker.com/r/andersenlab/concordance)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/concordance.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
+
+To access these docker images, first load the `singularity` module on QUEST.
+
+```
+module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
+
+
 # Usage
 
 ## Profiles
@@ -79,7 +99,7 @@ nextflow run andersenlab/concordance-nf -profile debug -resume
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans -resume 
+nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans 
 ```
 
 # Parameters
@@ -101,7 +121,7 @@ The hard-filtered VCF output from `wi-gatk`.
 
 ### --species (optional)
 
-Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'. If species == c_elegans, pipeline will check for *npr-1* variant, otherwise this step will be skipped. Default = 'c_elegans'
+Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'.
 
 ### --concordance_cutoff (optional)
 
@@ -124,7 +144,6 @@ A directory in which to output results. By default it will be `concordance-YYYYM
     ├── gtcheck.tsv
     ├── isotype_count.txt
     ├── isotype_groups.tsv
-    ├── npr1_allele_strain.tsv
     ├── problem_strains.tsv
     ├── WI_metadata.tsv
     ├── concordance.pdf/png
@@ -175,8 +194,4 @@ Contains images showing locations where regional discordance occurs among strain
 
 ![pairwise example](img/194.ED3049.ED3046_ED3049.png)
 
-* __npr1_allele_strain.tsv__ - if species == c_elegans, this file will be output to show problematic strains that contain the N2 *npr-1* allele and should be manually checked. 
-
-!!! Important
-    If a new strain is flagged in this file, tell Erik, Robyn, and the wild isolate team ASAP so they can address the issue. This strain will likely be removed from further analysis.
 

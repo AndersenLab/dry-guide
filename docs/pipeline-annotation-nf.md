@@ -49,8 +49,25 @@ Alternatively you can update Nextflow by running:
 nextflow self-update
 ```
 
-!!! Important
-    This pipeline currently only supports analysis on Quest, cannot be run locally
+### Relevant Docker Images
+
+*Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/annotation-nf -r 20220216-Release`*
+
+* `andersenlab/annotation` ([link](https://hub.docker.com/r/andersenlab/annotation)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/annotation.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/r_packages` ([link](https://hub.docker.com/r/andersenlab/r_packages)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/r_packages) repo.
+
+To access these docker images, first load the `singularity` module on QUEST.
+
+```
+module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
 
 
 # Usage
@@ -139,13 +156,7 @@ Once the pipeline has complete successfully and you are satisfied with the resul
 * Both the `strain_vcf` and the `variation` folders can be moved to `/projects/b1059/data/{species}/WI/variation/{date}/vcf`
 * If applicable, all snpeff `.bed` files (HIGH, LOW, MODERATE, etc.) can be moved to `/projects/b1059/data/{species}/WI/variation/{date}/tracks/` (*As of 20210901 this is no longer being produced for CeNDR*)
 
-## Updating CeNDR
+## Updating CeNDR and NemaScan
 
-Check out the [CeNDR](cendr.md) page for more information about updating a new data release for CeNDR.
+Check out the [CeNDR](cendr.md) page and the [WI protocol](https://katiesevans9.notion.site/Wild-isolate-sequence-analysis-protocol-00e76cc7f55f4bf6ab644dd99c883727) for more information about updating a new data release for CeNDR.
 
-## Updating `NemaScan`
-
-Once a new CeNDR release is ready, it is important to also update the genome-wide association mapping packages to ensure users can appropriately analyze data from new strains as well as old strains. Here is a list of things that need to be updated:
-
-* The default vcf should be changed to the newest release date (i.e. from 20200815 to 20210121). Users will still have the option to use an earlier vcf.
-* Ensure strain annotation flat file is stored in the proper file location to be accessed, both on QUEST and on GCP for CeNDR/local users.

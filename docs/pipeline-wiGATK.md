@@ -58,10 +58,22 @@ Alternatively you can update Nextflow by running:
 nextflow self-update
 ```
 
-* This pipeline also uses a docker image [andersenlab/gatk4](https://hub.docker.com/r/andersenlab/gatk4/) to manage software and reproducibility. To access this docker image, first load the `singularity` module on QUEST.
+### Relevant Docker Images
+
+* `andersenlab/gatk4` ([link](https://hub.docker.com/r/andersenlab/gatk4)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/gatk4.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/r_packages` ([link](https://hub.docker.com/r/andersenlab/r_packages)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/r_packages) repo.
+
+To access these docker images, first load the `singularity` module on QUEST.
 
 ```
 module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
 ```
 
 # Usage
@@ -101,7 +113,7 @@ nextflow run andersenlab/wi-gatk -profile debug -resume
 The pipeline can be run on Quest using the following command:
 
 ```
-nextflow run andersenlab/wi-gatk -profile quest --sample_sheet <path_to_sheet> -resume
+nextflow run andersenlab/wi-gatk -profile quest --sample_sheet <path_to_sheet>
 ```
 
 # Parameters
@@ -110,7 +122,7 @@ Most configuration is handled using the `-profile` flag and `nextflow.config`; I
 
 ## --sample_sheet
 
-The sample sheet is the output of `5.low_map_cov_for_seq_sheet.Rmd` after running `alignment-nf` (soon to be integrated into alignment-nf). The sample sheet contains 5 columns as detailed below:
+The sample sheet is automatically generated from `alignment-nf`. The sample sheet contains 5 columns as detailed below:
 
 | strain   | bam   | bai   | coverage  | percent_mapped   | 
 |:----|:-------|:------|:-----------|:-------------|
@@ -120,6 +132,9 @@ The sample sheet is the output of `5.low_map_cov_for_seq_sheet.Rmd` after runnin
 
 !!! Important
     It is essential that you always use the pipelines and scripts to generate this sample sheet and **NEVER** manually. There are lots of strains and we want to make sure the entire process can be reproduced.
+
+!!! Note
+    The sample sheet produced from `alignment-nf` is only for strains that you ran in the alignment pipeline most recently. If you want to combine old strains with new strains, you will have to combine two or more sample sheets. **If you are running a species-wide analysis for CeNDR, please follow the notes in the full WI protocol [here](https://katiesevans9.notion.site/Wild-isolate-sequence-analysis-protocol-00e76cc7f55f4bf6ab644dd99c883727)**
 
 ### --bam_location (optional)
 
@@ -142,7 +157,7 @@ WormBase project ID for selected species. Choose from some examples [here](https
 
 ### --ws_build (optional)
 
-__default__ = WS276
+__default__ = WS283
 
 WormBase version to use for reference genome.
 
@@ -151,7 +166,7 @@ WormBase version to use for reference genome.
 A fasta reference indexed with BWA. On Quest, the reference is available here:
 
 ```
-/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS283/c_elegans.PRJNA13758.WS283.genome.fa.gz
 ```
 
 !!! Note

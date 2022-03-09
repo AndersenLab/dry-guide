@@ -23,7 +23,6 @@ dependencies:
   - samtools=1.9
   - picard=2.20.6
   - bcftools=1.9
-#  - vcfkit=0.1.6
   - csvtk=0.18.2
   - r=3.6.0
   - r-ggplot2=3.1.1
@@ -35,7 +34,7 @@ Then, build the `Dockerfile` as below.
 
 ```
 FROM continuumio/miniconda
-MAINTAINER XXX <email>
+MAINTAINER Katie Evans <kathrynevans2015@u.northwestern.edu>
 
 COPY conda.yml .
 RUN \

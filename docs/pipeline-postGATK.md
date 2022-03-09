@@ -51,8 +51,27 @@ Alternatively you can update Nextflow by running:
 nextflow self-update
 ```
 
-!!! Important
-    This pipeline currently only supports analysis on Quest, cannot be run locally
+### Relevant Docker Images
+
+*Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/post-gatk-nf -r 20220216-Release`*
+
+* `andersenlab/postgatk` ([link](https://hub.docker.com/r/andersenlab/postgatk)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/postgatk.Dockerfile` or `.github/workflows/build_postgatk_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/tree` ([link](https://hub.docker.com/r/andersenlab/tree)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/tree.Dockerfile` or `.github/workflows/build_tree_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/pca` ([link](https://hub.docker.com/r/andersenlab/pca)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/pca.Dockerfile` or `.github/workflows/build_pca_docker.yml` GitHub actions will create a new docker image and push if successful
+* `andersenlab/r_packages` ([link](https://hub.docker.com/r/andersenlab/r_packages)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/r_packages) repo.
+
+To access these docker images, first load the `singularity` module on QUEST.
+
+```
+module load singularity
+```
+
+Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+
+```
+# add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
 
 
 # Usage
@@ -100,7 +119,7 @@ You should use `--debug true` for testing/debugging purposes. This will run the 
 For example:
 
 ```
-nextflow run andersenlab/post-gatk-nf --debug -resume
+nextflow run andersenlab/post-gatk-nf --debug
 ```
 
 Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
@@ -161,8 +180,8 @@ LD thresholds to test for PCA. Can provide multiple with `--eigen_ld 0.8,0.6,0.4
 
 Ancestor strain to use for PCA. 
 
-!!!Note 
-    Make sure this strain is in your VCF*
+!!! Note 
+    Make sure this strain is in your VCF
 
 ### --output (optional)
 
