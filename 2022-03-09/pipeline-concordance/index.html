@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>concordance-nf - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "concordance-nf";
+    var mkdocs_page_input_path = "pipeline-concordance.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">concordance-nf</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>WI Sequencing pipelines &raquo;</li>
+        
+      
+    
+    <li>concordance-nf</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipeline-concordance.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="concordance-nf">concordance-nf<a class="headerlink" href="#concordance-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#concordance-nf">concordance-nf</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software Requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#profiles">Profiles</a></li>
+<li><a href="#debugging_the_pipeline_on_quest">Debugging the pipeline on Quest</a></li>
+<li><a href="#running_the_pipeline_on_quest">Running the pipeline on Quest</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--bam_coverage">--bam_coverage</a></li>
+<li><a href="#--vcf">--vcf</a><ul>
+<li><a href="#--species_optional">--species (optional)</a></li>
+<li><a href="#--concordance_cutoff_optional">--concordance_cutoff (optional)</a></li>
+<li><a href="#--cores_optional">--cores (optional)</a></li>
+<li><a href="#--out_optional">--out (optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#output">Output</a></li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/concordance-nf"><code>concordance-nf</code></a> pipeline is used to detect sample swaps and determine which wild isolate strains should be grouped together as an isotype. </p>
+<p>To determine which strains belong to the same isotype we use two criteria. First we look at the strains that group together with a concordance threshold of 99.95%. Generally this will group most isotypes without issue. However, it is possible that you will run into cases where the grouping is not clean. For example, strain A groups with B, B groups with C, but C does not group with A. In these cases you must examine the data closely to identify why strains are incompletely grouping. Our second criteria we use to group isotypes may address these types of groupings.</p>
+<p>The second criteria that we use to group isotypes regards looking for regional differences among strains. If two strains are similar but possess a region of their genome (binned at 1 Mb) that differs by more than 2% then we will separate them out into their own isotypes.</p>
+<p><strong>The process of grouping isotypes is very hand-on. This pipeline will help process the data but you must carefully review the output and investigate closely.</strong></p>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+    ┌─┐┌─┐┌┐┌┌─┐┌─┐┬─┐┌┬┐┌─┐┌┐┌┌─┐┌─┐  ┌┐┌┌─┐
+    │  │ │││││  │ │├┬┘ ││├─┤││││  ├┤───│││├┤ 
+    └─┘└─┘┘└┘└─┘└─┘┴└──┴┘┴ ┴┘└┘└─┘└─┘  ┘└┘└  
+
+    parameters              description                                                             Set/Default
+    ==========              ===========                                                             =======
+
+    --debug                 Set to 'true' to test                                                   false
+    --cores                 Regular job cores                                                       4
+    --out                   Directory to output results                                             concordance-{date}
+    --vcf                   Hard filtered vcf                                                       null
+    --bam_coverage          Table with &quot;strain&quot; and &quot;coverage&quot; as header                            null
+    --info_sheet            Strain sheet containing exisiting isotype assignment                    null
+    --species               'c_elegans' will check for npr1. All other values will skip this        null
+    --concordance_cutoff    Cutoff of concordance value to count two strains as same isotype        0.9995
+
+</code></pre>
+<p><img alt="concordance-pipeline" src="../img/concordance-nf.drawio.svg" /></p>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<p>Alternatively you can update Nextflow by running:</p>
+<pre><code>nextflow self-update
+</code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/concordance-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>andersenlab/concordance</code> (<a href="https://hub.docker.com/r/andersenlab/concordance">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/concordance.Dockerfile</code> or <code>.github/workflows/build_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+</ul>
+<p>To access these docker images, first load the <code>singularity</code> module on QUEST.</p>
+<pre><code>module load singularity
+</code></pre>
+<p>Also, make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>b1059</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+</code></pre>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h2>
+<p>The <code>nextflow.config</code> file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
+<ul>
+<li><code>local</code> - Used for local development. Uses the docker container.</li>
+<li><code>debug</code> - Runs a small subset of available test data. Should complete within a couple of minutes. For testing/diagnosing issues on Quest.</li>
+<li><code>quest</code> - Runs the entire dataset.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you forget to add a <code>-profile</code>, the <code>quest</code> profile will be chosen as default</p>
+</div>
+<h2 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
+<p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use the test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
+<pre><code>nextflow run andersenlab/concordance-nf -profile debug -resume
+</code></pre>
+<h2 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../quest-nextflow/">Nextflow</a> page.</em></p>
+<p>The pipeline can be run on Quest using the following command:</p>
+<pre><code>nextflow run andersenlab/concordance-nf -profile quest --bam_coverage &lt;path_to_file&gt; --vcf &lt;path_to_file&gt; --species c_elegans 
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<p>The nextflow profiles configured in <code>nextflow.config</code> are designed to make it so that you don't need to change the parameters. However, the pipeline offers this flexibility if it is ever called for.</p>
+<h2 id="--bam_coverage">--bam_coverage<a class="headerlink" href="#--bam_coverage" title="Permanent link">&para;</a></h2>
+<p>The sample sheet to use. This is generally the same sample sheet used for <code>wi-gatk</code>. The sample sheet should look like this:</p>
+<p><img alt="Sample_sheet" src="../img/concordance_sample_sheet.png" /></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is essential that you always use the pipelines and scripts to generate this sample sheet and <strong>NEVER</strong> manually. There are lots of strains and we want to make sure the entire process can be reproduced.</p>
+</div>
+<h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
+<p>The hard-filtered VCF output from <code>wi-gatk</code>.</p>
+<h3 id="--species_optional">--species (optional)<a class="headerlink" href="#--species_optional" title="Permanent link">&para;</a></h3>
+<p>Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'.</p>
+<h3 id="--concordance_cutoff_optional">--concordance_cutoff (optional)<a class="headerlink" href="#--concordance_cutoff_optional" title="Permanent link">&para;</a></h3>
+<p>Cutoff to use to determine isotype groups. Default is 0.9995.</p>
+<h3 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h3>
+<p>The number of cores to use during alignments and variant calling.</p>
+<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
+<p>A directory in which to output results. By default it will be <code>concordance-YYYYMMDD</code> where YYYYMMDD is todays date.</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<pre><code>
+├── concordance
+    ├── gtcheck.tsv
+    ├── isotype_count.txt
+    ├── isotype_groups.tsv
+    ├── problem_strains.tsv
+    ├── WI_metadata.tsv
+    ├── concordance.pdf/png
+    ├── xconcordance.pdf/png
+    └── pairwise
+        └── within_group
+                └── {isotype_group}.{isotype}.{strain1}_{strain2}.png
+
+
+</code></pre>
+<ul>
+<li><strong>concordance.png/pdf</strong> - An image showing the distribution of pairwise concordances across all strains. The cutoff is at 99.9% above which pairs are considered to be in the same isotype unless issues arise.</li>
+</ul>
+<p><img alt="concordance" src="../img/concordance.png" /></p>
+<ul>
+<li><strong>xconcordance.png/pdf</strong> - A close up view of the concordances showing more detail. </li>
+</ul>
+<p><img alt="concordance above 99" src="../img/concordance_above_99.png" /></p>
+<ul>
+<li><strong>isotype_groups.tsv</strong> - <em>This is the one of the most important output files</em>. It illustrates the isotypes identified for each strain and identifies potential issues.</li>
+</ul>
+<p>A file with the following structure:</p>
+<p><img alt="pairwise" src="../img/pairwise_output_example.png" /></p>
+<ul>
+<li><strong>group</strong> - A number used to group strains (in each row) into an isotype automatically. This number should be unique with the isotype column (e.g. 1--&gt; AB1, 112 --&gt; CB4858, BRC20067 --&gt; 175). The number can change between analyses.</li>
+<li><strong>strain</strong> - the strain</li>
+<li><strong>isotype</strong> - the currently assigned isotype for a strain taken from the <code>WI Strain Info</code> spreadsheet. When new strains are added this is blank. </li>
+<li><strong>latitude</strong></li>
+<li><strong>longitude</strong></li>
+<li><strong>coverage</strong> - Depth of coverage for strain.</li>
+<li><strong>unique_isotypes_per_group</strong> - Number of unique isotypes when grouping by the group column. This should be 1. If it is more than 1, it indicates that multiple isotypes were assigned to a grouping and that a previously assigned isotype is now being called into question.</li>
+<li><strong>unique_groups_per_isotype</strong> Number of unique groups assigned to an isotype. This should be 1. If it is higher than 1, it indicates that a strain is concordant with strains in two different isotypes (including blanks). If it is equal to 2 and contains blanks in the isotype column it likely means that an isotype should be assigned to that strain.</li>
+<li><strong>strain_in_multiple_isotypes</strong> - Indicates that a strain is falling into multiple isotypes (a problem!).</li>
+<li><strong>location_issue</strong> - Indicates a location issue. This occurs when strains fall into an isotype but are located far away from one another. Some are known issues and can be ignored.</li>
+<li><strong>strain_conflict</strong> - <code>TRUE</code> if any issue is present that should be investigated.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This file might change as you manually adjust the concordance cutoff for each run</p>
+</div>
+<ul>
+<li>
+<p><strong>gtcheck.tsv</strong> - the <strong>other most important file</strong>. File produced using <code>bcftools gtcheck</code>; Raw genotype differences between strains. This file is used in manual inspection of the isotype groups</p>
+</li>
+<li>
+<p><strong>isotype_count.txt</strong> - Gives a count of the number of isotypes identified.</p>
+</li>
+<li>
+<p>concordance/pairwise/ (directory)</p>
+</li>
+</ul>
+<p>Contains images showing locations where regional discordance occurs among strains classified as being the isotype. You must look through all these images to ensure there are no strains being grouped that have regions with significant differences (&gt; 2%). The image below illustrates an example of this. ED3049 and ED3046 are highly similar (&gt; 99.9%). However, they differ in a region on the right arm of chromosome II. We believe this was enough reason to consider them separate isotypes.</p>
+<p><img alt="pairwise example" src="../img/194.ED3049.ED3046_ED3049.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pipeline-postGATK/" class="btn btn-neutral float-right" title="post-gatk-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../pipeline-wiGATK/" class="btn btn-neutral" title="wi-gatk"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-wiGATK/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-postGATK/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

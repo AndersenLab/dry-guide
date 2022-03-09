@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Nextflow - Andersen Lab Dry Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Nextflow";
+    var mkdocs_page_input_path = "quest-nextflow.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Andersen Lab Dry Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Quest</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Nextflow</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other pipelines</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Other things</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Andersen Lab Dry Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Quest &raquo;</li>
+        
+      
+    
+    <li>Nextflow</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/quest-nextflow.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="nextflow">Nextflow<a class="headerlink" href="#nextflow" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#nextflow">Nextflow</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#nextflow_versions">Nextflow versions</a></li>
+</ul>
+</li>
+<li><a href="#quest_cluster_configuration">Quest cluster configuration</a><ul>
+<li><a href="#global_configuration_nextflowconfig">Global Configuration: ~/.nextflow/config</a></li>
+</ul>
+</li>
+<li><a href="#running_nextflow">Running Nextflow</a><ul>
+<li><a href="#running_nextflow_from_a_remote_directory">Running Nextflow from a remote directory</a><ul>
+<li><a href="#running_a_different_branch_of_a_pipeline">Running a different branch of a pipeline</a></li>
+<li><a href="#running_a_specific_commit">Running a specific commit</a></li>
+<li><a href="#troubleshooting_remote_pipelines">Troubleshooting remote pipelines</a></li>
+</ul>
+</li>
+<li><a href="#running_nextflow_from_a_local_directory">Running Nextflow from a local directory</a></li>
+<li><a href="#resume">Resume</a></li>
+<li><a href="#getting_an_email_or_text_when_complete">Getting an email or text when complete</a></li>
+</ul>
+</li>
+<li><a href="#writing_nextflow_pipelines">Writing Nextflow Pipelines</a></li>
+</ul>
+</div>
+<p>Nextflow is an awesome program that allows you to write a computational pipeline by making it simpler to put together many different tasks, maybe even using different programming languages. Nextflow makes parallelism easy and works with SLURM to schedule jobs so you don't have to! Nextflow also supports docker containers and conda enviornments to streamline reproducible pipelines and can be easily adapted to run on different systems - including Google Cloud! Not convinced? Check out this <a href="https://www.nextflow.io/">intro</a>.</p>
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<p>Nextflow can be installed with two easy steps:</p>
+<pre><code># download with wget or curl
+wget -qO- https://get.nextflow.io | bash
+
+# or #
+
+curl -s https://get.nextflow.io | bash
+
+# make binary executable on your system
+chmod +x nextflow
+
+# Move nextflow to directory accessible by your $PATH to avoid having to type full path to nextflow each time
+# you can check your $PATH with:
+echo $PATH
+
+# it likely contains `/usr/local/bin` so you could move nextflow there
+mv nextflow /usr/local/bin/
+
+</code></pre>
+<h2 id="nextflow_versions">Nextflow versions<a class="headerlink" href="#nextflow_versions" title="Permanent link">&para;</a></h2>
+<p>You might also want to update nextflow or be able to run different versions. This can be done in several different ways</p>
+<ol>
+<li>Update Nextflow</li>
+</ol>
+<pre><code>nextflow self-update
+</code></pre>
+<ol start="2">
+<li>Use a specific version of Nextflow</li>
+</ol>
+<pre><code>NXF_VER=20.04.0 nextflow run main.nf
+</code></pre>
+<ol start="3">
+<li>Use the <code>nf20</code> conda environment built for AndersenLab pipelines</li>
+</ol>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<p>(You can check your Nextflow version with <code>nextflow -v</code> or <code>nextflow --version</code>)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you load this conda environment, it is not necessary to have Nextflow version 20 installed on your system -- you don't even need to have Nextflow installed at all! Because different versions might have updates that affect the running of Nextflow, it is important to keep track of the version of Nextflow you are using, as well as all software packages.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Many of the Andersen Lab pipelines (if not all) are written with the new <code>DSL2</code> (see below) which requires Nextflow-v20.0+. Loading the <code>nf20</code> conda environment is a great way to run these pipelines</p>
+</div>
+<h1 id="quest_cluster_configuration">Quest cluster configuration<a class="headerlink" href="#quest_cluster_configuration" title="Permanent link">&para;</a></h1>
+<p>Configuration files allow you to define the way a pipeline is executed on Quest. </p>
+<blockquote>
+<p>Read the <a href="https://www.nextflow.io/docs/latest/config.html">quest documentation</a> on configuration files</p>
+</blockquote>
+<p>Configuration files are defined at a global level in <code>~/.nextflow/config</code> and on a per-pipeline basis within <code>&lt;pipeline_directory&gt;/nextflow.config</code>. Settings written in <code>&lt;pipeline_directory&gt;/nextflow.config</code> override settings written in <code>~/.nextflow/config</code>.</p>
+<h2 id="global_configuration_nextflowconfig">Global Configuration: <code>~/.nextflow/config</code><a class="headerlink" href="#global_configuration_nextflowconfig" title="Permanent link">&para;</a></h2>
+<p>In order to use nextflow on quest you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Quest and request access to the genomics nodes and project <code>b1042</code>. Once you have access you will need to modify your global configuration. Set your <code>~/.nextflow/config</code> file to be the following:</p>
+<pre><code>process {
+    executor = 'slurm'
+    queue = 'genomicsguestA'
+    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
+}
+
+workDir = &quot;/projects/b1042/AndersenLab/work/&lt;your folder&gt;&quot;
+tmpDir = &quot;/projects/b1042/AndersenLab/tmp&quot;
+
+</code></pre>
+<p>This configuration file does the following:</p>
+<ul>
+<li>Sets the executor to <code>slurm</code> (which is what Quest uses)</li>
+<li>Sets the queue to <code>genomicsguestA</code> which submits jobs to genomics nodes. The <code>genomicsguestA</code> will submit jobs to our dedicated nodes first, which we have high priority. If our dedicated nodes are full, it will submit to other nodes we don't have priority. So far, our lab have 2 dedicated nodes, with 28 cores and related memory (close to 1:5) for each dedicated node. We will have more in the future.  </li>
+<li><code>clusterOptions</code> - Sets the account to <code>b1042</code>; granting access to genomics-dedicated scratch space.</li>
+<li><code>workDir</code> - Sets the working directory to scratch space on b1042. To better organization, Please build your own folder under <code>/projects/b1042/AndersenLab/work/</code>, and define it here. <strong>Note: replace '&lt; your folder &gt;' with your name</strong></li>
+<li><code>tmpDir</code> - Creates a temporary working directory. This can be used within workflows when necessary.</li>
+</ul>
+<h1 id="running_nextflow">Running Nextflow<a class="headerlink" href="#running_nextflow" title="Permanent link">&para;</a></h1>
+<p>Theoretically, running a Nextflow pipeline should be very straightforward (although with any developing pipelines there are always bugs to work out).</p>
+<h2 id="running_nextflow_from_a_remote_directory">Running Nextflow from a remote directory<a class="headerlink" href="#running_nextflow_from_a_remote_directory" title="Permanent link">&para;</a></h2>
+<p>The prefered (and sometimes easiest) way to run a nextflow pipeline can be done in just one single step. When this works (see troubleshooting section below), pipelines can be run without first cloning the git repo. You can just tell Nextflow which git repo to use and it will do the rest! This can be helpful to reduce clutter and avoid making changes to the actual pipeline. Additionally, this method allows you to control which branch and/or commit of the pipeline to run, and Nextflow will automatically track that information for you allowing for great reproducibility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>There is no need to clone a copy of the repo to run pipelines this way. Behind the scenes, nextflow is actually cloning the repo to your home directory and keeping track of branches/commits. </p>
+<pre><code># example command to run the latest version of NemaScan
+nextflow run andersenlab/nemascan \
+--traitfile input_data/c_elegans/phenotypes/test_pheno.tsv \
+--vcf 20210121
+
+# Note: can also write in one line, the \ were used to make the code more readable:
+nextflow run andersenlab/nemascan --traitfile input_data/c_elegans/phenotypes/test_pheno.tsv --vcf 20210121
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameters or arguments to Nextflow scripts are designated with the <code>--</code>. In the case above, there is a parameter called "in" which we are setting to be the <code>test.tsv</code> file.</p>
+</div>
+<p>When Nextflow is running, it will print to the console the name of each process in the pipeline as well as update on the progress of the script:</p>
+<p><img alt="nextflow example" src="../img/nextflow_example.png" /></p>
+<p>For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the <code>fix_strain_names_bulk</code> process has already completed! Meanwhile, the <code>vcf_t_geno_matrix</code> process is still running. You can also see that the <code>prepare_gcta_files</code> is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).</p>
+<p>Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the <code>[ad/eea615]</code> next to the <code>fix_strain_names_bulk</code> process indicates that the working directory is located at <code>path_to_nextflow_working_directory/ad/eea615...</code>. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I highly recommend adding this function to your <code>~/.bash_profile</code> to easily access the Nexflow working directory: <code>gw() {cd /projects/b1042/AndersenLab/work/&lt;your_name&gt;/$1*}</code> so that when you type <code>gw 3f/6a21a5</code> (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.</p>
+</div>
+<h3 id="running_a_different_branch_of_a_pipeline">Running a different branch of a pipeline<a class="headerlink" href="#running_a_different_branch_of_a_pipeline" title="Permanent link">&para;</a></h3>
+<p>Instead of cloning the repo and then remembering to switch branches, you can specify the branch in your nextflow call. This is most beneficial because the pipeline will then keep a record of which branch you used so future you doesn't have to remember.</p>
+<pre><code># the following command runs the &quot;develop&quot; branch of nemascan 
+# (not recommended unless you know what you are doing, might break)
+nextflow run andersenlab/nemascan \
+--traitfile input_data/c_elegans/phenotypes/test_pheno.tsv \
+--vcf 20210121 \
+-r develop
+</code></pre>
+<h3 id="running_a_specific_commit">Running a specific commit<a class="headerlink" href="#running_a_specific_commit" title="Permanent link">&para;</a></h3>
+<p>Sometimes we want to keep the version of a pipeline the same across several different runs (maybe preparing for a manuscript etc.). To do this, you can again use the <code>-r</code> argument and just provide the commit ID which is a long alphanumeric code that can be found on github or in the log of your previous nextflow run.</p>
+<pre><code># the following command runs will always run the exact same code, no matter how many changes to nemascan there are in the future
+nextflow run andersenlab/nemascan \
+--traitfile input_data/c_elegans/phenotypes/test_pheno.tsv \
+--vcf 20210121 \
+-r 769a2b75545d7f870a880447dd31482cfc628792
+</code></pre>
+<h3 id="troubleshooting_remote_pipelines">Troubleshooting remote pipelines<a class="headerlink" href="#troubleshooting_remote_pipelines" title="Permanent link">&para;</a></h3>
+<p>For some reason, running nextflow remotely sometimes throws errors and I am not 100% sure why. Here are some of the most common errors I see and how to fix them.</p>
+<p><strong>1. It doesn't pull the latest commit</strong></p>
+<ul>
+<li>Go to github.com and find the latest commit ID and use that with <code>-r XXX</code> (see above on running specific commits)</li>
+<li>If that doesn't work, you might have to clone the repo and run it locally (see below)</li>
+</ul>
+<p><strong>2. It says the "repository may be corrupt"</strong></p>
+<ul>
+<li>I don't understand this error, but I think it happens when you try to run different branches/commits. Usually, I just go to the path where the error says is corrupt and delete the folder with <code>rm -rf</code>. For example:</li>
+</ul>
+<pre><code>rm -rf /home/kek973/.nextflow/assets/andersenlab/nemascan
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+</div>
+<p>You should always be careful when using <code>rm</code>, <em>especially</em> <code>rm -rf</code>. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.</p>
+<h2 id="running_nextflow_from_a_local_directory">Running Nextflow from a local directory<a class="headerlink" href="#running_nextflow_from_a_local_directory" title="Permanent link">&para;</a></h2>
+<p>Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will <strong>need</strong> to follow these steps.</p>
+<pre><code>git clone https://github.com/AndersenLab/NemaScan.git
+cd NemaScan
+nextflow run main.nf --debug
+</code></pre>
+<h2 id="resume">Resume<a class="headerlink" href="#resume" title="Permanent link">&para;</a></h2>
+<p>Another great thing about Nextflow is that it caches all the processes that completed successfully, so if you have an error at the middle or end of your pipeline, you can re-run the same Nextflow command with <code>-resume</code> and it will start where it finished last time!</p>
+<pre><code>nextflow run andersenlab/nemascan \
+--traitfile input_data/c_elegans/phenotypes/test_pheno.tsv \
+--vcf 20210121 \
+-resume
+</code></pre>
+<p>There is usually no downside to adding <code>-resume</code>, so you can get into the habit of always adding it if you want.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>There is some confusion with how the <code>-resume</code> works and sometimes it doesn't work as expected. Check out <a href="https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html">this</a> and <a href="https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html">this other</a> guide for more help. One thing I've learned is there is a difference between <code>process.cache = 'deep' vs. 'lenient'</code>.</p>
+</div>
+<h2 id="getting_an_email_or_text_when_complete">Getting an email or text when complete<a class="headerlink" href="#getting_an_email_or_text_when_complete" title="Permanent link">&para;</a></h2>
+<p>If you would like to receive an email or text from Nextflow when your pipeline finishes (either successfully or with error), all you need to do is add <code>-N &lt;email&gt;</code> to your code. Most phone companies have a way to "email" your phone as an SMS, so you can use this email address to get a text alert. For example:</p>
+<pre><code># send email
+nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
+
+# send text to 801-867-5309 with verizon
+nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
+</code></pre>
+<h1 id="writing_nextflow_pipelines">Writing Nextflow Pipelines<a class="headerlink" href="#writing_nextflow_pipelines" title="Permanent link">&para;</a></h1>
+<p>See <a href="../writing-nextflow/">this page</a> for tips on how to get started with your own nextflow pipeline.</p>
+<p>Also check out the <a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a> for help getting started!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../quest-conda/" class="btn btn-neutral float-right" title="Conda">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../b1059/" class="btn btn-neutral" title="Data on b1059"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../b1059/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../quest-conda/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
