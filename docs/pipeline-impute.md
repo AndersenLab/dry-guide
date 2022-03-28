@@ -26,7 +26,7 @@ date='20210803
 module load bcftools
 
 # do the imputation with beagle5.2:
-for i in I II III IV V X
+for i in I II III IV V X MtDNA
 do
     java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
     window=5 \
