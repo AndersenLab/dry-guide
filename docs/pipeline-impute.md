@@ -19,7 +19,7 @@ Although there is not a full "pipeline" for imputation, there is a script to run
 # edit these variables:
 vcf='/projects/b1059/data/c_briggsae/WI/variation/20210803/vcf/WI.20210803.hard-filter.isotype.vcf.gz'
 species='c_briggsae'
-date='20210803
+date='20210803'
 #################
 
 # load modules:
