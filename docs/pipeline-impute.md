@@ -47,7 +47,7 @@ done
 # now do mitochondria - genetic map might not exist for briggsae/tropicalis so use default, should be okay just mito...
 if [ -f "/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map" ]
 then 
-		java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
+    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
     window=5 \
     overlap=2 \
     impute=true \
@@ -57,10 +57,10 @@ then
     imp-step=0.01 \
     cluster=0.0005 \
     gt=$vcf \
-    map=/projects/b1059/data/$species/genomes/genetic_map/chr${i}.map \
-    out=${i}.b5
+    map=/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map \
+    out=MtDNA.b5
 else 
-		java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
+    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
     window=5 \
     overlap=2 \
     impute=true \
@@ -70,10 +70,10 @@ else
     imp-step=0.01 \
     cluster=0.0005 \
     gt=$vcf \
-    out=${i}.b5
+    out=MtDNA.b5
 fi
 
-bcftools index ${i}.b5.vcf.gz
+bcftools index MtDNA.b5.vcf.gz
 
 # concat all the chrom vcfs
 bcftools concat *.b5.vcf.gz -O z -o WI.${date}.impute.isotype.vcf.gz
