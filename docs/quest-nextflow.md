@@ -52,6 +52,9 @@ module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
 ```
 
+!!! Important
+  If you run the `nf20` conda environment, **please do not try to update nextflow, this will cause permission denied errors for other lab members**. You can deactivate the conda environment with `source deactivate`
+
 (You can check your Nextflow version with `nextflow -v` or `nextflow --version`)
 
 !!! Note
