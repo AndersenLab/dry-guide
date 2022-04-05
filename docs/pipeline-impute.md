@@ -17,9 +17,9 @@ Although there is not a full "pipeline" for imputation, there is a script to run
 
 #################
 # edit these variables:
-vcf='/projects/b1059/data/c_briggsae/WI/variation/20210803/vcf/WI.20210803.hard-filter.isotype.vcf.gz'
-species='c_briggsae'
-date='20210803
+vcf='/projects/b1059/data/c_briggsae/WI/variation/20210901/vcf/WI.20210901.hard-filter.isotype.vcf.gz'
+species='c_tropicalis'
+date='20210901'
 #################
 
 # load modules:
@@ -43,6 +43,37 @@ do
     
     bcftools index ${i}.b5.vcf.gz
 done
+
+# now do mitochondria - genetic map might not exist for briggsae/tropicalis so use default, should be okay just mito...
+if [ -f "/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map" ]
+then 
+    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
+    window=5 \
+    overlap=2 \
+    impute=true \
+    ne=100000 \
+    nthreads=3 \
+    imp-segment=0.5 \
+    imp-step=0.01 \
+    cluster=0.0005 \
+    gt=$vcf \
+    map=/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map \
+    out=MtDNA.b5
+else 
+    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
+    window=5 \
+    overlap=2 \
+    impute=true \
+    ne=100000 \
+    nthreads=3 \
+    imp-segment=0.5 \
+    imp-step=0.01 \
+    cluster=0.0005 \
+    gt=$vcf \
+    out=MtDNA.b5
+fi
+
+bcftools index MtDNA.b5.vcf.gz
 
 # concat all the chrom vcfs
 bcftools concat *.b5.vcf.gz -O z -o WI.${date}.impute.isotype.vcf.gz

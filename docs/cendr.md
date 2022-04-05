@@ -124,7 +124,8 @@ V2 Structure:
 
 - [RELEASE_VERSION]/alignment_report.html
 - [RELEASE_VERSION]/concordance_report.html
-- [RELEASE_VERSION]/divergent_regions_strain.[RELEASE_VERSION].bed.gz
+- [RELEASE_VERSION]/divergent_regions_strain.[RELEASE_VERSION].bed
+- [RELEASE_VERSION]/divergent_regions_all.[RELEASE_VERSION].bed
 - [RELEASE_VERSION]/gatk_report.html
 - [RELEASE_VERSION]/haplotype/haplotype.png
 - [RELEASE_VERSION]/haplotype/haplotype.pdf
