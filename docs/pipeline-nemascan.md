@@ -136,7 +136,7 @@ A tab-delimited formatted (.tsv) file that contains trait information.  Each phe
 
 * `--out` - A user-specified output directory name. (Default: `Analysis_Results-{date}`)
 
-* `--group_qtl` - QTL within this distance of each other (bp) will be grouped as a single QTL by `Find_GCTA_Intervals_*.R`. (Default: 1000)
+* `--group_qtl` - QTL within this number of markers from each other will be grouped as a single QTL by `Find_GCTA_Intervals_*.R`. (Default: 1000)
 
 * `--ci_size` - The number of markers for which the detection interval will be extended past the last significant marker in the interval. (Default: 150)
 
