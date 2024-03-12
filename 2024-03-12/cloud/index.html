@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Cloud - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Cloud";
+        var mkdocs_page_input_path = "cloud.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Cloud</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Other things</li>
+      <li class="breadcrumb-item active">Cloud</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/cloud.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="andersenlab_cloud_resources">AndersenLab cloud resources<a class="headerlink" href="#andersenlab_cloud_resources" title="Permanent link">&para;</a></h2>
+<div class="toc">
+<ul>
+<li><a href="#andersenlab_cloud_resources">AndersenLab cloud resources</a></li>
+<li><a href="#google_domains">Google Domains</a></li>
+<li><a href="#google_cloud">Google Cloud</a><ul>
+<li><a href="#google_cloud_storage">Google Cloud Storage</a><ul>
+<li><a href="#buckets">Buckets</a><ul>
+<li><a href="#elegansvariationorg">elegansvariation.org</a></li>
+<li><a href="#andersenlaborg">andersenlab.org</a></li>
+<li><a href="#other_buckets">Other buckets</a></li>
+<li><a href="#secret_bucket">Secret Bucket</a></li>
+<li><a href="#cegwas_deprecated">cegwas (deprecated)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#google_datastore">Google datastore</a></li>
+<li><a href="#app_engine">App engine</a></li>
+<li><a href="#error_reporting">Error Reporting</a></li>
+<li><a href="#bigquery">BigQuery</a></li>
+<li><a href="#aws">AWS</a><ul>
+<li><a href="#s3">S3</a></li>
+<li><a href="#fargate">Fargate</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>For full documentation visit <a href="http://mkdocs.org">mkdocs.org</a>.</p>
+<h1 id="google_domains">Google Domains<a class="headerlink" href="#google_domains" title="Permanent link">&para;</a></h1>
+<p>Any domain names the lab uses should be registered with Google Domains. The two ones currently are:</p>
+<ul>
+<li><a href="http://andersenlab.org">andersenlab.org</a></li>
+<li><a href="http://elegansvariation.org">elegansvariation.org</a></li>
+</ul>
+<p>Google domains can be used to forward domain-specific email addresses if necessary. 
+For example, example@andersenlab.org could be created and forwarded to an email address.</p>
+<h1 id="google_cloud">Google Cloud<a class="headerlink" href="#google_cloud" title="Permanent link">&para;</a></h1>
+<p>Google cloud is used for a variety of services that the lab uses.</p>
+<h3 id="google_cloud_storage">Google Cloud Storage<a class="headerlink" href="#google_cloud_storage" title="Permanent link">&para;</a></h3>
+<p>Google cloud storage is used to store and distribute files on CeNDR, for cegwas, and for some files on the lab website.</p>
+<h4 id="buckets">Buckets<a class="headerlink" href="#buckets" title="Permanent link">&para;</a></h4>
+<p>Files are grouped into 'buckets' on google storage. We use the following buckets:</p>
+<h5 id="elegansvariationorg">elegansvariation.org<a class="headerlink" href="#elegansvariationorg" title="Permanent link">&para;</a></h5>
+<p>This bucket contains all the data associated with elegansvariation.org. It is broken down into six primary directories.</p>
+<ul>
+<li><strong>browser_tracks</strong> - for genome-browser tracks that rarely if ever change.</li>
+<li><strong>db</strong> - Storage/access to the SQLite database.</li>
+<li><strong>photos</strong> - sample collection photos.</li>
+<li><strong>releases</strong> - dataset releases. For more detail, see <a href="../pipeline-postGATK/">post-gatk-nf</a>.</li>
+<li><strong>reports</strong> - images and data files within reports.</li>
+<li><strong>static</strong> - static assets used by the site.</li>
+<li><strong>bam</strong> - stores all BAM files at the strain level</li>
+</ul>
+<h5 id="andersenlaborg">andersenlab.org<a class="headerlink" href="#andersenlaborg" title="Permanent link">&para;</a></h5>
+<p>In some cases the data associated with a publication is too large to put on github. We store those data here, along with a 
+couple other odds and ends.</p>
+<h5 id="other_buckets">Other buckets<a class="headerlink" href="#other_buckets" title="Permanent link">&para;</a></h5>
+<p>Google Cloud creates a bunch of other buckets too. Most of these should be ignored as they are part of the </p>
+<h5 id="secret_bucket">Secret Bucket<a class="headerlink" href="#secret_bucket" title="Permanent link">&para;</a></h5>
+<p>There is one other secret bucket. Ask Erik about it.</p>
+<h5 id="cegwas_deprecated">cegwas (deprecated)<a class="headerlink" href="#cegwas_deprecated" title="Permanent link">&para;</a></h5>
+<p>Currently this bucket has a SQLite database used by cegwas. This will be replaced to use the same database
+used by CeNDR in the <strong>db/</strong> folder.</p>
+<p>Once the new version of cegwas is developed - this section should be removed, and that bucket should be deleted.</p>
+<h1 id="google_datastore">Google datastore<a class="headerlink" href="#google_datastore" title="Permanent link">&para;</a></h1>
+<p>Google datastore used as the database for CeNDR. It stores information on mappings, traits, and more.</p>
+<h1 id="app_engine">App engine<a class="headerlink" href="#app_engine" title="Permanent link">&para;</a></h1>
+<p>App engine is the platform CeNDR runs on.</p>
+<h1 id="error_reporting">Error Reporting<a class="headerlink" href="#error_reporting" title="Permanent link">&para;</a></h1>
+<p>Google cloud contains a really nice error reporting interface. Error reports are generated whenever something goes wrong on
+CeNDR. A github issue can be created for these errors and they can be addressed.</p>
+<h1 id="bigquery">BigQuery<a class="headerlink" href="#bigquery" title="Permanent link">&para;</a></h1>
+<p>We have used bigquery in the past for large query jobs. We are not actively using it as of late.</p>
+<h1 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h1>
+<h2 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h2>
+<p>In the past we stored BAMs on AWS at <code>elegansvariation.org</code>, however these data have now been migrated to GCP as of the 20210121 CeNDR release.</p>
+<h2 id="fargate">Fargate<a class="headerlink" href="#fargate" title="Permanent link">&para;</a></h2>
+<p>Amazon Fargate was used to run the mapping pipeline on CeNDR in the past, but this is now moved to GCP as of 2021</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../backup/" class="btn btn-neutral float-left" title="Backup"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../sharing-globus/" class="btn btn-neutral float-right" title="Globus file sharing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../backup/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../sharing-globus/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

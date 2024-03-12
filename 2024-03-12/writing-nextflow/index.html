@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Writing Nextflow pipelines - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Writing Nextflow pipelines";
+        var mkdocs_page_input_path = "writing-nextflow.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Writing Nextflow pipelines</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/writing-nextflow.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="writing_nextflow_pipelines">Writing Nextflow pipelines<a class="headerlink" href="#writing_nextflow_pipelines" title="Permanent link">&para;</a></h1>
+<p>Check out the <a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a> for help getting started!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learning to script with Nextflow definitely has a high learning curve. Don't get discouraged! Start with something small and simple. Maybe convert a current script you have that uses a large <code>for</code> loop into a nextflow pipeline to start getting the hang of things!</p>
+</div>
+<h2 id="when_should_my_pipeline_be_a_nextflow_script">When should my pipeline be a Nextflow script?<a class="headerlink" href="#when_should_my_pipeline_be_a_nextflow_script" title="Permanent link">&para;</a></h2>
+<p>Not every analysis needs to be a Nextflow pipeline. For smaller analyses (especially those with few inputs) it might be easier to write a bash/shell script. However, there are many advantages to Nextflow:</p>
+<ol>
+<li>When you are running many parallel tasks<ul>
+<li>Nextflow takes care of all the job submissions and is really good at running the same basic script across 6 chromosomes, 500 strains, 1000 permutations, whatever you need!</li>
+</ul>
+</li>
+<li>When your analysis consists of several different steps that are either sequential and/or can be run simultaneously. <ul>
+<li>Because Nextflow is great at parallelization, it knows which steps rely on other steps and can speed up your script by running independent steps in parallel.</li>
+<li>Also, you can take advantage of the <code>-resume</code> function for scripts that take a long time to run because Nextflow caches results (which means if there is an error you can fix it but you don't have to start over from the begining!)</li>
+</ul>
+</li>
+<li>You want to be able to easily run your script on different computing platforms (i.e. QUEST, local machine, GCP...)<ul>
+<li>This can be done by creating different profiles for each platform. Check out the <a href="https://www.nextflow.io/docs/latest/config.html#config-profiles">nextflow documentation</a> on profiles.</li>
+</ul>
+</li>
+</ol>
+<h2 id="the_basics">The basics<a class="headerlink" href="#the_basics" title="Permanent link">&para;</a></h2>
+<p><strong>Channels</strong></p>
+<p>All input and output files in Nextflow are piped through "channels". You can create a channel with an input file or parameter and then feed these channels to a "process" (or step). Channels can be merged, split, or rearranged. Check out the Nextflow documentation for <a href="https://www.nextflow.io/docs/latest/channel.html">channels</a> to learn more. Also check out this <a href="https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_cheatsheet.pdf">cheatsheet</a> for useful operators.</p>
+<p><em>Miscellaneous channels tips:</em></p>
+<ul>
+<li><code>Channel.from("A.txt")</code> will put <code>A.txt</code> as is into the channel </li>
+<li><code>Channel.fromPath("A.txt")</code> will add a full path (usually current directory) and put <code>/path/A.txt</code> into the channel. </li>
+<li><code>Channel.fromPath("folder/A.txt")</code> will add a full path (usually current directory) and put <code>/path/folder/A.txt</code> into the channel. </li>
+<li><code>Channel.fromPath("/path/A.txt")</code> will put <code>/path/A.txt</code> into the channel. </li>
+<li>In other words, <code>Channel.fromPath</code> will only add a full path if there isn't already one and ensure there is always a full path in the resulting channel.</li>
+<li>This goes hand in hand with <code>input: path("A.txt")</code> inside the process, where <strong>Nextflow actually creates a symlink named <code>A.txt</code></strong> (note the path from first <code>/</code> to last <code>/</code> is stripped) <strong>linking to <code>/path/A.txt</code> in the working directory</strong>, so it can be accessed within the working directory by the script <code>cat A.txt</code> without specifying a path.</li>
+</ul>
+<p><strong>Processes</strong></p>
+<p>Each chunk of code in a nextflow script is broken up into distinct "processes" that you can think of as "steps" or even small/large "functions". A process can have one line of code or hundreds. It can be done in bash or by running an R or python script. An example process is shown below:</p>
+<pre><code># first process in linkagemapping-nf
+process split_pheno {
+    input:
+        file('infile')
+
+    output:
+        file('*.tsv')
+
+    &quot;&quot;&quot;
+    Rscript --vanilla ${workflow.projectDir}/bin/split_pheno.R ${infile} ${params.thresh}
+
+    &quot;&quot;&quot;
+}
+</code></pre>
+<p>Each process is defined by <code>process &lt;name&gt; {}</code> and has three basic parts: 1) input, 2) output, 3) script. You can dictate the pipeline by generating a <strong>workflow</strong> that acts like a protocol or recipe for Nextflow: which inputs go to which process and what order to do things in. <em>Note, this is different than in DSL1, which is not actively used anymore</em>. To learn more about processes, check out the <a href="https://www.nextflow.io/docs/latest/process.html">nextflow docs</a>.</p>
+<pre><code># example of a simple workflow (at the top of a nextflow script)
+workflow {
+    # create a channel from the input file and give it to the split_pheno process
+    Channel.fromPath(params.in) | split_pheno
+
+    # take the output from split_pheno and &quot;flatten it&quot; and send to the mapping process
+    split_pheno.out.flatten() | mapping
+}
+</code></pre>
+<p><em>Miscellaneous notes on input paths for process:</em></p>
+<ul>
+<li>With <code>input: path("A.txt")</code> one can refer to the file in the script as <code>A.txt</code>. Side note <code>A.txt</code> doesn't have to be the same name as in channel creation, it can be anything, <code>input: path("B.txt")</code>, <code>input: path("n")</code> etc. </li>
+<li>With <code>input: path(A)</code> one can refer to the file in the script as <code>$A</code>, and the value of <code>$A</code> will be the original file name (without path, see section above). </li>
+<li><code>input: path("A.txt")</code> and <code>input: path "A.txt"</code> generally both work. Occasionally had errors that required the following (tip from <a href="https://github.com/danielecook">@danielecook</a>): </li>
+<li>If not in a tuple, use <code>input: path "A.txt"</code> </li>
+<li>If in a tuple, use <code>input: tuple path("A.txt"), path("B.txt")</code></li>
+<li>This goes the same for <code>output</code>.</li>
+<li>From <a href="https://github.com/pditommaso">@pditommaso</a>: <code>path(A)</code> is almost the same as <code>file(A)</code>, however the first interprets a value of type string as the input file path (ie the location in the file system where it's stored), the latter interprets a value of type string and materialise it to a temporary files. It's recommended the use of <code>path</code> since it's less ambiguous and fits better in most use-cases.</li>
+</ul>
+<p><strong>The working directory</strong></p>
+<p>One of the main distinctions of Nextflow is that each execution of a process happens in its own temporary working directory. This is important for several reasons:</p>
+<ol>
+<li>You do not need to name temporary files dynamically (i.e. with strain or trait name) to avoid overwriting files, because you can repeat the same process with a different trait in a different directory.<ul>
+<li>This means you can call a temporary file <code>strain.bam</code> instead of <code>DL238.bam</code> and <code>CB4856.bam</code>. This can make for simpler coding</li>
+<li>However, if you provide strain name as a value in the input channel, it is easy to name files dynamically with <code>${strain}.bam</code> which will output <code>DL238.bam</code> or <code>CB4856.bam</code></li>
+</ul>
+</li>
+<li>If there is an error, you can go into the working directory to see all input and output files (sometimes in the form of symlinks) for that specific process. You can also find the script (<code>.command.sh</code>) that was run and try to reproduce the error manually. If there was an error, the message is recorded in <code>errlog.txt</code><ul>
+<li>If there is an error, the Nextflow error output will point you to the working directory for that specific process and might look something like <code>/projects/b1042/AndersenLab/work/katie/4c/4d9c3b333734a5b63d66f0bc0cfcdc</code></li>
+<li>You can also find the working directory from the hash shown next to a running/completed process. For example <code>[4c/4d9c3b]</code> corresponds to the working directory above.</li>
+<li>See the <a href="../quest-nextflow/">running nextflow</a> page for creating a function to automatically <code>cd</code> into the working directory given that hash.</li>
+<li>You can also find the working directory in the <code>.nextflow.log</code> file or in the <code>report.html</code> if one is generated.</li>
+</ul>
+</li>
+</ol>
+<p><em>Miscellaneous tips on the working directory:</em></p>
+<ul>
+<li>Note that with <code>publishDir "path", mode: 'move'</code>, the output file will be moved outside of the working directory and Nextflow will not be able to use it as input for another process, so only use it when there is not a following process that uses the output file. </li>
+<li>Be mindful that if the <code>""" (script section) """</code> involves changing directory, such as <code>cd</code> or <code>rmarkdown::render( knit_root_dir = "folder/" )</code>, Nextflow will still only search the working directory for output files. </li>
+<li>Run <code>nextflow clean -f</code> in the excecution folder to clean up the working directories.</li>
+<li>In Nextflow scripts (.nf files), one can use: </li>
+<li><code>${workflow.projectDir}</code> to refer where the project locates (usually the folder of main.nf). For example: <code>publishDir "${workflow.projectDir}/output", mode: 'copy'</code> or <code>Rscript ${workflow.projectDir}/bin/task.R</code>.</li>
+<li><code>${workflow.launchDir}</code> to refer to where the script is called from. <ul>
+<li><code>$baseDir</code> usually refers to the same folder as <code>${workflow.projectDir}</code> but it can also be used in the config file, where <code>${workflow.projectDir}</code> and <code>${workflow.launchDir}</code> are not accessible.   </li>
+<li>They are much more reliable than <code>$PWD</code> or <code>$pwd</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The standard name of a nextflow script is <code>main.nf</code> but it doesn't have to be! If you just call <code>nextflow run andersenlab/nemascan</code> it will automatically choose the <code>main.nf</code> script. It is best practice to always write out the script name though</p>
+</div>
+<p><strong>Debugging with print</strong>
+- To print a channel, use <code>.view()</code>. It's especially useful to resolve <code>WARN: Input tuple does not match input set cardinality declared by process</code>. (Don't forget to remove <code>.view()</code> after debugging) </p>
+<pre><code>  channel_vcf
+    .combine(channel_index)
+    .combine(channel_chr)
+    .view()
+</code></pre>
+<ul>
+<li>To print from the script section inside the processes, add <code>echo true</code>.</li>
+</ul>
+<pre><code>  process test {
+    echo true    // this will print the stdout from the script section on Terminal
+
+    input: path(vcf)
+
+    &quot;&quot;&quot;
+    head $vcf
+    &quot;&quot;&quot;
+  }
+</code></pre>
+<p><strong>Notes on transition to DSL2</strong></p>
+<p>If you are new to nextflow or don't know anything about DSL1 or DSL2, you can disregard this section and use DSL2 syntax!
+- Moving to DSL2 is a one-way street. It's so intuitive with clean and readable code.
+- In DSL1, each queue channel can only be used once. 
+- In DSL2, a channel can be fed into multiple processes
+- In DSL2, each process can only be called once. The solution is either <code>.concat()</code> the input channels so they run as parallel processes, or put the process in a module and import multiple times from the module. (One may be able to call a process in different workflows, haven't tested yet).
+- DSL2 also enforces that all inputs needs to be combined into 1 channel before it goes into a process. See the <a href="https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_cheatsheet.pdf">cheatsheet</a> for useful operators. 
+- <a href="https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_convert_DSL2.pdf">Simple steps to convert from original syntax to DSL2</a>
+- <a href="https://www.nextflow.io/docs/latest/dsl2.html#dsl2-migration-notes">Deprecated operators</a>.</p>
+<p><strong>Run reports</strong></p>
+<ul>
+<li><code>nextflow main.nf -with-report -with-timeline -with-dag</code></li>
+<li><code>-with-report</code> Nextflow html report contains resource usage for each process, and details (most useful being the status and working directory) for each process </li>
+<li><code>-with-timeline</code> How much wait time and run time each process took for the run. Very useful reference for optimizing resource allocation and improving run time.</li>
+<li><code>-with-dag</code> Make a flowchart to show the relationship of channels and processes. </li>
+<li><a href="https://www.nextflow.io/docs/latest/tracing.html#execution-report">Software dependencies</a> to use these features. Note the differences on Mac and Linux.</li>
+<li>Or, set this up in the <code>nextflow.config</code> file for a pipeline to ensure they are generated each time the script is run:</li>
+</ul>
+<pre><code>import java.time.*
+Date now = new Date()
+
+params {
+    tracedir = &quot;pipeline_info&quot;
+    timestamp = now.format(&quot;yyyyMMdd-HH-mm-ss&quot;)
+}
+
+timeline {
+    enabled = true
+    file = &quot;${params.tracedir}/${params.timestamp}_timeline.html&quot;
+}
+report {
+    enabled = true
+    file = &quot;${params.tracedir}/${params.timestamp}_report.html&quot;
+}
+
+</code></pre>
+<p><strong>How to require users to sepcify a parameter value</strong></p>
+<ul>
+<li>There are 2 types of paramters: (a) one with no actual value (b) one with actual values. </li>
+<li><strong>(a)</strong> If a parameter is specified but no value is given, it is implicitly considered <code>true</code>. So one can use this to run debug mode <code>nextflow main.nf --debug</code></li>
+</ul>
+<pre><code>    if (params.debug) {
+        ... (set parameters for debug mode)
+    } else {
+        ... (set parameters for normal use)
+    }
+</code></pre>
+<ul>
+<li>or to print help message <code>nextflow main.nf --help</code></li>
+</ul>
+<pre><code>    if (params.help) {
+        println &quot;&quot;&quot;
+        ... (help msg here)
+        &quot;&quot;&quot;
+        exit 0
+    }
+</code></pre>
+<ul>
+<li><strong>(b)</strong> For parameters that need to contain a value, Nextflow recommends to set a default and let users to overwrite it as needed. However, if you want to require it to be specified by the user:</li>
+</ul>
+<pre><code>    params.reference = null   // no quotes. this line is optional, since without initialising the parameter it will default to null. 
+    if (params.reference == null) error &quot;Please specify a reference genome with --reference&quot;
+</code></pre>
+<ul>
+<li>Below works as long as the user always append a value: <code>--reference=something</code>. It will not print the error message with: <code>nextflow main.nf --reference</code> (without specifying a value) because this will set <code>params.reference</code> to <code>true</code> (see point <strong>(a)</strong>) and <code>!params.reference</code> will be <code>false</code>. </li>
+</ul>
+<pre><code>    if (!params.reference) error &quot;Please specify a reference genome with --reference&quot;
+</code></pre>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a></li>
+<li><a href="https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_cheatsheet.pdf">Nextflow cheatsheet</a></li>
+<li><a href="https://gitter.im/nextflow-io/nextflow">Nextflow gitter</a></li>
+<li><a href="https://github.com/nextflow-io/awesome-nextflow">Awesome Nextflow pipeline examples</a> - Repository of great nextflow pipelines.</li>
+<li><a href="https://nextflow-io.github.io/patterns/index.html">Official Nextflow patterns</a></li>
+<li><a href="https://groups.google.com/forum/#!forum/nextflow">Google group</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

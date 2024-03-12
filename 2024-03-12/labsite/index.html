@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Andersen Labsite - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Andersen Labsite";
+        var mkdocs_page_input_path = "labsite.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cegwas/">cegwas2-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../cendr/">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Andersen Labsite</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#getting_started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#software-dependencies">Software-Dependencies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cloning_the_repo">Cloning the repo</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#updating_the_site">Updating the site</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#andersenlabgithubio">andersenlab.github.io</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#announcements">Announcements</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general_announcements">General Announcements</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#publication_post">Publication Post</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lab_members">Lab members</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#adding_new_lab_members">Adding new lab members:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set_status_to_former">Set Status to Former</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remove_lab_members">Remove lab members</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#funding">Funding</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#protocols">Protocols</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#research">Research</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#publications">Publications</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#photo_albums">Photo Albums</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#software">Software</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Other things</li>
+      <li class="breadcrumb-item active">Andersen Labsite</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/labsite.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="andersenlaborg">Andersenlab.org<a class="headerlink" href="#andersenlaborg" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#andersenlaborg">Andersenlab.org</a><ul>
+<li><a href="#getting_started">Getting Started</a><ul>
+<li><a href="#software-dependencies">Software-Dependencies</a></li>
+<li><a href="#cloning_the_repo">Cloning the repo</a></li>
+<li><a href="#updating_the_site">Updating the site</a></li>
+</ul>
+</li>
+<li><a href="#andersenlabgithubio">andersenlab.github.io</a></li>
+<li><a href="#announcements">Announcements</a><ul>
+<li><a href="#general_announcements">General Announcements</a></li>
+<li><a href="#publication_post">Publication Post</a></li>
+</ul>
+</li>
+<li><a href="#lab_members">Lab members</a><ul>
+<li><a href="#adding_new_lab_members">Adding new lab members:</a></li>
+<li><a href="#set_status_to_former">Set Status to Former</a></li>
+<li><a href="#remove_lab_members">Remove lab members</a></li>
+</ul>
+</li>
+<li><a href="#funding">Funding</a></li>
+<li><a href="#protocols">Protocols</a></li>
+<li><a href="#research">Research</a></li>
+<li><a href="#publications">Publications</a></li>
+<li><a href="#photo_albums">Photo Albums</a></li>
+<li><a href="#software">Software</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="getting_started">Getting Started<a class="headerlink" href="#getting_started" title="Permanent link">&para;</a></h2>
+<p>The Andersen Lab website was built using <a href="https://jekyllrb.com/">jekyll</a> and runs using the <a href="https://pages.github.com/">Github Pages</a> service.</p>
+<h4 id="software-dependencies">Software-Dependencies<a class="headerlink" href="#software-dependencies" title="Permanent link">&para;</a></h4>
+<p>Several software packages are required for editing/maintaining the Andersen Lab site. They can be installed using <a href="https://brew.sh">Homebrew</a>:</p>
+<pre><code>brew install ruby imagemagick exiftool python ghostscript
+brew upgrade ruby # If Ruby has not been updated in a while, you may need to do this.
+sudo gem install jekyll -v 3.6.0
+# If you get an error when trying to run pip, try:
+# brew link --overwrite python
+pip install metapub pyyaml
+</code></pre>
+<ul>
+<li><strong>Ruby</strong> - Is used to run jekyll, which is the software that builds the site.</li>
+<li><strong>Jekyll</strong> - As stated earlier, jekyll builds the static site and is written in Ruby.</li>
+<li><strong>Imagemagick</strong> - Handles thumbnail generation and scaling photos. Imagemagick is used in the <code>build.sh</code> script.</li>
+<li><strong>exiftool</strong> Extract data about photos as part of the <code>build.sh</code> script for use in scaling images.</li>
+<li><strong>Python</strong> Retrieves information about publications and updates <code>_data/pubs_data.yaml</code>.</li>
+</ul>
+<h4 id="cloning_the_repo">Cloning the repo<a class="headerlink" href="#cloning_the_repo" title="Permanent link">&para;</a></h4>
+<p>To get started editing, clone the repo:</p>
+<pre><code>git clone https://github.com/andersenlab/andersenlab.github.io
+</code></pre>
+<p>This repo contains documents that get compiled into the Andersen Lab website. When you make changes to this repo and push them to GitHub, Github will trigger a 'build' of the labsite and update it. This usually takes less than a minute. Instructions for changing various aspects of the site are listed below.</p>
+<p>You can also use <a href="https://desktop.github.com">Github Desktop</a> to manage changes to the site. </p>
+<p>If you want to edit the site locally and preview changes, run the following in the <strong>root</strong> directory of the git repo:</p>
+<pre><code>jekyll serve
+</code></pre>
+<p>The site should become available at <code>localhost:4000</code> and any changes you make will be reflected at that local url.</p>
+<h4 id="updating_the_site">Updating the site<a class="headerlink" href="#updating_the_site" title="Permanent link">&para;</a></h4>
+<p>In order for any change to become visible, you need to use git. Any subsequent directions that suggest modifying, adding, or removing files assumes you will be <strong>committing</strong> these changes to the repo and <strong>pushing</strong> the commit to GitHub.com. See <a href="http://www.git-scm.com">Git-SCM</a> for a basic introduction to git.</p>
+<h2 id="andersenlabgithubio">andersenlab.github.io<a class="headerlink" href="#andersenlabgithubio" title="Permanent link">&para;</a></h2>
+<p>The structure of the Andersen Lab repo looks like this:</p>
+<pre><code>CNAME
+LICENSE
+README.md
+build.sh
+index.html
+_config.yml
+_data/
+_includes/
+_layouts/
+_posts/
+_site/
+assets/
+feeds/
+files/
+pages/
+people/
+publications/
+scripts/
+protocols/
+funding/
+</code></pre>
+<p>The folders prefixed with</p>
+<h2 id="announcements">Announcements<a class="headerlink" href="#announcements" title="Permanent link">&para;</a></h2>
+<p>Announcements are stored in the <code>_posts</code> folder. Posts are organized into folders by year. There is also a <code>_photo_albums</code> folder that you can ignore (more on this below). Two types of announcements can be made. A 'general' announcement regarding anything, or a new publication.</p>
+<h4 id="general_announcements">General Announcements<a class="headerlink" href="#general_announcements" title="Permanent link">&para;</a></h4>
+<p>To add a new post create a new text file with the following naming scheme:</p>
+<pre><code>YYYY-MM-DD-title.md
+</code></pre>
+<p>For example:</p>
+<pre><code>2017-09-24-A new post.md
+</code></pre>
+<p>The contents of the file should correspond to the following structure:</p>
+<pre><code>---
+title: &quot;The title of the post&quot;
+layout: post
+tags: news
+published: true
+---
+
+The post content goes here!
+</code></pre>
+<p>The top part surrounded by <code>---</code> is known as the <strong>header</strong> and has to define a number of variables:</p>
+<p><code>layout: post</code>, <code>tags: news</code>, and <code>published: true</code> should always be set and should not change. The only thing you will change is the <code>title</code>. Set a title, and add content below.</p>
+<p>Because we used a <code>*.md</code> extension when naming the file, we can use markdown in the post to create headings, links, images, and more.</p>
+<h3 id="publication_post">Publication Post<a class="headerlink" href="#publication_post" title="Permanent link">&para;</a></h3>
+<p>New publication posts can be created. These posts embed a publication summary identical to what you see on the publication page. They follow the same paradigm as above except they require two additional lines in the header:</p>
+<ul>
+<li><code>subtitle:</code> - Usually the title of the paper; Appears on homepage.</li>
+<li><code>PMID:</code> - The pubmed identifier</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<pre><code>---
+title: &quot;Katie's paper accepted at &lt;em&gt;G3&lt;/em&gt;!&quot;
+subtitle: &quot;Correlations of geneotype with climate parameters suggest &lt;em&gt;Caenorhabditis elegans&lt;/em&gt; niche adaptations&quot;
+layout: post
+tags: news
+published: true
+PMID: 27866149
+---
+
+Congratulations to Katie for her paper accepted at G3!
+</code></pre>
+<h2 id="lab_members">Lab members<a class="headerlink" href="#lab_members" title="Permanent link">&para;</a></h2>
+<h3 id="adding_new_lab_members">Adding new lab members:<a class="headerlink" href="#adding_new_lab_members" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>(1)</strong> - Add a photo of the individual to the <code>people/</code> folder.</li>
+<li><strong>(2)</strong> - Edit the <code>_data/people.yaml</code> file, and add the information about that individual.</li>
+</ul>
+<p>Each individual should have - at a minimum, the following:</p>
+<pre><code>- first_name: &lt;first name&gt;
+  last_name: &lt;last name&gt;
+  title:  &lt;The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician&gt;
+  photo: &lt;filename of the photo located in the people/ directory&gt;
+</code></pre>
+<p>Additional fields can also be added:</p>
+<pre><code>- first_name: &lt;first name&gt;
+  last_name: &lt;last name&gt;
+  title: &lt;The job title of the individual; e.g. Graduate Student; Research Associate; Undergrad; Postdoctoral Researcher; Lab technician&gt;
+  pub_names: [&quot;&lt;an array&gt;&quot;, &quot;&lt;of possible&gt;&quot;, &quot;&lt;publication&gt;&quot;, &quot;&lt;names&gt;&quot;]
+  photo: &lt;base filename of the photo located in the people/ directory; e.g. 'dan.jpg'&gt;
+  website: &lt;website&gt;
+  description: &lt;a description of research&gt;
+  email: &lt;email&gt;
+  github: &lt;github username&gt;
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>pub_names</code> is a list of possible ways an individual is referenced in the author list of a publication. This creates links from the publications page back to lab members on the people page.</p>
+</div>
+<h3 id="set_status_to_former">Set Status to Former<a class="headerlink" href="#set_status_to_former" title="Permanent link">&para;</a></h3>
+<p>Lab members can be moved to the bottom of the people page under the 'former member' area. To do this add a <code>former: true</code> line for that individual and a <code>current_status:</code> line indicating what they are up to.</p>
+<p>For example:</p>
+<pre><code>- first_name: Mostafa
+  pub_names: 
+    - Zamanian M
+  last_name: Zamanian
+  description: My research broadly spans &quot;neglected disease&quot; genomics and drug discovery. I am currently working to uncover new genetic determinants of anthelmintic resistance and to develop genome editing technology for human pathogenic helminths.
+  title: Postdoctoral Researcher, 2015-2017
+  photo: Mostafa2014.jpg
+  former: true
+  github: mzamanian
+  email: zamanian@northwestern.edu
+  current_status: Assistant Professor at UW Madison -- &lt;a href='http://www.zamanianlab.org/'&gt;Zamanian Lab Website&lt;/a&gt;
+</code></pre>
+<h3 id="remove_lab_members">Remove lab members<a class="headerlink" href="#remove_lab_members" title="Permanent link">&para;</a></h3>
+<p>Remove the persons information from <code>_data/people.yaml</code>; Optionally delete their photo.</p>
+<h2 id="funding">Funding<a class="headerlink" href="#funding" title="Permanent link">&para;</a></h2>
+<p>Funding is managed using the <code>funding/</code> folder in the root directory and the data file <code>_data/funding_links.yaml</code>. The <code>funding/</code> folder has two subfolders: <code>past/</code> and <code>current/</code> for past funding and current funding. Rename the logo file to be lowercase and simple.</p>
+<p>To update funding simply place the logo of the institution providing funding in one of these folders and it will appear on the funding page under the heading corresponding to the subfolder in which it was placed. If you would like to add a link for the funding of that organization you can edit the <code>_data/funding_links.yaml</code> file.</p>
+<p>This file is structured as a set of <code>basename: url</code> pairs:</p>
+<pre><code>nigms: https://www.nigms.nih.gov/Pages/default.aspx
+acs: http://www.cancer.org/
+pew: http://www.pewtrusts.org/en
+niaid: https://www.niaid.nih.gov/
+aws: https://aws.amazon.com/
+weinberg: http://www.weinberg.northwestern.edu/
+mod: http://www.marchofdimes.org/
+cbc: http://www.chicagobiomedicalconsortium.org/
+</code></pre>
+<p>Each acronym above corresponds with an image file in the <code>current/</code> or <code>past/</code> folder. Notice that the extension (e.g. jpeg/png, etc) does not matter. Just use the basename of the file and its associated link here.</p>
+<h2 id="protocols">Protocols<a class="headerlink" href="#protocols" title="Permanent link">&para;</a></h2>
+<p>Protocols are stored in the <code>protocols/</code> folder and their titles and pdfs are managed in <code>_data/protocols.yaml</code>. To add a new protocol, add the PDF to the <code>protocols/</code> folder. Then add these lines to the <code>_data/protocols.yaml</code> file:</p>
+<pre><code>- Name: Title of Protocol
+  file: filename_of_protocol_in_protocols_folder.pdf
+  group: &lt;em&gt;C. elegans&lt;/em&gt; Phenotyping methods
+</code></pre>
+<ul>
+<li><code>name</code> - The name of the protocol</li>
+<li><code>file</code> - The filename of the protocol within the <code>protocols/</code> folder.</li>
+<li><code>group</code> - The grouping of the protocol; It will be nested under this grouping on the protocols page.</li>
+</ul>
+<pre><code>- name: Semi-Quantitative Brood Assay
+  file: SemiQuantitativeBroodAssay.pdf
+  group: &lt;em&gt;C. elegans&lt;/em&gt; Phenotyping Methods
+- name: &lt;em&gt;Pseudomonas aeruginosa&lt;/em&gt; Fast-killing assay&lt;/a&gt;
+  file: FKAprotocol.pdf
+  group: &lt;em&gt;C. elegans&lt;/em&gt; Phenotyping Methods
+- name: &lt;em&gt;Staphylococcus aureus&lt;/em&gt; killing assay&lt;/a&gt;
+  file: Staphaureus_Protocol.pdf
+  group: &lt;em&gt;C. elegans&lt;/em&gt; Phenotyping Methods
+- name: &lt;em&gt;Bacillus thuringiensis&lt;/em&gt; toxin assay on plates&lt;/a&gt;
+  file: Bacillus-thuringiensis-toxin-plate-assay.pdf
+  group: &lt;em&gt;C. elegans&lt;/em&gt; Phenotyping Methods
+</code></pre>
+<p>To remove a protocol, delete the pdf and remove the corresponding lines.</p>
+<h2 id="research">Research<a class="headerlink" href="#research" title="Permanent link">&para;</a></h2>
+<p>The research portion of the site is structured as a set of sections - each devoted to a project/area. Navigate to <code>/pages/research</code> and you will see a set of files:</p>
+<ul>
+<li><code>research.html</code> - This page controls the content at the top of the research page. It's an overview of research in the Andersen lab. You can edit the top portion between the <code>&lt;p&gt;[content]&lt;/p&gt;</code> tags freely to modify the top of the research page.</li>
+<li><code>research-*.md</code> - These are the individual projects. These files look like this:</li>
+</ul>
+<pre><code>---
+title: High-throughput approaches to understand conserved drug responses
+image: worms_drugs2.jpg
+order: 1
+---
+
+Because of the efforts of a number of highly dedicated scientists and citizen volunteers...
+
+To this end, we deep sequenced all of these strains...
+</code></pre>
+<p>The page includes a header (the items located between <code>---</code>) which includes a number of important items.</p>
+<ul>
+<li><code>title</code> - the title to display for the research area.</li>
+<li><code>image</code> - An image for that research area/project. This is the base name of the image placed in <code>/assets/img/research/</code></li>
+<li><code>order</code> - A number indicating the order you would like the page ot appear in. Order is descending and any set of numbers can be used to determine sort order (e.g. 1, 2, 5, 8, 1000). </li>
+</ul>
+<h2 id="publications">Publications<a class="headerlink" href="#publications" title="Permanent link">&para;</a></h2>
+<p>Elements used to construct the publications page of the website are stored in two places:</p>
+<ol>
+<li><code>_data/pubs_data.yaml</code> - The publications data stores authors, pub date, journal, etc.</li>
+<li><code>publications/</code> - The publications folder for PDFs, thumbnails, and supplementary files.</li>
+</ol>
+<p><strong>(1) Download a PDF of the publication</strong></p>
+<p>You will want to remove any additional PDF pages (e.g. cover sheets) if there are any present in the PDF. See <a href="https://support.apple.com/kb/PH20221?locale=en_US&amp;viewlocale=en_US">this guide</a> for information on removing pages from a PDF.</p>
+<p>Save the PDF to <code>/publications/[year][tag]</code></p>
+<p>Where <code>tag</code> is a unique identifier for the publication. In general, these have been the first author or the journal or a combination of both.</p>
+<p><strong>(Optional) PMID Known</strong></p>
+<p>If the PubMed Identifier (PMID) is known for the publication, you can add it to the file <code>publications/publications_list.txt</code>.</p>
+<p><strong>(2) Run <code>build.sh</code></strong></p>
+<p>The <code>build.sh</code> script does a variety of tasks for the website. For publications - it will generate thumbnails. It will also fetch information for publications and add it to the <code>_data/pubs_data.yaml</code> file <strong>if</strong> a PMID has been provided. If you did not add a PMID, you will have to manually add authors, journal, etc. to the <code>_data/pubs_data.yaml</code> file.</p>
+<p><strong>(3) Edit <code>_data/pubs_data.yaml</code></strong></p>
+<p>The publication should now be added either manually or automatically to <code>_data/pubs_data.yaml</code> and should look something like this:</p>
+<pre><code>- Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
+  Citations: 0
+  DOI: 10.1093/molbev/msx155
+  Journal: Molecular Biology and Evolution
+  PMID: 28486636
+  Title: Natural variation in the distribution and abundance of transposable elements
+    across the Caenorhabditis elegans species
+</code></pre>
+<p>You will need to add a few things:
+  - Add a <code>PDF:</code> line to associate the publication with the correct PDF and its thumbnail. This is the same <code>tag</code> you used above.
+  - If there is no <code>Date_Published:</code> line you will want to add that. The format is <code>YYYY-month_abbr-DD</code> (e.g. <code>2017 Aug 17</code>).
+  - Add <code>&lt;em&gt;</code> tags around items you want to italicize: <code>&lt;em&gt;Caenorhabditis elegans&lt;/em&gt;</code></p>
+<p>Final result:</p>
+<pre><code>- Authors: [Laricchia KM, Zdraljevic S, Cook DE, Andersen EC]
+  Citations: 0
+  DOI: 10.1093/molbev/msx155
+  Date_Published: 2017 May 09
+  Journal: Molecular Biology and Evolution
+  PMID: 28486636
+  Title: Natural variation in the distribution and abundance of transposable elements
+    across the &lt;em&gt;Caenorhabditis elegans&lt;/em&gt; species
+  PDF: 2017Laricchia
+</code></pre>
+<p><strong>(4) Add supplementary data</strong></p>
+<p>Supplemental data and figures are stored in <code>publications/[pdf_name]</code>. For example, <code>2017Laricchia</code> has an associated folder in <code>publications/</code> where supplemental data and figures are stored: <code>publications/2017Laricchia/&lt;supplemental files&gt;</code></p>
+<p>Once you have added supplemental files, you'll need to add some information to <code>_data/pubs_data.yaml</code> to describe them. These are the lines that were added for <code>2017Laricchia</code>:</p>
+<pre><code>  pub_data:
+    files:
+      Supplemental_Figures.pdf: {title: Supplemental Figures}
+      Supplemental_Files.zip: {title: Supplemental Files}
+      Supplemental_Tables.zip: {title: Supplemental Tables}\
+      ...
+      &lt;name of file&gt;: {title: &lt;title to display&gt;}
+</code></pre>
+<p>The last line above illustrates the format. The name of the file must match exactly what is in the <code>publications/[pdf_name]</code> folder. Resulting supplemental data will be listed under publications and on the data page.</p>
+<h2 id="photo_albums">Photo Albums<a class="headerlink" href="#photo_albums" title="Permanent link">&para;</a></h2>
+<p>Photo albums can be added to the Andersen Labsite. Adding albums requires two utilities to be installed on your computer:</p>
+<ul>
+<li>(a) Image Magick</li>
+<li>(b) exiftool</li>
+</ul>
+<p>These can easily be installed with <a href="https://brew.sh/">homebrew</a>. should have been installed during Setup (above), but if not you can install them using the following:</p>
+<pre><code>brew install imagemagick
+brew install exiftool
+</code></pre>
+<p><strong>(1) Place images in a folder and name it according to the following schema:</strong></p>
+<p><code>YYYY-MM-DD-title</code></p>
+<p>For example, <code>2017-08-05-Hawaii Trip</code>.</p>
+<p><strong>(2) Move that folder to <code>/people/albums/</code></strong></p>
+<p><strong>(3) Run the <code>build.sh</code> script in the root of the <code>andersenlab.github.io</code> repo.</strong></p>
+<p>The <code>build.sh</code> script will do the following:</p>
+<ul>
+<li>(a) Construct pages for the album being published.</li>
+<li>(b) Decrease the size of the images in the album (max width=1200). </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>build.sh</code> script also performs other maintenance-related tasks. It is fine to run this script at anytime.</p>
+</div>
+<p>You can run the script using:</p>
+<pre><code>bash build.sh
+</code></pre>
+<p><strong>(4) Add the images using git and push to GitHub</strong></p>
+<p>You can easily add all images using:</p>
+<pre><code>git add *.jpg
+</code></pre>
+<p><strong>(5) Push changes to github</strong></p>
+<pre><code>git push
+</code></pre>
+<h2 id="software">Software<a class="headerlink" href="#software" title="Permanent link">&para;</a></h2>
+<p>If you can write software you should be able to figure out how to update this section. It's markdown/html and not overly complicated.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../sharing-globus/" class="btn btn-neutral float-left" title="Globus file sharing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../sharing-globus/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
