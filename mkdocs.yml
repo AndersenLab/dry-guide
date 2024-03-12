@@ -22,6 +22,7 @@ nav:
     - Quest:
           - Introduction: quest-intro.md
           - Data on b1059: b1059.md
+          - Data on Rockfish: VAST.md
           - Nextflow: quest-nextflow.md
           - Conda: quest-conda.md
           - Docker: pipeline-docker.md
