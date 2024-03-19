@@ -57,11 +57,9 @@
                   <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Quest</span></p>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-intro/">Introduction</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Data on Rockfish</a>
     <ul class="current">
@@ -80,6 +78,13 @@
     <li class="toctree-l2"><a class="reference internal" href="#workflows_vast">workflows (vast)</a>
     </li>
     </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
                   </li>
@@ -149,7 +154,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Quest</li>
+          <li class="breadcrumb-item">Rockfish</li>
       <li class="breadcrumb-item active">Data on Rockfish</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/VAST.md" class="icon icon-github"> Edit on GitHub</a>
@@ -225,7 +230,7 @@ conda env create --file bio-env.txt
 <p>Also, check out this <a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">cheat sheet</a> or our <a href="../quest-conda/">conda page</a> for more.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Most of the nextflow pipelines are written using <code>module load python/anaconda3.6; source activate nf20_env</code>, so if you are having trouble running with conda, try loading the right environment first.</p>
+<p>Most of the nextflow pipelines are written using <code>module load anaconda3/2022.05; source activate nf20_env</code>, so if you are having trouble running with conda, try loading the right environment first.</p>
 </div>
 <p><strong>R libraries</strong></p>
 <p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (<code>/projects/b1059/software/R_lib_3.6.0</code>). Check out the <strong>Using R on Quest</strong> section of <a href="../r/">the R page</a> to learn more about installing a package to this folder and using it in a script.</p>
@@ -320,8 +325,8 @@ conda env create --file bio-env.txt
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../b1059/" class="btn btn-neutral float-left" title="Data on b1059"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../quest-nextflow/" class="btn btn-neutral float-right" title="Nextflow">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../rf-intro/" class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../quest-intro/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -348,10 +353,10 @@ conda env create --file bio-env.txt
         </span>
     
     
-      <span><a href="../b1059/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../rf-intro/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../quest-nextflow/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../quest-intro/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
