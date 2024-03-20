@@ -14,7 +14,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "Nextflow";
-        var mkdocs_page_input_path = "quest-nextflow.md";
+        var mkdocs_page_input_path = "rf-nextflow.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -58,25 +58,25 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Rockfish</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../rf-intro/">Introduction</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rf-nextflow/">Nextflow</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Nextflow</a>
+    <ul class="current">
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../rf-conda/">Conda</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Quest</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../quest-intro/">Introduction</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Nextflow</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-nextflow/">Nextflow</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
                   </li>
@@ -144,10 +144,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Quest</li>
+          <li class="breadcrumb-item">Rockfish</li>
       <li class="breadcrumb-item active">Nextflow</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/quest-nextflow.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/rf-nextflow.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -218,8 +218,8 @@ mv nextflow /usr/local/bin/
 <ol start="3">
 <li>Use the <code>nf20</code> conda environment built for AndersenLab pipelines</li>
 </ol>
-<pre><code>module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
+<pre><code>module load anaconda3/2022.05
+source activate /home/&lt;jheid&gt;/data_eande106/software/conda_envs/nf20_env
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -244,20 +244,21 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <p>In order to use nextflow on quest you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Quest and request access to the genomics nodes and project <code>b1042</code>. Once you have access you will need to modify your global configuration. Set your <code>~/.nextflow/config</code> file to be the following:</p>
 <pre><code>process {
     executor = 'slurm'
-    queue = 'genomicsguestA'
-    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
+    queue = 'parallel'
+    clusterOptions = '-A eande106 -t 24:00:00 -e errlog.txt'
 }
 
-workDir = &quot;/projects/b1042/AndersenLab/work/&lt;your folder&gt;&quot;
-tmpDir = &quot;/projects/b1042/AndersenLab/tmp&quot;
+#The scratch space directory where workDir and tmpDir will be directed to is currently a work in progress#
+workDir = &quot;/path/to/scratch/storage/work/&lt;your name&gt;/&quot;
+tmpDir = &quot;/path/to/scratch/storage/tmp&quot;
 
 </code></pre>
 <p>This configuration file does the following:</p>
 <ul>
-<li>Sets the executor to <code>slurm</code> (which is what Quest uses)</li>
-<li>Sets the queue to <code>genomicsguestA</code> which submits jobs to genomics nodes. The <code>genomicsguestA</code> will submit jobs to our dedicated nodes first, which we have high priority. If our dedicated nodes are full, it will submit to other nodes we don't have priority. So far, our lab have 2 dedicated nodes, with 28 cores and related memory (close to 1:5) for each dedicated node. We will have more in the future.  </li>
-<li><code>clusterOptions</code> - Sets the account to <code>b1042</code>; granting access to genomics-dedicated scratch space.</li>
-<li><code>workDir</code> - Sets the working directory to scratch space on b1042. To better organization, Please build your own folder under <code>/projects/b1042/AndersenLab/work/</code>, and define it here. <strong>Note: replace '&lt; your folder &gt;' with your name</strong></li>
+<li><code>executor</code> - Sets the executor to <code>slurm</code> scheduler</li>
+<li><code>queue</code> - Sets the queue/partition to <code>parallel</code> which submits jobs to Rockfish nodes.</li>
+<li><code>clusterOptions</code> - Sets the account/allocation to <code>eande106</code>; granting access to <code>parallel</code> and other queues.</li>
+<li><code>workDir</code> - Sets the working directory to scratch space. To better organization, Please build your own folder under <code>[TBD]</code>, and define it here.</li>
 <li><code>tmpDir</code> - Creates a temporary working directory. This can be used within workflows when necessary.</li>
 </ul>
 <h1 id="running_nextflow">Running Nextflow<a class="headerlink" href="#running_nextflow" title="Permanent link">&para;</a></h1>
@@ -286,7 +287,7 @@ nextflow run andersenlab/nemascan --traitfile input_data/c_elegans/phenotypes/te
 <p>Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the <code>[ad/eea615]</code> next to the <code>fix_strain_names_bulk</code> process indicates that the working directory is located at <code>path_to_nextflow_working_directory/ad/eea615...</code>. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>I highly recommend adding this function to your <code>~/.bash_profile</code> to easily access the Nexflow working directory: <code>gw() {cd /projects/b1042/AndersenLab/work/&lt;your_name&gt;/$1*}</code> so that when you type <code>gw 3f/6a21a5</code> (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.</p>
+<p>I highly recommend adding this function to your <code>~/.bash_profile</code> to easily access the Nexflow working directory: <code>gw() {cd /path/to/scratch/space/work/&lt;your_name&gt;/$1*}</code> so that when you type <code>gw 3f/6a21a5</code> (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.</p>
 </div>
 <h3 id="running_a_different_branch_of_a_pipeline">Running a different branch of a pipeline<a class="headerlink" href="#running_a_different_branch_of_a_pipeline" title="Permanent link">&para;</a></h3>
 <p>Instead of cloning the repo and then remembering to switch branches, you can specify the branch in your nextflow call. This is most beneficial because the pipeline will then keep a record of which branch you used so future you doesn't have to remember.</p>
@@ -316,7 +317,7 @@ nextflow run andersenlab/nemascan \
 <ul>
 <li>I don't understand this error, but I think it happens when you try to run different branches/commits. Usually, I just go to the path where the error says is corrupt and delete the folder with <code>rm -rf</code>. For example:</li>
 </ul>
-<pre><code>rm -rf /home/kek973/.nextflow/assets/andersenlab/nemascan
+<pre><code>rm -rf /home/&lt;jheid&gt;/.nextflow/assets/andersenlab/nemascan
 </code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -355,8 +356,8 @@ nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../b1059/" class="btn btn-neutral float-left" title="Data on b1059"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../quest-conda/" class="btn btn-neutral float-right" title="Conda">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../VAST/" class="btn btn-neutral float-left" title="Data on Rockfish"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../rf-conda/" class="btn btn-neutral float-right" title="Conda">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -383,10 +384,10 @@ nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
         </span>
     
     
-      <span><a href="../b1059/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../VAST/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../quest-conda/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../rf-conda/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
