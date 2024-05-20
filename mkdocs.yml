@@ -19,10 +19,14 @@ nav:
           - R Shiny: shiny.md
           - Command Line: bash.md
           - Git and Github: github.md
+    - Rockfish:
+          - Introduction: rf-intro.md
+          - Data on Rockfish: VAST.md
+          - Nextflow: rf-nextflow.md
+          - Conda: rf-conda.md
     - Quest:
           - Introduction: quest-intro.md
           - Data on b1059: b1059.md
-          - Data on Rockfish: VAST.md
           - Nextflow: quest-nextflow.md
           - Conda: quest-conda.md
           - Docker: pipeline-docker.md

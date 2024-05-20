@@ -70,7 +70,7 @@ conda env create --file bio-env.txt
 Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) or our [conda page](quest-conda.md) for more.
 
 !!! Note
-    Most of the nextflow pipelines are written using `module load python/anaconda3.6; source activate nf20_env`, so if you are having trouble running with conda, try loading the right environment first.
+    Most of the nextflow pipelines are written using `module load anaconda3/2022.05; source activate nf20_env`, so if you are having trouble running with conda, try loading the right environment first.
 
 
 **R libraries**
