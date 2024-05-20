@@ -63,6 +63,56 @@ This package is designed for the reading, processing, and visualization of image
 
 This package is designed for processing and analyzing ecological sampling data generated using the Fulcrum mobile application. To learn more about how to use easyFulcrum, check out the [andersenlab/easyFulcrum](https://github.com/AndersenLab/easyfulcrum) repo and the [easyFulcrum manuscript](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254293).
 
+## Using R on Rockfish
+
+Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:
+
+* __Docker container using Singularity__ - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Rockfish or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions. In order to use this option on Rockfish, you need to load the Singularity module (`module load singularity/3.8.7`)
+
+* __Library Paths__ - For several recent pipelines on Quest, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. 
+
+```
+# to manually install a package to this specific folder
+# make sure to first load the correct R version, our pipelines are currently using 3.6.3
+module load r/3.6.3
+
+# open R
+R
+
+# install package
+install.packages("tidyverse", lib = "/data/eande106/software/R_lib_3.6.0")
+
+# if you load the package normally, it won't work (unless you also have it installed in your path)
+library(tidyverse) # won't work
+
+# load the package from the specific folder
+library(tidyverse, lib.loc = "/data/eande106/software/R_lib_3.6.0")
+
+# or add the path to your local R library to make for easier loading
+.libPaths(c("/data/eande106/software/R_lib_3.6.0", .libPaths() ))
+library(tidyverse) # works
+
+# you can add the following lines to a nextflow script to use these R packages
+# set a parameter for R library path in case it updates in the future
+params.R_libpath = "/eande106/software/R_lib_3.6.0"
+
+# add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
+echo ".libPaths(c(\\"${params.R_libpath}\\", .libPaths() ))" | cat - ${workflow.projectDir}/bin/Script.R > Script.R
+Rscript --vanilla Script.R
+
+```
+
+**Running Rstudio on Rockfish**
+
+The Open On Demand (OOD) portal allow users with active Rockfish allocations to use RStudio from a web browser. See the [ARCH User Guide](https://www.arch.jhu.edu/guide/#pp-toc__heading-anchor-19) for an overview of the system.
+
+Go to the [OOD Portal](https://portal.rockfish.jhu.edu/) and select Rstudio from the list of Interactive Apps (*make sure you are connected with VPN if you are off campus*). Log in with your jheid and password just like you would on Rockfish.
+
+!!! Note
+	The version of R on the Rstudio browser can be selected from the versions available via module on Rockfish.
+
+You can set the working directory with `setwd("path_to_directory")` and then open and save files and data in Rstudio just like you were using it locally on your computer -- but with data and files on Rockfish!!
+
 ## Using R on Quest
 
 Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:

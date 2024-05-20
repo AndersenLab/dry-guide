@@ -63,17 +63,17 @@ source activate /home/<jheid>/data_eande106/software/conda_envs/nf20_env
 !!! Important
 	Many of the Andersen Lab pipelines (if not all) are written with the new `DSL2` (see below) which requires Nextflow-v20.0+. Loading the `nf20` conda environment is a great way to run these pipelines
 
-# Quest cluster configuration
+# Rockfish cluster configuration
 
-Configuration files allow you to define the way a pipeline is executed on Quest. 
+Configuration files allow you to define the way a pipeline is executed on Rockfish. 
 
-> Read the [quest documentation](https://www.nextflow.io/docs/latest/config.html) on configuration files
+> Read the [nextflow documentation](https://www.nextflow.io/docs/latest/config.html) on configuration files
 
 Configuration files are defined at a global level in `~/.nextflow/config` and on a per-pipeline basis within `<pipeline_directory>/nextflow.config`. Settings written in `<pipeline_directory>/nextflow.config` override settings written in `~/.nextflow/config`.
 
 ## Global Configuration: `~/.nextflow/config`
 
-In order to use nextflow on quest you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Quest and request access to the genomics nodes and project `b1042`. Once you have access you will need to modify your global configuration. Set your `~/.nextflow/config` file to be the following:
+In order to use nextflow on Rockfish you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Erik to be added to the eande106 group and granted permissions for Vast. Once you have access you will need to modify your global configuration. Set your `~/.nextflow/config` file to be the following:
 
 ```
 process {

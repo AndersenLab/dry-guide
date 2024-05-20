@@ -4,7 +4,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 ### General
 
-* You should be doing most (if not all) of your analyses in `~/Dropbox/AndersenLab/LabFolders/YourName` (except for QUEST, see below)
+* You should be doing most (if not all) of your analyses in `~/Dropbox/AndersenLab/LabFolders/YourName` (except for QUEST or Rockfish, see below)
 	* This is (1) to make sure the data is backed up/saved with version history and (2) to allow other lab members to access your code/scripts when necessary
 * Do **NOT** use spaces in names of files or folders. Try not to use spaces in column names too (although sometimes it is necessary for a final table output)
 	* Computers often have a hard time reading spaces and code used to ignore spaces can vary from program to program
@@ -36,9 +36,17 @@ These best practices are just a few of the important coding tips and tricks for 
 	* This makes your code more readable 
 	* In fact, general practices state no more than 80-100 characters per line of code EVER to increase readability
 
+### Rockfish
+
+* You should be doing most (if not all) of your analyses in `/vast/eande106/projects/yourName` (not your home directory (i.e. `/home/<jheid>`))
+
+!!! Important
+	Main exception: Nextflow temporary working directories should NOT be on `/vast/eande106` but rather in the scratch space `/scratch4/eande106/` (files get automatically deleted here periodically).
+	A correctly designed [nextflow.config](rockfish-nextflow) file will take care of this.
+
 ### QUEST
 
-* You should be doing most (if not all) of your analyses in `/projects/b1059/projects/yourName` (not your home directory (i.e. `/home/netid`))
+* You may still be doing some of your analyses in `/projects/b1059/projects/yourName` (not your home directory (i.e. `/home/netid`))
 
 !!! Important
 	Main exception: Nextflow temporary working directories should NOT be on `b1059` (it will fill us up!) but rather in the scratch space `b1042` (files get automatically deleted here every 30 days).
