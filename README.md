@@ -32,7 +32,7 @@ pip install -Iv mike==0.4.2
 If you are making minor changes, use the same version:
 
 ```bash
-mike deploy [current date version] latest --update-aliases --ignore --push
+mike deploy [current date version] latest --update-aliases --ignore-remote-status --push
 ```
 
 The word `latest` here is an alias which will ensure that the new version is served.
@@ -41,5 +41,5 @@ The word `latest` here is an alias which will ensure that the new version is ser
 If you have made substantial changes to the site, like adding new sections or removing or rewriting sections, create a new version with the current date.
 
 ```bash
-mike deploy [today's date] latest --update-aliases --ignore --push
+mike deploy [today's date] latest --update-aliases --ignore-remote-status --push
 ```

@@ -36,7 +36,7 @@ The container versions are populated from the andersenlab docker hub repository.
 
 Before a new release is possible, you must have first completed the following tasks:
 
-__See [Pipeline Overview](pipeline-overivew.md) for details__.
+__See [Pipeline Overview](pipeline-overview.md) for details__.
 
 1. Add new wild isolate sequence data, and process with the [trim-fq-nf](pipeline-trimming.md) pipeline.
 1. Align reads with [alignment-nf](pipeline-alignment.md).

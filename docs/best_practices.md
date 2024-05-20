@@ -42,7 +42,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 !!! Important
 	Main exception: Nextflow temporary working directories should NOT be on `/vast/eande106` but rather in the scratch space `/scratch4/eande106/` (files get automatically deleted here periodically).
-	A correctly designed [nextflow.config](rockfish-nextflow) file will take care of this.
+	A correctly designed [nextflow.config](rf-nextflow.md) file will take care of this.
 
 ### QUEST
 
@@ -50,7 +50,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 !!! Important
 	Main exception: Nextflow temporary working directories should NOT be on `b1059` (it will fill us up!) but rather in the scratch space `b1042` (files get automatically deleted here every 30 days).
-	A correctly designed [nextflow.config](quest-nextflow) file will take care of this.
+	A correctly designed [nextflow.config](quest-nextflow.md) file will take care of this.
 
 ### Python
 

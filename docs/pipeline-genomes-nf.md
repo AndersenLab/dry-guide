@@ -70,7 +70,7 @@ nextflow run main.nf -resume -profile local --wb_version=WS276 --projects=c_eleg
 
 ### `-profile` (optional)
 
-Can be set to `local` or `quest`. The pipeline uses the `andersenlab/genomes` docker image built from [`env/genome.Dockerfile`](env/genome.Dockerfile). The image is automatically built using github actions. See [`.github/workflows/build.yml`](.github/workflows/build.yml) for details.
+Can be set to `local` or `quest`. The pipeline uses the `andersenlab/genomes` docker image built from [`env/genome.Dockerfile`](https://github.com/AndersenLab/genomes-nf/blob/master/env/genome.Dockerfile). The image is automatically built using github actions. See [`.github/workflows/build.yml`](https://github.com/AndersenLab/genomes-nf/blob/master/.github/workflows/build.yml) for details.
 
 !!! Note
 	The default profile is set to `-profile=quest`

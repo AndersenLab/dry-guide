@@ -49,8 +49,10 @@ nav:
     - Other things:
           - CeNDR: cendr.md
           - Backup: backup.md
+          - SRA: sra.md
           - Cloud: cloud.md
           - Globus file sharing: sharing-globus.md
+          - Writing Nextflow workflows: writing-nextflow.md
           - Andersen Labsite: labsite.md
 # extra_css:
 # - css/version-select.css
