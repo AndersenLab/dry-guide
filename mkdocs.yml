@@ -58,3 +58,5 @@ nav:
 # - css/version-select.css
 # extra_javascript:
 # - js/version-select.js
+exclude_docs: |
+   archive/*
