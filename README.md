@@ -10,7 +10,7 @@ The Andersen lab [dry-lab computing guide](http://andersenlab.org/dry-guide/). T
 git clone https://github.com/AndersenLab/dry-guide.git
 ```
 
-2. Install `mkdocs` and `mike=0.4.2`
+2. Install `mkdocs>=1.5` and `mike>=2.0`
 
 ```
 # first, you need python3 - make sure you have it, otherwise download
@@ -20,10 +20,10 @@ curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
 python3 get-pip.py
 
 # download mkdocs
-pip install mkdocs
+pip install "mkdocs>=1.5"
 
 # download mike
-pip install -Iv mike==0.4.2
+pip install -Iv "mike>=2.0"
 
 ```
 
