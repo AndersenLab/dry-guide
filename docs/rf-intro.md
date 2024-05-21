@@ -1,10 +1,12 @@
-# Introduction
+# Rockfish
 
 [TOC]
 
+## Introduction
+
 The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:
 
-__[Quest Documentation](http://www.it.northwestern.edu/research/user-services/quest/index.html)__
+__[Rockfish Documentation](https://www.arch.jhu.edu/guide)__
 
 !!! Note
 	New to the command line? Check out the [quick and dirty bash intro](bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
@@ -15,7 +17,7 @@ To gain access to Rockfish:
 
 Register new user by requesting allocation and security group access to Erik.
 		
-## Signing into Quest
+## Signing into Rockfish
 
 After you gain access to the cluster you can login using:
 
@@ -43,7 +45,7 @@ If you are not familiar with what a bash profile is, [take a look at this](https
 There are three login nodes we use: login01-03. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh login03`).
 
 !!! Warning
-    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.
+    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
 
 ## Home Directory
 
@@ -90,7 +92,7 @@ Rockfish has several partitions/queues where you can submit jobs. They have diff
 
 ## Request 'interact' sessions on Rockfish
 
-If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Rockfisg. The command below (based on the `srun` command) will give you access to a node where you can run your command:
+If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Rockfish. The command below (based on the `srun` command) will give you access to a node where you can run your command:
 
 ```
 interact -n 1 -c 1 -a eande106 -m 64G -p queue-name -t “time in minutes”
@@ -102,7 +104,7 @@ Where `-n` is the number of nodes, `-c` is the number of cores, `-a` is the allo
 
 ## Using `screen` or `nohup` to keep jobs from timing out
 
-If you have ever tried to run a pipeline or script that takes a long time (think `NemaScan`), you know that if you close down your terminal or if your QUEST session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:
+If you have ever tried to run a pipeline or script that takes a long time (think `NemaScan`), you know that if you close down your terminal or if your Rockfish session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:
 
 **screen**
 
@@ -138,16 +140,16 @@ When you exit this window and open a new session, you can always look at the con
    
 ## Using packages already installed on Rockfish
 
-Quest has a collection of packages installed. You can run `module avail` to see what packages are currently available on Quest. You can use `module load bcftools` or `module load bcftools/1.15.1` to load packages with the default or a specific version (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
+Rockfish has a collection of packages installed. You can run `module avail` to see what packages are currently available on Rockfish. You can also use `module spider <search term>` to search for tools containing a particular term in their names. You can use `module load bcftools` or `module load bcftools/1.15.1` to load packages with the default or a specific version (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
 
 `module purge` will remove all loaded packages and can be helpful to try when troubleshooting.
 
 !!! Note
-	You can also load/install software packages into conda environments for use with a specific project/pipeline. Check out the conda tutorial [here](quest-conda.md).
+	You can also load/install software packages into conda environments for use with a specific project/pipeline. Check out the conda tutorial [here](rf-conda.md).
    
 ## Submitting jobs to Rockfish
 
-Jobs on Quest are managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you dig into the Nextflow working directory, you can see Nextflow actually generates such scripts and submits them to SLURM on your behalf. Thanks, Nextflow!
+Jobs on Rockfish are managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you dig into the Nextflow working directory, you can see Nextflow actually generates such scripts and submits them to SLURM on your behalf. Thanks, Nextflow!
 
 ```
 #!/bin/bash

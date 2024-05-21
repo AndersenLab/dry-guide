@@ -141,7 +141,7 @@ The sample sheet is automatically generated from `alignment-nf`. The sample shee
 Path to directory holding all the alignment files for strains in the analysis. Defaults to `/projects/b1059/data/{species}/WI/alignments/`
 
 !!! Important
-    Remember to move your bam files output from [alignment-nf](github.com/andersenlab/alignment-nf) to this location prior to running `wi-gatk`. In **most** cases, you will want to run `wi-gatk` on all samples, new and old combined.
+    Remember to move your bam files output from [alignment-nf](https://github.com/andersenlab/alignment-nf) to this location prior to running `wi-gatk`. In **most** cases, you will want to run `wi-gatk` on all samples, new and old combined.
 
 ### --species (optional)
 

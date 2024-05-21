@@ -12,14 +12,14 @@ The primary file system that the Andersen lab uses in Rockfish is called VAST. T
 
 `scr4_eande106` is a small partition primarily used for scratch space. It's currently empty, and it's supposed to be used only to hold small test files and scripts, with the aim to eventually delete such test files and reuse this space.**
 
-### analysis (eande106_data)
+### analysis (data_eande106)
 
 This directory contains non-data output and analyses from general lab pipelines (i.e. `wi-gatk` or `alignment-nf`). It is organized by pipeline and then by analysis type-date. **If you are running these pipelines (including `nil-ril-nf`) it is important that you move your analysis folder here once complete (and out of your personal folder) so that everyone has access to the results.**
 
-### software (eande106_data)
+### software (data_eande106)
 
 **General**
-This is a great location to download any software tools or packages that you need to use that you cannot access with Quest or create a conda environment for. Especially important if they are software packages that other people in the lab might also use, as it is a shared space.
+This is a great location to download any software tools or packages that you need to use that you cannot access with Rockfish or create a conda environment for. Especially important if they are software packages that other people in the lab might also use, as it is a shared space.
 
 **Conda environments**
 
@@ -67,7 +67,7 @@ conda env create --file bio-env.txt
 
 ```
 
-Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) or our [conda page](quest-conda.md) for more.
+Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) or our [conda page](rf-conda.md) for more.
 
 !!! Note
     Most of the nextflow pipelines are written using `module load anaconda3/2022.05; source activate nf20_env`, so if you are having trouble running with conda, try loading the right environment first.
@@ -75,7 +75,7 @@ Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0
 
 **R libraries**
 
-Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (`/projects/b1059/software/R_lib_3.6.0`). Check out the **Using R on Quest** section of [the R page](r.md) to learn more about installing a package to this folder and using it in a script.
+Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). Check out the **Using R on Rockfish** section of [the R page](r.md) to learn more about installing a package to this folder and using it in a script.
 
 !!! Important
     It is very important that you do **not** update any packages in this location unless absolutely necessary and proceed with extreme caution (especially if it is `tidyverse`!!!). Updating packages could break pipelines that rely on them.
@@ -166,6 +166,10 @@ Projects is where most people will spend most of their time. Each user with acce
 
 !!! Note
     Please be aware of how much space you are using in your personal folder. Of course some projects might require more space than others, and some projects require a lot of temporary space that can be deleted once completed. However, if you find that you have > 500-1000 GB of used space in your folder, please take a look if there is any unused data or scripts. **Either way, it is good practice to clean out your folder every few months to avoid storage pile-up.** You can check how much space you are using with `du -hs *` or ask Katie.
+
+### singularity (vast)
+
+This directory contains docker images suitable for specific nextflow workflows as well as those created for specific past analyses.
 
 ### to_be_deleted (vast)
 

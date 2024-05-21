@@ -315,7 +315,7 @@ The `C. elegans WI Strain Info` google spreadsheet is a master spreadlist contai
 
 ### Adding new sequencing datasets
 
-Sequencing data should be added to QUEST and processed through the trimming pipeline before being added to `WI_sample_sheet.tsv`. Before proceeding, be sure to read [pipeline-trimming](/pipeline-trimming/)
+Sequencing data should be added to QUEST and processed through the trimming pipeline before being added to `WI_sample_sheet.tsv`. Before proceeding, be sure to read [pipeline-trimming](pipeline-trimming.md)
 
 To add new sequencing datasets you will need to devise a strategy for extracting the strain name, a unique ID, and sequencing library from the FASTQ filenames. This may be the same as a past dataset, in which case you can append the sequencing run folder name to the list with that format. Alternatively, you may need to create a custom set of bash commands for generating the rows corresponding to each FASTQ pair.
 

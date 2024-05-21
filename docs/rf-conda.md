@@ -1,4 +1,4 @@
-# Using conda on Quest
+# Using conda on Rockfish
 
 [TOC]
 
@@ -14,7 +14,7 @@ To track software, package and environment managers such as Conda and Docker are
 
 ## Setting up Conda on Rockfish
 
-Anaconda is a Python distribution that contains many packages including conda. Miniconda is a more compact version of Anaconda that also includes conda. So in order to install conda, we usually either install Miniconda or Anaconda. On Quest, Anaconda is already installed. However there are many versions of Anaconda, each can have a different version of Python and Conda. The current lab environments mainly used `module load anaconda3/2022.05` (See **Notes** below for more info).
+Anaconda is a Python distribution that contains many packages including conda. Miniconda is a more compact version of Anaconda that also includes conda. So in order to install conda, we usually either install Miniconda or Anaconda. On Rockfish, Anaconda is already installed. However there are many versions of Anaconda, each can have a different version of Python and Conda. The current lab environments mainly used `module load anaconda3/2022.05` (See **Notes** below for more info).
 
 In your home directory `~/`, create a file called `.condarc` and put the following lines into it. It sets the channel priority when conda searches for packages. If possible, in one environment it is good to use packages from the same channel. 
 
