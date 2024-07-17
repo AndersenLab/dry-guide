@@ -64,11 +64,11 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-conda/">Conda</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Nextflow</a>
     <ul class="current">
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rf-conda/">Conda</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Quest</span></p>
@@ -222,7 +222,7 @@ nextflow run -latest andersenlab/nemascan --traitfile input_data/c_elegans/pheno
 <p>Parameters to Nextflow scripts are designated with the <code>--</code>. In the case above, there is a parameter called "traitfile" which we are setting to be the <code>input_data/c_elegans/phenotypes/test_pheno.tsv</code> file. Arguments to Nextflow are designated with the <code>-</code>. These tell Nextflow how to behave when running a pipeline and are specific to Nextflow, not any given pipeline. </p>
 </div>
 <p>When Nextflow is running, it will print to the console the name of each process in the pipeline as well as update on the progress of the script:</p>
-<p><img alt="nextflow example" src="img/nextflow_example.png" /></p>
+<p><img alt="nextflow example" src="../../img/nextflow_example.png" /></p>
 <p>For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the <code>fix_strain_names_bulk</code> process has already completed! Meanwhile, the <code>vcf_t_geno_matrix</code> process is still running. You can also see that the <code>prepare_gcta_files</code> is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).</p>
 <p>Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the <code>[ad/eea615]</code> next to the <code>fix_strain_names_bulk</code> process indicates that the working directory is located at <code>/scratch4/eande106/ad/eea615...</code>. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.</p>
 <div class="admonition note">
@@ -242,10 +242,22 @@ nextflow run -latest andersenlab/nemascan --traitfile input_data/c_elegans/pheno
 <p>There is some confusion with how the <code>-resume</code> works and sometimes it doesn't work as expected. Check out <a href="https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html">this</a> and <a href="https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html">this other</a> guide for more help. One thing I've learned is there is a difference between <code>process.cache = 'deep' vs. 'lenient'</code>.</p>
 </div>
 <h2 id="running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version<a class="headerlink" href="#running_a_custom_nextflow_pipeline_version" title="Permanent link">&para;</a></h2>
-<p>Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will <strong>need</strong> to follow these steps.</p>
+<p>If you need to run a custom version of a pipeline, there are two approached you can use.</p>
+<ol>
+<li>Clone the repo onto Rockfish and make local changes. Then run Nextflow from the local pipeline.</li>
+<li>Clone the repo onto your computer, create a new branch, and make changes to your new branch. Then push those changes and run Nextflow on your branch of the pipeline.</li>
+</ol>
+<p>You should <strong>NOT</strong> do the first, as this means that your analysis will not be reproducible the moment you delete that local repo. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.</p>
+<p>On your machine (or technically Rockfish if you want, but I recommend locally) where <your-branch> is whatever branch name you want:</p>
 <pre><code>git clone https://github.com/AndersenLab/NemaScan.git
 cd NemaScan
-nextflow run main.nf --debug
+git checkout -b &lt;your-branch&gt;
+##  Make your local changes ##
+git commit -a -m &quot;This is my branch!&quot; # or some more meaningful message
+git push --set-upstream origin &lt;your-branch&gt;
+</code></pre>
+<p>To run your custom pipeline on Rockfish:</p>
+<pre><code>nextflow run andersenlab/nemascan -r &lt;your-branch&gt; ... # plus whatever arguments and parameters are needed for this pipeline
 </code></pre>
 <h2 id="getting_an_email_or_text_when_complete">Getting an email or text when complete<a class="headerlink" href="#getting_an_email_or_text_when_complete" title="Permanent link">&para;</a></h2>
 <p>If you would like to receive an email or text from Nextflow when your pipeline finishes (either successfully or with error), all you need to do is add <code>-N &lt;email&gt;</code> to your code. Most phone companies have a way to "email" your phone as an SMS, so you can use this email address to get a text alert. For example:</p>
@@ -270,8 +282,8 @@ nextflow run andersenlab/nemascan --debug -N 8018675309@vtext.com
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../VAST/" class="btn btn-neutral float-left" title="Data on Rockfish"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../rf-conda/" class="btn btn-neutral float-right" title="Conda">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../rf-conda/" class="btn btn-neutral float-left" title="Conda"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../quest/quest-intro/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -298,10 +310,10 @@ nextflow run andersenlab/nemascan --debug -N 8018675309@vtext.com
         </span>
     
     
-      <span><a href="../VAST/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../rf-conda/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../rf-conda/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../quest/quest-intro/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
