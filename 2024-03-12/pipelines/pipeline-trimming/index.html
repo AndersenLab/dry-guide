@@ -248,9 +248,9 @@ source activate /data/eande106/software/conda_envs/nf23_env
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All FASTQs should end with a <code>_R[1|2]_001.fastq.gz</code> or a <code>_[1|2].fq.gz</code>. You can rename FASTQs using the rename command:
-<code>for I in *.fq.gz; do \
-    mv $I $(echo $I | sed -e "s/_1/_R1_001/" -e "s/_2/_R2_001/" -e "s/fq/fastq/"); \
+<p>All FASTQs should end with a <code>_R[1|2]_001.fastq.gz</code> or a <code>_[1|2].fq.gz</code>. You can rename FASTQs using the rename command:</p>
+<p><code>for I in *.fq.gz; do
+    mv $I $(echo $I | sed -e "s/_1/_R1_001/" -e "s/_2/_R2_001/" -e "s/fq/fastq/");
 done</code></p>
 </div>
 <h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
