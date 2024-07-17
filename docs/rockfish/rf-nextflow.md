@@ -98,7 +98,7 @@ If you need to run a custom version of a pipeline, there are two approached you 
 1. Clone the repo onto Rockfish and make local changes. Then run Nextflow from the local pipeline.
 2. Clone the repo onto your computer, create a new branch, and make changes to your new branch. Then push those changes and run Nextflow on your branch of the pipeline.
 
-You should **NOT** do the first, as this means that your analysis will not be reproducible the moment you delete that local repo. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.
+You should **NOT** do the first, as this means that your analysis will not be reproducible the moment you delete that local repo, nor will it be available to other people. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.
 
 On your machine (or technically Rockfish if you want, but I recommend locally) where <your-branch> is whatever branch name you want:
 

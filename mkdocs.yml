@@ -6,54 +6,55 @@ repo_url: https://github.com/Andersenlab/dry-guide
 markdown_extensions:
     - admonition
     - toc:
-            permalink: true
-            separator: _
+        permalink: true
+        separator: _
     - fenced_code
     - sane_lists
 
 nav:
     - Home: 
-          - Overview: index.md
+        - Overview: index.md
     - Knowledge Base:
-          - Best Practices: knowledge_base/best_practices.md
-          - R: knowledge_base/r.md
-          - R Shiny: knowledge_base/shiny.md
-          - Command Line: knowledge_base/bash.md
-          - Git and Github: knowledge_base/github.md
+        - Best Practices: knowledge_base/best_practices.md
+        - R: knowledge_base/r.md
+        - R Shiny: knowledge_base/shiny.md
+        - Command Line: knowledge_base/bash.md
+        - Git and Github: knowledge_base/github.md
     - Rockfish:
-          - Introduction: rockfish/rf-intro.md
-          - Data on Rockfish: rockfish/VAST.md
-          - Conda: rockfish/rf-conda.md
-          - Nextflow: rockfish/rf-nextflow.md
+        - Introduction: rockfish/rf-intro.md
+        - Data on Rockfish: rockfish/VAST.md
+        - Conda: rockfish/rf-conda.md
+        - Nextflow: rockfish/rf-nextflow.md
     - Quest:
-          - Introduction: quest/quest-intro.md
-          - Data on b1059: quest/b1059.md
-          - Nextflow: quest/quest-nextflow.md
-          - Conda: quest/quest-conda.md
-          - Docker: quest/quest-docker.md
-          - GCP: pipeline-GCPconfig.md
-    - WI Sequencing pipelines:
-          - Overview: pipelines/pipeline-overview.md
-          - trim-fq-nf: pipelines/pipeline-trimming.md
-          - alignment-nf: pipelines/pipeline-alignment.md
-          - wi-gatk: pipelines/pipeline-wiGATK.md
-          - concordance-nf: pipelines/pipeline-concordance.md
-          - post-gatk-nf: pipelines/pipeline-postGATK.md
-          - imputation: pipelines/pipeline-impute.md
-          - annotation-nf: pipelines/pipeline-annotation-nf.md
-    - Other pipelines:
-          - NemaScan: pipelines/pipeline-nemascan.md
-          - Image Analysis: pipelines/pipeline-cellprofiler.md
-          - nil-ril-nf: pipelines/pipeline-nil-ril.md
-          - genomes-nf: pipelines/pipeline-genomes-nf.md
+        - Introduction: quest/quest-intro.md
+        - Data on b1059: quest/b1059.md
+        - Conda: quest/quest-conda.md
+        - Nextflow: quest/quest-nextflow.md
+    - Nextflow Pipelines:
+        - WI Sequencing pipelines:
+            - Overview: pipelines/pipeline-overview.md
+            - trim-fq-nf: pipelines/pipeline-trimming.md
+            - alignment-nf: pipelines/pipeline-alignment.md
+            - wi-gatk: pipelines/pipeline-wiGATK.md
+            - concordance-nf: pipelines/pipeline-concordance.md
+            - post-gatk-nf: pipelines/pipeline-postGATK.md
+            - imputation: pipelines/pipeline-impute.md
+            - annotation-nf: pipelines/pipeline-annotation-nf.md
+        - Other pipelines:
+            - NemaScan: pipelines/pipeline-nemascan.md
+            - Image Analysis: pipelines/pipeline-cellprofiler.md
+            - nil-ril-nf: pipelines/pipeline-nil-ril.md
+            - genomes-nf: pipelines/pipeline-genomes-nf.md
+        - Docker: pipelines/docker.md
+        - GCP: pipelines/nf-GCPconfig.md
     - Other things:
-          - CeNDR: other/caendr.md
-          - Backup: other/backup.md
-          - SRA: other/sra.md
-          - Cloud: other/cloud.md
-          - Globus file sharing: other/sharing-globus.md
-          - Writing Nextflow workflows: other/writing-nextflow.md
-          - Andersen Labsite: other/labsite.md
+        - CeNDR: other/caendr.md
+        - Backup: other/backup.md
+        - SRA: other/sra.md
+        - Cloud: other/cloud.md
+        - Globus file sharing: other/sharing-globus.md
+        - Writing Nextflow workflows: other/writing-nextflow.md
+        - Andersen Labsite: other/labsite.md
 # extra_css:
 # - css/version-select.css
 # extra_javascript:

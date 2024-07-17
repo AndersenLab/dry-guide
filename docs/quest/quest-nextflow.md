@@ -7,67 +7,35 @@ Nextflow is an awesome program that allows you to write a computational pipeline
 
 # Installation
 
-Nextflow can be installed with two easy steps:
+There are two primary ways to get Nextflow on QUEST.
 
-```
-# download with wget or curl
-wget -qO- https://get.nextflow.io | bash
+1. Load the pre-built module
+2. Load the pre-build conda environment
 
-# or #
-
-curl -s https://get.nextflow.io | bash
-
-# make binary executable on your system
-chmod +x nextflow
-
-# Move nextflow to directory accessible by your $PATH to avoid having to type full path to nextflow each time
-# you can check your $PATH with:
-echo $PATH
-
-# it likely contains `/usr/local/bin` so you could move nextflow there
-mv nextflow /usr/local/bin/
-
-```
-
-## Nextflow versions
-
-You might also want to update nextflow or be able to run different versions. This can be done in several different ways
-
-1. Update Nextflow
-
-```
-nextflow self-update
-```
-
-2. Use a specific version of Nextflow
-
-```
-NXF_VER=20.04.0 nextflow run main.nf
-```
-
-3. Use the `nf20` conda environment built for AndersenLab pipelines
+All of the lab Nextflow pipelines are currently written to work with Nextflow version 20 (legacy, pre-April 2024) or version 23. Version 20 is available as a conda environment:
 
 ```
 module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
 ```
 
+Nextflow version 23 is available as a module:
+
+```
+module load nextflow/23.10.1
+```
+
 !!! Important
-  If you run the `nf20` conda environment, **please do not try to update nextflow, this will cause permission denied errors for other lab members**. You can deactivate the conda environment with `source deactivate`
+	If you run the `nf20` conda environment, **please do not try to update nextflow, this will cause permission denied errors for other lab members**. You can deactivate the conda environment with `source deactivate`
 
 (You can check your Nextflow version with `nextflow -v` or `nextflow --version`)
 
 !!! Note
 	If you load this conda environment, it is not necessary to have Nextflow version 20 installed on your system -- you don't even need to have Nextflow installed at all! Because different versions might have updates that affect the running of Nextflow, it is important to keep track of the version of Nextflow you are using, as well as all software packages.
 
-!!! Important
-	Many of the Andersen Lab pipelines (if not all) are written with the new `DSL2` (see below) which requires Nextflow-v20.0+. Loading the `nf20` conda environment is a great way to run these pipelines
-
 # Quest cluster configuration
 
-Configuration files allow you to define the way a pipeline is executed on Quest. 
-
-> Read the [quest documentation](https://www.nextflow.io/docs/latest/config.html) on configuration files
+Configuration files allow you to define the way a pipeline is executed on Quest. Read the [quest documentation](https://www.nextflow.io/docs/latest/config.html) on configuration files
 
 Configuration files are defined at a global level in `~/.nextflow/config` and on a per-pipeline basis within `<pipeline_directory>/nextflow.config`. Settings written in `<pipeline_directory>/nextflow.config` override settings written in `~/.nextflow/config`.
 
@@ -77,9 +45,9 @@ In order to use nextflow on quest you will need to define some global variables 
 
 ```
 process {
-    executor = 'slurm'
-    queue = 'genomicsguestA'
-    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
+		executor = 'slurm'
+		queue = 'genomicsguestA'
+		clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
 }
 
 workDir = "/projects/b1042/AndersenLab/work/<your folder>"
@@ -105,7 +73,7 @@ Theoretically, running a Nextflow pipeline should be very straightforward (altho
 The prefered (and sometimes easiest) way to run a nextflow pipeline can be done in just one single step. When this works (see troubleshooting section below), pipelines can be run without first cloning the git repo. You can just tell Nextflow which git repo to use and it will do the rest! This can be helpful to reduce clutter and avoid making changes to the actual pipeline. Additionally, this method allows you to control which branch and/or commit of the pipeline to run, and Nextflow will automatically track that information for you allowing for great reproducibility.
 
 !!! Note
-  There is no need to clone a copy of the repo to run pipelines this way. Behind the scenes, nextflow is actually cloning the repo to your home directory and keeping track of branches/commits. 
+	There is no need to clone a copy of the repo to run pipelines this way. Behind the scenes, nextflow is actually cloning the repo to your home directory and keeping track of branches/commits. 
 
 ```
 # example command to run the latest version of NemaScan
@@ -122,7 +90,7 @@ nextflow run andersenlab/nemascan --traitfile input_data/c_elegans/phenotypes/te
 
 When Nextflow is running, it will print to the console the name of each process in the pipeline as well as update on the progress of the script:
 
-![nextflow example](img/nextflow_example.png)
+![nextflow example](../img/nextflow_example.png)
 
 For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the `fix_strain_names_bulk` process has already completed! Meanwhile, the `vcf_t_geno_matrix` process is still running. You can also see that the `prepare_gcta_files` is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).
 
@@ -174,16 +142,32 @@ rm -rf /home/kek973/.nextflow/assets/andersenlab/nemascan
 ```
 
 !!! Warning
-  You should always be careful when using `rm`, *especially* `rm -rf`. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.
+	You should always be careful when using `rm`, *especially* `rm -rf`. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.
 
-## Running Nextflow from a local directory
+## Running a custom Nextflow pipeline version
 
-Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will **need** to follow these steps.
+If you need to run a custom version of a pipeline, there are two approached you can use.
+
+1. Clone the repo onto Quest and make local changes. Then run Nextflow from the local pipeline.
+2. Clone the repo onto your computer, create a new branch, and make changes to your new branch. Then push those changes and run Nextflow on your branch of the pipeline.
+
+You should **NOT** do the first, as this means that your analysis will not be reproducible the moment you delete that local repo, nor will it be available to other people. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.
+
+On your machine (or technically Quest if you want, but I recommend locally) where <your-branch> is whatever branch name you want:
 
 ```
 git clone https://github.com/AndersenLab/NemaScan.git
 cd NemaScan
-nextflow run main.nf --debug
+git checkout -b <your-branch>
+##  Make your local changes ##
+git commit -a -m "This is my branch!" # or some more meaningful message
+git push --set-upstream origin <your-branch>
+```
+
+To run your custom pipeline on Quest:
+
+```
+nextflow run andersenlab/nemascan -r <your-branch> ... # plus whatever arguments and parameters are needed for this pipeline
 ```
 
 ## Resume
@@ -214,8 +198,16 @@ nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
 nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
 ```
 
+### Caching singularity images on QUEST
+
+To make the most out of using a shared cache directory for singularity on b1059, make sure to add this line to your `~/.bash_profile` before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).
+
+```
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+```
+
 # Writing Nextflow Pipelines
 
-See [this page](writing-nextflow.md) for tips on how to get started with your own nextflow pipeline.
+See [this page](../other/writing-nextflow.md) for tips on how to get started with your own nextflow pipeline.
 
 Also check out the [Nextflow documentation](https://www.nextflow.io/docs/latest/) for help getting started!

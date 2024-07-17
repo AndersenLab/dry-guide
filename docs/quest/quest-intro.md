@@ -2,12 +2,12 @@
 
 [TOC]
 
-The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:
+The Andersen Lab makes use of Quest, the supercomputer at Northwestern, although it has almost fully transitioned to Johns Hopkins' [Rockfish](../rockfish/rf-intro.md). Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:
 
 __[Quest Documentation](http://www.it.northwestern.edu/research/user-services/quest/index.html)__
 
 !!! Note
-	New to the command line? Check out the [quick and dirty bash intro](bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
+	New to the command line? Check out the [quick and dirty bash intro](../knowledge_base/bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
 
 ## New Users
 
@@ -44,14 +44,14 @@ The above line makes it so you simply type `quest` and the login process is init
 If you are not familiar with what a bash profile is, [take a look at this](https://www.quora.com/What-is-bash_profile-and-what-is-its-use).
 
 !!! Important
-    When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
+		When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
 
 ## Login Nodes
 
 There are four login nodes we use: quser21-24. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh quser21`).
 
 !!! Warning
-    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.
+		When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.
 
 ## Home Directory
 
@@ -76,7 +76,7 @@ __b1042__ - The 'Genomics' Project has 200 Tb of space and 100 nodes associated 
 __b1059__ - The Andersen Lab Project. __b1059__ has 5 computing nodes `qnode9031`-`qnode9033` (192Gb of RAM and 40 cores eacy) and `qnode0277`-`qnode0278` (192Gb of RAM and 52 cores each), and has 77 Tb of storage. b1059 storage is located at: `/projects/b1059/` (Check out [this page](b1059.md) to learn more about how data is stored on `b1059`). One can submit jobs to `--partition=b1059` to use this partition, with no limit on job duration. 
 
 !!! Note
-    Anyone who uses quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
+		Anyone who uses quest should build your own project folder under `/projects/b1059/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __b1059__ but don't write any data out of your project folder.
 
 !!! Important
 	It is important that we keep the 77 Tb of storage space on **b1059** from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months. You can check the percent of space remaining with `checkproject b1059`
@@ -90,7 +90,7 @@ srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --
 ```
 
 !!! Important
-    Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
+		Do not run commands for big data on `quser21-24`. These are login nodes and are not meant for running heavy-load workflows.
 
 ## Using `screen` or `nohup` to keep jobs from timing out
 
@@ -127,7 +127,7 @@ When you exit this window and open a new session, you can always look at the con
 
 !!! Note
 	You can also run `nohup` in the background to continue using the same window for other processes by running `nohup nextflow run main.nf &`.
-   
+	 
 ## Using packages already installed on Quest
 
 Quest has a collection of packages installed. You can run `module avail` to see what packages are currently available on Quest. You can use `module load bcftools` or `module load bcftools/1.10.1` to load packages with the default or a specific version (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
@@ -136,7 +136,7 @@ Quest has a collection of packages installed. You can run `module avail` to see 
 
 !!! Note
 	You can also load/install software packages into conda environments for use with a specific project/pipeline. Check out the conda tutorial [here](quest-conda.md).
-   
+	 
 ## Submitting jobs to Quest
 
 Jobs on Quest are managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you dig into the Nextflow working directory, you can see Nextflow actually generates such scripts and submits them to SLURM on your behalf. Thanks, Nextflow!

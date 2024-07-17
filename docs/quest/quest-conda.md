@@ -4,9 +4,9 @@
 
 ## Why Conda
 
-__Computational Reproducibility__ is the ability to reproduce an analysis exactly. In order for computational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub (for help, see the [Github page](github.md)). Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.
+__Computational Reproducibility__ is the ability to reproduce an analysis exactly. In order for computational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub (for help, see the [Github page](../knowledge_base/github.md)). Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.
 
-To track software, package and environment managers such as Conda and Docker are very useful. Conda works similarly to [brew](https://brew.sh/) or pyenv[pyenv](https://github.com/pyenv/pyenv) that were used in the legacy Andersen-Lab-Env. 
+To track software, package and environment managers such as Conda and Docker are very useful. Conda works similarly to [brew](https://brew.sh/) or [pyenv](https://github.com/pyenv/pyenv) that were used in the legacy Andersen-Lab-Env. 
 
 !!! Note
 	The software environments on Mac and Linux are not exactly identical...but they are very close.
@@ -20,15 +20,15 @@ In your home directory `~/`, create a file called `.condarc` and put the followi
 
 ```
 channels:
-  - conda-forge
-  - bioconda
-  - defaults
-  
+	- conda-forge
+	- bioconda
+	- defaults
+	
 auto_activate_base: false
 
 envs_dirs:
-  - ~/.conda/envs/
-  - /projects/b1059/software/conda_envs/
+	- ~/.conda/envs/
+	- /projects/b1059/software/conda_envs/
 ```
 
 ## Using Conda
@@ -61,7 +61,7 @@ When looking to install a package, one resource to check out is [anaconda.org](h
 	Remember to keep in mind the different versions of software/packages. You could have bcftools-v1.10 or bcftools-v.1.12, so make sure you install the correct one!
 
 !!! Important
-	You can also install R packages with conda, however conda and R don't always work well together. Check out our quick fix [here](r.md)
+	You can also install R packages with conda, however conda and R don't always work well together. Check out our quick fix [here](../knowledge_base/r.md)
 
 ## Running Nextflow with conda
 
@@ -71,11 +71,11 @@ When running Nextflow, conda environments can be specified as part of a process 
 
 ```
 process foo {
-  conda '/projects/b1059/software/conda_envs/cegwas2-nf_env'
+	conda '/projects/b1059/software/conda_envs/cegwas2-nf_env'
 
-  '''
-  your_command --here
-  '''
+	'''
+	your_command --here
+	'''
 }
 ```
 
@@ -84,12 +84,12 @@ process foo {
 ```
 // in the nextflow.config file:
 conda { 
-    conda.enabled = true 
-    conda.cacheDir = ".env"  
+		conda.enabled = true 
+		conda.cacheDir = ".env"  
 }
 
 process {
-    conda = "/projects/b1059/software/conda_envs/cegwas2-nf_env"
+		conda = "/projects/b1059/software/conda_envs/cegwas2-nf_env"
 }
 ```
 
