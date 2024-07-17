@@ -144,7 +144,7 @@
               </ul>
               <p class="caption"><span class="caption-text">Other things</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="" href="../../other/cendr.md">CeNDR</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CeNDR</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
                   </li>
@@ -299,8 +299,8 @@
 <h3 id="analysis_data-eande106">analysis (data-eande106)<a class="headerlink" href="#analysis_data-eande106" title="Permanent link">&para;</a></h3>
 <p>This directory contains non-data output and analyses from general lab pipelines (i.e. <code>wi-gatk</code> or <code>alignment-nf</code>). It is organized by pipeline and then by analysis type-date. <strong>If you are running these pipelines (including <code>nil-ril-nf</code>) it is important that you move your analysis folder here once complete (and out of your personal folder) so that everyone has access to the results.</strong></p>
 <h3 id="software_data-eande106">software (data-eande106)<a class="headerlink" href="#software_data-eande106" title="Permanent link">&para;</a></h3>
-<p><strong>General</strong>
-This is a great location to download any software tools or packages that you need to use that you cannot access with Rockfish or create a conda environment for. Especially important if they are software packages that other people in the lab might also use, as it is a shared space.</p>
+<p><strong>General</strong></p>
+<p>This is a great location to download any software tools or packages that you need to use that you cannot access with Rockfish or create a conda environment for. Especially important if they are software packages that other people in the lab might also use, as it is a shared space.</p>
 <p><strong>Conda environments</strong></p>
 <p>Inside the directory <code>conda_envs</code> you can find all the shared lab conda environments necessary for running certain nextflow pipelines. If you create a shared conda environment, <strong>it is important that you update the <code>README.md</code> with the code you used to create the environment for reproducible purposes</strong>. You can create a conda environment in this directory with:</p>
 <pre><code>conda create -p /home/&lt;user&gt;/data_eande106/software/conda_envs/&lt;name_of_env&gt;
