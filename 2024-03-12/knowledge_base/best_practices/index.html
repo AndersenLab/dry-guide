@@ -171,41 +171,27 @@
                 <h2 id="andersen_lab_coding_best_practices">Andersen Lab Coding Best Practices<a class="headerlink" href="#andersen_lab_coding_best_practices" title="Permanent link">&para;</a></h2>
 <p>These best practices are just a few of the important coding tips and tricks for reproducible research. If you have more ideas, contact Mike!</p>
 <h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
-<ul>
-<li>You should be doing most (if not all) of your analyses in <code>/Volumes/vast/projects/YourName</code> (this requires having mapped VAST to your computer. See <a href="../rockfish/vast.md">here</a> for instructions)<ul>
-<li>This is (1) to make sure the data is backed up/saved with version history and (2) to allow other lab members to access your code/scripts when necessary</li>
-</ul>
-</li>
-<li>Do <strong>NOT</strong> use spaces, quotation marks, or brackets in names of files or folders. Try not to use these characters in column names either (although sometimes it is necessary for a final table output)<ul>
-<li>Computers often have a hard time reading spaces and code used to ignore spaces can vary from program to program</li>
-<li>Instead, you can use <code>_</code> or <code>.</code> or <code>-</code> or capitalization (<code>fileName.txt</code>)</li>
-</ul>
-</li>
-<li><strong>NEVER</strong> replace raw data!!!!!<ul>
-<li>You should save your raw data in the rawest format, write a script to analyze it then if you wish, save the processed data for further use. This is important because it always allows you to go back to the original raw data in case something happens</li>
-<li>Some suggested project folder structures might look like something below:
-<img alt="directory_structure" src="../../img/directory_structure.png" /></li>
-</ul>
-</li>
-<li>Include a <code>README.md</code> (or <code>README.txt</code>) file in each project folder to explain where the data and scripts can be found for certain analyses. Trust me, after a few years you will definitely forget…<ul>
-<li>And don’t forget to update the <code>README</code> regularly, an old <code>README</code> doesn’t do anyone good!</li>
-</ul>
-</li>
-<li>Either use full path names in scripts or be explicit about where the working directory is<ul>
-<li>This is important to allow other people to run your code (or might even be helpful for you if you ever reorganize folders one day)</li>
-</ul>
-</li>
-<li>Date your files, especially when you update an existing file. Write dates in <code>YYYYMMDD</code> format</li>
-<li>As much as possible, ensure that your processed data is “tidy” (see below). This doesn’t work for all complex data types, but it should be a general norm to follow.<ul>
-<li>Each variable must have its own column</li>
-<li>Each observation must have its own row</li>
-<li>Each value must have its own cell</li>
-<li>No color or highlighting </li>
-<li>No empty cells (fill with <code>NA</code> if necessary)</li>
-<li>Save data as plain text files (<code>.csv</code>, <code>.tsv</code>, <code>.txt</code> etc. -- NOT <code>.xls</code>!!!)</li>
-</ul>
-</li>
-</ul>
+<p>You should be doing most (if not all) of your analyses in <code>/Volumes/vast/projects/YourName</code> (this requires having mapped VAST to your computer. See <a href="../rockfish/vast.md">here</a> for instructions)
+    * This is (1) to make sure the data is backed up/saved with version history and (2) to allow other lab members to access your code/scripts when necessary
+* Do <strong>NOT</strong> use spaces, quotation marks, or brackets in names of files or folders. Try not to use these characters in column names either (although sometimes it is necessary for a final table output)
+    * Computers often have a hard time reading spaces and code used to ignore spaces can vary from program to program
+    * Instead, you can use <code>_</code> or <code>.</code> or <code>-</code> or capitalization (<code>fileName.txt</code>)
+* <strong>NEVER</strong> replace raw data!!!!!
+    * You should save your raw data in the rawest format, write a script to analyze it then if you wish, save the processed data for further use. This is important because it always allows you to go back to the original raw data in case something happens
+    * Some suggested project folder structures might look like something below:
+<img alt="directory_structure" src="../../img/directory_structure.png" />
+* Include a <code>README.md</code> (or <code>README.txt</code>) file in each project folder to explain where the data and scripts can be found for certain analyses. Trust me, after a few years you will definitely forget…
+    * And don’t forget to update the <code>README</code> regularly, an old <code>README</code> doesn’t do anyone good!
+* Either use full path names in scripts or be explicit about where the working directory is
+    * This is important to allow other people to run your code (or might even be helpful for you if you ever reorganize folders one day)
+* Date your files, especially when you update an existing file. Write dates in <code>YYYYMMDD</code> format
+* As much as possible, ensure that your processed data is “tidy” (see below). This doesn’t work for all complex data types, but it should be a general norm to follow.
+    * Each variable must have its own column
+    * Each observation must have its own row
+    * Each value must have its own cell
+    * No color or highlighting 
+    * No empty cells (fill with <code>NA</code> if necessary)
+    * Save data as plain text files (<code>.csv</code>, <code>.tsv</code>, <code>.txt</code> etc. -- NOT <code>.xls</code>!!!)</p>
 <h3 id="r">R<a class="headerlink" href="#r" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>ALWAYS</strong> use namespaces before functions from packages (i.e. <code>dplyr::filter()</code> instead of <code>filter()</code>)<ul>
