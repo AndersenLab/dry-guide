@@ -249,12 +249,8 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All FASTQs should end with a <code>_R1_001.fastq.gz</code> or a <code>_R2_001.fastq.gz</code>. You can rename FASTQs using the rename command:</p>
-<p><code>for I in *.fq.gz; do
-    if [[ $I =~ ([/|a-z|A-Z|0-9|_|-]*/)([a-z|A-Z|0-9|_]+)(_1|_R1_001)\.(fq|fastq)\.gz ]]; then
-        mv ${I} ${BASH_REMATCH[1]}${BASH_REMATCH[2]}_R1_0001.fastq.gz
-    else if [[ $I =~ ([/|a-z|A-Z|0-9|_|-]*/)([a-z|A-Z|0-9|_]+)(_2|_R2_001)\.(fq|fastq)\.gz ]]; then
-        mv ${I} ${BASH_REMATCH[1]}${BASH_REMATCH[2]}_R2_0001.fastq.gz
-    fi
+<p><code>for I in *.fq.gz; do \
+    mv $I $(echo $I | sed -e "s/_1/_R1_001/" -e "s/_2/_R2_001/" -e "s/fastq/fq/"); \
 done</code></p>
 </div>
 <h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
