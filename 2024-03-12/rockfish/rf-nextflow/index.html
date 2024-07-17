@@ -237,8 +237,10 @@ nextflow run -latest andersenlab/nemascan --traitfile input_data/c_elegans/pheno
 -resume
 </code></pre>
 <p>There is usually no downside to adding <code>-resume</code>, so you can get into the habit of always adding it if you want.</p>
-<p>[!Important]
-There is some confusion with how the <code>-resume</code> works and sometimes it doesn't work as expected. Check out <a href="https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html">this</a> and <a href="https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html">this other</a> guide for more help. One thing I've learned is there is a difference between <code>process.cache = 'deep' vs. 'lenient'</code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>There is some confusion with how the <code>-resume</code> works and sometimes it doesn't work as expected. Check out <a href="https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html">this</a> and <a href="https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html">this other</a> guide for more help. One thing I've learned is there is a difference between <code>process.cache = 'deep' vs. 'lenient'</code>.</p>
 <h2 id="running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version<a class="headerlink" href="#running_a_custom_nextflow_pipeline_version" title="Permanent link">&para;</a></h2>
 <p>Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will <strong>need</strong> to follow these steps.</p>
 <pre><code>git clone https://github.com/AndersenLab/NemaScan.git
