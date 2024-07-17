@@ -273,12 +273,12 @@
 │               │   └──  {strain}.{date}.vcf.gz
 │               └──  WI.{date}.*.vcf.gz
 └── {other - i.e. BSA, MUTANT, HiC, PacBio}
-    └── *currently could look like anything in here - organized by project*
+        └── *currently could look like anything in here - organized by project*
 
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This restructure is still not 100% complete and things might continue to change as we expand our genomes and data types. If you see something that is not organized well, let Erik or Nic know.</p>
+<p>This restructure is still not 100% complete and things might continue to change as we expand our genomes and data types. If you see something that is not organized well, let Erik or Mike know.</p>
 </div>
 <h3 id="docs_vast-eande106">docs (vast-eande106)<a class="headerlink" href="#docs_vast-eande106" title="Permanent link">&para;</a></h3>
 <p>This directory should probably be removed and the docs inside stored elsewhere. Currently, shows the process for fastq SRA submission from 2019 and then again from 2021.</p>
@@ -307,15 +307,15 @@ This is a great location to download any software tools or packages that you nee
 </code></pre>
 <p>You can also update your <code>~/.condarc</code> file to point to this directory so that you can easily load conda environments just by the name (i.e. <code>source activate nf23_env</code> instead of <code>source activate /home/&lt;user&gt;/data-eande106/software/conda_envs/nf23_env</code>):</p>
 <pre><code>channels:
-  - conda-forge
-  - bioconda
-  - defaults
+    - conda-forge
+    - bioconda
+    - defaults
 
 auto_activate_base: false
 
 envs_dirs:
-  - ~/.conda/envs/
-  - /home/&lt;user&gt;/data-eande106/software/conda_envs/
+    - ~/.conda/envs/
+    - /home/&lt;user&gt;/data-eande106/software/conda_envs/
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -336,15 +336,14 @@ conda install --revision 2
 
 # create environment from file
 conda env create --file bio-env.txt
-
 </code></pre>
-<p>Also, check out this <a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">cheat sheet</a> or our <a href="rockfish/rf-conda.md">conda page</a> for more.</p>
+<p>Also, check out this <a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">cheat sheet</a> or our <a href="../rf-conda/">conda page</a> for more.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Most of the nextflow pipelines are written using <code>module load anaconda3/2022.05; source activate nf23_env</code>, so if you are having trouble running with conda, try loading the right environment first.</p>
 </div>
 <p><strong>R libraries</strong></p>
-<p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (<code>/data/eande106/software/R_lib_3.6.0</code>). Check out the <strong>Using R on Rockfish</strong> section of <a href="knowledge_base/r.md">the R page</a> to learn more about installing a package to this folder and using it in a script.</p>
+<p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (<code>/data/eande106/software/R_lib_3.6.0</code>). Check out the <strong>Using R on Rockfish</strong> section of <a href="../../knowledge_base/r/">the R page</a> to learn more about installing a package to this folder and using it in a script.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>It is very important that you do <strong>not</strong> update any packages in this location unless absolutely necessary and proceed with extreme caution (especially if it is <code>tidyverse</code>!!!). Updating packages could break pipelines that rely on them.</p>

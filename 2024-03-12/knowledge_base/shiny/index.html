@@ -261,37 +261,37 @@ You must create an output in the <code>server</code> and then display that outpu
 
 # Define UI for application that draws a histogram
 ui &lt;- shiny::fluidPage(
-    # Application title
-    shiny::titlePanel(&quot;Old Faithful Geyser Data&quot;),
+        # Application title
+        shiny::titlePanel(&quot;Old Faithful Geyser Data&quot;),
 
-    # Sidebar with a slider input for number of bins 
-    shiny::sidebarLayout(
-        shiny::sidebarPanel(
-            shiny::sliderInput(&quot;bins&quot;,
-                        &quot;Number of bins:&quot;,
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
+        # Sidebar with a slider input for number of bins 
+        shiny::sidebarLayout(
+                shiny::sidebarPanel(
+                        shiny::sliderInput(&quot;bins&quot;,
+                                                &quot;Number of bins:&quot;,
+                                                min = 1,
+                                                max = 50,
+                                                value = 30)
+                ),
 
-        # Show a plot of the generated distribution
-        shiny::mainPanel(
-            shiny::plotOutput(&quot;distPlot&quot;)
+                # Show a plot of the generated distribution
+                shiny::mainPanel(
+                        shiny::plotOutput(&quot;distPlot&quot;)
+                )
         )
-    )
 )
 
 # Define server logic required to draw a histogram
 server &lt;- function(input, output) {
 
-    output$distPlot &lt;- shiny::renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    &lt;- faithful[, 2]
-        bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)
+        output$distPlot &lt;- shiny::renderPlot({
+                # generate bins based on input$bins from ui.R
+                x    &lt;- faithful[, 2]
+                bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)
 
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+                # draw the histogram with the specified number of bins
+                hist(x, breaks = bins, col = 'darkgray', border = 'white')
+        })
 }
 
 # Run the application 
