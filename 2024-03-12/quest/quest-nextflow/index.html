@@ -162,10 +162,7 @@
 <div class="toc">
 <ul>
 <li><a href="#nextflow">Nextflow</a></li>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#nextflow_versions">Nextflow versions</a></li>
-</ul>
-</li>
+<li><a href="#installation">Installation</a></li>
 <li><a href="#quest_cluster_configuration">Quest cluster configuration</a><ul>
 <li><a href="#global_configuration_nextflowconfig">Global Configuration: ~/.nextflow/config</a></li>
 </ul>
@@ -177,7 +174,7 @@
 <li><a href="#troubleshooting_remote_pipelines">Troubleshooting remote pipelines</a></li>
 </ul>
 </li>
-<li><a href="#running_nextflow_from_a_local_directory">Running Nextflow from a local directory</a></li>
+<li><a href="#running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version</a></li>
 <li><a href="#resume">Resume</a></li>
 <li><a href="#getting_an_email_or_text_when_complete">Getting an email or text when complete</a></li>
 </ul>
@@ -187,42 +184,17 @@
 </div>
 <p>Nextflow is an awesome program that allows you to write a computational pipeline by making it simpler to put together many different tasks, maybe even using different programming languages. Nextflow makes parallelism easy and works with SLURM to schedule jobs so you don't have to! Nextflow also supports docker containers and conda enviornments to streamline reproducible pipelines and can be easily adapted to run on different systems - including Google Cloud! Not convinced? Check out this <a href="https://www.nextflow.io/">intro</a>.</p>
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>Nextflow can be installed with two easy steps:</p>
-<pre><code># download with wget or curl
-wget -qO- https://get.nextflow.io | bash
-
-# or #
-
-curl -s https://get.nextflow.io | bash
-
-# make binary executable on your system
-chmod +x nextflow
-
-# Move nextflow to directory accessible by your $PATH to avoid having to type full path to nextflow each time
-# you can check your $PATH with:
-echo $PATH
-
-# it likely contains `/usr/local/bin` so you could move nextflow there
-mv nextflow /usr/local/bin/
-
-</code></pre>
-<h2 id="nextflow_versions">Nextflow versions<a class="headerlink" href="#nextflow_versions" title="Permanent link">&para;</a></h2>
-<p>You might also want to update nextflow or be able to run different versions. This can be done in several different ways</p>
+<p>There are two primary ways to get Nextflow on QUEST.</p>
 <ol>
-<li>Update Nextflow</li>
+<li>Load the pre-built module</li>
+<li>Load the pre-build conda environment</li>
 </ol>
-<pre><code>nextflow self-update
-</code></pre>
-<ol start="2">
-<li>Use a specific version of Nextflow</li>
-</ol>
-<pre><code>NXF_VER=20.04.0 nextflow run main.nf
-</code></pre>
-<ol start="3">
-<li>Use the <code>nf20</code> conda environment built for AndersenLab pipelines</li>
-</ol>
+<p>All of the lab Nextflow pipelines are currently written to work with Nextflow version 20 (legacy, pre-April 2024) or version 23. Version 20 is available as a conda environment:</p>
 <pre><code>module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<p>Nextflow version 23 is available as a module:</p>
+<pre><code>module load nextflow/23.10.1
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -232,10 +204,6 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you load this conda environment, it is not necessary to have Nextflow version 20 installed on your system -- you don't even need to have Nextflow installed at all! Because different versions might have updates that affect the running of Nextflow, it is important to keep track of the version of Nextflow you are using, as well as all software packages.</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Many of the Andersen Lab pipelines (if not all) are written with the new <code>DSL2</code> (see below) which requires Nextflow-v20.0+. Loading the <code>nf20</code> conda environment is a great way to run these pipelines</p>
 </div>
 <h1 id="quest_cluster_configuration">Quest cluster configuration<a class="headerlink" href="#quest_cluster_configuration" title="Permanent link">&para;</a></h1>
 <p>Configuration files allow you to define the way a pipeline is executed on Quest. </p>
@@ -325,11 +293,23 @@ nextflow run andersenlab/nemascan \
 <p class="admonition-title">Warning</p>
 </div>
 <p>You should always be careful when using <code>rm</code>, <em>especially</em> <code>rm -rf</code>. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.</p>
-<h2 id="running_nextflow_from_a_local_directory">Running Nextflow from a local directory<a class="headerlink" href="#running_nextflow_from_a_local_directory" title="Permanent link">&para;</a></h2>
-<p>Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will <strong>need</strong> to follow these steps.</p>
+<h2 id="running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version<a class="headerlink" href="#running_a_custom_nextflow_pipeline_version" title="Permanent link">&para;</a></h2>
+<p>If you need to run a custom version of a pipeline, there are two approached you can use.</p>
+<ol>
+<li>Clone the repo onto Quest and make local changes. Then run Nextflow from the local pipeline.</li>
+<li>Clone the repo onto your computer, create a new branch, and make changes to your new branch. Then push those changes and run Nextflow on your branch of the pipeline.</li>
+</ol>
+<p>You should <strong>NOT</strong> do the first, as this means that your analysis will not be reproducible the moment you delete that local repo, nor will it be available to other people. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.</p>
+<p>On your machine (or technically Quest if you want, but I recommend locally) where <your-branch> is whatever branch name you want:</p>
 <pre><code>git clone https://github.com/AndersenLab/NemaScan.git
 cd NemaScan
-nextflow run main.nf --debug
+git checkout -b &lt;your-branch&gt;
+##  Make your local changes ##
+git commit -a -m &quot;This is my branch!&quot; # or some more meaningful message
+git push --set-upstream origin &lt;your-branch&gt;
+</code></pre>
+<p>To run your custom pipeline on Quest:</p>
+<pre><code>nextflow run andersenlab/nemascan -r &lt;your-branch&gt; ... # plus whatever arguments and parameters are needed for this pipeline
 </code></pre>
 <h2 id="resume">Resume<a class="headerlink" href="#resume" title="Permanent link">&para;</a></h2>
 <p>Another great thing about Nextflow is that it caches all the processes that completed successfully, so if you have an error at the middle or end of your pipeline, you can re-run the same Nextflow command with <code>-resume</code> and it will start where it finished last time!</p>
@@ -352,7 +332,7 @@ nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
 nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
 </code></pre>
 <h1 id="writing_nextflow_pipelines">Writing Nextflow Pipelines<a class="headerlink" href="#writing_nextflow_pipelines" title="Permanent link">&para;</a></h1>
-<p>See <a href="writing-nextflow.md">this page</a> for tips on how to get started with your own nextflow pipeline.</p>
+<p>See <a href="../../other/writing-nextflow/">this page</a> for tips on how to get started with your own nextflow pipeline.</p>
 <p>Also check out the <a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a> for help getting started!</p>
               
             </div>

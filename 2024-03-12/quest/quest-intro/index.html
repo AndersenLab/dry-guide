@@ -196,11 +196,11 @@
 </li>
 </ul>
 </div>
-<p>The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:</p>
+<p>The Andersen Lab makes use of Quest, the supercomputer at Northwestern, although it has almost fully transitioned to Johns Hopkins' <a href="../../rockfish/rf-intro/">Rockfish</a>. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:</p>
 <p><strong><a href="http://www.it.northwestern.edu/research/user-services/quest/index.html">Quest Documentation</a></strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>New to the command line? Check out the <a href="bash.md">quick and dirty bash intro</a> or <a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">this introduction</a> first!</p>
+<p>New to the command line? Check out the <a href="../../knowledge_base/bash/">quick and dirty bash intro</a> or <a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">this introduction</a> first!</p>
 </div>
 <h2 id="new_users">New Users<a class="headerlink" href="#new_users" title="Permanent link">&para;</a></h2>
 <p>To gain access to Quest: </p>
@@ -221,14 +221,14 @@ Allocation manager: Janna Nugent, <code>janna.nugent@northwestern.edu</code></p>
 <p>The above line makes it so you simply type <code>quest</code> and the login process is initiated. </p>
 <p>If you are not familiar with what a bash profile is, <a href="https://www.quora.com/What-is-bash_profile-and-what-is-its-use">take a look at this</a>.</p>
 <div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).</p>
+<p class="admonition-title">Important<p>When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).</p>
+</p>
 </div>
 <h2 id="login_nodes">Login Nodes<a class="headerlink" href="#login_nodes" title="Permanent link">&para;</a></h2>
 <p>There are four login nodes we use: quser21-24. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (<em>e.g.</em> <code>ssh quser21</code>).</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When using <a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/">screen</a> to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.</p>
+<p class="admonition-title">Warning<p>When using <a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/">screen</a> to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those screen sessions.</p>
+</p>
 </div>
 <h2 id="home_directory">Home Directory<a class="headerlink" href="#home_directory" title="Permanent link">&para;</a></h2>
 <p>Logging in places you in your home directory. You can install software in your home directory for use when you run jobs, or for small files/analysis.</p>
@@ -242,8 +242,8 @@ Allocation manager: Janna Nugent, <code>janna.nugent@northwestern.edu</code></p>
 <p><strong>b1042</strong> - The 'Genomics' Project has 200 Tb of space and 100 nodes associated with it. This space is shared with other labs and is designed for temporary use only (covered in greater detail in the Nextflow Section). The space is available at <code>/projects/b1042/AndersenLab/</code>. By default, files are deleted after 30 days. One can submit jobs to <code>--partition=genomicsguestA</code> to use this partition, with a max job duration of 48hr. </p>
 <p><strong>b1059</strong> - The Andersen Lab Project. <strong>b1059</strong> has 5 computing nodes <code>qnode9031</code>-<code>qnode9033</code> (192Gb of RAM and 40 cores eacy) and <code>qnode0277</code>-<code>qnode0278</code> (192Gb of RAM and 52 cores each), and has 77 Tb of storage. b1059 storage is located at: <code>/projects/b1059/</code> (Check out <a href="../b1059/">this page</a> to learn more about how data is stored on <code>b1059</code>). One can submit jobs to <code>--partition=b1059</code> to use this partition, with no limit on job duration. </p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Anyone who uses quest should build your own project folder under <code>/projects/b1059/projects</code> with your name. You should only write and revise files under your project folder. You can read/copy data from <strong>b1059</strong> but don't write any data out of your project folder.</p>
+<p class="admonition-title">Note<p>Anyone who uses quest should build your own project folder under <code>/projects/b1059/projects</code> with your name. You should only write and revise files under your project folder. You can read/copy data from <strong>b1059</strong> but don't write any data out of your project folder.</p>
+</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -254,8 +254,8 @@ Allocation manager: Janna Nugent, <code>janna.nugent@northwestern.edu</code></p>
 <pre><code>srun -A b1042 --partition=genomicsguestA -N 1 -n 24 --mem=64G --time=12:00:00 --pty bash -i 
 </code></pre>
 <div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Do not run commands for big data on <code>quser21-24</code>. These are login nodes and are not meant for running heavy-load workflows.</p>
+<p class="admonition-title">Important<p>Do not run commands for big data on <code>quser21-24</code>. These are login nodes and are not meant for running heavy-load workflows.</p>
+</p>
 </div>
 <h2 id="using_screen_or_nohup_to_keep_jobs_from_timing_out">Using <code>screen</code> or <code>nohup</code> to keep jobs from timing out<a class="headerlink" href="#using_screen_or_nohup_to_keep_jobs_from_timing_out" title="Permanent link">&para;</a></h2>
 <p>If you have ever tried to run a pipeline or script that takes a long time (think <code>NemaScan</code>), you know that if you close down your terminal or if your QUEST session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:</p>

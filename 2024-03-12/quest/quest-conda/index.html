@@ -182,7 +182,7 @@
 </ul>
 </div>
 <h2 id="why_conda">Why Conda<a class="headerlink" href="#why_conda" title="Permanent link">&para;</a></h2>
-<p><strong>Computational Reproducibility</strong> is the ability to reproduce an analysis exactly. In order for computational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub (for help, see the <a href="github.md">Github page</a>). Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.</p>
+<p><strong>Computational Reproducibility</strong> is the ability to reproduce an analysis exactly. In order for computational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub (for help, see the <a href="../../knowledge_base/github/">Github page</a>). Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.</p>
 <p>To track software, package and environment managers such as Conda and Docker are very useful. Conda works similarly to <a href="https://brew.sh/">brew</a> or pyenv<a href="https://github.com/pyenv/pyenv">pyenv</a> that were used in the legacy Andersen-Lab-Env. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -192,15 +192,15 @@
 <p>Anaconda is a Python distribution that contains many packages including conda. Miniconda is a more compact version of Anaconda that also includes conda. So in order to install conda, we usually either install Miniconda or Anaconda. On Quest, Anaconda is already installed. However there are many versions of Anaconda, each can have a different version of Python and Conda. The current lab environments mainly used <code>module load python/anaconda3.6</code> (See <strong>Notes</strong> below for more info).</p>
 <p>In your home directory <code>~/</code>, create a file called <code>.condarc</code> and put the following lines into it. It sets the channel priority when conda searches for packages. If possible, in one environment it is good to use packages from the same channel. </p>
 <pre><code>channels:
-  - conda-forge
-  - bioconda
-  - defaults
+    - conda-forge
+    - bioconda
+    - defaults
 
 auto_activate_base: false
 
 envs_dirs:
-  - ~/.conda/envs/
-  - /projects/b1059/software/conda_envs/
+    - ~/.conda/envs/
+    - /projects/b1059/software/conda_envs/
 </code></pre>
 <h2 id="using_conda">Using Conda<a class="headerlink" href="#using_conda" title="Permanent link">&para;</a></h2>
 <p><strong><a href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">Conda Documentation</a></strong></p>
@@ -233,22 +233,22 @@ conda install bcftools
 <p>When running Nextflow, conda environments can be specified as part of a process or in the <code>nextflow.config</code> file to apply to the entire pipeline (check out the <a href="https://www.nextflow.io/docs/latest/conda.html">documentation</a>):</p>
 <p><strong>Conda within a process:</strong></p>
 <pre><code>process foo {
-  conda '/projects/b1059/software/conda_envs/cegwas2-nf_env'
+    conda '/projects/b1059/software/conda_envs/cegwas2-nf_env'
 
-  '''
-  your_command --here
-  '''
+    '''
+    your_command --here
+    '''
 }
 </code></pre>
 <p><strong>Conda for the entire pipeline:</strong></p>
 <pre><code>// in the nextflow.config file:
 conda { 
-    conda.enabled = true 
-    conda.cacheDir = &quot;.env&quot;  
+        conda.enabled = true 
+        conda.cacheDir = &quot;.env&quot;  
 }
 
 process {
-    conda = &quot;/projects/b1059/software/conda_envs/cegwas2-nf_env&quot;
+        conda = &quot;/projects/b1059/software/conda_envs/cegwas2-nf_env&quot;
 }
 </code></pre>
 <h2 id="notes_on_conda_versions_on_quest">Notes on conda versions on Quest<a class="headerlink" href="#notes_on_conda_versions_on_quest" title="Permanent link">&para;</a></h2>
