@@ -4,7 +4,7 @@
 
 ## Introduction
 
-[Git](https://git-scm.com/) is a version control software package similar to traccked changes and saving documents as "final1.pdf" and "final2.pdf"
+[Git](https://git-scm.com/) is a version control software package similar to tracked changes and saving documents as "final1.pdf" and "final2.pdf"
 
 ![git intro](img/git_intro.png)
 
@@ -17,9 +17,9 @@
 
 ## Using Git and Github
 
-The Andersen Lab Github can be found [here](https://github.com/AndersenLab). As of the writing of this page, we have 165 "repositories" (or projects). Notice some projects are code like `NemaScan` and others are personal projects (`abamectin`) or manuscripts (`mol_eco_manuscript`). Anything can be a repo!
+The Andersen Lab Github can be found [here](https://github.com/AndersenLab). As of the writing of this page, we have 236 "repositories" (or projects). Notice some projects are code like `NemaScan` and others are personal projects (`abamectin`) or manuscripts (`mol_eco_manuscript`). Anything can be a repo!
 
-There are two main ways to use Git: (1) on the command line (aka Terminal on Macs) or with a GUI (graphical user interface). Both are good and neither are "wrong". For new users, it is usually easier to start with a GUI like [Github Desktop](https://desktop.github.com/). However, only a few basic commands are really necessary to get started using git on the command line, so don't be nervous!
+There are two main ways to use Git: (1) on the command line (aka Terminal on Macs) or with a GUI (graphical user interface). While for new users it is usually easier to start with a GUI like [Github Desktop](https://desktop.github.com/), it can cause headaches later on. However, only a few basic commands are really necessary to get started using git on the command line, so don't be nervous!
 
 !!! Important
 	Git GUI like Github Desktop **cannot** be used with repositories on QUEST. If you are building a pipeline on QUEST, it is essential to get comfortable with using Git on the command line
@@ -95,6 +95,8 @@ git push
 git push --set-upstream origin new_branch
 
 ```
+
+It's possible that you will get an error when trying to push due to someone else having made changes to the repo since you last pulled from it. To fix this, simply do a `git pull`. With any luck, there won't be any conflicts between your changes and the changes you just pulled. If that's the case, go ahead and `git push`. If there are conflicts, you will need to edit the conflicting files, save them, and commit them. Then push. Conflicts are marked by `<<<<<<<<` and `>>>>>>>>` marking the remote version of the code and your version.
 
 ### 6. Pull request
 

@@ -1,17 +1,17 @@
 ## Andersen Lab Coding Best Practices
 
-These best practices are just a few of the important coding tips and tricks for reproducible research. If you have more ideas, contact Katie!
+These best practices are just a few of the important coding tips and tricks for reproducible research. If you have more ideas, contact Mike!
 
 ### General
 
-* You should be doing most (if not all) of your analyses in `~/Dropbox/AndersenLab/LabFolders/YourName` (except for QUEST or Rockfish, see below)
+* You should be doing most (if not all) of your analyses in `/Volumes/vast/projects/YourName` (this requires having mapped VAST to your computer. See [](knowledge_base/vast.md) for instructions)
 	* This is (1) to make sure the data is backed up/saved with version history and (2) to allow other lab members to access your code/scripts when necessary
-* Do **NOT** use spaces in names of files or folders. Try not to use spaces in column names too (although sometimes it is necessary for a final table output)
+* Do **NOT** use spaces, quotation marks, or brackets in names of files or folders. Try not to use these characters in column names either (although sometimes it is necessary for a final table output)
 	* Computers often have a hard time reading spaces and code used to ignore spaces can vary from program to program
 	* Instead, you can use `_` or `.` or `-` or capitalization (`fileName.txt`)
 * **NEVER** replace raw data!!!!!
-	* You should save your raw data in the rawest format, write a script to analyze it, then if you wish, save the processed data for further use. This is important because it always allows you to go back to the original raw data in case something happens
-	* Some suggested project folder structure might look like something below:
+	* You should save your raw data in the rawest format, write a script to analyze it then if you wish, save the processed data for further use. This is important because it always allows you to go back to the original raw data in case something happens
+	* Some suggested project folder structures might look like something below:
 ![directory_structure](img/directory_structure.png)
 * Include a `README.md` (or `README.txt`) file in each project folder to explain where the data and scripts can be found for certain analyses. Trust me, after a few years you will definitely forget…
 	* And don’t forget to update the `README` regularly, an old `README` doesn’t do anyone good!
@@ -54,4 +54,14 @@ These best practices are just a few of the important coding tips and tricks for 
 
 ### Python
 
-[ Needs filling in from someone who uses python :) ]
+* **ALWAYS** indent using spaces. Mixing spaces and tabs will case your script to fail
+* Use clear and descriptive variable names
+	* The names should help someone reading the code track the logic of the coder
+	* Only use alphanumeric characters or underscores
+	* Never start a name with a number
+* Comment as much as you can to help others (and future you) understand what each part of the code is for
+* Make logical blocks of code into functions
+	* This helps with interpretation
+	* Anything that is done more than once should be a function
+* Try to follow [PEP8](https://peps.python.org/pep-0008/) style rules
+

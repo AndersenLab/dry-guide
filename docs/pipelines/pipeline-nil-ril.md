@@ -76,7 +76,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 
 ## Profiles and Running the Pipeline
 
-*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest/quest-nextflow.md) page.*
 
 
 The `nextflow.config` file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
@@ -354,5 +354,5 @@ After the run is complete and you are satisfied with the results, follow these s
 
 If your sequencing was N2-CB4856 NILs (and maybe other *C. elegans* NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.
 
-Check out [this page](adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
+Check out [this page](pipelines/adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
 

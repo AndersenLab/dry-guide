@@ -19,13 +19,6 @@ If you are looking for some help getting started with R or taking your R to the 
 
 The Andersen lab maintains several R packages useful for high-throughput data analysis.
 
-### cegwas2
-
-This package contains a set of functions to process phenotype data, perform GWAS, and perform post-mapping data processing for *C. elegans*. In 2019, the `cegwas2-nf` Nextflow pipeline was developed to perform GWA mapping on QUEST using this cegwas2 R package. However, mapping is rarely if never done with cegwas2 in R manually. To learn more about the `cegwas2` R package, see the [andersenlab/cegwas2](https://github.com/andersenlab/cegwas2) repo. For help running a GWA mapping using cegwas2, see [cegwas2-nf](https://github.com/andersenlab/cegwas2-nf) or [the dry guide](pipeline-cegwas.md)
-
-!!! Note
-	`cegwas2` was preceeded by `cegwas` and is now (as of 2021) superceeded by [`NemaScan`](https://github.com/AndersenLab/NemaScan)
-
 ### linkagemapping
 
 This package includes all data and functions necessary to complete a mapping for the phenotype of your choice using the recombinant inbred lines from [Andersen, et al. 2015 (G3)](https://academic.oup.com/g3journal/article/5/5/911/6025542). Included with this package are the cross and map objects for this strain set as well a markers.rds file containing a lookup table for the physical positions of all markers used for mapping. To learn more about linkagemapping including how to install and use the package, check out the [andersenlab/linkagemapping](https://github.com/andersenlab/linkagemapping) repo.
@@ -69,7 +62,7 @@ Unfortunately, R doesn't seem to work very well with conda environments, and mak
 
 * __Docker container using Singularity__ - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Rockfish or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions. In order to use this option on Rockfish, you need to load the Singularity module (`module load singularity/3.8.7`)
 
-* __Library Paths__ - For several recent pipelines on Quest, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. 
+* __Library Paths__ - For several recent pipelines on Rockfish, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. 
 
 ```
 # to manually install a package to this specific folder
@@ -94,7 +87,7 @@ library(tidyverse) # works
 
 # you can add the following lines to a nextflow script to use these R packages
 # set a parameter for R library path in case it updates in the future
-params.R_libpath = "/eande106/software/R_lib_3.6.0"
+params.R_libpath = "/data/eande106/software/R_lib_3.6.0"
 
 # add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
 echo ".libPaths(c(\\"${params.R_libpath}\\", .libPaths() ))" | cat - ${workflow.projectDir}/bin/Script.R > Script.R

@@ -4,18 +4,18 @@
 
 ## Introduction
 
-The Andersen Lab makes use of Quest, the supercomputer at Northwestern. Take some time to read over the overview of what Quest is, what it does, how to use it, and how to sign up:
+The Andersen Lab makes use of Rockfish, the computer cluster Johns Hopkins, a part of MARCC. Take some time to read over the overview of what Rockfish is, what it does, how to use it, and how to sign up:
 
 __[Rockfish Documentation](https://www.arch.jhu.edu/guide)__
 
 !!! Note
-	New to the command line? Check out the [quick and dirty bash intro](bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
+	New to the command line? Check out the [quick and dirty bash intro](knowledge_base/bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
 
 ## New Users
 
 To gain access to Rockfish: 
 
-Register new user by requesting allocation and security group access to Erik.
+Register new user by requesting allocation and security group access to eande106.
 		
 ## Signing into Rockfish
 
@@ -45,7 +45,7 @@ If you are not familiar with what a bash profile is, [take a look at this](https
 There are three login nodes we use: login01-03. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh login03`).
 
 !!! Warning
-    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
+    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) or tmux to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
 
 ## Home Directory
 
@@ -61,6 +61,12 @@ You can also check your storgae space using the following command:
 
 ```
 du -hs *
+```
+
+You should also add the group's Singularity cache to your Rockfish `~/.bash_profile`:
+
+```
+export singularity_cachedir=/vast/eande106/singularity
 ```
 
 More information is provided below to help install and use software.
@@ -85,7 +91,7 @@ Rockfish has several partitions/queues where you can submit jobs. They have diff
     The Allocation defines the user group access to these partitions. Currently the Andersen lab allocation (eande106) has access to `express`, `shared`, and `parallel`. We are working on expanding our allocation to the GPU and `bigmem` partitions. For most jobs, the currently available paritions ar
 
 !!! Note
-    Anyone who uses quest should build your own project folder under `/home/<jheid>/vast/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __VAST__ but don't write any data out of your project folder. See the Storage section for more information.
+    Anyone who uses Rockfish should build your own project folder under `/home/<jheid>/vast-eande106/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __VAST__ but don't write any data out of your project folder. See the Storage section for more information.
 
 !!! Important
 	It is important that we keep the 120 Tb of storage space on **VAST** from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months. You can check the percent of space remaining with `quotas.py`
@@ -102,7 +108,7 @@ Where `-n` is the number of nodes, `-c` is the number of cores, `-a` is the allo
 !!! Important
     Do not run commands for big data directly on `login01-03`. These are login nodes and are not meant for running heavy-load workflows. Either open an interact session, or submit a job.
 
-## Using `screen` or `nohup` to keep jobs from timing out
+## Using `screen`, `tmux`, or `nohup` to keep jobs from timing out
 
 If you have ever tried to run a pipeline or script that takes a long time (think `NemaScan`), you know that if you close down your terminal or if your Rockfish session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:
 
@@ -110,14 +116,27 @@ If you have ever tried to run a pipeline or script that takes a long time (think
 
 Perhaps the most common way to deal with scripts that run for a long time is [`screen`](https://linuxize.com/post/how-to-use-linux-screen/). For the most simple case use, type `screen` to open a new screen session and then run your script like normal. Below are some more intermediate commands for taking full advantage of `screen`:
 
-* `screen -S <some_descriptive_name>`: Use this command to name your screen session. Especially useful if you have several scren sessions running and/or want to get back to this particular one later.
-* `Ctrl+a` follwed by `Ctrl+d` to detach from the current screen session (NOT `Ctrl+a+d`!)
+* `screen -S <some_descriptive_name>`: Use this command to name your screen session. Especially useful if you have several screen sessions running and/or want to get back to this particular one later.
+* `Ctrl+a` followed by `d` to detach from the current screen session (NOT `Ctrl+a+d`!)
 * `exit` to end the current screen session
 * `screen -ls` lists the IDs of all screen sessions currently running 
 * `screen -r <screen_id>`: Use this command to resume a particular screen session. If you only have one session running you can simply use `screen -r`
 
 !!! Important
 	When using `screen` on Rockfish, take note that screen sessions are only visible/available when you are logged on to the particular node it was created on. You can jump between nodes by simply typing ssh and the login node you want (_e.g._ `ssh login02`). 
+
+**tmux**
+
+`tmux` is another way to deal with scripts that run for a long time. For the most simple case use, type `tmux` to open a new tmux session and then run your script like normal. Below are some more intermediate commands for taking full advantage of `tmux`:
+
+* `tmux new -s <some_descriptive_name>`: Use this command to name your tmux session. Especially useful if you have several tmux sessions running and/or want to get back to this particular one later.
+* `Ctrl+b` followed by `d` to detach from the current tmux session (NOT `Ctrl+b+d`!)
+* `exit` to end the current tmux session
+* `tmux ls` lists the IDs of all tmux sessions currently running 
+* `tmux attach -t <session_id>`: Use this command to resume a particular tmux session. If you only have one session running you can simply use `tmux a`
+
+!!! Important
+	When using `tmux` on Rockfish, take note that tmux sessions are only visible/available when you are logged on to the particular node it was created on. You can jump between nodes by simply typing ssh and the login node you want (_e.g._ `ssh login02`). 
 
 **nohup**
 
