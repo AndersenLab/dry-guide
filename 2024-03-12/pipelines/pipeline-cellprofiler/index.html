@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Image Analysis - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Image Analysis";
+        var mkdocs_page_input_path = "pipelines/pipeline-cellprofiler.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Image Analysis</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#implemented_using_cellprofiler">Implemented using CellProfiler</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cellprofiler_directory_structure_with_example_files">CellProfiler Directory Structure (With Example Files)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#to_recreate_cellprofiler_cp_on_quest">To recreate CellProfiler (CP) on QUEST:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#to_execute_the_cp_pipeline_on_quest">To execute the CP pipeline on QUEST:</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#full_instructions_here">Full instructions here:</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../other/cendr.md">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Other pipelines</li>
+      <li class="breadcrumb-item active">Image Analysis</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipelines/pipeline-cellprofiler.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="andersen_lab_image_analysis_pipeline">Andersen Lab Image Analysis Pipeline<a class="headerlink" href="#andersen_lab_image_analysis_pipeline" title="Permanent link">&para;</a></h1>
+<h2 id="implemented_using_cellprofiler">Implemented using CellProfiler<a class="headerlink" href="#implemented_using_cellprofiler" title="Permanent link">&para;</a></h2>
+<h3 id="cellprofiler_directory_structure_with_example_files">CellProfiler Directory Structure (With Example Files)<a class="headerlink" href="#cellprofiler_directory_structure_with_example_files" title="Permanent link">&para;</a></h3>
+<pre><code>CellProfiler
+  ├── batch_files
+      ├── 20191119_example_batch_20201018.h5
+  ├── metadata
+      ├── 20191119_example_metadata_20201018.csv
+  ├── pipelines
+      ├── 20191119_example.cpproj
+      ├── sample_pipelines
+  ├── projects
+      ├── 20191119_example
+        ├── raw_images
+        ├── output_data
+            ├── 20191119_example_data_1603047856
+                ├── CellProfiler-Analysis_20191119_example_data_1603047856run1
+                ├── Logs
+                ├── ProcessedImages
+                ├── OverlappingWorms_Data
+                ├── NonOverlappingWorms_Data
+  ├── scripts
+      ├── generate_metadata.R
+      ├── run_cellprofiler.sh
+      ├── cellprofiler_parallel.sh
+      ├── check_run_cellprofiler.sh
+      ├── aggregate_cellprofiler_results.R
+  ├── well_masks
+      ├── wellmask_98.png
+  ├── worm_models
+      ├── Adult_N2_HB101_100w.xml
+      ├── L1_N2_HB101_100w.xml
+      ├── L2L3_N2_HB101_100w.xml
+      ├── L4_N2_HB101_100w.xml
+      ├── WM_FBZ_control.xml
+      ├── WM_FBZ_dose.xml
+      ├── high_dose_worm_model.xml
+</code></pre>
+<h3 id="to_recreate_cellprofiler_cp_on_quest">To recreate CellProfiler (CP) on QUEST:<a class="headerlink" href="#to_recreate_cellprofiler_cp_on_quest" title="Permanent link">&para;</a></h3>
+<p>1) Navigate to the directory where you wish to clone CP:</p>
+<pre><code>ssh -X user@quest.it.northwestern.edu
+cd [desired directory]
+</code></pre>
+<p>2) Clone CP repository</p>
+<pre><code>git clone https://github.com/AndersenLab/CellProfiler.git
+</code></pre>
+<p>3) Download CP Docker images and convert to Singularity images within CP directory:</p>
+<pre><code>cd CellProfiler
+module load singularity
+singularity pull docker://cellprofiler/cellprofiler:3.1.9
+singularity pull docker://cellprofiler/cellprofiler:4.0.3
+</code></pre>
+<h3 id="to_execute_the_cp_pipeline_on_quest">To execute the CP pipeline on QUEST:<a class="headerlink" href="#to_execute_the_cp_pipeline_on_quest" title="Permanent link">&para;</a></h3>
+<h4 id="full_instructions_here">Full instructions <a href="https://docs.google.com/document/d/1IfnxFeNoG0JehJquMV_DorH5KpUsRJAg2OYdpBFppcM/edit">here</a>:<a class="headerlink" href="#full_instructions_here" title="Permanent link">&para;</a></h4>
+<p>1) Navigate to the CP Directory:</p>
+<pre><code>cd CellProfiler
+</code></pre>
+<p>2) Generate metadata CP file:</p>
+<pre><code>Rscript scripts/generate_metadata.R 20191119_example
+</code></pre>
+<p>3) Download metadata file and create CellProfiler pipeline <em>locally</em>. 
+4) Upload properly named batch file and CellProfiler pipeline to appropriate QUEST directories. (see file structure above)
+5) Collect measurements using CellProfiler:</p>
+<pre><code>bash scripts/run_cellprofiler.sh projects/20191119_example batch_files/20191119_example_batch_[date].h5
+bash scripts/check_run_cellprofiler.sh projects/20191119_example batch_files/20191119_example_batch_[date].h5 [timestamp]
+</code></pre>
+<p>6) Aggregate measurement data:</p>
+<pre><code>Rscript scripts/aggregate_cellprofiler_results.R 20191119_example_data_[timestamp] 20191119_example_metadata_[date].csv [output_info]
+</code></pre>
+<p>At this point, a summarized .RData file will be available for download, containing measurement outputs corresponding to each worm model used in the pipeline:</p>
+<pre><code>CellProfiler
+  ├── projects
+      ├── 20191119_example
+        ├── raw_images
+        ├── output_data
+            ├── 20191119_example_summary_data
+                ├── CellProfiler-Analysis_20191119_example_data_[output_info]_[timestamp].RData
+                ├── Logs
+                ├── ProcessedImages
+                ├── OverlappingWorms_Data
+                ├── NonOverlappingWorms_Data
+</code></pre>
+<p>These data can be analyzed using the <a href="https://github.com/AndersenLab/easyXpress">R/easyXpress</a> package </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipeline-nemascan/" class="btn btn-neutral float-left" title="NemaScan"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline-nil-ril/" class="btn btn-neutral float-right" title="nil-ril-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-nemascan/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-nil-ril/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

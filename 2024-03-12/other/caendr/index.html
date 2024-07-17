@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>CeNDR - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CeNDR";
+        var mkdocs_page_input_path = "other/caendr.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../cendr.md">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CeNDR</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/other/caendr.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="cendr">CeNDR<a class="headerlink" href="#cendr" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#cendr">CeNDR</a><ul>
+<li><a href="#cendr_user_privileges">CeNDR User privileges</a></li>
+<li><a href="#updating_staffcollaboratorcommittee_profiles">Updating Staff/Collaborator/Committee Profiles</a></li>
+<li><a href="#updating_publications">Updating Publications</a></li>
+<li><a href="#updating_site_tools">Updating Site Tools</a></li>
+<li><a href="#creating_a_new_release">Creating a new release</a><ul>
+<li><a href="#uploading_bams_to_google_storage">Uploading BAMs to Google Storage</a></li>
+<li><a href="#adding_isotype_images">Adding isotype images</a></li>
+<li><a href="#uploading_release_data_to_google_storage">Uploading Release Data to Google Storage</a></li>
+<li><a href="#adding_the_release_to_the_cendr_website">Adding the release to the CeNDR website</a></li>
+</ul>
+</li>
+<li><a href="#adding_strain_variant_annotation_data">Adding Strain Variant Annotation Data</a></li>
+<li><a href="#google_storage_details">Google Storage Details</a><ul>
+<li><a href="#caendr-photos-bucket">caendr-photos-bucket</a></li>
+<li><a href="#caendr-db-bucket">caendr-db-bucket</a></li>
+<li><a href="#caendr-main-terraform-state">caendr-main-terraform-state</a></li>
+<li><a href="#caendr-nextflow-work-bucket">caendr-nextflow-work-bucket</a></li>
+<li><a href="#caendr-site-private-bucket">caendr-site-private-bucket</a></li>
+<li><a href="#caendr-site-public-bucket">caendr-site-public-bucket</a></li>
+<li><a href="#caendr-site-static-bucket">caendr-site-static-bucket</a></li>
+<li><a href="#caendr-src-bucket">caendr-src-bucket</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="cendr_user_privileges">CeNDR User privileges<a class="headerlink" href="#cendr_user_privileges" title="Permanent link">&para;</a></h2>
+<p>To view, modify, or edit a user account, navigate to the 'Admin -&gt; Users' menu. You can promote existing users to 'Admin' through this form as well.</p>
+<h2 id="updating_staffcollaboratorcommittee_profiles">Updating Staff/Collaborator/Committee Profiles<a class="headerlink" href="#updating_staffcollaboratorcommittee_profiles" title="Permanent link">&para;</a></h2>
+<p>To modify the personal profiles of individuals associated with the project on the 'Staff', 'Scientific Advisory Committee', and 'Collaborators' pages:</p>
+<ul>
+<li>Admin -&gt; Profile Pages</li>
+</ul>
+<p>From there you can create, modify, or delete user profiles and select on which page the profile should be published.</p>
+<h2 id="updating_publications">Updating Publications<a class="headerlink" href="#updating_publications" title="Permanent link">&para;</a></h2>
+<p>The publications page (<code>/about/publications</code>) is generated using a google spreadsheet. The spreadsheet can be accessed <a href="https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit">here</a> or through the 'Admin' menu. You can request access to edit the spreadsheet by visiting that link.</p>
+<p>The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.</p>
+<p>Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.</p>
+<p>Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.</p>
+<h2 id="updating_site_tools">Updating Site Tools<a class="headerlink" href="#updating_site_tools" title="Permanent link">&para;</a></h2>
+<p>To change the version of the container that CeNDR uses for a tool:</p>
+<ul>
+<li>Admin -&gt; Tool Versions</li>
+</ul>
+<p>The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CeNDR uses for all future operations.</p>
+<h2 id="creating_a_new_release">Creating a new release<a class="headerlink" href="#creating_a_new_release" title="Permanent link">&para;</a></h2>
+<p>Before a new release is possible, you must have first completed the following tasks:</p>
+<p><strong>See <a href="pipeline-overview.md">Pipeline Overview</a> for details</strong>.</p>
+<ol>
+<li>Add new wild isolate sequence data, and process with the <a href="pipeline-trimming.md">trim-fq-nf</a> pipeline.</li>
+<li>Align reads with <a href="pipeline-alignment.md">alignment-nf</a>.</li>
+<li>Call variants with <a href="pipeline-wiGATK.md">wi-gatk</a>.</li>
+<li>Identify new isotypes using the <a href="pipeline-concordance.md">concordance-nf</a>.</li>
+<li>Update the <em>C. elegans</em> WI Strain Info <a href="https://docs.google.com/spreadsheets/u/1/d/10x-CcKNCl80F9hMcrGWC4fhP_cbekSzi5_IYBY2UqCc/edit?usp=drive_web&amp;ouid=113810443554564955854">spreadsheet</a> with the new isotypes and update the release column to reflect the release date.</li>
+<li>Perform population genetic analysis with <a href="pipeline-postGATK.md">post-gatk-nf</a>.</li>
+<li><a href="pipeline-impute.md">Impute</a> the VCF.</li>
+<li>Annotate the VCF with the <a href="pipeline-annotation-nf.md">annotation-nf</a> pipeline.</li>
+</ol>
+<p>Pushing a new release requires a series of steps described below.</p>
+<h3 id="uploading_bams_to_google_storage">Uploading BAMs to Google Storage<a class="headerlink" href="#uploading_bams_to_google_storage" title="Permanent link">&para;</a></h3>
+<p>You will need Google Cloud credentials to upload BAMs to Google Storage.</p>
+<p>Install the <a href="https://cloud.google.com/sdk/docs/install">Google Cloud SDK</a> and configure with your GCP credentials and the <code>caendr</code> project ID.</p>
+<pre><code class="language-bash">gcloud init 
+</code></pre>
+<p>Once configured, navigate to the BAM location on b1059.</p>
+<pre><code class="language-bash"># CD to bams folder...
+cd /projects/b1059/data/c_elegans/WI/alignments/
+</code></pre>
+<p>Run this command in screen to ensure that it completes (it's going to take a while)</p>
+<pre><code>gsutil rsync . gs://caendr-site-private-bucket/bam/c_elegans/
+</code></pre>
+<h3 id="adding_isotype_images">Adding isotype images<a class="headerlink" href="#adding_isotype_images" title="Permanent link">&para;</a></h3>
+<p>Isolation photos are initially prepared on dropbox and are located in the folder here:</p>
+<pre><code class="language-bash">~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
+</code></pre>
+<p>Each file should be named using the isotype name and the strain name strain name in the following format:</p>
+<pre><code class="language-bash">&lt;strain&gt;.jpg
+</code></pre>
+<p>Upload the image files to Google Storage. Thumbnails for the images will be automatically generated by a cloud function that monitors the photos bucket.
+Images should be uploaded to:</p>
+<pre><code class="language-bash">gs://caendr-photos-bucket/c_elegans
+</code></pre>
+<p>You can drag/drop the photos using the web-based browser or use <strong>gsutil</strong>:</p>
+<pre><code class="language-bash"># First cd to the appropriate directory
+cd ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
+
+gsutil rsync -x &quot;.DS_Store&quot; . gs://caendr-photos-bucket/c_elegans
+</code></pre>
+<h3 id="uploading_release_data_to_google_storage">Uploading Release Data to Google Storage<a class="headerlink" href="#uploading_release_data_to_google_storage" title="Permanent link">&para;</a></h3>
+<p>When you run the <code>wi-gatk</code> pipeline it will create a folder with the format <code>WI-YYYYMMDD</code>. These data are output in a format that CeNDR can read as a release. You must upload the <code>WI-YYYYMMDD</code> folder to google storage with a command that looks like this:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Data from several different pipelines are combined to form a CeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. </p>
+</div>
+<pre><code class="language-bash"># first cd into the folder you want to upload
+gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20210121/
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Use rsync to copy the files up to google storage. Note that the <code>WI-</code> prefix has been dropped from the <code>YYYYMMDD</code> declaration.</p>
+</div>
+<p>There are 2 different expected filename and directory structures for dataset releases, V1 (the legacy format) and V2 (the current format).
+You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CeNDR.
+Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20210121</p>
+<p>V2 Structure:</p>
+<ul>
+<li>[RELEASE_VERSION]/alignment_report.html</li>
+<li>[RELEASE_VERSION]/concordance_report.html</li>
+<li>[RELEASE_VERSION]/divergent_regions_strain.[RELEASE_VERSION].bed</li>
+<li>[RELEASE_VERSION]/divergent_regions_all.[RELEASE_VERSION].bed</li>
+<li>[RELEASE_VERSION]/gatk_report.html</li>
+<li>[RELEASE_VERSION]/haplotype/haplotype.png</li>
+<li>[RELEASE_VERSION]/haplotype/haplotype.pdf</li>
+<li>[RELEASE_VERSION]/haplotype/sweep.pdf</li>
+<li>[RELEASE_VERSION]/haplotype/sweep_summary.tsv</li>
+<li>[RELEASE_VERSION]/methods.md</li>
+<li>[RELEASE_VERSION]/release_notes.md</li>
+<li>[RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.min4.tree</li>
+<li>[RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.min4.tree.pdf</li>
+<li>[RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.isotype.min4.tree</li>
+<li>[RELEASE_VERSION]/tree/WI.[RELEASE_VERSION].hard-filter.isotype.min4.tree.pdf</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz.tbi</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.isotype.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.isotype.vcf.gz.tbi</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz.tbi</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.isotype.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.isotype.vcf.gz.tbi</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.isotype.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.isotype.vcf.gz.tbi</li>
+</ul>
+<p>V1 Structure:</p>
+<ul>
+<li>[RELEASE_VERSION]/methods.md</li>
+<li>[RELEASE_VERSION]/haplotype/haplotype.png</li>
+<li>[RELEASE_VERSION]/haplotype/haplotype.thumb.png</li>
+<li>[RELEASE_VERSION]/popgen/tajima_d.png</li>
+<li>[RELEASE_VERSION]/popgen/tajima_d.thumb.png</li>
+<li>[RELEASE_VERSION]/popgen/trees/genome.svg</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].soft-filter.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].hard-filter.vcf.gz</li>
+<li>[RELEASE_VERSION]/variation/WI.[RELEASE_VERSION].impute.vcf.gz</li>
+<li>[RELEASE_VERSION]/multiqc_bcftools_stats.json</li>
+<li>[RELEASE_VERSION]/popgen/trees/genome.pdf</li>
+</ul>
+<h3 id="adding_the_release_to_the_cendr_website">Adding the release to the CeNDR website<a class="headerlink" href="#adding_the_release_to_the_cendr_website" title="Permanent link">&para;</a></h3>
+<p>To publish the release data on the CeNDR website, you must be logged into the CeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CeNDR user account.</p>
+<p><strong>Perform the following steps in order:</strong></p>
+<p><strong>1. Updating the site's internal database of Strains (~5 minutes).</strong>
+This data is populated from the <code>C. elegans WI Strain Info</code> Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...</p>
+<ul>
+<li>Admin -&gt; Database Operations</li>
+<li>Click the 'New Operation' button</li>
+<li>Select 'Rebuild strain table from Google Sheet'</li>
+<li>Add any (optional) notes about why the operation is being run</li>
+<li>Click 'Start'</li>
+</ul>
+<p><strong>2. (Optional) If the wormbase version used in the release is different from the previous release, that gene data must also be loaded into the site's internal database (~15 minutes).</strong>
+ Gene data is compiled from several external databases and used to look up chromosome:start-stop intervals using Wormbase Gene IDs, gene names, Homologenes from other species, etc..:</p>
+<ul>
+<li>Admin -&gt; Database Operations</li>
+<li>Click the 'New Operation' button</li>
+<li>Select 'Rebuild wormbase gene table from external sources'</li>
+<li>Enter the wormbase version number to use (ie: 280 to use version WS280)</li>
+<li>Click 'Start'</li>
+</ul>
+<p><strong>3. Finally, you can publish the release files on the site:</strong></p>
+<ul>
+<li>Admin -&gt; Dataset Releases</li>
+<li>Click 'Create Release'</li>
+<li>Enter the RELEASE_VERSION of the release that was uploaded to Google Storage in previous section (format: YYYYMMDD)</li>
+<li>Enter the WORMBASE_VERSION that the release uses (ie: 280 to use version WS280)</li>
+<li>Leave the Report Type as 'V2' for new releases (if you are adding a legacy format release created before 20200101, use V1)</li>
+<li>Click 'Save'</li>
+</ul>
+<p>The release should now show as a new tab on the 'Data -&gt; Genomic Data' page</p>
+<h2 id="adding_strain_variant_annotation_data">Adding Strain Variant Annotation Data<a class="headerlink" href="#adding_strain_variant_annotation_data" title="Permanent link">&para;</a></h2>
+<p>Strain Variant Annotation data must first be gzipped and uploaded to Google Storage. The CSV should be named with the pattern:
+WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
+Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20210401</p>
+<pre><code class="language-bash"> # First cd to the appropriate directory
+gzip WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
+gsutil cp WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz gs://caendr-db-bucket/strain_variant_annotation/c_elegans/WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz
+</code></pre>
+<p>You can also upload the gzipped file directly through the Google Cloud Console to this locations:</p>
+<pre><code class="language-bash">gs://caendr-db-bucket/strain_variant_annotation/c_elegans/
+</code></pre>
+<p>Then update the CeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):</p>
+<ul>
+<li>Admin -&gt; Database Operations</li>
+<li>Click the 'New Operation' button</li>
+<li>Select 'Rebuild Strain Annotated Variant table from .csv.gz file'</li>
+<li>Enter the [VERSION_NUMBER] to use (ie: 20210401)</li>
+<li>Click 'Start'</li>
+</ul>
+<h2 id="google_storage_details">Google Storage Details<a class="headerlink" href="#google_storage_details" title="Permanent link">&para;</a></h2>
+<h3 id="caendr-photos-bucket">caendr-photos-bucket<a class="headerlink" href="#caendr-photos-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket contains photos of the environment from where a strain was isolated.</p>
+<p>Photos follow the naming pattern:
+'gs://<bucket>/<species>/<strain>.jpg'</p>
+<p>Examples:
+'gs://caendr-photos-bucket/c_elegans/ECA1217.jpg'
+'gs://caendr-photos-bucket/c_elegans/WN2082.jpg'</p>
+<p>When an image is uploaded to the bucket, a scaled down thumbnail will automatically be generated with the naming pattern:
+'<strain>.thumb.jpg'</p>
+<p>Examples:
+'gs://caendr-photos-bucket/c_elegans/ECA1217.thumb.jpg'
+'gs://caendr-photos-bucket/c_elegans/WN2082.thumb.jpg'</p>
+<h3 id="caendr-db-bucket">caendr-db-bucket<a class="headerlink" href="#caendr-db-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CeNDR's internal database.
+Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20210401'.</p>
+<ul>
+<li>caendr-db-bucket</li>
+<li>strain_variant_annotation<ul>
+<li>c_elegans</li>
+<li>WI.strain-annotation.bcsq.20210401.csv.gz</li>
+</ul>
+</li>
+</ul>
+<h3 id="caendr-main-terraform-state">caendr-main-terraform-state<a class="headerlink" href="#caendr-main-terraform-state" title="Permanent link">&para;</a></h3>
+<p>This bucket contains the state information about the cloud infrastructure for CeNDR as well as a zipped backup of the secret.env file</p>
+<h3 id="caendr-nextflow-work-bucket">caendr-nextflow-work-bucket<a class="headerlink" href="#caendr-nextflow-work-bucket" title="Permanent link">&para;</a></h3>
+<p>Work bucket for storing intermediate files in between Nextflow stages</p>
+<h3 id="caendr-site-private-bucket">caendr-site-private-bucket<a class="headerlink" href="#caendr-site-private-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket contains any files that may (now or in the future) require custom access permissions and should not necessarily be globally public.</p>
+<p><strong>tools</strong> - This directory contains any data or file depencies for an associated tool.</p>
+<ul>
+<li>tools</li>
+<li>pairwise_indel_primer<ul>
+<li>sv.20200815.bed.gz</li>
+<li>sv.20200815.bed.gz.tbi</li>
+<li>sv.20200815.vcf.gz</li>
+<li>sv.20200815.vcf.gz.csi</li>
+<li>sv.20200815.vcf.gz.tbi</li>
+</ul>
+</li>
+<li>nemascan<ul>
+<li>input_data</li>
+<li>all_species</li>
+<li>c_elegans<ul>
+<li>annotations</li>
+<li>genotypes</li>
+<li>isotypes</li>
+<li>phenotypes</li>
+</ul>
+</li>
+<li>c_briggsae<ul>
+<li>...</li>
+</ul>
+</li>
+<li>c_tropicalis<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>bam</strong> - contains the BAM and BAI files for each sequenced strain of each species. It also contains the 'Download All BAM/BAI Files' script that is automatically generated by CAENDR (bam_bai_signed_download_script.sh)</p>
+<ul>
+<li>bam</li>
+<li>c_elegans<ul>
+<li>AB1.bam</li>
+<li>AB1.bam.bai</li>
+<li>AB4.bam</li>
+<li>AB4.bam.bai</li>
+<li>etc...</li>
+</ul>
+</li>
+</ul>
+<p><strong>reports</strong> - This directory contains the source data and the output from running the associated tool. The data and results are organized by the container and version (with the exception of the indel primer), and the hash of the tool's input data.</p>
+<ul>
+<li>reports</li>
+<li>heritability<ul>
+<li>v0.01a</li>
+<li>15251d73f683450317089dae6736dee3<ul>
+<li>data.tsv</li>
+<li>result.tsv</li>
+</ul>
+</li>
+<li>indel-primer</li>
+<li>00d67eecc8a9ea13b7eb5e615b3a6860<ul>
+<li>input.json</li>
+<li>result.tsv</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>nemascan-nxf<ul>
+<li>v1.0</li>
+<li>00d67eecc8a9ea13b7eb5e615b3a6860<ul>
+<li>data.tsv</li>
+<li>results</li>
+<li>Divergent_and_haplotype</li>
+<li>Genotype_Matrix</li>
+<li>Mapping</li>
+<li>Nextflow</li>
+<li>Phenotypes</li>
+<li>Plots</li>
+<li>Reports</li>
+</ul>
+</li>
+<li>v1.0a</li>
+<li>3facbf334a99a2cde3b6c4372cbe7da6<ul>
+<li>data.tsv</li>
+<li>results</li>
+<li>Divergent_and_haplotype</li>
+<li>Genotype_Matrix</li>
+<li>Mapping</li>
+<li>Nextflow</li>
+<li>Phenotypes</li>
+<li>Plots</li>
+<li>Reports</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="caendr-site-public-bucket">caendr-site-public-bucket<a class="headerlink" href="#caendr-site-public-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CeNDR depends on these files and their contents.</p>
+<p><strong>dataset_release</strong> - This is the directory where formal releases of CeNDR data are uploaded</p>
+<ul>
+<li>dataset_release</li>
+<li>c_elegans<ul>
+<li>20160408</li>
+<li>20170531</li>
+<li>20180527</li>
+<li>20200815</li>
+<li>20210121</li>
+<li>release_notes.md</li>
+<li>methods.md</li>
+<li>alignment_report.html</li>
+<li>gatk_report.html</li>
+<li>concordance_report.html</li>
+<li>divergent_regions_strain.20210121.bed.gz</li>
+<li>variation<ul>
+<li>WI.20210121.soft-filter.vcf.gz</li>
+<li>WI.20210121.soft-filter.vcf.gz.tbi</li>
+<li>WI.20210121.soft-filter.isotype.vcf.gz</li>
+<li>WI.20210121.soft-filter.isotype.vcf.gz.tbi</li>
+<li>WI.20210121.hard-filter.vcf.gz</li>
+<li>WI.20210121.hard-filter.vcf.gz.tbi</li>
+<li>WI.20210121.hard-filter.isotype.vcf.gz</li>
+<li>WI.20210121.hard-filter.isotype.vcf.gz.tbi</li>
+<li>WI.20210121.impute.isotype.vcf.gz</li>
+<li>WI.20210121.impute.isotype.vcf.gz.tbi</li>
+</ul>
+</li>
+<li>tree<ul>
+<li>WI.20210121.hard-filter.min4.tree</li>
+<li>WI.20210121.hard-filter.min4.tree.pdf</li>
+<li>WI.20210121.hard-filter.isotype.min4.tree</li>
+<li>WI.20210121.hard-filter.isotype.min4.tree.pdf</li>
+</ul>
+</li>
+<li>haplotype<ul>
+<li>haplotype.png</li>
+<li>haplotype.pdf</li>
+<li>sweep.pdf</li>
+<li>sweep_summary.tsv</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Profile</strong> - User Profile photos for Staff, Advisory Committee, etc... are uploaded here when managed using the 'Admin' portal</p>
+<ul>
+<li>profile</li>
+<li>photos<ul>
+<li>0f7394fa0d48431884e673b34f4c4dea.jpg</li>
+</ul>
+</li>
+</ul>
+<h3 id="caendr-site-static-bucket">caendr-site-static-bucket<a class="headerlink" href="#caendr-site-static-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket contains static site resources like images, videos, example data, etc...
+These files are stored in the CAENDR git repo, but are not accessible from the CeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()</p>
+<p>example:</p>
+<pre><code class="language-html">&lt;img src=&quot;{{ ext_asset('img/logo.png') }}&quot;&gt;
+</code></pre>
+<h3 id="caendr-src-bucket">caendr-src-bucket<a class="headerlink" href="#caendr-src-bucket" title="Permanent link">&para;</a></h3>
+<p>This bucket is used by Terraform during the deployment process to store source code before it gets provisioned</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>trim-fq-nf - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "trim-fq-nf";
+        var mkdocs_page_input_path = "pipelines/pipeline-trimming.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">trim-fq-nf</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../other/cendr.md">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">WI Sequencing pipelines</li>
+      <li class="breadcrumb-item active">trim-fq-nf</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipelines/pipeline-trimming.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="trim-fq-nf">trim-fq-nf<a class="headerlink" href="#trim-fq-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#trim-fq-nf">trim-fq-nf</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_the_pipeline_on_quest">Testing the pipeline on QUEST</a></li>
+<li><a href="#running_the_pipeline_on_quest">Running the pipeline on QUEST</a></li>
+</ul>
+</li>
+<li><a href="#profiles">Profiles</a><ul>
+<li><a href="#-profile_standard_default">-profile standard (Default)</a></li>
+<li><a href="#-profile_trim_only">-profile trim_only</a></li>
+<li><a href="#-profile_sp_check_only">-profile sp_check_only</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--debug">--debug</a></li>
+<li><a href="#--fastq_folder">--fastq_folder</a><ul>
+<li><a href="#--raw_path_optional">--raw_path (optional)</a></li>
+<li><a href="#--processed_path_optional">--processed_path (optional)</a></li>
+<li><a href="#--genome_sheet_optional">--genome_sheet (optional)</a></li>
+<li><a href="#--out_optional">--out (optional)</a></li>
+<li><a href="#--subsample_read_count_optional">--subsample_read_count (optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#output">Output</a></li>
+<li><a href="#data_storage">Data storage</a><ul>
+<li><a href="#backup">Backup</a></li>
+<li><a href="#poor_quality_data">Poor quality data</a></li>
+<li><a href="#cleanup">Cleanup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/trim-fq-nf">trim-fq-nf</a> workflow performs FASTQ trimming to remove poor quality sequences and technical sequences such as adapters. It should be used with high-coverage genomic DNA. You should not use the trim-fq-nf workflow on low-coverage NIL or RIL data. Recent updates in 2021 also include running a species check on the FASTQ and generating a sample sheet of high-quality, species-confirmed samples for <a href="https://github.com/AndersenLab/alignment-nf">alignment</a>.</p>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+____           .__                     _____                            _____ 
+_/  |_ _______ |__|  _____           _/ ____\\  ______           ____  _/ ____\\
+\\   __\\\\_  __ \\|  | /     \\   ______ \\   __\\  / ____/  ______  /    \\ \\   __\\ 
+ |  |   |  | \\/|  ||  Y Y  \\ /_____/  |  |   &lt; &lt;_|  | /_____/ |   |  \\ |  |   
+ |__|   |__|   |__||__|_|  /          |__|    \\__   |         |___|  / |__|   
+                         \\/                      |__|              \\/         
+
+
+
+    parameters              description                                   Set/Default
+    ==========              ===========                                   ========================
+    --debug                 Use --debug to indicate debug mode            ${params.debug}
+    --fastq_folder          Name of the raw fastq folder                  ${params.fastq_folder}
+    --raw_path              Path to raw fastq folder                      ${params.raw_path}
+    --processed_path        Path to processed fastq folder (output)       ${params.processed_path}
+    --genome_sheet          File with fasta locations for species check   ${params.genome_sheet}
+    --out                   Folder name to write results                  ${params.out}
+    --subsample_read_count  How many reads to use for species check       ${params.subsample_read_count}
+
+</code></pre>
+<p><img alt="Pipeline-overview" src="img/trim-fq-nf.drawio.svg" /></p>
+<ul>
+<li>You have downloaded FASTQ Data to a subdirectory within a raw directory. For wild isolates this will be <code>/projects/b1059/data/transfer/raw/&lt;folder_name&gt;</code></li>
+<li>FASTQs <strong>must</strong> end in a <code>.fq.gz</code> extension for the pipeline to work.</li>
+<li>You have modified FASTQ names if necessary to add strain names or other identifying information.</li>
+<li>You have installed software-requirements (see below for more info)</li>
+</ul>
+<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nextflow v20.01+ (see the dry guide on Nextflow <a href="quest-nextflow.md">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda3.6
+source activate /projects/b1059/software/conda_envs/nf20_env
+</code></pre>
+<ul>
+<li>Currently only runs on Quest with conda environments installed at <code>/projects/b1059/software/conda_envs/</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All FASTQs should end with a <code>_R1_001.fastq.gz</code> or a <code>_R2_001.fastq.gz</code>. You can rename FASTQs using the rename command:</p>
+<p><code>rename --dry-run --subst .fq.gz .fastq.gz --subst _1 _R1_001 --subst _2 _R2_001 *.fq.gz</code></p>
+<p>The <code>--dry-run</code> flag will output how files will be renamed. Review the output and remove
+the flag when you are ready. </p>
+</div>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/alignment-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>andersenlab/trim-fq</code> (<a href="https://hub.docker.com/r/andersenlab/trim-fq">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/trim-fq.Dockerfile</code> or <code>.github/workflows/build_trimfq_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+<li><code>andersenlab/multiqc</code> (<a href="https://hub.docker.com/r/andersenlab/multiqc">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/multiqc.Dockerfile</code> or <code>.github/workflows/build_multiqc_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+</ul>
+<p>To access these docker images, first load the <code>singularity</code> module on QUEST.</p>
+<pre><code>module load singularity
+</code></pre>
+<p>Also, make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>b1059</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+</code></pre>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<h2 id="testing_the_pipeline_on_quest">Testing the pipeline on QUEST<a class="headerlink" href="#testing_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run andersenlab/trim-fq-nf --debug
+</code></pre>
+<h2 id="running_the_pipeline_on_quest">Running the pipeline on QUEST<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h2>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="quest-nextflow.md">Nextflow</a> page.</em></p>
+<pre><code>nextflow run andersenlab/trim-fq-nf --fastq_folder &lt;name_of_folder&gt;
+</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The pipeline expects the folder containing raw fastq files to be located at <code>/projects/b1059/data/transfer/raw/</code>. And all processed fastq files will be output to <code>/projects/b1059/data/transfer/processed/</code></p>
+</div>
+<h1 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h1>
+<h2 id="-profile_standard_default">-profile standard (Default)<a class="headerlink" href="#-profile_standard_default" title="Permanent link">&para;</a></h2>
+<p>If no profile is designated, the default profile will run both fastq trimming AND species check</p>
+<h2 id="-profile_trim_only">-profile trim_only<a class="headerlink" href="#-profile_trim_only" title="Permanent link">&para;</a></h2>
+<p>Use this profile to only trim fastq files and not perform species check.</p>
+<h2 id="-profile_sp_check_only">-profile sp_check_only<a class="headerlink" href="#-profile_sp_check_only" title="Permanent link">&para;</a></h2>
+<p>Use this profile to only run species check and not fastq trimming. This is useful for running species checks on previously trimmed fastqs.</p>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug true</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data/raw</code> folder).</p>
+<p>For example:</p>
+<pre><code>nextflow run andersenlab/trim-fq-nf --debug -resume
+</code></pre>
+<p>Using <code>--debug</code> will automatically set the fastq_folder to <code>test_data/raw/20210406_test1</code></p>
+<h2 id="--fastq_folder">--fastq_folder<a class="headerlink" href="#--fastq_folder" title="Permanent link">&para;</a></h2>
+<p>This should be the name of the folder containing all fastq files located at <code>/projects/b1059/data/transfer/raw/</code>. As long as there are no overlapping file names (be sure to check this first), you can combine multiple pools sequenced at the same time into one larger folder at this step.</p>
+<h3 id="--raw_path_optional">--raw_path (optional)<a class="headerlink" href="#--raw_path_optional" title="Permanent link">&para;</a></h3>
+<p>The path to the <code>fastq_folder</code> if not default (<code>/projects/b1059/data/transfer/raw/</code>)</p>
+<h3 id="--processed_path_optional">--processed_path (optional)<a class="headerlink" href="#--processed_path_optional" title="Permanent link">&para;</a></h3>
+<p>The path to output folder if not default (<code>/projects/b1059/data/transfer/processed/</code>)</p>
+<h3 id="--genome_sheet_optional">--genome_sheet (optional)<a class="headerlink" href="#--genome_sheet_optional" title="Permanent link">&para;</a></h3>
+<p>Path to a tsv file listing project IDs for species. Default is located in <code>bin/genome_sheet.tsv</code></p>
+<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
+<p>Name of output folder with results. Default is "processFQ-{fastq_folder}"</p>
+<h3 id="--subsample_read_count_optional">--subsample_read_count (optional)<a class="headerlink" href="#--subsample_read_count_optional" title="Permanent link">&para;</a></h3>
+<p>How many reads to use for species check. Default = 10,000</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<pre><code>├── b1059/data/transfer/processed/
+│   └── {strain}_{library}_{read}.fq.gz
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -
+├── multi_QC
+│   ├── multiqc_data
+│   │   ├── *.txt
+│   │   └── multiqc_data.json
+│   ├── multiqc_report.html
+│   └── {strain}_{library}_{read}_fastp.html
+├── multiqc_data
+│   └── multiqc_samtools_stats.txt
+├── sample_sheet
+│   ├── sample_sheet_{species}_{date}_ALL.tsv
+│   └── sample_sheet_{species}_{date}_NEW.tsv
+├── species_check
+│   ├── species_check_{fastq_folder}.html
+│   ├── {library}_multiple_librarires.tsv
+│   ├── {library}_strains_most_likely_species.tsv
+│   ├── {library}_strains_not_in_master_sheet.tsv
+│   ├── {library}_strains_possibly_diff_species.tsv
+│   └── WI_all_{date}.tsv
+├── sample_sheet_{fastq_folder}_all_temp.tsv
+└── log.txt
+</code></pre>
+<p>The resulting trimmed FASTQs will be output in the <code>b1059/data/transfer/processed</code> directory. The rest of the output files and reports will be generated in a new folder in the directory in which you ran the nextflow pipeline, labeled by <code>processFQ-{fastq_folder}</code>.</p>
+<p><strong>MultiQC</strong></p>
+<ul>
+<li>
+<p><code>multi_QC/{strain}_{library}_fastp.html</code> - fastp html report detailing trimming and quality</p>
+</li>
+<li>
+<p><code>multi_QC/multiqc_report.html</code> - aggregate multi QC report for all strains pre and post trimming</p>
+</li>
+<li>
+<p><code>multi_QC/multiqc_data/*.txt or .json</code> - files used to make previous reports</p>
+</li>
+</ul>
+<p><strong>Species check</strong></p>
+<p>If a species check is run, the <code>multiqc_data/multiqc_samtools_stats.txt</code> will contain the results of reads mapped to each species. Furthermore, several reports and sample sheets will be generated:</p>
+<ul>
+<li>
+<p><code>species_check/species_check_{date}_{library}.html</code> is an HTML report showing how many strains have issues (not in master sheet, possibly different species, etc.)</p>
+</li>
+<li>
+<p><code>species_check/{library}_multiple_libraries.tsv</code> - strains sequenced in multiple libraries</p>
+</li>
+<li>
+<p><code>species_check/{library}_strains_most_likely_species.tsv</code> - list of all strains in library labeled by (1) the species in record and (2) most likely species by sequencing</p>
+</li>
+<li>
+<p><code>species_check/{library}_strains_not_in_master.tsv</code> - list of strains not found in Robyn's wild isolate master sheets for CE, CB, or CT</p>
+</li>
+<li>
+<p><code>species_check/{library}_strains_possibly_diff_species.tsv</code> - list of strains whose species in record does not match the likely species by sequencing</p>
+</li>
+<li>
+<p><code>species_check/WI_all_{date}.tsv</code> - copy of all strains (CE, CB, and CT) and species designation in record</p>
+</li>
+<li>
+<p><code>sample_sheet_{date}_{library}_all_temp.tsv</code> - temporary sample sheet with all strains for all species combined. DO NOT USE THIS FOR ALIGNMENT.</p>
+</li>
+</ul>
+<p><strong>Sample sheets</strong></p>
+<p>If a species check is run, the <code>species_check/sample_sheet</code> folder will also contain 6 sample sheets to be used for alignment:</p>
+<ul>
+<li>
+<p><code>sample_sheet/sample_sheet_{species}_{date}_ALL.tsv</code> - sample sheet for <code>alignment-nf</code> using ALL strains of a particular species (i.e. c_elegans). This is useful for species we have not performed any alignments for or when we update the reference genome and need to re-align all strains.</p>
+</li>
+<li>
+<p><code>sample_sheet/sample_sheet_{species}_{date}_NEW.tsv</code> - sample sheet for <code>alignment-nf</code> using all fastq from any library for ONLY strains sequenced in this particular library of a particular species (i.e. c_elegans, RET63). This is useful when the reference genome does not change and there is no need to re-align thousands of strains to save on computational power.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "new" sample sheet will still contain old fastq sequenced in a previous pool (i.e. RET55) if that strain was re-sequenced in the current pool (i.e. RET63). After running <code>alignment-nf</code>, this will create a new BAM file incorporating all fastq for that strain.</p>
+</div>
+<h1 id="data_storage">Data storage<a class="headerlink" href="#data_storage" title="Permanent link">&para;</a></h1>
+<h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
+<p>Once you have completed the trim-fq-nf pipeline you should backup the <strong>raw</strong> FASTQs. More information on this is available in the <a href="backup.md">backup</a></p>
+<h2 id="poor_quality_data">Poor quality data<a class="headerlink" href="#poor_quality_data" title="Permanent link">&para;</a></h2>
+<p>If you observe poor quality sequence data you should notify Robyn through the appropriate channels and then remove the data from further analysis.</p>
+<h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
+<p>If you have triple-checked everything and are satisfied with the results, the original <strong>raw</strong> sequence data can be deleted. The <strong>processed</strong> sequence data (FASTQ files) should be moved to their appropriate location, split by species (<code>/projects/b1059/data/{species}/WI/fastq/dna/</code>). The following line can be used to move processed fastq prior to running <code>alignment-nf</code>:</p>
+<pre><code>
+# change directories into the folder containing the processed fastq files
+cd /projects/b1059/data/transfer/processed/20210510_RET63/
+
+# move files one species at a time (might be a more efficient line of code for this, but it works...)
+# !!!! make sure to change the file name !!!!!
+
+# file name ~ - ~ CHANGE THIS ~ - ~
+file='/projects/b1059/Katie/trim-fq-nf/20210510_RET63/species_check/sample_sheet/sample_sheet_c_tropicalis_20201222a_NEW.tsv'
+
+# species
+sp=&quot;c_`echo $file | xargs -n1 basename | awk -F[__] '{print $4}'`&quot;
+
+# get list of files to move from file
+awk NR\&gt;1 $file &gt; temp.tsv
+cat temp.tsv | awk '{print $4}' &gt; files_to_move.txt
+cat temp.tsv | awk '{print $5}' &gt;&gt; files_to_move.txt
+
+# move files
+cat files_to_move.txt | while read line 
+do
+   mv $line /projects/b1059/data/$sp/WI/fastq/dna/
+done
+
+# remove temp file
+rm files_to_move.txt
+rm temp.tsv
+
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The sample sheets ONLY contain strains that species in record matches most likely species by sequencing. If, after moving all the FASTQ for each species to their proper folder, you have FASTQ remaining, these are likely to be found in <code>strains_possibly_diff_species.tsv</code>. You should notify Robyn and Erik about these strains through the appropriate channels and delete the FASTQ or move to another temporary location until it can be re-sequenced.</p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipeline-overview/" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline-alignment/" class="btn btn-neutral float-right" title="alignment-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-overview/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-alignment/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

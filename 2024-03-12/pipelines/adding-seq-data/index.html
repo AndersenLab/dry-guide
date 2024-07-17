@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Adding NIL sequence data to lab site - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Adding NIL sequence data to lab site";
+        var mkdocs_page_input_path = "pipelines/adding-seq-data.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../other/cendr.md">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Adding NIL sequence data to lab site</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipelines/adding-seq-data.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="adding_nil_sequence_data_to_lab_site">Adding NIL sequence data to lab site<a class="headerlink" href="#adding_nil_sequence_data_to_lab_site" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#adding_nil_sequence_data_to_lab_site">Adding NIL sequence data to lab site</a><ul>
+<li><a href="#basic_commands_to_know_prior">Basic Commands To Know Prior</a></li>
+<li><a href="#your_sequencing_data">Your Sequencing Data</a></li>
+<li><a href="#step_by_step_instructions">Step By Step Instructions</a></li>
+<li><a href="#viewing_your_results">Viewing your results</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This section is for adding genomic sequencing data (.tsv files) onto the existing dataset provided and displayed on the <a href="http://andersenlab.org/NILs/">NILs browser</a> page on <a href="http://andersenlab.org/">Andersenlab.org</a>. </p>
+<h2 id="basic_commands_to_know_prior">Basic Commands To Know Prior<a class="headerlink" href="#basic_commands_to_know_prior" title="Permanent link">&para;</a></h2>
+<p>You should freshen up on the following terminal commands. </p>
+<ul>
+<li><strong>cd</strong> - change directories</li>
+<li><strong>rm</strong> - delete files</li>
+<li><strong>cp</strong> - make a copy</li>
+<li><strong>git</strong> </li>
+</ul>
+<h2 id="your_sequencing_data">Your Sequencing Data<a class="headerlink" href="#your_sequencing_data" title="Permanent link">&para;</a></h2>
+<p>You will use the <code>gt_hmm_fill.tsv</code> file output from the <code>nil-ril-nf</code> pipeline for this step.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In order for your sequencing data to be properly added, it is important to make sure that there are no empty/additional lines located at the bottom of your .tsv file. </p>
+</div>
+<p><strong>What you do not want</strong>
+<img alt="What you do not want" src="img/WhatNotToDo.png" /></p>
+<p><strong>What you do want</strong>
+<img alt="What you do want" src="img/WhatYouDoWant.png" /></p>
+<p>Once your file has no empty lines at the bottom, save the file and move onto the next instructions below. </p>
+<h2 id="step_by_step_instructions">Step By Step Instructions<a class="headerlink" href="#step_by_step_instructions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Clone the <code>andersenlab.org</code> repo</li>
+</ol>
+<pre><code>git clone https://github.com/AndersenLab/andersenlab.github.io.git
+</code></pre>
+<ol start="2">
+<li>
+<p>[Optional] Create a new branch. This is a good idea if you are newer to github and want to make sure you don't break the lab website by doing something weird.</p>
+</li>
+<li>
+<p>Add your .tsv file into the <code>pages</code> folder of your Andersenlab github directory. </p>
+</li>
+<li>
+<p>Open terminal and use the <code>cd</code>command to change directories into the <code>pages</code> folder in your Andersenlab github directory. 
+If you did everything correctly, when you type <code>ls</code> into your terminal, it should look something like this. </p>
+</li>
+</ol>
+<p><img alt="What your terminal should look like" src="img/PagesDirectory.png" /></p>
+<ol start="5">
+<li>Then run the following commands in your terminal (while still in your <code>pages</code> directory): </li>
+</ol>
+<pre><code># create a new file called 'copy.tsv' with your data
+cp yourFileName.tsv copy.tsv
+
+# run python script which will add your data to full dataset
+python addDataTogt_hmm.tsv.py
+</code></pre>
+<ol start="6">
+<li>After running the above commands, your sequencing data has now been added to the existing NILs dataset on Andersenlab.org. You can now remove your .tsv from the <code>pages</code> directory by using the <code>rm</code> command in your terminal. </li>
+</ol>
+<pre><code>rm yourFileName.tsv
+</code></pre>
+<ol start="7">
+<li>
+<p>Finally, commit your changes and push your code to update the Andersenlab github. </p>
+</li>
+<li>
+<p>[Optional] If you created a new branch, you need to merge this new branch back into the master branch for changes to take effect.</p>
+</li>
+</ol>
+<h2 id="viewing_your_results">Viewing your results<a class="headerlink" href="#viewing_your_results" title="Permanent link">&para;</a></h2>
+<p>Once all changes are pushed, you should be able to view your NIL genotypes in the <a href="https://andersen-lab.shinyapps.io/nil-browser/">NIL browser shiny app</a>.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

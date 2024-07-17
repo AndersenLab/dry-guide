@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Introduction - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Introduction";
+        var mkdocs_page_input_path = "rockfish/rf-intro.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Introduction</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new_users">New Users</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#signing_into_rockfish">Signing into Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#login_nodes">Login Nodes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#home_directory">Home Directory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#partitionsqueues">Partitions/Queues</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#request_interact_sessions_on_rockfish">Request 'interact' sessions on Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_screen_tmux_or_nohup_to_keep_jobs_from_timing_out">Using screen, tmux, or nohup to keep jobs from timing out</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_packages_already_installed_on_rockfish">Using packages already installed on Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#submitting_jobs_to_rockfish">Submitting jobs to Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#monitoring_slurm_jobs_on_rockfish">Monitoring SLURM Jobs on Rockfish</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-conda/">Conda</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../other/cendr.md">CeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Rockfish</li>
+      <li class="breadcrumb-item active">Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/rockfish/rf-intro.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="rockfish">Rockfish<a class="headerlink" href="#rockfish" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#rockfish">Rockfish</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#new_users">New Users</a></li>
+<li><a href="#signing_into_rockfish">Signing into Rockfish</a></li>
+<li><a href="#login_nodes">Login Nodes</a></li>
+<li><a href="#home_directory">Home Directory</a></li>
+<li><a href="#partitionsqueues">Partitions/Queues</a></li>
+<li><a href="#request_interact_sessions_on_rockfish">Request 'interact' sessions on Rockfish</a></li>
+<li><a href="#using_screen_tmux_or_nohup_to_keep_jobs_from_timing_out">Using screen, tmux, or nohup to keep jobs from timing out</a></li>
+<li><a href="#using_packages_already_installed_on_rockfish">Using packages already installed on Rockfish</a></li>
+<li><a href="#submitting_jobs_to_rockfish">Submitting jobs to Rockfish</a></li>
+<li><a href="#monitoring_slurm_jobs_on_rockfish">Monitoring SLURM Jobs on Rockfish</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>The Andersen Lab makes use of Rockfish, the computer cluster Johns Hopkins, a part of MARCC. Take some time to read over the overview of what Rockfish is, what it does, how to use it, and how to sign up:</p>
+<p><strong><a href="https://www.arch.jhu.edu/guide">Rockfish Documentation</a></strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New to the command line? Check out the <a href="knowledge_base/bash.md">quick and dirty bash intro</a> or <a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">this introduction</a> first!</p>
+</div>
+<h2 id="new_users">New Users<a class="headerlink" href="#new_users" title="Permanent link">&para;</a></h2>
+<p>To gain access to Rockfish: </p>
+<p>Register new user by requesting allocation and security group access to eande106.</p>
+<h2 id="signing_into_rockfish">Signing into Rockfish<a class="headerlink" href="#signing_into_rockfish" title="Permanent link">&para;</a></h2>
+<p>After you gain access to the cluster you can login using:</p>
+<pre><code>ssh &lt;jheid&gt;@login.rockfish.jhu.edu
+</code></pre>
+<p>To avoid typing in the password everytime, one can <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2">set up a ssh key</a>.</p>
+<p>I recommend setting an alias in your <code>~/.bash_profile</code> to make logging in quicker:</p>
+<pre><code>alias rf=&quot;ssh &lt;jheid&gt;@login.rockfish.jhu.edu&quot;
+</code></pre>
+<p>The above line makes it so you simply type <code>rf</code> and the login process is initiated. </p>
+<p>If you are not familiar with what a bash profile is, <a href="https://www.quora.com/What-is-bash_profile-and-what-is-its-use">take a look at this</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).</p>
+</div>
+<h2 id="login_nodes">Login Nodes<a class="headerlink" href="#login_nodes" title="Permanent link">&para;</a></h2>
+<p>There are three login nodes we use: login01-03. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (<em>e.g.</em> <code>ssh login03</code>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using <a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/">screen</a> or tmux to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.</p>
+</div>
+<h2 id="home_directory">Home Directory<a class="headerlink" href="#home_directory" title="Permanent link">&para;</a></h2>
+<p>Logging in places you in your home directory. You can install software in your home directory for use when you run jobs, or for small files/analysis.</p>
+<p>Your home directory has a quota of 50 Gb. You can quickly check the storage of your home directory (and any other storage attached to your user) using the following script:</p>
+<pre><code>quotas.py
+</code></pre>
+<p>You can also check your storgae space using the following command:</p>
+<pre><code>du -hs *
+</code></pre>
+<p>You should also add the group's Singularity cache to your Rockfish <code>~/.bash_profile</code>:</p>
+<pre><code>export singularity_cachedir=/vast/eande106/singularity
+</code></pre>
+<p>More information is provided below to help install and use software.</p>
+<h2 id="partitionsqueues">Partitions/Queues<a class="headerlink" href="#partitionsqueues" title="Permanent link">&para;</a></h2>
+<p>Rockfish has several partitions/queues where you can submit jobs. They have different computational resources, and are designed to run specific tasks that vary in complexity and runtime:</p>
+<p><code>express queue</code>: This partition is designed to run quick jobs like tests, debugging, or interactive computing (Jupyter notebooks, R-Studio, etc). The limits are up to 4 cores, 8 hours, up to 8GB of memory per job. It is shared meaning many jobs are allowed to run on the same node.</p>
+<p><code>shared queue</code>: This partition is designed to run a mix of jobs, from sequential jobs needing just one core to small parallel jobs (32 cores or less). Nodes on this queue may share resources with many other jobs. The memory per core is set by default to 4 GB. If the application needs more than 4GB memory per process users can request 2 cores and this will give  8GB of memory to the job. Each core will add 4 GB  or memory</p>
+<p><code>parallel queue</code>; This partition is designed to run ONLY parallel jobs that require 48 cores or more. Jobs can run on a single node or multiple nodes. Nodes in the “parallel” queue are dedicated to the job. These are not shared with any other jobs. Users should make sure all cores will be used. The timelimit is 72 hours. A research group can run  jobs up to  3600 cores or 75 nodes.</p>
+<p><code>a100 queue</code>: This partition/queue is designed to run jobs that require the use of GPU nodes. Each node has  4 Nvidia A100 gpus with 40GB  of memory per gpu. This allocation is defined by the account “PI-userid_gpu“. This account should be included in the SLURM script as</p>
+<p><code>bigmem queue</code>: This queue contains nodes with 1500GB of memory and it is designed to run jobs that require more than 192GB of memory. Use of this queue requires a separate allocation of the type “PI-userid_bigmem“. This account should be included in the SLURM script as</p>
+<p><code>ica100 queue</code>. This partition is similar to the “a100” queue but each GPU has 80GB of memory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Allocation defines the user group access to these partitions. Currently the Andersen lab allocation (eande106) has access to <code>express</code>, <code>shared</code>, and <code>parallel</code>. We are working on expanding our allocation to the GPU and <code>bigmem</code> partitions. For most jobs, the currently available paritions ar</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anyone who uses Rockfish should build your own project folder under <code>/home/&lt;jheid&gt;/vast-eande106/projects</code> with your name. You should only write and revise files under your project folder. You can read/copy data from <strong>VAST</strong> but don't write any data out of your project folder. See the Storage section for more information.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is important that we keep the 120 Tb of storage space on <strong>VAST</strong> from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months. You can check the percent of space remaining with <code>quotas.py</code></p>
+</div>
+<h2 id="request_interact_sessions_on_rockfish">Request 'interact' sessions on Rockfish<a class="headerlink" href="#request_interact_sessions_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>If you are running a few simple commands or want to experiment with files directly you can start an interactive session on Rockfish. The command below (based on the <code>srun</code> command) will give you access to a node where you can run your command:</p>
+<pre><code>interact -n 1 -c 1 -a eande106 -m 64G -p queue-name -t “time in minutes”
+</code></pre>
+<p>Where <code>-n</code> is the number of nodes, <code>-c</code> is the number of cores, <code>-a</code> is the allocation ID, <code>-m</code> is the allocated memory,<code>-p</code> is the partition/queue, and <code>-t</code> is the walltime for the session.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not run commands for big data directly on <code>login01-03</code>. These are login nodes and are not meant for running heavy-load workflows. Either open an interact session, or submit a job.</p>
+</div>
+<h2 id="using_screen_tmux_or_nohup_to_keep_jobs_from_timing_out">Using <code>screen</code>, <code>tmux</code>, or <code>nohup</code> to keep jobs from timing out<a class="headerlink" href="#using_screen_tmux_or_nohup_to_keep_jobs_from_timing_out" title="Permanent link">&para;</a></h2>
+<p>If you have ever tried to run a pipeline or script that takes a long time (think <code>NemaScan</code>), you know that if you close down your terminal or if your Rockfish session logs out, it will cause your jobs to end prematurely. There are several ways to avoid this:</p>
+<p><strong>screen</strong></p>
+<p>Perhaps the most common way to deal with scripts that run for a long time is <a href="https://linuxize.com/post/how-to-use-linux-screen/"><code>screen</code></a>. For the most simple case use, type <code>screen</code> to open a new screen session and then run your script like normal. Below are some more intermediate commands for taking full advantage of <code>screen</code>:</p>
+<ul>
+<li><code>screen -S &lt;some_descriptive_name&gt;</code>: Use this command to name your screen session. Especially useful if you have several screen sessions running and/or want to get back to this particular one later.</li>
+<li><code>Ctrl+a</code> followed by <code>d</code> to detach from the current screen session (NOT <code>Ctrl+a+d</code>!)</li>
+<li><code>exit</code> to end the current screen session</li>
+<li><code>screen -ls</code> lists the IDs of all screen sessions currently running </li>
+<li><code>screen -r &lt;screen_id&gt;</code>: Use this command to resume a particular screen session. If you only have one session running you can simply use <code>screen -r</code></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When using <code>screen</code> on Rockfish, take note that screen sessions are only visible/available when you are logged on to the particular node it was created on. You can jump between nodes by simply typing ssh and the login node you want (<em>e.g.</em> <code>ssh login02</code>). </p>
+</div>
+<p><strong>tmux</strong></p>
+<p><code>tmux</code> is another way to deal with scripts that run for a long time. For the most simple case use, type <code>tmux</code> to open a new tmux session and then run your script like normal. Below are some more intermediate commands for taking full advantage of <code>tmux</code>:</p>
+<ul>
+<li><code>tmux new -s &lt;some_descriptive_name&gt;</code>: Use this command to name your tmux session. Especially useful if you have several tmux sessions running and/or want to get back to this particular one later.</li>
+<li><code>Ctrl+b</code> followed by <code>d</code> to detach from the current tmux session (NOT <code>Ctrl+b+d</code>!)</li>
+<li><code>exit</code> to end the current tmux session</li>
+<li><code>tmux ls</code> lists the IDs of all tmux sessions currently running </li>
+<li><code>tmux attach -t &lt;session_id&gt;</code>: Use this command to resume a particular tmux session. If you only have one session running you can simply use <code>tmux a</code></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When using <code>tmux</code> on Rockfish, take note that tmux sessions are only visible/available when you are logged on to the particular node it was created on. You can jump between nodes by simply typing ssh and the login node you want (<em>e.g.</em> <code>ssh login02</code>). </p>
+</div>
+<p><strong>nohup</strong></p>
+<p>Another way to avoid <strong>SIGHUP</strong> errors is to use <a href="https://linuxhint.com/how_to_use_nohup_linux/"><code>nohup</code></a>. <code>nohup</code> is very simple to use, simply type <code>nohup</code> before your normal command and that's it!</p>
+<pre><code>nohup nextflow run main.nf
+</code></pre>
+<p>Running a command with <code>nohup</code> will look a little different than usual because it will not print anything to the console. Instead, it prints all console outputs into a file in the current directory called <code>nohup.out</code>. You can redirect the output to another filename using:</p>
+<pre><code>nohup nextflow run main.nf &gt; cegwas_{date}_output.txt
+</code></pre>
+<p>When you exit this window and open a new session, you can always look at the contents of the output file using <code>cat nohup.out</code> to see the progress.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also run <code>nohup</code> in the background to continue using the same window for other processes by running <code>nohup nextflow run main.nf &amp;</code>.</p>
+</div>
+<h2 id="using_packages_already_installed_on_rockfish">Using packages already installed on Rockfish<a class="headerlink" href="#using_packages_already_installed_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>Rockfish has a collection of packages installed. You can run <code>module avail</code> to see what packages are currently available on Rockfish. You can also use <code>module spider &lt;search term&gt;</code> to search for tools containing a particular term in their names. You can use <code>module load bcftools</code> or <code>module load bcftools/1.15.1</code> to load packages with the default or a specific version (<code>module add</code> does the same thing). If you do <code>echo $PATH</code> before and after loading modules, you can see what module does is simply appending paths to the packages into your <code>$PATH</code> so the packages can be found in your environment.</p>
+<p><code>module purge</code> will remove all loaded packages and can be helpful to try when troubleshooting.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also load/install software packages into conda environments for use with a specific project/pipeline. Check out the conda tutorial <a href="../rf-conda/">here</a>.</p>
+</div>
+<h2 id="submitting_jobs_to_rockfish">Submitting jobs to Rockfish<a class="headerlink" href="#submitting_jobs_to_rockfish" title="Permanent link">&para;</a></h2>
+<p>Jobs on Rockfish are managed by <a href="https://slurm.schedmd.com/">SLURM</a>. While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with <code>sbatch script.sh</code>. If you dig into the Nextflow working directory, you can see Nextflow actually generates such scripts and submits them to SLURM on your behalf. Thanks, Nextflow!</p>
+<pre><code>#!/bin/bash
+#SBATCH -J name                # Name of job
+#SBATCH -A eande106            # Allocation
+#SBATCH -p parallel            # Parition/Queue
+#SBATCH -t 24:00:00            # Walltime/duration of the job (hh:mm:ss)
+#SBATCH --cpus-per-task=1      # Number of cores (= processors = cpus) for each task
+#SBATCH --mem-per-cpu=3G       # Memory per core needed for a job
+#SBATCH --array=0-9            # number of parallel jobs to run counting from 0. Make sure to change this to match total number of files.
+
+# make a list of all the files you want to process
+# this script will run a parallel process for each file in this list
+name_list=(*.bam)
+
+# take the nth ($SGE_TASK_ID-th) file in name_list
+# don't change this line
+Input=${name_list[$SLURM_ARRAY_TASK_ID]} 
+
+# then do your operation on this file
+Output=`echo $Input | sed 's/.bam/.sam/'`
+</code></pre>
+<h2 id="monitoring_slurm_jobs_on_rockfish">Monitoring SLURM Jobs on Rockfish<a class="headerlink" href="#monitoring_slurm_jobs_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>Here are some commmon commands used to interact with SLURM and check on job status. For more, check out <a href="https://slurm.schedmd.com/quickstart.html">this page</a>.</p>
+<ul>
+<li>
+<p><code>squeue -u &lt;jheid&gt;</code> to check all jobs of a user.</p>
+</li>
+<li>
+<p><code>scancel &lt;jobid&gt;</code> to cancel a job. <code>scancel  {30000..32000}</code> to cancel a range of jobs (job id between 30000 and 32000).</p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../knowledge_base/github/" class="btn btn-neutral float-left" title="Git and Github"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../VAST/" class="btn btn-neutral float-right" title="Data on Rockfish">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../knowledge_base/github/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../VAST/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
