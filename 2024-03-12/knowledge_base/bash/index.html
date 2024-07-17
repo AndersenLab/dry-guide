@@ -227,9 +227,9 @@
 <h2 id="redirects">Redirects<a class="headerlink" href="#redirects" title="Permanent link">&para;</a></h2>
 <p>Like piping, we can tell the command line interpreter to redirect the contents of a file to a command as input or the output of a command to be saved in a file.</p>
 <ul>
-<li><strong>&gt;</strong> * Take the output from the left-hand side of the redict and write it to a file specified on the right-hand side (note that this will overwrite an existing file of the same name)</li>
-<li><strong>&gt;&gt;</strong> * Take the output from the left-hand side of the redict and append it to a file specified on the right-hand side (if no file exists, this will work the same as the <code>&gt;</code>)</li>
-<li><strong>&lt;</strong> * Take the file on the right-hand side of the redirect and use its contents as the input to the first command on the left-hand side of the redirect (this essentially replaces using <code>cat file.txt |</code> but is used at the end of the line)</li>
+<li><strong>&gt;</strong> - Take the output from the left-hand side of the redict and write it to a file specified on the right-hand side (note that this will overwrite an existing file of the same name)</li>
+<li><strong>&gt;&gt;</strong> - Take the output from the left-hand side of the redict and append it to a file specified on the right-hand side (if no file exists, this will work the same as the <code>&gt;</code>)</li>
+<li><strong>&lt;</strong> - Take the file on the right-hand side of the redirect and use its contents as the input to the first command on the left-hand side of the redirect (this essentially replaces using <code>cat file.txt |</code> but is used at the end of the line)</li>
 </ul>
 <pre><code>uniq &gt; example_uniq.txt &lt; example.txt
 </code></pre>
