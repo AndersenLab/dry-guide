@@ -75,45 +75,50 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../b1059/">Data on b1059</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Nextflow</a>
     <ul class="current">
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../quest-conda/">Conda</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../quest-docker/">Docker</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline-GCPconfig/">GCP</a>
-                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">WI Sequencing pipelines</span></p>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/docker/">Docker</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Other pipelines</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/nf-GCPconfig/">GCP</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Other things</span></p>
@@ -176,7 +181,10 @@
 </li>
 <li><a href="#running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version</a></li>
 <li><a href="#resume">Resume</a></li>
-<li><a href="#getting_an_email_or_text_when_complete">Getting an email or text when complete</a></li>
+<li><a href="#getting_an_email_or_text_when_complete">Getting an email or text when complete</a><ul>
+<li><a href="#caching_singularity_images_on_quest">Caching singularity images on QUEST</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#writing_nextflow_pipelines">Writing Nextflow Pipelines</a></li>
@@ -328,6 +336,10 @@ nextflow run andersenlab/nemascan --debug -N kathryn.evans@northwestern.edu
 # send text to 801-867-5309 with verizon
 nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
 </code></pre>
+<h3 id="caching_singularity_images_on_quest">Caching singularity images on QUEST<a class="headerlink" href="#caching_singularity_images_on_quest" title="Permanent link">&para;</a></h3>
+<p>To make the most out of using a shared cache directory for singularity on b1059, make sure to add this line to your <code>~/.bash_profile</code> before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).</p>
+<pre><code>export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+</code></pre>
 <h1 id="writing_nextflow_pipelines">Writing Nextflow Pipelines<a class="headerlink" href="#writing_nextflow_pipelines" title="Permanent link">&para;</a></h1>
 <p>See <a href="../../other/writing-nextflow/">this page</a> for tips on how to get started with your own nextflow pipeline.</p>
 <p>Also check out the <a href="https://www.nextflow.io/docs/latest/">Nextflow documentation</a> for help getting started!</p>
@@ -335,8 +347,8 @@ nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../b1059/" class="btn btn-neutral float-left" title="Data on b1059"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../quest-conda/" class="btn btn-neutral float-right" title="Conda">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../quest-conda/" class="btn btn-neutral float-left" title="Conda"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../pipelines/pipeline-overview/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -363,10 +375,10 @@ nextflow run andersenlab/nemascan --debut -N 8018675309@vtext.com
         </span>
     
     
-      <span><a href="../b1059/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../quest-conda/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../quest-conda/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../pipelines/pipeline-overview/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
