@@ -257,7 +257,7 @@ nextflow run andersenlab/nemascan --traitfile input_data/c_elegans/phenotypes/te
 <p>Parameters or arguments to Nextflow scripts are designated with the <code>--</code>. In the case above, there is a parameter called "in" which we are setting to be the <code>test.tsv</code> file.</p>
 </div>
 <p>When Nextflow is running, it will print to the console the name of each process in the pipeline as well as update on the progress of the script:</p>
-<p><img alt="nextflow example" src="img/nextflow_example.png" /></p>
+<p><img alt="nextflow example" src="../../img/nextflow_example.png" /></p>
 <p>For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the <code>fix_strain_names_bulk</code> process has already completed! Meanwhile, the <code>vcf_t_geno_matrix</code> process is still running. You can also see that the <code>prepare_gcta_files</code> is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).</p>
 <p>Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the <code>[ad/eea615]</code> next to the <code>fix_strain_names_bulk</code> process indicates that the working directory is located at <code>path_to_nextflow_working_directory/ad/eea615...</code>. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.</p>
 <div class="admonition note">
