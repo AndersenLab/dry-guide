@@ -198,25 +198,22 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-</div>
 <p>If you run the <code>nf20</code> conda environment, <strong>please do not try to update nextflow, this will cause permission denied errors for other lab members</strong>. You can deactivate the conda environment with <code>source deactivate</code></p>
+</div>
 <p>(You can check your Nextflow version with <code>nextflow -v</code> or <code>nextflow --version</code>)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you load this conda environment, it is not necessary to have Nextflow version 20 installed on your system -- you don't even need to have Nextflow installed at all! Because different versions might have updates that affect the running of Nextflow, it is important to keep track of the version of Nextflow you are using, as well as all software packages.</p>
 </div>
 <h1 id="quest_cluster_configuration">Quest cluster configuration<a class="headerlink" href="#quest_cluster_configuration" title="Permanent link">&para;</a></h1>
-<p>Configuration files allow you to define the way a pipeline is executed on Quest. </p>
-<blockquote>
-<p>Read the <a href="https://www.nextflow.io/docs/latest/config.html">quest documentation</a> on configuration files</p>
-</blockquote>
+<p>Configuration files allow you to define the way a pipeline is executed on Quest. Read the <a href="https://www.nextflow.io/docs/latest/config.html">quest documentation</a> on configuration files</p>
 <p>Configuration files are defined at a global level in <code>~/.nextflow/config</code> and on a per-pipeline basis within <code>&lt;pipeline_directory&gt;/nextflow.config</code>. Settings written in <code>&lt;pipeline_directory&gt;/nextflow.config</code> override settings written in <code>~/.nextflow/config</code>.</p>
 <h2 id="global_configuration_nextflowconfig">Global Configuration: <code>~/.nextflow/config</code><a class="headerlink" href="#global_configuration_nextflowconfig" title="Permanent link">&para;</a></h2>
 <p>In order to use nextflow on quest you will need to define some global variables regarding the process. Our lab utilizies nodes and space dedicated to genomics projects. In order to access these resources your account will need to be granted access. Contact Quest and request access to the genomics nodes and project <code>b1042</code>. Once you have access you will need to modify your global configuration. Set your <code>~/.nextflow/config</code> file to be the following:</p>
 <pre><code>process {
-    executor = 'slurm'
-    queue = 'genomicsguestA'
-    clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
+        executor = 'slurm'
+        queue = 'genomicsguestA'
+        clusterOptions = '-A b1042 -t 24:00:00 -e errlog.txt'
 }
 
 workDir = &quot;/projects/b1042/AndersenLab/work/&lt;your folder&gt;&quot;
@@ -237,8 +234,8 @@ tmpDir = &quot;/projects/b1042/AndersenLab/tmp&quot;
 <p>The prefered (and sometimes easiest) way to run a nextflow pipeline can be done in just one single step. When this works (see troubleshooting section below), pipelines can be run without first cloning the git repo. You can just tell Nextflow which git repo to use and it will do the rest! This can be helpful to reduce clutter and avoid making changes to the actual pipeline. Additionally, this method allows you to control which branch and/or commit of the pipeline to run, and Nextflow will automatically track that information for you allowing for great reproducibility.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>There is no need to clone a copy of the repo to run pipelines this way. Behind the scenes, nextflow is actually cloning the repo to your home directory and keeping track of branches/commits. </p>
+</div>
 <pre><code># example command to run the latest version of NemaScan
 nextflow run andersenlab/nemascan \
 --traitfile input_data/c_elegans/phenotypes/test_pheno.tsv \
@@ -291,8 +288,8 @@ nextflow run andersenlab/nemascan \
 </code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-</div>
 <p>You should always be careful when using <code>rm</code>, <em>especially</em> <code>rm -rf</code>. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.</p>
+</div>
 <h2 id="running_a_custom_nextflow_pipeline_version">Running a custom Nextflow pipeline version<a class="headerlink" href="#running_a_custom_nextflow_pipeline_version" title="Permanent link">&para;</a></h2>
 <p>If you need to run a custom version of a pipeline, there are two approached you can use.</p>
 <ol>
