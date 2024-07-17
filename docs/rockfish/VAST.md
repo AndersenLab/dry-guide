@@ -75,12 +75,12 @@ This directory contains all the lab data -- split by species. The goal is to cre
 │               │   └──  {strain}.{date}.vcf.gz
 │               └──  WI.{date}.*.vcf.gz
 └── {other - i.e. BSA, MUTANT, HiC, PacBio}
-    └── *currently could look like anything in here - organized by project*
+		└── *currently could look like anything in here - organized by project*
 
 ```
 
 !!! Note
-    This restructure is still not 100% complete and things might continue to change as we expand our genomes and data types. If you see something that is not organized well, let Erik or Nic know.
+	This restructure is still not 100% complete and things might continue to change as we expand our genomes and data types. If you see something that is not organized well, let Erik or Mike know.
 
 ### docs (vast-eande106)
 
@@ -91,7 +91,7 @@ This directory should probably be removed and the docs inside stored elsewhere. 
 Projects is where most people will spend most of their time. Each user with access to quest should create a user-specific folder (named with their name) in the `projects` directory. Inside your folder, you can do all your work: analyzing data, writing new scripts, temporary storage, etc.
 
 !!! Note
-    Please be aware of how much space you are using in your personal folder. Of course some projects might require more space than others, and some projects require a lot of temporary space that can be deleted once completed. However, if you find that you have > 500-1000 GB of used space in your folder, please take a look if there is any unused data or scripts. **Either way, it is good practice to clean out your folder every few months to avoid storage pile-up.** You can check how much space you are using with `du -hs *` or ask Katie.
+	Please be aware of how much space you are using in your personal folder. Of course some projects might require more space than others, and some projects require a lot of temporary space that can be deleted once completed. However, if you find that you have > 500-1000 GB of used space in your folder, please take a look if there is any unused data or scripts. **Either way, it is good practice to clean out your folder every few months to avoid storage pile-up.** You can check how much space you are using with `du -hs *` or ask Katie.
 
 ### singularity (vast-eande106)
 
@@ -116,6 +116,7 @@ This directory contains non-data output and analyses from general lab pipelines 
 ### software (data-eande106)
 
 **General**
+
 This is a great location to download any software tools or packages that you need to use that you cannot access with Rockfish or create a conda environment for. Especially important if they are software packages that other people in the lab might also use, as it is a shared space.
 
 **Conda environments**
@@ -130,19 +131,19 @@ You can also update your `~/.condarc` file to point to this directory so that yo
 
 ```
 channels:
-  - conda-forge
-  - bioconda
-  - defaults
+	- conda-forge
+	- bioconda
+	- defaults
 
 auto_activate_base: false
 
 envs_dirs:
-  - ~/.conda/envs/
-  - /home/<user>/data-eande106/software/conda_envs/
+	- ~/.conda/envs/
+	- /home/<user>/data-eande106/software/conda_envs/
 ```
 
 !!! Important
-    It is very important that you do **not** update any packages or software while running a shared conda environment. This is especially an issue with Nextflow and the `nf23_env` environment. Updating nextflow whilie running this environment **will update the version in the environment -- and it needs to be `v23.10` for many of the pipelines to run successfully**
+	It is very important that you do **not** update any packages or software while running a shared conda environment. This is especially an issue with Nextflow and the `nf23_env` environment. Updating nextflow whilie running this environment **will update the version in the environment -- and it needs to be `v23.10` for many of the pipelines to run successfully**
 
 If you want to see what all is loaded in a particular conda environment, or re-create an environment, you can use:
 
@@ -161,21 +162,20 @@ conda install --revision 2
 
 # create environment from file
 conda env create --file bio-env.txt
-
 ```
 
-Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) or our [conda page](rockfish/rf-conda.md) for more.
+Also, check out this [cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) or our [conda page](rf-conda.md) for more.
 
 !!! Note
-    Most of the nextflow pipelines are written using `module load anaconda3/2022.05; source activate nf23_env`, so if you are having trouble running with conda, try loading the right environment first.
+	Most of the nextflow pipelines are written using `module load anaconda3/2022.05; source activate nf23_env`, so if you are having trouble running with conda, try loading the right environment first.
 
 
 **R libraries**
 
-Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). Check out the **Using R on Rockfish** section of [the R page](knowledge_base/r.md) to learn more about installing a package to this folder and using it in a script.
+Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. One way we have gotten around this is by installing the proper versions of R packages to a shared location (`/data/eande106/software/R_lib_3.6.0`). Check out the **Using R on Rockfish** section of [the R page](../knowledge_base/r.md) to learn more about installing a package to this folder and using it in a script.
 
 !!! Important
-    It is very important that you do **not** update any packages in this location unless absolutely necessary and proceed with extreme caution (especially if it is `tidyverse`!!!). Updating packages could break pipelines that rely on them.
+	It is very important that you do **not** update any packages in this location unless absolutely necessary and proceed with extreme caution (especially if it is `tidyverse`!!!). Updating packages could break pipelines that rely on them.
 
 ## /scratch4/eande106 (scr4-eande106)
 

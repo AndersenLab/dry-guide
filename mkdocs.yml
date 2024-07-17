@@ -23,8 +23,8 @@ nav:
     - Rockfish:
           - Introduction: rockfish/rf-intro.md
           - Data on Rockfish: rockfish/VAST.md
-          - Nextflow: rockfish/rf-nextflow.md
           - Conda: rockfish/rf-conda.md
+          - Nextflow: rockfish/rf-nextflow.md
     - Quest:
           - Introduction: quest/quest-intro.md
           - Data on b1059: quest/b1059.md
@@ -47,7 +47,7 @@ nav:
           - nil-ril-nf: pipelines/pipeline-nil-ril.md
           - genomes-nf: pipelines/pipeline-genomes-nf.md
     - Other things:
-          - CeNDR: other/cendr.md
+          - CeNDR: other/caendr.md
           - Backup: other/backup.md
           - SRA: other/sra.md
           - Cloud: other/cloud.md

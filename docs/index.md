@@ -6,5 +6,5 @@ The Dry Guide details the computational infrastructure and tasks used in the And
 
 ### Other links:
 * [Andersen Lab website](https://andersenlab.org/)
-* [CaeNDR](https://elegansvariation.org)
+* [CaeNDR](https://caendr.org)
 

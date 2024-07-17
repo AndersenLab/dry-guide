@@ -23,7 +23,7 @@ alias nf="ml anaconda && conda activate /data/eande106/software/conda_envs/nf23_
 To exit the Nextflow environment, simply use the command `conda deactivate`.
 
 !!! Important
-  Because this is a shared environment, ***you should not make changes to it by installing new software, updating Nextflow, etc.***
+	Because this is a shared environment, ***you should not make changes to it by installing new software, updating Nextflow, etc.***
 
 # Configuring Nextflow
 
@@ -37,7 +37,7 @@ export NXF_WORK=/scratch4/eande106/
 ```
 
 !!! Note
-  Once you have saved these changes to your profile, you will either need to close the terminal window and open a new one, or run the command `source ~/.bash_profile` in order for them to take effect.
+	Once you have saved these changes to your profile, you will either need to close the terminal window and open a new one, or run the command `source ~/.bash_profile` in order for them to take effect.
 
 # Running Nextflow
 
@@ -48,7 +48,7 @@ Theoretically, running a Nextflow pipeline should be very straightforward (altho
 In order to run Andersen Lab pipelines, you should be retrieving them from their github repos directly through Nextflow to ensure that you are getting the newest (or specific) version. This can be done by specifying the repo instead of a `.nf` file. Nextflow will then include information about which version and repo the workflow came from in the logs and final report, allowing for complete reproducibility.
 
 !!! Note
-  Nextflow caches repos when you execute them. This means that if you run have previously run a workflow and go to run it again after changes have been made, Nextflow will reuse the cached version unless you specify to download the latest version with the argument `-latest`. If you need to run a specific branch, commit, or tag of a pipeline repo, you can do this with the argument `-r <branch/commit/tag>`.
+	Nextflow caches repos when you execute them. This means that if you run have previously run a workflow and go to run it again after changes have been made, Nextflow will reuse the cached version unless you specify to download the latest version with the argument `-latest`. If you need to run a specific branch, commit, or tag of a pipeline repo, you can do this with the argument `-r <branch/commit/tag>`.
 
 ```
 # example command to run the latest version of NemaScan
@@ -66,7 +66,7 @@ nextflow run -latest andersenlab/nemascan --traitfile input_data/c_elegans/pheno
 
 When Nextflow is running, it will print to the console the name of each process in the pipeline as well as update on the progress of the script:
 
-![nextflow example](img/nextflow_example.png)
+![nextflow example](../img/nextflow_example.png)
 
 For example, in the above screenshot from a NemaScan run, there are 14 different processes in the pipeline. Notice that the `fix_strain_names_bulk` process has already completed! Meanwhile, the `vcf_t_geno_matrix` process is still running. You can also see that the `prepare_gcta_files` is actually run 4 times (in this case, because it is run once per 4 traits in my dataset).
 
@@ -88,19 +88,33 @@ nextflow run andersenlab/nemascan \
 
 There is usually no downside to adding `-resume`, so you can get into the habit of always adding it if you want.
 
-[!Important]
-There is some confusion with how the `-resume` works and sometimes it doesn't work as expected. Check out [this](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) and [this other](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) guide for more help. One thing I've learned is there is a difference between `process.cache = 'deep' vs. 'lenient'`.
+!!! Important
+	There is some confusion with how the `-resume` works and sometimes it doesn't work as expected. Check out [this](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) and [this other](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) guide for more help. One thing I've learned is there is a difference between `process.cache = 'deep' vs. 'lenient'`.
 
 ## Running a custom Nextflow pipeline version
 
+If you need to run a custom version of a pipeline, there are two approached you can use.
 
+1. Clone the repo onto Rockfish and make local changes. Then run Nextflow from the local pipeline.
+2. Clone the repo onto your computer, create a new branch, and make changes to your new branch. Then push those changes and run Nextflow on your branch of the pipeline.
 
-Another way to run Nextflow is by first cloning the git repo to your directory and then running the pipeline. This has advantages and disadvantages over running the pipeline remotely (see below), however if you need to make changes to the pipeline specific to your analysis, you will **need** to follow these steps.
+You should **NOT** do the first, as this means that your analysis will not be reproducible the moment you delete that local repo. By creating your own branch, you are able to track changes and allow others to run the same code as you with only a couple simple extra steps.
+
+On your machine (or technically Rockfish if you want, but I recommend locally) where <your-branch> is whatever branch name you want:
 
 ```
 git clone https://github.com/AndersenLab/NemaScan.git
 cd NemaScan
-nextflow run main.nf --debug
+git checkout -b <your-branch>
+##  Make your local changes ##
+git commit -a -m "This is my branch!" # or some more meaningful message
+git push --set-upstream origin <your-branch>
+```
+
+To run your custom pipeline on Rockfish:
+
+```
+nextflow run andersenlab/nemascan -r <your-branch> ... # plus whatever arguments and parameters are needed for this pipeline
 ```
 
 ## Getting an email or text when complete
@@ -124,10 +138,10 @@ rm -rf /home/<jheid>/.nextflow
 ```
 
 !!! Warning
-  You should always be careful when using `rm`, *especially* `rm -rf`. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.
+	You should always be careful when using `rm`, *especially* `rm -rf`. There is no going back. Make certain you want to delete the folder and everything inside it. In this case, it will be fine because nextflow will just clone it again fresh.
 
 # Writing Nextflow Pipelines
 
-See [this page](writing-nextflow.md) for tips on how to get started with your own Nextflow pipeline.
+See [this page](../other/writing-nextflow.md) for tips on how to get started with your own Nextflow pipeline.
 
 Also check out the [Nextflow documentation](https://www.nextflow.io/docs/latest/) for help getting started!

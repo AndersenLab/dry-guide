@@ -9,7 +9,7 @@ The Andersen Lab makes use of Rockfish, the computer cluster Johns Hopkins, a pa
 __[Rockfish Documentation](https://www.arch.jhu.edu/guide)__
 
 !!! Note
-	New to the command line? Check out the [quick and dirty bash intro](knowledge_base/bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
+	New to the command line? Check out the [quick and dirty bash intro](../knowledge_base/bash.md) or [this introduction](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview) first!
 
 ## New Users
 
@@ -38,14 +38,14 @@ The above line makes it so you simply type `rf` and the login process is initiat
 If you are not familiar with what a bash profile is, [take a look at this](https://www.quora.com/What-is-bash_profile-and-what-is-its-use).
 
 !!! Important
-    When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
+	When you login it is important to be conscientious of the fact that you are on a login node. You should not be running any sort of heavy duty operation on these nodes. Instead, any analysis you perform should be submitted as a job or run using an interactive job (see below).
 
 ## Login Nodes
 
 There are three login nodes we use: login01-03. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh login03`).
 
 !!! Warning
-    When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) or tmux to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
+	When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) or [tmux](https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
 
 ## Home Directory
 
@@ -88,10 +88,10 @@ Rockfish has several partitions/queues where you can submit jobs. They have diff
 `ica100 queue`. This partition is similar to the “a100” queue but each GPU has 80GB of memory.
 
 !!! Note
-    The Allocation defines the user group access to these partitions. Currently the Andersen lab allocation (eande106) has access to `express`, `shared`, and `parallel`. We are working on expanding our allocation to the GPU and `bigmem` partitions. For most jobs, the currently available paritions ar
+	The Allocation defines the user group access to these partitions. Currently the Andersen lab allocation (eande106) has access to `express`, `shared`, and `parallel`. We are working on expanding our allocation to the GPU and `bigmem` partitions. For most jobs, the currently available paritions ar
 
 !!! Note
-    Anyone who uses Rockfish should build your own project folder under `/home/<jheid>/vast-eande106/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __VAST__ but don't write any data out of your project folder. See the Storage section for more information.
+	Anyone who uses Rockfish should build your own project folder under `/home/<jheid>/vast-eande106/projects` with your name. You should only write and revise files under your project folder. You can read/copy data from __VAST__ but don't write any data out of your project folder. See the Storage section for more information.
 
 !!! Important
 	It is important that we keep the 120 Tb of storage space on **VAST** from filling up with extraneous or intermediate files. It is good practice to clean up old data/files and backup important data at least every few months. You can check the percent of space remaining with `quotas.py`
@@ -106,7 +106,7 @@ interact -n 1 -c 1 -a eande106 -m 64G -p queue-name -t “time in minutes”
 Where `-n` is the number of nodes, `-c` is the number of cores, `-a` is the allocation ID, `-m` is the allocated memory,`-p` is the partition/queue, and `-t` is the walltime for the session.
 
 !!! Important
-    Do not run commands for big data directly on `login01-03`. These are login nodes and are not meant for running heavy-load workflows. Either open an interact session, or submit a job.
+	Do not run commands for big data directly on `login01-03`. These are login nodes and are not meant for running heavy-load workflows. Either open an interact session, or submit a job.
 
 ## Using `screen`, `tmux`, or `nohup` to keep jobs from timing out
 
@@ -156,7 +156,7 @@ When you exit this window and open a new session, you can always look at the con
 
 !!! Note
 	You can also run `nohup` in the background to continue using the same window for other processes by running `nohup nextflow run main.nf &`.
-   
+	 
 ## Using packages already installed on Rockfish
 
 Rockfish has a collection of packages installed. You can run `module avail` to see what packages are currently available on Rockfish. You can also use `module spider <search term>` to search for tools containing a particular term in their names. You can use `module load bcftools` or `module load bcftools/1.15.1` to load packages with the default or a specific version (`module add` does the same thing). If you do `echo $PATH` before and after loading modules, you can see what module does is simply appending paths to the packages into your `$PATH` so the packages can be found in your environment.
@@ -165,7 +165,7 @@ Rockfish has a collection of packages installed. You can run `module avail` to s
 
 !!! Note
 	You can also load/install software packages into conda environments for use with a specific project/pipeline. Check out the conda tutorial [here](rf-conda.md).
-   
+	 
 ## Submitting jobs to Rockfish
 
 Jobs on Rockfish are managed by [SLURM](https://slurm.schedmd.com/). While most of our pipelines are managed by Nextflow, it is useful to know how to submit jobs directly to SLURM. Below is a template to submit an array job to SLURM that will run 10 parallel jobs. One can run it with `sbatch script.sh`. If you dig into the Nextflow working directory, you can see Nextflow actually generates such scripts and submits them to SLURM on your behalf. Thanks, Nextflow!

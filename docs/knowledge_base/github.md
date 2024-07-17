@@ -6,11 +6,11 @@
 
 [Git](https://git-scm.com/) is a version control software package similar to tracked changes and saving documents as "final1.pdf" and "final2.pdf"
 
-![git intro](img/git_intro.png)
+![git intro](../img/git_intro.png)
 
 [Github](https://github.com/) is a 3rd party web-based graphical interface that has a copy of the project that you and/or other people can push and pull from to work on the same code simultaneously. Keep in mind, its not like google docs, it doesn’t update automatically, requires you to push changes and pull changes to the new computer.
 
-![git v github](img/git_v_github.png)
+![git v github](../img/git_v_github.png)
 
 !!! Note
 	You must install `git` to use and create an account on Github. Check out this intro guide [here](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html)
@@ -28,7 +28,7 @@ There are two main ways to use Git: (1) on the command line (aka Terminal on Mac
 
 There are several different Git branching strategies, but the most popular for our lab is the "GitHub Flow". This 8 step process can help keep our pipelines flowing, functional, and organized. New to the GitHub flow? I **highly recommend** you try out [this amazing tutorial](https://lab.github.com/githubtraining/introduction-to-github) to practice all the steps from beginning to end. Then start putting it in use for your own pipelines!
 
-![github flow](img/github_flow.png)
+![github flow](../img/github_flow.png)
 
 The following 8 steps can be done on the command line or with a GUI. Below I will show the basic `git` commands for managing a repo on the command line, for more help you can find the slides from Code club at `~/Dropbox/AndersenLab/LabMeetings/CodeClub/20210326_KSE/20210326_slides.key`
 

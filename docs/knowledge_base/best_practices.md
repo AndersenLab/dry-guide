@@ -4,7 +4,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 ### General
 
-* You should be doing most (if not all) of your analyses in `/Volumes/vast/projects/YourName` (this requires having mapped VAST to your computer. See [](knowledge_base/vast.md) for instructions)
+* You should be doing most (if not all) of your analyses in `/Volumes/vast/projects/YourName` (this requires having mapped VAST to your computer. See [here](../rockfish/VAST.md) for instructions)
 	* This is (1) to make sure the data is backed up/saved with version history and (2) to allow other lab members to access your code/scripts when necessary
 * Do **NOT** use spaces, quotation marks, or brackets in names of files or folders. Try not to use these characters in column names either (although sometimes it is necessary for a final table output)
 	* Computers often have a hard time reading spaces and code used to ignore spaces can vary from program to program
@@ -12,7 +12,7 @@ These best practices are just a few of the important coding tips and tricks for 
 * **NEVER** replace raw data!!!!!
 	* You should save your raw data in the rawest format, write a script to analyze it then if you wish, save the processed data for further use. This is important because it always allows you to go back to the original raw data in case something happens
 	* Some suggested project folder structures might look like something below:
-![directory_structure](img/directory_structure.png)
+![directory_structure](../img/directory_structure.png)
 * Include a `README.md` (or `README.txt`) file in each project folder to explain where the data and scripts can be found for certain analyses. Trust me, after a few years you will definitely forget…
 	* And don’t forget to update the `README` regularly, an old `README` doesn’t do anyone good!
 * Either use full path names in scripts or be explicit about where the working directory is
@@ -42,7 +42,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 !!! Important
 	Main exception: Nextflow temporary working directories should NOT be on `/vast/eande106` but rather in the scratch space `/scratch4/eande106/` (files get automatically deleted here periodically).
-	A correctly designed [nextflow.config](rf-nextflow.md) file will take care of this.
+	A correctly setup [bash profile](../rockfish/rf-nextflow.md) file will take care of this.
 
 ### QUEST
 
@@ -50,7 +50,7 @@ These best practices are just a few of the important coding tips and tricks for 
 
 !!! Important
 	Main exception: Nextflow temporary working directories should NOT be on `b1059` (it will fill us up!) but rather in the scratch space `b1042` (files get automatically deleted here every 30 days).
-	A correctly designed [nextflow.config](quest-nextflow.md) file will take care of this.
+	A correctly designed [nextflow.config](../quest/quest-nextflow.md) file will take care of this.
 
 ### Python
 

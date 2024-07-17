@@ -45,9 +45,9 @@ The above line will print out a sorted list of unique lines from the file `examp
 
 Like piping, we can tell the command line interpreter to redirect the contents of a file to a command as input or the output of a command to be saved in a file.
 
-* __>__ * Take the output from the left-hand side of the redict and write it to a file specified on the right-hand side (note that this will overwrite an existing file of the same name)
-* __>>__ * Take the output from the left-hand side of the redict and append it to a file specified on the right-hand side (if no file exists, this will work the same as the `>`)
-* __<__ * Take the file on the right-hand side of the redirect and use its contents as the input to the first command on the left-hand side of the redirect (this essentially replaces using `cat file.txt |` but is used at the end of the line)
+* __>__ - Take the output from the left-hand side of the redict and write it to a file specified on the right-hand side (note that this will overwrite an existing file of the same name)
+* __>>__ - Take the output from the left-hand side of the redict and append it to a file specified on the right-hand side (if no file exists, this will work the same as the `>`)
+* __<__ - Take the file on the right-hand side of the redirect and use its contents as the input to the first command on the left-hand side of the redirect (this essentially replaces using `cat file.txt |` but is used at the end of the line)
 
 ```
 uniq > example_uniq.txt < example.txt
@@ -117,7 +117,7 @@ bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' <vcf> > out.tsv
 
 *Output of above line of code:*
 
-![bcftools_out](img/bcftools.png)
+![bcftools_out](../img/bcftools.png)
 
 * __bcftools query -i GT=="alt" <vcf>__ - keep rows that include a tag (like a filter)
 * __bcftools query -e GT=="ref" <vcf>__ - remove rows that include a tag
