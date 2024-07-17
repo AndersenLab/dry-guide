@@ -215,24 +215,24 @@
 </div>
 <h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
 <pre><code>
-                         ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
-                         ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
-                         ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
-                         ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
-                        ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
-                                                 ▖▐
-                                                 ▝▘
-        parameters              description                                 Set/Default
-        ==========              ===========                                 ========================
-        --debug                 Use --debug to indicate debug mode          null
-        --sample_sheet          See test_data/sample_sheet for example      null
-        --species               Species to map: 'ce', 'cb' or 'ct'          null
-        --fq_prefix             Path to fastq if not in sample_sheet        /vast/eande106/data/{species}/WI/fastq/dna/
-        --kmers                 Whether to count kmers                      false
-        --reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
-        --output                Output folder name.                         alignment-{date}
+         ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
+         ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
+         ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
+         ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
+        ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
+                     ▖▐
+                     ▝▘
+    parameters              description                                 Set/Default
+    ==========              ===========                                 ========================
+    --debug                 Use --debug to indicate debug mode          null
+    --sample_sheet          See test_data/sample_sheet for example      null
+    --species               Species to map: 'ce', 'cb' or 'ct'          null
+    --fq_prefix             Path to fastq if not in sample_sheet        /vast/eande106/data/{species}/WI/fastq/dna/
+    --kmers                 Whether to count kmers                      false
+    --reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
+    --output                Output folder name.                         alignment-{date}
 
-        HELP: http://andersenlab.org/dry-guide/pipelines/pipeline-alignment/
+    HELP: http://andersenlab.org/dry-guide/pipelines/pipeline-alignment/
 </code></pre>
 <p><img alt="Pipeline-overview" src="../../img/alignment-nf.drawio.svg" /></p>
 <h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
@@ -414,8 +414,8 @@ c_tropicalis: /vast/eande106/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c
 <p>Once the <code>alignment-nf</code> pipeline has completed successfully and you have removed low coverage strains (see <a href="../pipeline-overview/">pipeline overview</a>), all BAM files can be moved to <code>/vast/eande106/data/{species}/WI/alignments/</code> prior to variant calling.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>Low coverage or otherwise problematic BAM files can be moved to <code>/vast/eande106/data/{species}/WI/alignments/_bam_not_for_cendr/</code>. Make sure to update the <code>_README.md</code> file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.</p>
+</div>
 <hr />
 <h1 id="archive">Archive<a class="headerlink" href="#archive" title="Permanent link">&para;</a></h1>
 <p>The following sections have been integrated into other code that no longer needs to be run manually, but I am keeping the documentation here in case we need to go back to it. It is important to always check that the sample sheet is generated appropriately. If there are errors in teh sample sheet, one can be constructed manually using the following code:</p>
