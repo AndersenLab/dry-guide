@@ -179,16 +179,16 @@
 <p>Although there is not a full "pipeline" for imputation, there is a script to run and this step is crucial, as fine-mapping for NemaScan requires an imputed VCF.</p>
 <h1 id="script_overview">Script overview<a class="headerlink" href="#script_overview" title="Permanent link">&para;</a></h1>
 <pre><code>#!/bin/bash
-#SBATCH -J beagle      
-#SBATCH -A b1042               
-#SBATCH -p genomicsguestA              
+#SBATCH -J beagle
+#SBATCH -A eande106
+#SBATCH -p parallel              
 #SBATCH -t 6:00:00            
 #SBATCH -n 24 # can maybe be lower now
 #SBATCH --mem=50G # can change if needed
 
 #################
 # edit these variables:
-vcf='/projects/b1059/data/c_briggsae/WI/variation/20210901/vcf/WI.20210901.hard-filter.isotype.vcf.gz'
+vcf='/vast/eande106/data/c_briggsae/WI/variation/20210901/vcf/WI.20210901.hard-filter.isotype.vcf.gz'
 species='c_tropicalis'
 date='20210901'
 #################
@@ -199,7 +199,7 @@ module load bcftools
 # do the imputation with beagle5.2:
 for i in I II III IV V X
 do
-    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
+    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
     window=5 \
     overlap=2 \
     impute=true \
@@ -209,16 +209,16 @@ do
     imp-step=0.01 \
     cluster=0.0005 \
     gt=$vcf \
-    map=/projects/b1059/data/$species/genomes/genetic_map/chr${i}.map \
+    map=/vast/eande106/data/$species/genomes/genetic_map/chr${i}.map \
     out=${i}.b5
 
     bcftools index ${i}.b5.vcf.gz
 done
 
 # now do mitochondria - genetic map might not exist for briggsae/tropicalis so use default, should be okay just mito...
-if [ -f &quot;/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map&quot; ]
+if [ -f &quot;/vast/eande106/data/$species/genomes/genetic_map/chrMtDNA.map&quot; ]
 then 
-    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
+    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
     window=5 \
     overlap=2 \
     impute=true \
@@ -228,10 +228,10 @@ then
     imp-step=0.01 \
     cluster=0.0005 \
     gt=$vcf \
-    map=/projects/b1059/data/$species/genomes/genetic_map/chrMtDNA.map \
+    map=/vast/eande106/data/$species/genomes/genetic_map/chrMtDNA.map \
     out=MtDNA.b5
 else 
-    java -jar /projects/b1059/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
+    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
     window=5 \
     overlap=2 \
     impute=true \
@@ -252,10 +252,10 @@ bcftools index -t WI.${date}.impute.isotype.vcf.gz
 bcftools stats --verbose WI.${date}.impute.isotype.vcf.gz &gt; WI.${date}.impute.isotype.stats.txt
 </code></pre>
 <h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
-<p>You can run this script on QUEST using the latest version of Beagle (5.2) in the <code>/projects/b1059/software/</code> folder. Also requires <code>bcftools</code> (loaded in script).</p>
+<p>You can run this script on Rockfish using the latest version of Beagle (5.2) in the <code>/data/eande106/software/</code> folder. Also requires <code>bcftools</code> (loaded in script).</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Copy the script above and create a new file on QUEST (i.e. <code>impute.sh</code>). </li>
+<li>Copy the script above and create a new file on Rockfish (i.e. <code>impute.sh</code>). </li>
 <li>Manually edit the <code>vcf</code> input, the <code>species</code>, and the <code>date</code> (to be the release date for all VCFs). </li>
 <li>Submit the job with <code>sbatch impute.sh</code></li>
 </ol>

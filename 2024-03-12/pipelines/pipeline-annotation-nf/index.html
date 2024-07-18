@@ -222,9 +222,9 @@ nextflow andersenlab/annotation-nf --vcf=hard-filtered.vcf --species=c_elegans -
     --reference          Reference used based on species and project              ${params.reference}
     --output             (Optional) output folder name                            ${params.output}
 
-     username                                                                      ${&quot;whoami&quot;.execute().in.text}
+    username                                                                      ${&quot;whoami&quot;.execute().in.text}
 
-    HELP: http://andersenlab.org/dry-guide/pipeline-annotation-nf
+    HELP: http://andersenlab.org/dry-guide/pipelines/pipeline-annotation-nf
 </code></pre>
 <p><img alt="Pipeline-overview" src="../../img/annotation-nf.drawio.svg" /></p>
 <h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
@@ -287,9 +287,9 @@ singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&l
 <h2 id="--reference_--project_--ws_build_optional">--reference, --project, --ws_build (optional)<a class="headerlink" href="#--reference_--project_--ws_build_optional" title="Permanent link">&para;</a></h2>
 <p>By default, the reference genome is set by the species parameter. If you don't want to use the default, you could change the project and/or ws_build. As long as the genome is in the proper location on quest (for more, see the <a href="../pipeline-genomes-nf/">genomes-nf</a> pipeline), this will work. Alternatively, you could provide the path to a reference of your choice.</p>
 <p><strong>Defaults:</strong>
-- <em>C. elegans</em> - <code>/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz</code>
-- <em>C. briggsae</em> - <code>/projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz</code>
-- <em>C. tropicalis</em> - <code>/projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz</code></p>
+- <em>C. elegans</em> - <code>/vast/eande106/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz</code>
+- <em>C. briggsae</em> - <code>/vast/eande106/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz</code>
+- <em>C. tropicalis</em> - <code>/vast/eande106/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz</code></p>
 <h2 id="--ncsq_param_optional">--ncsq_param (optional)<a class="headerlink" href="#--ncsq_param_optional" title="Permanent link">&para;</a></h2>
 <p>This parameter is necessary for correct annotation using BCSQ for variants with many different annotations (like found in divergent regions). In 20210121 we found that the default value of <code>224</code> was sufficient, but as more strains are added this number might need to increase. If there is an issue, you should see a warning error from BCFtools and they should suggest what to change this parameter to.</p>
 <h1 id="csq_compatible_gffs">CSQ compatible GFFs<a class="headerlink" href="#csq_compatible_gffs" title="Permanent link">&para;</a></h1>
@@ -360,7 +360,7 @@ add_mrna_biotype(cb_gff, transcript_type = &quot;mRNA&quot;)
 </code></pre>
 <h1 id="data_storage">Data storage<a class="headerlink" href="#data_storage" title="Permanent link">&para;</a></h1>
 <h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
-<p>Once the pipeline has complete successfully and you are satisfied with the results, the final data can be moved to their final storage place on Quest accordingly:</p>
+<p>Once the pipeline has complete successfully and you are satisfied with the results, the final data can be moved to their final storage place on Rockfish accordingly:</p>
 <ul>
 <li>Both the <code>strain_vcf</code> and the <code>variation</code> folders can be moved to <code>/vast/eande106/data/{species}/WI/variation/{date}/vcf</code></li>
 <li>If applicable, all snpeff <code>.bed</code> files (HIGH, LOW, MODERATE, etc.) can be moved to <code>/vast/eande106/data/{species}/WI/variation/{date}/tracks/</code> (<em>As of 20210901 this is no longer being produced for CaeNDR</em>)</li>
