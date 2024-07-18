@@ -168,99 +168,122 @@
 <div class="toc">
 <ul>
 <li><a href="#vcf_imputation">VCF Imputation</a></li>
-<li><a href="#script_overview">Script overview</a><ul>
-<li><a href="#software_requirements">Software requirements</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#parameters">Parameters</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software Requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#-profile">-profile</a></li>
+<li><a href="#--debug">--debug</a></li>
+<li><a href="#--species">--species</a></li>
+<li><a href="#--vcf">--vcf</a></li>
+<li><a href="#--chrichriichriiichrivchrvchrxmtdna_optional">--chrI|chrII|chrIII|chrIV|chrV|chrX|MtDNA (optional)</a></li>
+<li><a href="#--out_optional">--out (optional)</a></li>
+</ul>
+</li>
+<li><a href="#output">Output</a></li>
+</ul>
 </div>
-<p>Although there is not a full "pipeline" for imputation, there is a script to run and this step is crucial, as fine-mapping for NemaScan requires an imputed VCF.</p>
-<h1 id="script_overview">Script overview<a class="headerlink" href="#script_overview" title="Permanent link">&para;</a></h1>
-<pre><code>#!/bin/bash
-#SBATCH -J beagle
-#SBATCH -A eande106
-#SBATCH -p parallel              
-#SBATCH -t 6:00:00            
-#SBATCH -n 24 # can maybe be lower now
-#SBATCH --mem=50G # can change if needed
+<p>The <a href="https://github.com/AndersenLab/impute-nf">impute-nf</a> pipeline performs imputation of variants, a step required for fine-mapping with NemaScan.</p>
+<p>This page details how to run the pipeline.</p>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>
+        ##########                     #                    ##
+            ##                       #####                 #  #
+            ##                         #                   #
+            ##    # ## ##  ###  #   #  #   ##       # ##  ####
+            ##     #  #  # #  # #   #  #  #  #  ###  #  #  #
+            ##     #  #  # #  # #   #  #  ###        #  #  #
+            ##     #  #  # #  # #   #  #  #          #  #  #
+        ########## #  #  # ###   ###   #   ###       #  #  #
+                           #
+                           #
+                           #
 
-#################
-# edit these variables:
-vcf='/vast/eande106/data/c_briggsae/WI/variation/20210901/vcf/WI.20210901.hard-filter.isotype.vcf.gz'
-species='c_tropicalis'
-date='20210901'
-#################
+    parameters                 description                                              Set/Default
+    ==========                 ===========                                              ========================
+    --debug                    Set to 'true' to test                                    (optional)
+    --species                  Species: 'c_elegans', 'c_tropicalis' or 'c_briggsae'     (required)
+    --vcf                      hard filtered vcf to calculate variant density           (required)
+    --out                      output folder name                                       (optional)
+    --chrI | chrII | chrIII... Window and overlap for each chromosome                   (optional)
 
-# load modules:
-module load bcftools
-
-# do the imputation with beagle5.2:
-for i in I II III IV V X
-do
-    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=${i} \
-    window=5 \
-    overlap=2 \
-    impute=true \
-    ne=100000 \
-    nthreads=3 \
-    imp-segment=0.5 \
-    imp-step=0.01 \
-    cluster=0.0005 \
-    gt=$vcf \
-    map=/vast/eande106/data/$species/genomes/genetic_map/chr${i}.map \
-    out=${i}.b5
-
-    bcftools index ${i}.b5.vcf.gz
-done
-
-# now do mitochondria - genetic map might not exist for briggsae/tropicalis so use default, should be okay just mito...
-if [ -f &quot;/vast/eande106/data/$species/genomes/genetic_map/chrMtDNA.map&quot; ]
-then 
-    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
-    window=5 \
-    overlap=2 \
-    impute=true \
-    ne=100000 \
-    nthreads=3 \
-    imp-segment=0.5 \
-    imp-step=0.01 \
-    cluster=0.0005 \
-    gt=$vcf \
-    map=/vast/eande106/data/$species/genomes/genetic_map/chrMtDNA.map \
-    out=MtDNA.b5
-else 
-    java -jar /data/eande106/software/beagle/beagle5.2/beagle.28Jun21.220.jar chrom=MtDNA \
-    window=5 \
-    overlap=2 \
-    impute=true \
-    ne=100000 \
-    nthreads=3 \
-    imp-segment=0.5 \
-    imp-step=0.01 \
-    cluster=0.0005 \
-    gt=$vcf \
-    out=MtDNA.b5
-fi
-
-bcftools index MtDNA.b5.vcf.gz
-
-# concat all the chrom vcfs
-bcftools concat *.b5.vcf.gz -O z -o WI.${date}.impute.isotype.vcf.gz
-bcftools index -t WI.${date}.impute.isotype.vcf.gz
-bcftools stats --verbose WI.${date}.impute.isotype.vcf.gz &gt; WI.${date}.impute.isotype.stats.txt
 </code></pre>
-<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
-<p>You can run this script on Rockfish using the latest version of Beagle (5.2) in the <code>/data/eande106/software/</code> folder. Also requires <code>bcftools</code> (loaded in script).</p>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Copy the script above and create a new file on Rockfish (i.e. <code>impute.sh</code>). </li>
-<li>Manually edit the <code>vcf</code> input, the <code>species</code>, and the <code>date</code> (to be the release date for all VCFs). </li>
-<li>Submit the job with <code>sbatch impute.sh</code></li>
-</ol>
-<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
-<p>These parameters have been checked and decided on by previous lab members and Erik. Some chromosomes might require a window size of 3 and an overlap of 1. In recent conversation with the person who manages Beagle, they mentioned we should probably use default values unless we have done simulations to show these values are better. Note for the future maybe.</p>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
+</code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/post-gatk-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>andersenlab/beagle:5.2</code> (<a href="https://hub.docker.com/r/andersenlab/beagle">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/beagle.Dockerfile</code> or <code>.github/workflows/build_beagle_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+</ul>
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/impute-nf --debug
+</code></pre>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/impute-nf --vcf &lt;path_to_vcf&gt; --species &lt;species&gt;
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
+<p>There are three configuration profiles for this pipeline.</p>
+<ul>
+<li><code>rockfish</code> - Used for running on Rockfish (default).</li>
+<li><code>quest</code>    - Used for running on Quest.</li>
+<li><code>local</code>    - Used for local development.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you forget to add a <code>-profile</code>, the <code>rockfish</code> profile will be chosen as default</p>
+</div>
+<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder).</p>
+<p>For example:</p>
+<pre><code>nextflow run -latest andersenlab/impute-nf --debug
+</code></pre>
+<h2 id="--species">--species<a class="headerlink" href="#--species" title="Permanent link">&para;</a></h2>
+<p>Options: c_elegans, c_briggsae, or c_tropicalis</p>
+<h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
+<p>Path to the hard-filtered vcf output from <a href="https://github.com/AndersenLab/wi-gatk"><code>wi-gatk</code></a>. VCF should contain <strong>ALL</strong> strains.</p>
+<h2 id="--chrichriichriiichrivchrvchrxmtdna_optional">--chrI|chrII|chrIII|chrIV|chrV|chrX|MtDNA (optional)<a class="headerlink" href="#--chrichriichriiichrivchrvchrxmtdna_optional" title="Permanent link">&para;</a></h2>
+<p>The window size and overlap to use as inputs to Beagle. These parameters have been checked and decided on by previous lab members and Erik. Some chromosomes might require a window size of 3 and an overlap of 1. In recent conversation with the person who manages Beagle, they mentioned we should probably use default values unless we have done simulations to show these values are better. Note for the future maybe.</p>
+<h2 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h2>
+<p><strong>default</strong> - <code>impute-YYYYMMDD</code></p>
+<p>A directory in which to output results. If you have set <code>--debug</code>, the default output directory will be <code>impute-YYYYMMDD-debug</code>.</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<pre><code>└── variation
+    ├── WI.20240718.hard-filter.isotype.SNV.vcf.gz
+    ├── WI.20240718.hard-filter.isotype.SNV.vcf.gz.tbi
+    ├── WI.20240718.impute.isotype.SNV.vcf.gz
+    └── WI.20240718.impute.isotype.SNV.vcf.gz.tbi
+
+</code></pre>
               
             </div>
           </div><footer>
