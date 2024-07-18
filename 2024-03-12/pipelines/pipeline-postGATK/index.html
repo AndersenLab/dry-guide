@@ -290,7 +290,7 @@ singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&l
 <h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
 <p>You should use <code>--debug</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder).</p>
 <p>For example:</p>
-<pre><code>nextflow run andersenlab/post-gatk-nf --debug
+<pre><code>nextflow run -latest andersenlab/post-gatk-nf --debug
 </code></pre>
 <p>Using <code>--debug</code> will automatically set the sample sheet to <code>test_data/sample_sheet.tsv</code></p>
 <h3 id="debugging_for_pca">Debugging for PCA:<a class="headerlink" href="#debugging_for_pca" title="Permanent link">&para;</a></h3>
@@ -431,7 +431,7 @@ singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&l
 <li>Everything in the <code>EIGENSTRAT</code> folder can be moved to <code>/vast/eande106/data/{species}/WI/pca/{date}</code></li>
 </ul>
 <h2 id="updating_caendr">Updating CaeNDR<a class="headerlink" href="#updating_caendr" title="Permanent link">&para;</a></h2>
-<p>Check out the <a href="../../other/caendr/">CaeNDR</a> page for more information about updating a new data release for CeNDR.</p>
+<p>Check out the <a href="../../other/caendr/">CaeNDR</a> page for more information about updating a new data release for CaeNDR.</p>
 <h2 id="updating_nemascan">Updating <code>NemaScan</code><a class="headerlink" href="#updating_nemascan" title="Permanent link">&para;</a></h2>
 <p>Once a new CaeNDR release is ready, it is important to also update the genome-wide association mapping packages to ensure users can appropriately analyze data from new strains as well as old strains. Here is a list of things that need to be updated:</p>
 <ul>
