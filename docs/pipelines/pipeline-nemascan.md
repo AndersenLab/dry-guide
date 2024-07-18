@@ -5,13 +5,13 @@ GWA Mapping and Simulation with _C. elegans, C. tropicalis, and C. briggsae_
 # Pipeline overview
 
 ```
-O~~~     O~~                                   O~~ ~~
-O~ O~~   O~~                                 O~~    O~~
-O~~ O~~  O~~   O~~    O~~~ O~~ O~~    O~~     O~~         O~~~   O~~    O~~ O~~
-O~~  O~~ O~~ O~   O~~  O~~  O~  O~~ O~~  O~~    O~~     O~~    O~~  O~~  O~~  O~~
-O~~   O~ O~~O~~~~~ O~~ O~~  O~  O~~O~~   O~~       O~~ O~~    O~~   O~~  O~~  O~~
-O~~    O~ ~~O~         O~~  O~  O~~O~~   O~~ O~~    O~~ O~~   O~~   O~~  O~~  O~~
-O~~      O~~  O~~~~   O~~~  O~  O~~  O~~ O~~~  O~~ ~~     O~~~  O~~ O~~~O~~~  O~~
+O~~~     O~~                                      O~ O~~
+O~ O~~   O~~                                    O~~    O~~
+O~~ O~~  O~~    O~~   O~~~ O~~ O~~     O~~       O~~          O~~~    O~~     O~~ O~~
+O~~  O~~ O~~  O~   O~  O~~  O~  O~~  O~~  O~~      O~~      O~~     O~~  O~~   O~~  O~~
+O~~   O~ O~~ O~~~~~ O~ O~~  O~  O~~ O~~   O~~         O~~  O~~     O~~   O~~   O~~  O~~
+O~~    O~O~~ O~        O~~  O~  O~~ O~~   O~~   O~~    O~~  O~~    O~~   O~~   O~~  O~~
+O~~      O~~   O~~~~   O~~  O~  O~~   O~~ O~~~    O~ O~~      O~~~   O~~ O~~~  O~~  O~~
 
 parameters              description                                            Set/Default
 ==========              ===========                                            ========================

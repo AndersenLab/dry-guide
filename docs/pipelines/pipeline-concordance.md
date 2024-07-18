@@ -17,7 +17,7 @@ __The process of grouping isotypes is very hand-on. This pipeline will help proc
     ┌─┐┌─┐┌┐┌┌─┐┌─┐┬─┐┌┬┐┌─┐┌┐┌┌─┐┌─┐  ┌┐┌┌─┐
     │  │ │││││  │ │├┬┘ ││├─┤││││  ├┤───│││├┤ 
     └─┘└─┘┘└┘└─┘└─┘┴└──┴┘┴ ┴┘└┘└─┘└─┘  ┘└┘└  
-                                                        
+													
     parameters              description                                                             Set/Default
     ==========              ===========                                                             =======
 
@@ -32,22 +32,15 @@ __The process of grouping isotypes is very hand-on. This pipeline will help proc
 
 ```
 
-![concordance-pipeline](img/concordance-nf.drawio.svg)
-
+![concordance-pipeline](../img/concordance-nf.drawio.svg)
 
 ## Software Requirements
 
-* The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
+* The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the `nf23_env` conda environment prior to running the pipeline command:
 
 ```
-module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
-```
-
-Alternatively you can update Nextflow by running:
-
-```
-nextflow self-update
+module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
 ```
 
 ### Relevant Docker Images
@@ -56,85 +49,83 @@ nextflow self-update
 
 * `andersenlab/concordance` ([link](https://hub.docker.com/r/andersenlab/concordance)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/concordance.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
 
-To access these docker images, first load the `singularity` module on QUEST.
-
-```
-module load singularity
-```
-
-Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+Make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `/vast/eande106` for other users to take advantage of (without them also having to download the same image).
 
 ```
 # add singularity cache
-export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 ```
-
-
-# Usage
-
-## Profiles
-
-The `nextflow.config` file included with this pipeline contains three profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
-
-* `local` - Used for local development. Uses the docker container.
-* `debug` - Runs a small subset of available test data. Should complete within a couple of minutes. For testing/diagnosing issues on Quest.
-* `quest` - Runs the entire dataset.
 
 !!! Note
-    If you forget to add a `-profile`, the `quest` profile will be chosen as default
+	If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.
+	
+	```
+	interact -n1 -pexpress
+	module load singularity
+	singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/<image_name>
+	```
+	
+# Usage
 
-## Debugging the pipeline on Quest
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](../rockfish/rf-nextflow.md) page.*
 
-When running on Quest, you should first run the quest debug profile. The Quest debug profile will use the test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.
+## Testing on Rockfish
+
+*This command uses a test dataset*
 
 ```
-nextflow run andersenlab/concordance-nf -profile debug -resume
+nextflow run -latest andersenlab/concordance-nf --debug
 ```
 
-## Running the pipeline on Quest
+## Running on Rockfish
 
-*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
-
-
-The pipeline can be run on Quest using the following command:
+You should run this in a screen or tmux session.
 
 ```
-nextflow run andersenlab/concordance-nf -profile quest --bam_coverage <path_to_file> --vcf <path_to_file> --species c_elegans 
+nextflow run -latest andersenlab/concordance-nf --vcf=a.vcf.gz --bam_coverage=mqc_mosdepth-coverage-per-contig_1.txt
 ```
 
 # Parameters
 
-The nextflow profiles configured in `nextflow.config` are designed to make it so that you don't need to change the parameters. However, the pipeline offers this flexibility if it is ever called for.
+## -profile
+
+There are three configuration profiles for this pipeline.
+
+* `rockfish` - Used for running on Rockfish (default).
+* `quest`    - Used for running on Quest.
+* `local`    - Used for local development.
+
+!!! Note
+	If you forget to add a `-profile`, the `rockfish` profile will be chosen as default
 
 ## --bam_coverage
 
 The sample sheet to use. This is generally the same sample sheet used for `wi-gatk`. The sample sheet should look like this:
 
-![Sample_sheet](img/concordance_sample_sheet.png)
+![Sample_sheet](../img/concordance_sample_sheet.png)
 
 !!! Important
-    It is essential that you always use the pipelines and scripts to generate this sample sheet and **NEVER** manually. There are lots of strains and we want to make sure the entire process can be reproduced.
+	It is essential that you always use the pipelines and scripts to generate this sample sheet and **NEVER** manually. There are lots of strains and we want to make sure the entire process can be reproduced.
 
 ## --vcf
 
 The hard-filtered VCF output from `wi-gatk`.
 
-### --species (optional)
+## --species (optional)
 
 Common options include 'c_elegans', 'c_briggsae', and 'c_tropicalis'.
 
-### --concordance_cutoff (optional)
+## --concordance_cutoff (optional)
 
 Cutoff to use to determine isotype groups. Default is 0.9995.
 
-### --cores (optional)
+## --cores (optional)
 
 The number of cores to use during alignments and variant calling.
 
-### --out (optional)
+## --out (optional)
 
 A directory in which to output results. By default it will be `concordance-YYYYMMDD` where YYYYMMDD is todays date.
-
 
 # Output
 
@@ -149,25 +140,25 @@ A directory in which to output results. By default it will be `concordance-YYYYM
     ├── concordance.pdf/png
     ├── xconcordance.pdf/png
     └── pairwise
-        └── within_group
-                └── {isotype_group}.{isotype}.{strain1}_{strain2}.png
+		└── within_group
+				└── {isotype_group}.{isotype}.{strain1}_{strain2}.png
 
 
 ```
 
 * __concordance.png/pdf__ - An image showing the distribution of pairwise concordances across all strains. The cutoff is at 99.9% above which pairs are considered to be in the same isotype unless issues arise.
 
-![concordance](img/concordance.png)
+![concordance](../img/concordance.png)
 
 * __xconcordance.png/pdf__ - A close up view of the concordances showing more detail. 
 
-![concordance above 99](img/concordance_above_99.png)
+![concordance above 99](../img/concordance_above_99.png)
 
 * __isotype_groups.tsv__ - _This is the one of the most important output files_. It illustrates the isotypes identified for each strain and identifies potential issues.
 
 A file with the following structure:
 
-![pairwise](img/pairwise_output_example.png)
+![pairwise](../img/pairwise_output_example.png)
 
 * __group__ - A number used to group strains (in each row) into an isotype automatically. This number should be unique with the isotype column (e.g. 1--> AB1, 112 --> CB4858, BRC20067 --> 175). The number can change between analyses.
 * __strain__ - the strain
@@ -182,7 +173,7 @@ A file with the following structure:
 * __strain\_conflict__ - `TRUE` if any issue is present that should be investigated.
 
 !!! Note
-    This file might change as you manually adjust the concordance cutoff for each run
+	This file might change as you manually adjust the concordance cutoff for each run
 
 * __gtcheck.tsv__ - the **other most important file**. File produced using `bcftools gtcheck`; Raw genotype differences between strains. This file is used in manual inspection of the isotype groups
 
@@ -192,6 +183,6 @@ A file with the following structure:
 
 Contains images showing locations where regional discordance occurs among strains classified as being the isotype. You must look through all these images to ensure there are no strains being grouped that have regions with significant differences (> 2%). The image below illustrates an example of this. ED3049 and ED3046 are highly similar (> 99.9%). However, they differ in a region on the right arm of chromosome II. We believe this was enough reason to consider them separate isotypes.
 
-![pairwise example](img/194.ED3049.ED3046_ED3049.png)
+![pairwise example](../img/194.ED3049.ED3046_ED3049.png)
 
 

@@ -2,49 +2,49 @@
 
 [TOC]
 
-The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](http://andersenlab.org/dry-guide/pipeline-concordance/), [wi-gatk-nf (variant calling)](http://andersenlab.org/dry-guide/pipeline-wi/) and other analyses.
+The [alignment-nf](https://github.com/AndersenLab/alignment-nf) pipeline performs alignment for wild isolate sequence data __at the strain level__, and outputs BAMs and related information. Those BAMs can be used for downstream analysis including variant calling, [concordance analysis](pipeline-concordance.md), [wi-gatk-nf (variant calling)](pipeline-wiGATK.md) and other analyses.
 
 This page details how to run the pipeline and how to add new wild isolate sequencing data.
 
 !!! Note
-    Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
+	Historically, sequence processing was performed at the isotype level. We are still interested in filtering strains used in analysis at the isotype level, but alignment and variant calling are now performed at the strain level rather than at the isotype level.
 
 # Pipeline overview
 
 ```
 
-             ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
-             ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
-             ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
-             ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
-            ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
-                         ▖▐
-                         ▝▘
-    parameters              description                                 Set/Default
-    ==========              ===========                                 ========================
-    --debug                 Use --debug to indicate debug mode          null
-    --sample_sheet          See test_data/sample_sheet for example      null
-    --species               Species to map: 'ce', 'cb' or 'ct'          null
-    --fq_prefix             Path to fastq if not in sample_sheet        /projects/b1059/data/{species}/WI/fastq/dna/
-    --kmers                 Whether to count kmers                      false
-    --reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
-    --output                Output folder name.                         alignment-{date}
+         ▗▖ ▝▜   ▝                       ▗      ▗▖ ▖▗▄▄▖
+         ▐▌  ▐  ▗▄   ▄▄ ▗▗▖ ▗▄▄  ▄▖ ▗▗▖ ▗▟▄     ▐▚ ▌▐
+         ▌▐  ▐   ▐  ▐▘▜ ▐▘▐ ▐▐▐ ▐▘▐ ▐▘▐  ▐      ▐▐▖▌▐▄▄▖
+         ▙▟  ▐   ▐  ▐ ▐ ▐ ▐ ▐▐▐ ▐▀▀ ▐ ▐  ▐   ▀▘ ▐ ▌▌▐
+        ▐  ▌ ▝▄ ▗▟▄ ▝▙▜ ▐ ▐ ▐▐▐ ▝▙▞ ▐ ▐  ▝▄     ▐ ▐▌▐
+                     ▖▐
+                     ▝▘
+	parameters              description                                 Set/Default
+	==========              ===========                                 ========================
+	--debug                 Use --debug to indicate debug mode          null
+	--sample_sheet          See test_data/sample_sheet for example      null
+	--species               Species to map: 'ce', 'cb' or 'ct'          null
+	--fq_prefix             Path to fastq if not in sample_sheet        /vast/eande106/data/{species}/WI/fastq/dna/
+	--kmers                 Whether to count kmers                      false
+	--reference             genome.fasta.gz to use in place of default  defaults for c.e, c.b, and c.t
+	--output                Output folder name.                         alignment-{date}
 
-    HELP: http://andersenlab.org/dry-guide/pipeline-alignment/
+	HELP: http://andersenlab.org/dry-guide/pipelines/pipeline-alignment/
 ```
 
-![Pipeline-overview](img/alignment-nf.drawio.svg)
+![Pipeline-overview](../img/alignment-nf.drawio.svg)
 
 ## Software requirements
 
-* Nextflow v20.01+ (see the dry guide on Nextflow [here](quest-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
+* Nextflow v23+ (see the dry guide on Nextflow [here](../rockfish/rf-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On Rockfish, you can access this version by loading the `nf23_env` conda environment prior to running the pipeline command:
 
 ```
-module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
+module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
 ```
 
-### Relevant Docker Images
+## Relevant Docker Images
 
 *Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with `nextflow run andersenlab/alignment-nf -r 20220216-Release`*
 
@@ -52,41 +52,43 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 * `andersenlab/blobtools` ([link](https://hub.docker.com/r/andersenlab/blobtools)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/blobtools) repo.
 * `andersenlab/multiqc` ([link](https://hub.docker.com/r/andersenlab/multiqc)): Docker image is created within the [trim-fq-nf](https://github.com/andersenlab/trim-fq-nf/) pipeline using GitHub actions. Whenever a change is made to `env/multiqc.Dockerfile` or `.github/workflows/build_multiqc_docker.yml` GitHub actions will create a new docker image and push if successful
 
-To access these docker images, first load the `singularity` module on QUEST.
-
-```
-module load singularity
-```
-
-Also, make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `b1059` for other users to take advantage of (without them also having to download the same image).
+Make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `/vast/eande106` for other users to take advantage of (without them also having to download the same image).
 
 ```
 # add singularity cache
-export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 ```
 
-!!! Note  
-    [mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
+!!! Note
+	If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.
+	
+	```
+	interact -n1 -pexpress
+	module load singularity
+	singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/<image_name>
+	```
 
+!!! Note  
+	[mosdepth](https://www.github.com/brentp/mosdepth) is used to calculate coverage. `mosdepth` is available on Linux machines, but not on Mac OSX. That is why the conda environment for the `coverage` process is specified as `conda { System.properties['os.name'] != "Mac OS X" ? 'bioconda::mosdepth=0.2.6' : "" }`. This snippet allows mosdepth to run off the executable present in the `bin` folder locally on Mac OSX, or use the conda-based installation when on Linux.
 
 # Usage
 
-## Testing on Quest
+## Testing on Rockfish
 
 *This command uses a test dataset*
 
 ```
-nextflow run andersenlab/alignment-nf --debug
+nextflow run -latest andersenlab/alignment-nf --debug
 ```
 
-## Running on Quest
+## Running on Rockfish
 
-You should run this in a screen session.
+You should run this in a screen or tmux session.
 
-*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest-nextflow.md) page.*
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](../rockfish/rf-nextflow.md) page.*
 
 ```
-nextflow run andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --species c_elegans -profile quest
+nextflow run -latest andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --species c_elegans
 ```
 
 # Parameters
@@ -95,12 +97,12 @@ nextflow run andersenlab/alignment-nf --sample_sheet <path_to_sample_sheet> --sp
 
 There are three configuration profiles for this pipeline.
 
-* `local` - Used for local development.
-* `quest` - Used for running on Quest.
-* `gcp` - For running on Google Cloud (not currently active?).
+* `rockfish` - Used for running on Rockfish (default).
+* `quest`    - Used for running on Quest.
+* `local`    - Used for local development.
 
 !!! Note
-    If you forget to add a `-profile`, the `quest` profile will be chosen as default
+	If you forget to add a `-profile`, the `rockfish` profile will be chosen as default
 
 ## --sample_sheet
 
@@ -112,82 +114,81 @@ The `sample sheet` for alignment is the output from the [trim-fq-nf](https://git
 * __fq1__ - The path to FASTQ1
 * __fq2__ - The path to FASTQ2
 
-![Sample_sheet](img/alignment_sample_sheet.png)
-
+![Sample_sheet](../img/alignment_sample_sheet.png)
 
 !!! Note
-    Remember that in `--debug` mode the pipeline will use the sample sheet located in `test_data/sample_sheet.tsv`.
+	Remember that in `--debug` mode the pipeline will use the sample sheet located in `test_data/sample_sheet.tsv`.
 
 The `library` column is a useful tool for identifying errors by variant callers. For example, if the same library is sequenced twice, and a variant is only observed in one sequencing run then that variant may be excluded as a technical / PCR artifact depending on the variant caller being used.
 
 !!! Important
-    The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the `strain` and `id` level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain. **For this reason, it is important that each id be unique and not just the strain name**
+	The alignment pipeline will merge multiple sequencing runs of the same strain into a single bam. However, summary output is provided at both the `strain` and `id` level. In this way, if there is a poor sequencing run it can be identified and removed from a collection of sequencing runs belonging to a strain. **For this reason, it is important that each id be unique and not just the strain name**
 
 !!! Note
-    The sample sheet is a critical tool. It allows us to associated metadata with each sequencing run (e.g. isotype, reference strain, id, library). It also allows us to quickly verify that all results have been output. It is much easier than working with a list of files!
+	The sample sheet is a critical tool. It allows us to associated metadata with each sequencing run (e.g. isotype, reference strain, id, library). It also allows us to quickly verify that all results have been output. It is much easier than working with a list of files!
 
 ## --debug (optional)
 
-You should use `--debug true` for testing/debugging purposes. This will run the debug test set (located in the `test_data` folder) using your specified configuration profile (e.g. local / quest / gcp).
+You should use `--debug` for testing/debugging purposes. This will run the debug test set (located in the `test_data` folder) using your specified configuration profile (e.g. rockfish / quest / local).
 
 For example:
 
 ```
-nextflow run andersenlab/alignment-nf -profile quest --debug -resume
+nextflow run -latest andersenlab/alignment-nf --debug -resume
 ```
 
 Using `--debug` will automatically set the sample sheet to `test_data/sample_sheet.tsv`
 
-### --species (optional)
+## --species (optional)
 
 Defaults to "c_elegans", change to "c_briggsae" or "c_tropicalis" to select correct reference file. If species == "c_elegans", a check will be run for the *npr-1* allele. *Note: this process used to happen later in `concordance-nf`, however it was moved up to `alignment-nf` to avoid having to rerun the long `wi-gatk` process if an incorrect strain is included.* 
 
-### --fq_prefix (optional)
+## --fq_prefix (optional)
 
 Within a sample sheet you may specify the locations of FASTQs using an absolute directory or a relative directory. If you want to use a relative directory, you should use the `--fq_prefix` to set the path that should be prefixed to each FASTQ.
 
 !!! Note
-    Previously, this option was `--fqs_file_prefix`
+	Previously, this option was `--fqs_file_prefix`
 
-### --kmers (optional)
+## --kmers (optional)
 
 __default__ = false
 
 Toggles kmer-analysis
 
-### --reference (optional)
+## --reference (optional)
 
 A fasta reference indexed with BWA. WS245 is packaged with the pipeline for convenience when testing or running locally.
 
-On Quest, the default references are here:
+On Rockfish, the default references are here:
 
 ```
-c_elegans: /projects/b1059/data/c_elegans/genomes/PRJNA13758/WS283/c_elegans.PRJNA13758.WS283.genome.fa.gz
-c_briggsae: /projects/b1059/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
-c_tropicalis: /projects/b1059/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
+c_elegans: /vast/eande106/data/c_elegans/genomes/PRJNA13758/WS283/c_elegans.PRJNA13758.WS283.genome.fa.gz
+c_briggsae: /vast/eande106/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz
+c_tropicalis: /vast/eande106/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz
 ```
 
 !!! Note
-A different `--project` and `--wsbuild` can be used with the `--species` parameter to generate the path to other reference genomes such as:
-```
-nextflow run andersenlab/alignment-nf --species c_elegans --project PRJNA13758 --wsbuild WS280
-```
+	A different `--project` and `--wsbuild` can be used with the `--species` parameter to generate the path to other reference genomes such as:
+	```
+	nextflow run -latest andersenlab/alignment-nf --species c_elegans --project PRJNA13758 --wsbuild WS280
+	```
 
-### --ncbi (optional)
+## --ncbi (optional)
 
-__Default__ - `/projects/b1059/data/other/ncbi_blast_db/`
+__Default__ - `/vast/eande106/data/other/ncbi_blast_db/`
 
 Path to the NCBI blast database used for blobtool analysis. Should not need to change.
 
-### --blob (optional)
+## --blob (optional)
 
 Defaults to true. Change to false if you don't need to run blobtool analysis on low coverage strains. This step can take a while, so if you don't need it you might want to exclude it.
 
-### --output (optional)
+## --output (optional)
 
 __Default__ - `alignment-YYYYMMDD`
 
-A directory in which to output results. If you have set `--debug true`, the default output directory will be `alignment-YYYYMMDD-debug`.
+A directory in which to output results. If you have set `--debug`, the default output directory will be `alignment-YYYYMMDD-debug`.
 
 
 # Output
@@ -253,16 +254,16 @@ Most files should be obvious. A few are detailed below.
 * __npr1_allele_strain.tsv__ - if species == c_elegans, this file will be output to show problematic strains that contain the N2 *npr-1* allele and should be manually checked. 
 
 !!! Important
-    If a new strain is flagged in the `npr1_allele_strain.tsv file`, tell Erik, Robyn, and the wild isolate team ASAP so they can address the issue. This strain will likely be removed from further analysis.
+	If a new strain is flagged in the `npr1_allele_strain.tsv file`, tell Erik, Robyn, and the wild isolate team ASAP so they can address the issue. This strain will likely be removed from further analysis.
 
 # Data storage
 
 ## Cleanup
 
-Once the `alignment-nf` pipeline has completed successfully and you have removed low coverage strains (see [pipeline overview](pipeline-overview.md)), all BAM files can be moved to `/projects/b1059/data/{species}/WI/alignments/` prior to variant calling.
+Once the `alignment-nf` pipeline has completed successfully and you have removed low coverage strains (see [pipeline overview](pipeline-overview.md)), all BAM files can be moved to `/vast/eande106/data/{species}/WI/alignments/` prior to variant calling.
 
 !!! Note
-Low coverage or otherwise problematic BAM files can be moved to `/projects/b1059/data/{species}/WI/alignments/_bam_not_for_cendr/`. Make sure to update the `_README.md` file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.
+	Low coverage or otherwise problematic BAM files can be moved to `/vast/eande106/data/{species}/WI/alignments/_bam_not_for_cendr/`. Make sure to update the `_README.md` file in this folder with the reason each BAM was moved here. This will help remind people which files might be used again in the future.
 
 ---
 
@@ -270,12 +271,12 @@ Low coverage or otherwise problematic BAM files can be moved to `/projects/b1059
 
 The following sections have been integrated into other code that no longer needs to be run manually, but I am keeping the documentation here in case we need to go back to it. It is important to always check that the sample sheet is generated appropriately. If there are errors in teh sample sheet, one can be constructed manually using the following code:
 
-### construct_sample_sheet.sh
+## construct_sample_sheet.sh
 
 The `scripts/construct_sample_sheet.sh` script generates the `WI_sample_sheet.tsv` file. 
 
 !!! Warning
-    The `WI_sample_sheet.tsv` file should never be generated and/or edited by hand. It should only be generated using the `scripts/construct_sample_sheet.tsv` script.
+	The `WI_sample_sheet.tsv` file should never be generated and/or edited by hand. It should only be generated using the `scripts/construct_sample_sheet.tsv` script.
 
 The `construct_sample_sheet.sh` script does a few things.
 
@@ -313,7 +314,7 @@ __(3) Integrate metadata__
 
 The `C. elegans WI Strain Info` google spreadsheet is a master spreadlist containing every strain, reference_strain, and isotype for _C. elegans_ wild isolates. The script downloads this dataset and uses it to integrate the isotype and reference strain into the sample sheet.
 
-### Adding new sequencing datasets
+## Adding new sequencing datasets
 
 Sequencing data should be added to QUEST and processed through the trimming pipeline before being added to `WI_sample_sheet.tsv`. Before proceeding, be sure to read [pipeline-trimming](pipeline-trimming.md)
 
@@ -331,23 +332,23 @@ seq_folder=BGI-20161012-ECA23
 >&2 echo ${seq_folder}
 prefix=${fastq_dir}/WI/dna/processed/$seq_folder
 for i in `ls -1 $prefix/*1P.fq.gz`; do
-    bname=`basename ${i}`;
-    barcode=`zcat ${i} | grep '@' | cut -f 10 -d ':' | sed 's/_//g' | head -n 100 | uniq -c | sort -k 1,1n | cut -c 9-100 | tail -n 1`
-    echo -e "${bname}\t${i}\t${barcode}" >> ${out}
+		bname=`basename ${i}`;
+		barcode=`zcat ${i} | grep '@' | cut -f 10 -d ':' | sed 's/_//g' | head -n 100 | uniq -c | sort -k 1,1n | cut -c 9-100 | tail -n 1`
+		echo -e "${bname}\t${i}\t${barcode}" >> ${out}
 done;
 
 cat ${out} |\
 awk -v prefix=${prefix} -v seq_folder=${seq_folder} '{
-    fq1 = $1;
-    fq2 = $1;
-    LB = $3;
-    gsub("N", "", LB);
-    gsub("1P.fq.gz", "2P.fq.gz", fq2);
-    ID = $1;
-    gsub("_1P.fq.gz", "", ID);
-    split(ID, a, "[-_]")
-    SM=a[2];
-    print SM "\t" ID "\t" LB "\t" prefix "/" fq1 "\t" prefix "/" fq2 "\t" seq_folder;
+		fq1 = $1;
+		fq2 = $1;
+		LB = $3;
+		gsub("N", "", LB);
+		gsub("1P.fq.gz", "2P.fq.gz", fq2);
+		ID = $1;
+		gsub("_1P.fq.gz", "", ID);
+		split(ID, a, "[-_]")
+		SM=a[2];
+		print SM "\t" ID "\t" LB "\t" prefix "/" fq1 "\t" prefix "/" fq2 "\t" seq_folder;
 }' >> ${fq_sheet}
 ```
 
