@@ -236,10 +236,9 @@ export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
-<p>```
-interact -n1 -pexpress
+<p><code>interact -n1 -pexpress
 module load singularity
-singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/<image_name></p>
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
 </div>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
