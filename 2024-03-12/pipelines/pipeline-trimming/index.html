@@ -169,10 +169,8 @@
 <ul>
 <li><a href="#trim-fq-nf">trim-fq-nf</a></li>
 <li><a href="#pipeline_overview">Pipeline overview</a><ul>
-<li><a href="#software_requirements">Software requirements</a><ul>
+<li><a href="#software_requirements">Software requirements</a></li>
 <li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#usage">Usage</a><ul>
@@ -190,14 +188,12 @@
 <li><a href="#--debug">--debug</a></li>
 <li><a href="#--trim_false">--trim false</a></li>
 <li><a href="#--species_check_false">--species_check false</a></li>
-<li><a href="#--fastq_folder">--fastq_folder</a><ul>
+<li><a href="#--fastq_folder">--fastq_folder</a></li>
 <li><a href="#--raw_path_optional">--raw_path (optional)</a></li>
 <li><a href="#--processed_path_optional">--processed_path (optional)</a></li>
 <li><a href="#--genome_sheet_optional">--genome_sheet (optional)</a></li>
 <li><a href="#--out_optional">--out (optional)</a></li>
 <li><a href="#--subsample_read_count_optional">--subsample_read_count (optional)</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#output">Output</a></li>
@@ -215,7 +211,7 @@
 ____           .__                     _____                            _____ 
 _/  |_ _______ |__|  _____           _/ ____\  ______           ____  _/ ____\
 \   __\\_  __ \|  | /     \   ______ \   __\  / ____/  ______  /    \ \   __\ 
- |  |   |  | \/|  ||  Y Y  \ /_____/  |  |   &lt; &lt;_|  | /_____/ |   |  \ |  |   
+ |  |   |  | \/|  ||  Y Y  \ /_____/  |  |   | |_|  | /_____/ |   |  \ |  |   
  |__|   |__|   |__||__|_|  /          |__|    \__   |         |___|  / |__|   
                          \/                      |__|              \/         
 
@@ -253,7 +249,7 @@ source activate /data/eande106/software/conda_envs/nf23_env
     mv $I $(echo $I | sed -e "s/_1/_R1_001/" -e "s/_2/_R2_001/" -e "s/fq/fastq/");
 done</code></p>
 </div>
-<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<h2 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker images to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/alignment-nf -r 20220216-Release</code></p>
@@ -271,7 +267,7 @@ export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 <p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
 <p><code>interact -n1 -pexpress
 module load singularity
-singularity shell [--bind local_dir:container_dir] /vast/eande106/&lt;image_name&gt;</code></p>
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
 </div>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <h2 id="testing_the_pipeline_on_rockfish">Testing the pipeline on Rockfish<a class="headerlink" href="#testing_the_pipeline_on_rockfish" title="Permanent link">&para;</a></h2>
@@ -307,15 +303,15 @@ singularity shell [--bind local_dir:container_dir] /vast/eande106/&lt;image_name
 <p>This will cause the workflow to skip the species check</p>
 <h2 id="--fastq_folder">--fastq_folder<a class="headerlink" href="#--fastq_folder" title="Permanent link">&para;</a></h2>
 <p>This should be the name of the folder containing all fastq files located at <code>/vast/eande106/data/transfer/raw/</code>. As long as there are no overlapping file names (be sure to check this first), you can combine multiple pools sequenced at the same time into one larger folder at this step.</p>
-<h3 id="--raw_path_optional">--raw_path (optional)<a class="headerlink" href="#--raw_path_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--raw_path_optional">--raw_path (optional)<a class="headerlink" href="#--raw_path_optional" title="Permanent link">&para;</a></h2>
 <p>The path to the <code>fastq_folder</code> if not default (<code>/vast/eande106/data/transfer/raw/</code>)</p>
-<h3 id="--processed_path_optional">--processed_path (optional)<a class="headerlink" href="#--processed_path_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--processed_path_optional">--processed_path (optional)<a class="headerlink" href="#--processed_path_optional" title="Permanent link">&para;</a></h2>
 <p>The path to output folder if not default (<code>/vast/eande106/data/transfer/processed/</code>)</p>
-<h3 id="--genome_sheet_optional">--genome_sheet (optional)<a class="headerlink" href="#--genome_sheet_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--genome_sheet_optional">--genome_sheet (optional)<a class="headerlink" href="#--genome_sheet_optional" title="Permanent link">&para;</a></h2>
 <p>Path to a tsv file listing project IDs for species. Default is located in <code>trim-fq-nf/bin/genome_sheet.tsv</code></p>
-<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h2>
 <p>Name of output folder with results. Default is "processFQ-{fastq_folder}"</p>
-<h3 id="--subsample_read_count_optional">--subsample_read_count (optional)<a class="headerlink" href="#--subsample_read_count_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--subsample_read_count_optional">--subsample_read_count (optional)<a class="headerlink" href="#--subsample_read_count_optional" title="Permanent link">&para;</a></h2>
 <p>How many reads to use for species check. Default = 10,000</p>
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <pre><code>├── /vast/eande106/data/transfer/processed/
