@@ -213,7 +213,7 @@
 </div>
 <p>The <code>nil-ril-nf</code> pipeline will align, call variants, and generate datasets for NIL and RIL sequence data. It runs a hidden-markov-model to fill in missing genotypes from low-coverage sequence data.</p>
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
-<pre><code>
+<pre><code class="language-bash">
     ███╗   ██╗██╗██╗      ██████╗ ██╗██╗      ███╗   ██╗███████╗
     ████╗  ██║██║██║      ██╔══██╗██║██║      ████╗  ██║██╔════╝
     ██╔██╗ ██║██║██║█████╗██████╔╝██║██║█████╗██╔██╗ ██║█████╗
@@ -269,7 +269,7 @@
 <ul>
 <li>The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
 </ul>
-<pre><code>module load python/anaconda3.6
+<pre><code class="language-bash">module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
 </code></pre>
 <h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
@@ -286,7 +286,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <pre><code>curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
 </code></pre>
 <p>Run the pipeline locally with:</p>
-<pre><code>nextflow run andersenlab/nil-ril-nf -profile local -resume
+<pre><code class="language-bash">nextflow run andersenlab/nil-ril-nf -profile local -resume
 </code></pre>
 <h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
 <p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>
@@ -310,7 +310,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 <p>If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the <code>-resume</code> option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly. </p>
 <p>Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci <a href="https://travis-ci.org/AndersenLab/nil-ril-nf">here</a>, and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.</p>
 <p>The command below can be used to test the pipeline locally.</p>
-<pre><code># Downloads a pre-indexed reference
+<pre><code class="language-bash"># Downloads a pre-indexed reference
 curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
 
 # Run nextflow
@@ -367,7 +367,7 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <li><strong>fastq-2-path</strong> - The <strong>relative</strong> path of the second fastq.</li>
 </ul>
 <p>This file needs to be placed along with the sequence data into a folder. The tree will look like this:</p>
-<pre><code>NIL_SEQ_DATA/
+<pre><code class="language-bash">NIL_SEQ_DATA/
 ├── NIL_01_1.fq.gz
 ├── NIL_01_2.fq.gz
 ├── NIL_02_1.fq.gz
@@ -407,7 +407,7 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <p>A directory for storing temporary data.</p>
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <p>The final output directory looks like this:</p>
-<pre><code>.
+<pre><code class="language-bash">.
 ├── log.txt
 ├── fq
 │   ├── fq_bam_idxstats.tsv
