@@ -39,11 +39,11 @@ This repo contains a nextflow pipeline that downloads, indexes, and builds annot
 
 ```
 
-![](img/genomes-nf.drawio.svg)
+![](../img/genomes-nf.drawio.svg)
 
 ## Software requirements
 
-* Nextflow v20.01+ (see the dry guide on Nextflow [here](quest-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
+* Nextflow v20.01+ (see the dry guide on Nextflow [here](../quest/quest-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
 
 ```
 module load python/anaconda3.6
@@ -56,7 +56,7 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 module load singularity
 ```
 
-* If running locally, Docker must be installed. For further instructions, check out our [docker guide](pipeline-docker.md)
+* If running locally, Docker must be installed. For further instructions, check out our [docker guide](docker.md)
 
 # Usage
 

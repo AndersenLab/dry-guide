@@ -6,7 +6,7 @@ Google genomic API allows auto scale for computational resources by creating and
 
 ## Enable API
 
-Go the the main page of [google cloud platform](https://console.cloud.google.com/home/dashboard?project=caendr). In the Produck & Services menu, click `APIs & Services`, and then click `Enable APIs and Services`. The following APIs should be enabled to run nextflow pipeline on GCP.
+Go the the main page of [google cloud platform](https://console.cloud.google.com/home/dashboard?project=caendr). In the Product & Services menu, click `APIs & Services`, and then click `Enable APIs and Services`. The following APIs should be enabled to run nextflow pipeline on GCP.
 
 * Genomics API
 * Cloud Life Sciences API

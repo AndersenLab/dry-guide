@@ -3,7 +3,7 @@
 [TOC]
 
 
-[Docker](https://www.docker.com) can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at [dockerfile](https://github.com/AndersenLab/dockerfile).
+[Docker](https://www.docker.com) can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at [dockerfile](https://github.com/AndersenLab/dockerfile) or in specific pipelines.
 
 ## Dockerfile
 
@@ -47,7 +47,7 @@ RUN R -e "install.packages('roperators',dependencies=TRUE, repos='http://cran.us
 ```
 
 !!! Note
-		Put the `conda.ymal` and `Dockerfile` under the same folder.
+	Put the `conda.ymal` and `Dockerfile` under the same folder.
 
 ## Build docker image
 
@@ -58,6 +58,9 @@ Go to the folder which have `conda.ymal` and `Dockerfile`, run
 ```
 docker build -t <dockerhub account>/<name of the image> . # don't ingore the dot here
 ```
+
+!!! Important
+	If you are on a newer Mac (M1 processor or newer), you will need to specify the correct platform to build the container for with the argument `--platform linux/amd64`.
 
 You can use `docker image ls` to check the image list you have in your local machine.
 
@@ -99,12 +102,20 @@ Alternatively, a docker container can be specified within the `nextflow.config` 
 process.container = 'nextflow/examples:latest'
 docker.enabled = true
 
-// if on quest:
+// if on quest or rockfish:
 // singularity.enabled = true
 ```
 
 !!! Important
-		When running Nextflow with a docker container on QUEST, it is necessary to replace the `docker` command with `singularity` (although you still must build a docker container). You must also load singularity using `module load singularity` before starting a run.
+	When running Nextflow with a docker container on QUEST or Rockfish, it is necessary to replace the `docker` command with `singularity` (although you still must build a docker container). You must also load singularity using `module load singularity` before starting a run.
+
+### Caching singularity images on Rockfish
+
+To make the most out of using a shared cache directory for singularity on VAST, make sure to add this line to your `~/.bash_profile` before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).
+
+```
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+```
 
 ### Caching singularity images on QUEST
 

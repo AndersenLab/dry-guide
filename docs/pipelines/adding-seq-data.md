@@ -21,10 +21,10 @@ You will use the `gt_hmm_fill.tsv` file output from the `nil-ril-nf` pipeline fo
     In order for your sequencing data to be properly added, it is important to make sure that there are no empty/additional lines located at the bottom of your .tsv file. 
 
 __What you do not want__
-![What you do not want](img/WhatNotToDo.png)
+![What you do not want](../img/WhatNotToDo.png)
 
 __What you do want__
-![What you do want](img/WhatYouDoWant.png)
+![What you do want](../img/WhatYouDoWant.png)
 
 Once your file has no empty lines at the bottom, save the file and move onto the next instructions below. 
 
@@ -42,7 +42,7 @@ git clone https://github.com/AndersenLab/andersenlab.github.io.git
 4. Open terminal and use the `cd`command to change directories into the `pages` folder in your Andersenlab github directory. 
 If you did everything correctly, when you type `ls` into your terminal, it should look something like this. 
 
-![What your terminal should look like](img/PagesDirectory.png)
+![What your terminal should look like](../img/PagesDirectory.png)
 
 5. Then run the following commands in your terminal (while still in your `pages` directory): 
 ```

@@ -6,7 +6,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 # Overview
 
-```
+```bash
 
     ███╗   ██╗██╗██╗      ██████╗ ██╗██╗      ███╗   ██╗███████╗
     ████╗  ██║██║██║      ██╔══██╗██║██║      ████╗  ██║██╔════╝
@@ -39,7 +39,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 ```
 
-![Overview](img/nil_ril.drawio.svg)
+![Overview](../img/nil_ril.drawio.svg)
 
 
 1. `Alignment` - Performed using bwa-mem
@@ -53,7 +53,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 1. `Call HMM` - VCF-kit is run in various ways to infer the appropriate genotypes from the low-coverage sequence data.
 
 !!! Important
-    Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
+	Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.
 
 # Docker image
 
@@ -69,14 +69,14 @@ The __Dockerfile__ is stored in the root of the `nil-ril-nf` github repo and is 
 
 * The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
 
-```
+```bash
 module load python/anaconda3.6
 source activate /projects/b1059/software/conda_envs/nf20_env
 ```
 
 ## Profiles and Running the Pipeline
 
-*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](quest/quest-nextflow.md) page.*
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](../quest/quest-nextflow.md) page.*
 
 
 The `nextflow.config` file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.
@@ -95,7 +95,7 @@ curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758
 ```
 
 Run the pipeline locally with:
-```
+```bash
 nextflow run andersenlab/nil-ril-nf -profile local -resume
 ```
 
@@ -114,7 +114,7 @@ nextflow run andersenlab/nil-ril-nf -profile quest_debug -resume
 ```
 
 !!! Note
-    There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.
+	There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.
 
 ### Running the pipeline on Quest
 
@@ -138,16 +138,16 @@ Additionally - note that the pipeline is tested everytime a change is made and p
 
 The command below can be used to test the pipeline locally.
 
-```
+```bash
 # Downloads a pre-indexed reference
 curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz > WS276.fa.gz
 
 # Run nextflow
 nextflow run andersenlab/nil-ril-nf \
-             -with-docker andersenlab/nil-ril-nf \
-             --debug \
-             --reference=WS276.fa.gz \
-             -resume
+			 -with-docker andersenlab/nil-ril-nf \
+			 --debug \
+			 --reference=WS276.fa.gz \
+			 -resume
 ```
 
 * Note that the path to the vcf will change slightly in releases later than WI-20170531; See the `wi-gatk` pipeline for details.
@@ -181,7 +181,7 @@ The columns are detailed below:
 
 This file needs to be placed along with the sequence data into a folder. The tree will look like this:
 
-```
+```bash
 NIL_SEQ_DATA/
 ├── NIL_01_1.fq.gz
 ├── NIL_01_2.fq.gz
@@ -193,7 +193,7 @@ NIL_SEQ_DATA/
 Set `--fqs` as `--fqs=/the/path/to/fq_sheet.tsv`.
 
 !!! Important
-    Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).
+	Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).
 
 ## --vcf
 
@@ -251,7 +251,7 @@ A directory for storing temporary data.
 
 The final output directory looks like this:
 
-```
+```bash
 .
 ├── log.txt
 ├── fq
@@ -313,7 +313,7 @@ If you have multiple fastq pairs per sample, their alignments will be combined i
 ### hmm/
 
 !!! Important
-    __gt_hmm_fill.tsv__ is for visualization purposes only. To determine breakpoints you should use __gt_hmm.tsv__.
+	__gt_hmm_fill.tsv__ is for visualization purposes only. To determine breakpoints you should use __gt_hmm.tsv__.
 
 ![hmm_fill](http://vcf-kit.readthedocs.io/en/latest/hmm_opts.png)
 
@@ -354,5 +354,5 @@ After the run is complete and you are satisfied with the results, follow these s
 
 If your sequencing was N2-CB4856 NILs (and maybe other *C. elegans* NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.
 
-Check out [this page](pipelines/adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
+Check out [this page](adding-seq-data.md) for instructions on how to do that. Once done, you should be able to view your NILs on the [NIL browser shiny app](https://andersen-lab.shinyapps.io/nil-browser/).
 
