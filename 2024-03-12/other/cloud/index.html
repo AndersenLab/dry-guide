@@ -171,7 +171,7 @@
 <li><a href="#google_cloud">Google Cloud</a><ul>
 <li><a href="#google_cloud_storage">Google Cloud Storage</a><ul>
 <li><a href="#buckets">Buckets</a><ul>
-<li><a href="#elegansvariationorg">elegansvariation.org</a></li>
+<li><a href="#caendrorg">caendr.org</a></li>
 <li><a href="#andersenlaborg">andersenlab.org</a></li>
 <li><a href="#other_buckets">Other buckets</a></li>
 <li><a href="#secret_bucket">Secret Bucket</a></li>
@@ -198,23 +198,23 @@
 <p>Any domain names the lab uses should be registered with Google Domains. The two ones currently are:</p>
 <ul>
 <li><a href="http://andersenlab.org">andersenlab.org</a></li>
-<li><a href="http://elegansvariation.org">elegansvariation.org</a></li>
+<li><a href="http://caendr.org">caendr.org</a></li>
 </ul>
 <p>Google domains can be used to forward domain-specific email addresses if necessary. 
 For example, example@andersenlab.org could be created and forwarded to an email address.</p>
 <h1 id="google_cloud">Google Cloud<a class="headerlink" href="#google_cloud" title="Permanent link">&para;</a></h1>
 <p>Google cloud is used for a variety of services that the lab uses.</p>
 <h3 id="google_cloud_storage">Google Cloud Storage<a class="headerlink" href="#google_cloud_storage" title="Permanent link">&para;</a></h3>
-<p>Google cloud storage is used to store and distribute files on CeNDR, for cegwas, and for some files on the lab website.</p>
+<p>Google cloud storage is used to store and distribute files on CaeNDR, for gwas, and for some files on the lab website.</p>
 <h4 id="buckets">Buckets<a class="headerlink" href="#buckets" title="Permanent link">&para;</a></h4>
 <p>Files are grouped into 'buckets' on google storage. We use the following buckets:</p>
-<h5 id="elegansvariationorg">elegansvariation.org<a class="headerlink" href="#elegansvariationorg" title="Permanent link">&para;</a></h5>
-<p>This bucket contains all the data associated with elegansvariation.org. It is broken down into six primary directories.</p>
+<h5 id="caendrorg">caendr.org<a class="headerlink" href="#caendrorg" title="Permanent link">&para;</a></h5>
+<p>This bucket contains all the data associated with caendr.org. It is broken down into six primary directories.</p>
 <ul>
 <li><strong>browser_tracks</strong> - for genome-browser tracks that rarely if ever change.</li>
 <li><strong>db</strong> - Storage/access to the SQLite database.</li>
 <li><strong>photos</strong> - sample collection photos.</li>
-<li><strong>releases</strong> - dataset releases. For more detail, see <a href="pipeline-postGATK.md">post-gatk-nf</a>.</li>
+<li><strong>releases</strong> - dataset releases. For more detail, see <a href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>.</li>
 <li><strong>reports</strong> - images and data files within reports.</li>
 <li><strong>static</strong> - static assets used by the site.</li>
 <li><strong>bam</strong> - stores all BAM files at the strain level</li>
@@ -241,7 +241,7 @@ CeNDR. A github issue can be created for these errors and they can be addressed.
 <p>We have used bigquery in the past for large query jobs. We are not actively using it as of late.</p>
 <h1 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h1>
 <h2 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h2>
-<p>In the past we stored BAMs on AWS at <code>elegansvariation.org</code>, however these data have now been migrated to GCP as of the 20210121 CeNDR release.</p>
+<p>In the past we stored BAMs on AWS at <code>caendr.org</code>, however these data have now been migrated to GCP as of the 20210121 CaeNDR release.</p>
 <h2 id="fargate">Fargate<a class="headerlink" href="#fargate" title="Permanent link">&para;</a></h2>
 <p>Amazon Fargate was used to run the mapping pipeline on CeNDR in the past, but this is now moved to GCP as of 2021</p>
               
