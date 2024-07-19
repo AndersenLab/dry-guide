@@ -197,7 +197,7 @@
 <p>All input and output files in Nextflow are piped through "channels". You can create a channel with an input file or parameter and then feed these channels to a "process" (or step). Channels can be merged, split, or rearranged. Check out the Nextflow documentation for <a href="https://www.nextflow.io/docs/latest/channel.html">channels</a> to learn more. Also check out this <a href="https://github.com/danrlu/Nextflow_cheatsheet/blob/main/nextflow_cheatsheet.pdf">cheatsheet</a> for useful operators.</p>
 <p><em>Miscellaneous channels tips:</em></p>
 <ul>
-<li><code>Channel.from("A.txt")</code> will put <code>A.txt</code> as is into the channel </li>
+<li><code>Channel.of("A.txt")</code> will put <code>A.txt</code> as is into the channel </li>
 <li><code>Channel.fromPath("A.txt")</code> will add a full path (usually current directory) and put <code>/path/A.txt</code> into the channel. </li>
 <li><code>Channel.fromPath("folder/A.txt")</code> will add a full path (usually current directory) and put <code>/path/folder/A.txt</code> into the channel. </li>
 <li><code>Channel.fromPath("/path/A.txt")</code> will put <code>/path/A.txt</code> into the channel. </li>
@@ -251,7 +251,7 @@ workflow {
 <li>If there is an error, you can go into the working directory to see all input and output files (sometimes in the form of symlinks) for that specific process. You can also find the script (<code>.command.sh</code>) that was run and try to reproduce the error manually. If there was an error, the message is recorded in <code>errlog.txt</code><ul>
 <li>If there is an error, the Nextflow error output will point you to the working directory for that specific process and might look something like <code>/projects/b1042/AndersenLab/work/katie/4c/4d9c3b333734a5b63d66f0bc0cfcdc</code></li>
 <li>You can also find the working directory from the hash shown next to a running/completed process. For example <code>[4c/4d9c3b]</code> corresponds to the working directory above.</li>
-<li>See the <a href="quest-nextflow.md">running nextflow</a> page for creating a function to automatically <code>cd</code> into the working directory given that hash.</li>
+<li>See the <a href="../../rockfish/rf-nextflow/">running nextflow</a> page for creating a function to automatically <code>cd</code> into the working directory given that hash.</li>
 <li>You can also find the working directory in the <code>.nextflow.log</code> file or in the <code>report.html</code> if one is generated.</li>
 </ul>
 </li>
@@ -329,7 +329,7 @@ report {
 }
 
 </code></pre>
-<p><strong>How to require users to sepcify a parameter value</strong></p>
+<p><strong>How to require users to specify a parameter value</strong></p>
 <ul>
 <li>There are 2 types of paramters: (a) one with no actual value (b) one with actual values. </li>
 <li><strong>(a)</strong> If a parameter is specified but no value is given, it is implicitly considered <code>true</code>. So one can use this to run debug mode <code>nextflow main.nf --debug</code></li>
