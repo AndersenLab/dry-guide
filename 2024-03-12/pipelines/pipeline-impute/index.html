@@ -192,7 +192,7 @@
 <li><a href="#output">Output</a></li>
 </ul>
 </div>
-<p>The <a href="https://github.com/AndersenLab/impute-nf">impute-nf</a> pipeline performs imputation of variants, a step required for fine-mapping with NemaScan.</p>
+<p>The <a href="https://github.com/AndersenLab/impute-nf">impute-nf</a> pipeline subsets isotype reference strains from a hard-filter vcf file, creates a SNV-only VCF, and imputes a new VCF. This step is required for fine-mapping with NemaScan.</p>
 <p>This page details how to run the pipeline.</p>
 <h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
 <pre><code>
@@ -227,7 +227,7 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
 <p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/post-gatk-nf -r 20220216-Release</code></em></p>
 <ul>
-<li><code>andersenlab/beagle:5.2</code> (<a href="https://hub.docker.com/r/andersenlab/beagle">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/beagle.Dockerfile</code> or <code>.github/workflows/build_beagle_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+<li><code>andersenlab/beagle</code> (<a href="https://hub.docker.com/r/andersenlab/beagle">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/beagle.Dockerfile</code> or <code>.github/workflows/build_beagle_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
 </ul>
 <p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
 <pre><code># add singularity cache
