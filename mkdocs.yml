@@ -48,7 +48,7 @@ nav:
         - Docker: pipelines/docker.md
         - GCP: pipelines/nf-GCPconfig.md
     - Other things:
-        - CeNDR: other/caendr.md
+        - CaeNDR: other/caendr.md
         - Backup: other/backup.md
         - SRA: other/sra.md
         - Cloud: other/cloud.md

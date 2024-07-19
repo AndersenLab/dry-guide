@@ -9,7 +9,7 @@ For full documentation visit [mkdocs.org](http://mkdocs.org).
 Any domain names the lab uses should be registered with Google Domains. The two ones currently are:
 
 * [andersenlab.org](http://andersenlab.org)
-* [elegansvariation.org](http://elegansvariation.org)
+* [caendr.org](http://caendr.org)
 
 Google domains can be used to forward domain-specific email addresses if necessary. 
 For example, example@andersenlab.org could be created and forwarded to an email address.
@@ -20,20 +20,20 @@ Google cloud is used for a variety of services that the lab uses.
 
 ### Google Cloud Storage
 
-Google cloud storage is used to store and distribute files on CeNDR, for cegwas, and for some files on the lab website.
+Google cloud storage is used to store and distribute files on CaeNDR, for gwas, and for some files on the lab website.
 
 #### Buckets
 
 Files are grouped into 'buckets' on google storage. We use the following buckets:
 
-##### elegansvariation.org
+##### caendr.org
 
-This bucket contains all the data associated with elegansvariation.org. It is broken down into six primary directories.
+This bucket contains all the data associated with caendr.org. It is broken down into six primary directories.
 
 * __browser_tracks__ - for genome-browser tracks that rarely if ever change.
 * __db__ - Storage/access to the SQLite database.
 * __photos__ - sample collection photos.
-* __releases__ - dataset releases. For more detail, see [post-gatk-nf](pipeline-postGATK.md).
+* __releases__ - dataset releases. For more detail, see [post-gatk-nf](../pipelines/pipeline-postGATK.md).
 * __reports__ - images and data files within reports.
 * __static__ - static assets used by the site.
 * __bam__ - stores all BAM files at the strain level
@@ -79,7 +79,7 @@ We have used bigquery in the past for large query jobs. We are not actively usin
 
 ## S3
 
-In the past we stored BAMs on AWS at `elegansvariation.org`, however these data have now been migrated to GCP as of the 20210121 CeNDR release.
+In the past we stored BAMs on AWS at `caendr.org`, however these data have now been migrated to GCP as of the 20210121 CaeNDR release.
 
 ## Fargate
 

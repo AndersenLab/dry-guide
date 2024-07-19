@@ -1,6 +1,6 @@
 # Uploading WI FASTQ sequence data to SRA
 
-For each CENDR release, it is important to also upload the FASTQ files to NCBI's Sequence Read Archive (SRA). **If a bioproject already exists, you can create a new submission and link to the previous bioproject**. If there is no previous bioproject, you can create a new bioproject and add all relevant data. See below for more instructions.
+For each CaeNDR release, it is important to also upload the FASTQ files to NCBI's Sequence Read Archive (SRA). **If a bioproject already exists, you can create a new submission and link to the previous bioproject**. If there is no previous bioproject, you can create a new bioproject and add all relevant data. See below for more instructions.
 
 ## SRA submission
 
@@ -17,7 +17,7 @@ For each CENDR release, it is important to also upload the FASTQ files to NCBI's
 * Finally, join this data with the WI species master sheet to get collected by, collection date, and latitude/longitude.
         - *Note: latitude/longitude need to be converted into one shared column in the format "34.89 S 56.15 W" (+ refers to North and East)*
 * Copy the data into the relevent columns in the [template](https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/Model.organism.animal.1.0.xlsx), save, and upload to the submission portal
-![](img/sra_biosample.png)
+![](../img/sra_biosample.png)
 
 3. **Create SRA metadata sheet**
 
@@ -25,7 +25,7 @@ For each CENDR release, it is important to also upload the FASTQ files to NCBI's
 * An easy starting point here is, again, the sample sheet used for `alignment-nf`. You will keep the id as the sample name and the lb as library id. You will also keep fq1 and fq2 for filename and filename2.
 * You will then add the rest of the columns as shown below. Note: the formatting is very specific for this sheet. The title can be found on the bioproject page. The instrument_model can be found by using the "sequencing_folder" (not shown, but part of the original sample sheet) and looking up the instrument that folder was run on in the Sequencing Runs google sheet ([here](https://docs.google.com/spreadsheets/d/1CpSpzU1p-WtGKIMBK99DL5AeZb-A8QrHPuLkM_fAuEY/edit#gid=0))
 * Copy and paste the rows from this file into the [template](https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata.xlsx) to check for correct formatting. Then save the tab as a tsv and upload to the submission portal.
-![](img/sra_metadata.png)
+![](../img/sra_metadata.png)
 
 4. **Pre-upload FASTQ files using FTP**
 
@@ -33,7 +33,7 @@ For each CENDR release, it is important to also upload the FASTQ files to NCBI's
 * Begin submission by creating an NCBI account (or signing in -- personal account). Then follow the link to the [SRA submission portal](https://submit.ncbi.nlm.nih.gov/subs/sra/)
 * Follow the instructions under the "FTP upload":
 
-```
+```bash
 # establish FTP connection from terminal (on QUEST!)
 # ftp <address>
 ftp ftp-private.ncbi.nlm.nih.gov

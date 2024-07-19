@@ -10,12 +10,12 @@ Check out the [Nextflow documentation](https://www.nextflow.io/docs/latest/) for
 Not every analysis needs to be a Nextflow pipeline. For smaller analyses (especially those with few inputs) it might be easier to write a bash/shell script. However, there are many advantages to Nextflow:
 
 1. When you are running many parallel tasks
-    * Nextflow takes care of all the job submissions and is really good at running the same basic script across 6 chromosomes, 500 strains, 1000 permutations, whatever you need!
+	* Nextflow takes care of all the job submissions and is really good at running the same basic script across 6 chromosomes, 500 strains, 1000 permutations, whatever you need!
 2. When your analysis consists of several different steps that are either sequential and/or can be run simultaneously. 
-    * Because Nextflow is great at parallelization, it knows which steps rely on other steps and can speed up your script by running independent steps in parallel.
-    * Also, you can take advantage of the `-resume` function for scripts that take a long time to run because Nextflow caches results (which means if there is an error you can fix it but you don't have to start over from the begining!)
+	* Because Nextflow is great at parallelization, it knows which steps rely on other steps and can speed up your script by running independent steps in parallel.
+	* Also, you can take advantage of the `-resume` function for scripts that take a long time to run because Nextflow caches results (which means if there is an error you can fix it but you don't have to start over from the begining!)
 3. You want to be able to easily run your script on different computing platforms (i.e. QUEST, local machine, GCP...)
-    * This can be done by creating different profiles for each platform. Check out the [nextflow documentation](https://www.nextflow.io/docs/latest/config.html#config-profiles) on profiles.
+	* This can be done by creating different profiles for each platform. Check out the [nextflow documentation](https://www.nextflow.io/docs/latest/config.html#config-profiles) on profiles.
 
 ## The basics
 
@@ -25,7 +25,7 @@ All input and output files in Nextflow are piped through "channels". You can cre
 
 *Miscellaneous channels tips:*
 
-- `Channel.from("A.txt")` will put `A.txt` as is into the channel 
+- `Channel.of("A.txt")` will put `A.txt` as is into the channel 
 - `Channel.fromPath("A.txt")` will add a full path (usually current directory) and put `/path/A.txt` into the channel. 
 - `Channel.fromPath("folder/A.txt")` will add a full path (usually current directory) and put `/path/folder/A.txt` into the channel. 
 - `Channel.fromPath("/path/A.txt")` will put `/path/A.txt` into the channel. 
@@ -43,12 +43,12 @@ process split_pheno {
 		file('infile')
 
 	output:
-        file('*.tsv')
+		file('*.tsv')
 
-    """
-    Rscript --vanilla ${workflow.projectDir}/bin/split_pheno.R ${infile} ${params.thresh}
+	"""
+	Rscript --vanilla ${workflow.projectDir}/bin/split_pheno.R ${infile} ${params.thresh}
 
-    """
+	"""
 }
 ```
 
@@ -57,11 +57,11 @@ Each process is defined by `process <name> {}` and has three basic parts: 1) inp
 ```
 # example of a simple workflow (at the top of a nextflow script)
 workflow {
-    # create a channel from the input file and give it to the split_pheno process
-    Channel.fromPath(params.in) | split_pheno
+	# create a channel from the input file and give it to the split_pheno process
+	Channel.fromPath(params.in) | split_pheno
 	
-    # take the output from split_pheno and "flatten it" and send to the mapping process
-    split_pheno.out.flatten() | mapping
+	# take the output from split_pheno and "flatten it" and send to the mapping process
+	split_pheno.out.flatten() | mapping
 }
 ```
 
@@ -80,13 +80,13 @@ workflow {
 One of the main distinctions of Nextflow is that each execution of a process happens in its own temporary working directory. This is important for several reasons:
 
 1. You do not need to name temporary files dynamically (i.e. with strain or trait name) to avoid overwriting files, because you can repeat the same process with a different trait in a different directory.
-    * This means you can call a temporary file `strain.bam` instead of `DL238.bam` and `CB4856.bam`. This can make for simpler coding
-    * However, if you provide strain name as a value in the input channel, it is easy to name files dynamically with `${strain}.bam` which will output `DL238.bam` or `CB4856.bam`
+	* This means you can call a temporary file `strain.bam` instead of `DL238.bam` and `CB4856.bam`. This can make for simpler coding
+	* However, if you provide strain name as a value in the input channel, it is easy to name files dynamically with `${strain}.bam` which will output `DL238.bam` or `CB4856.bam`
 2. If there is an error, you can go into the working directory to see all input and output files (sometimes in the form of symlinks) for that specific process. You can also find the script (`.command.sh`) that was run and try to reproduce the error manually. If there was an error, the message is recorded in `errlog.txt`
-    * If there is an error, the Nextflow error output will point you to the working directory for that specific process and might look something like `/projects/b1042/AndersenLab/work/katie/4c/4d9c3b333734a5b63d66f0bc0cfcdc`
-    * You can also find the working directory from the hash shown next to a running/completed process. For example `[4c/4d9c3b]` corresponds to the working directory above.
-    * See the [running nextflow](quest-nextflow.md) page for creating a function to automatically `cd` into the working directory given that hash.
-    * You can also find the working directory in the `.nextflow.log` file or in the `report.html` if one is generated.
+	* If there is an error, the Nextflow error output will point you to the working directory for that specific process and might look something like `/projects/b1042/AndersenLab/work/katie/4c/4d9c3b333734a5b63d66f0bc0cfcdc`
+	* You can also find the working directory from the hash shown next to a running/completed process. For example `[4c/4d9c3b]` corresponds to the working directory above.
+	* See the [running nextflow](../rockfish/rf-nextflow.md) page for creating a function to automatically `cd` into the working directory given that hash.
+	* You can also find the working directory in the `.nextflow.log` file or in the `report.html` if one is generated.
 
 *Miscellaneous tips on the working directory:*
 
@@ -96,8 +96,8 @@ One of the main distinctions of Nextflow is that each execution of a process hap
 - In Nextflow scripts (.nf files), one can use: 
   - `${workflow.projectDir}` to refer where the project locates (usually the folder of main.nf). For example: `publishDir "${workflow.projectDir}/output", mode: 'copy'` or `Rscript ${workflow.projectDir}/bin/task.R`.
   - `${workflow.launchDir}` to refer to where the script is called from. 
-    - `$baseDir` usually refers to the same folder as `${workflow.projectDir}` but it can also be used in the config file, where `${workflow.projectDir}` and `${workflow.launchDir}` are not accessible.   
-    - They are much more reliable than `$PWD` or `$pwd`.
+	- `$baseDir` usually refers to the same folder as `${workflow.projectDir}` but it can also be used in the config file, where `${workflow.projectDir}` and `${workflow.launchDir}` are not accessible.   
+	- They are much more reliable than `$PWD` or `$pwd`.
 
 !!! Note
 	The standard name of a nextflow script is `main.nf` but it doesn't have to be! If you just call `nextflow run andersenlab/nemascan` it will automatically choose the `main.nf` script. It is best practice to always write out the script name though
@@ -107,22 +107,22 @@ One of the main distinctions of Nextflow is that each execution of a process hap
 
 ```
   channel_vcf
-    .combine(channel_index)
-    .combine(channel_chr)
-    .view()
+	.combine(channel_index)
+	.combine(channel_chr)
+	.view()
 ```
 
 - To print from the script section inside the processes, add `echo true`.
 
 ```
   process test {
-    echo true    // this will print the stdout from the script section on Terminal
-    
-    input: path(vcf)
+	echo true    // this will print the stdout from the script section on Terminal
+	
+	input: path(vcf)
 
-    """
-    head $vcf
-    """
+	"""
+	head $vcf
+	"""
   }
 ```
 
@@ -151,51 +151,51 @@ import java.time.*
 Date now = new Date()
 
 params {
-    tracedir = "pipeline_info"
-    timestamp = now.format("yyyyMMdd-HH-mm-ss")
+	tracedir = "pipeline_info"
+	timestamp = now.format("yyyyMMdd-HH-mm-ss")
 }
 
 timeline {
-    enabled = true
-    file = "${params.tracedir}/${params.timestamp}_timeline.html"
+	enabled = true
+	file = "${params.tracedir}/${params.timestamp}_timeline.html"
 }
 report {
-    enabled = true
-    file = "${params.tracedir}/${params.timestamp}_report.html"
+	enabled = true
+	file = "${params.tracedir}/${params.timestamp}_report.html"
 }
 
 ```
 
-**How to require users to sepcify a parameter value**
+**How to require users to specify a parameter value**
 
 - There are 2 types of paramters: (a) one with no actual value (b) one with actual values. 
 - **(a)** If a parameter is specified but no value is given, it is implicitly considered `true`. So one can use this to run debug mode `nextflow main.nf --debug`
 ```
-    if (params.debug) {
-        ... (set parameters for debug mode)
-    } else {
-        ... (set parameters for normal use)
-    }
+	if (params.debug) {
+		... (set parameters for debug mode)
+	} else {
+		... (set parameters for normal use)
+	}
 ```
    - or to print help message `nextflow main.nf --help`
 ```
-    if (params.help) {
-        println """
-        ... (help msg here)
-        """
-        exit 0
-    }
+	if (params.help) {
+		println """
+		... (help msg here)
+		"""
+		exit 0
+	}
 ```
 
 - **(b)** For parameters that need to contain a value, Nextflow recommends to set a default and let users to overwrite it as needed. However, if you want to require it to be specified by the user:
 ```
-    params.reference = null   // no quotes. this line is optional, since without initialising the parameter it will default to null. 
-    if (params.reference == null) error "Please specify a reference genome with --reference"
+	params.reference = null   // no quotes. this line is optional, since without initialising the parameter it will default to null. 
+	if (params.reference == null) error "Please specify a reference genome with --reference"
 ```  
 
 - Below works as long as the user always append a value: `--reference=something`. It will not print the error message with: `nextflow main.nf --reference` (without specifying a value) because this will set `params.reference` to `true` (see point **(a)**) and `!params.reference` will be `false`. 
 ```
-    if (!params.reference) error "Please specify a reference genome with --reference"
+	if (!params.reference) error "Please specify a reference genome with --reference"
 ```
 
 ## Resources

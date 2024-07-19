@@ -1,8 +1,8 @@
-# CeNDR
+# CaeNDR
 
 [TOC]
 
-## CeNDR User privileges
+## CaeNDR User privileges
 
 To view, modify, or edit a user account, navigate to the 'Admin -> Users' menu. You can promote existing users to 'Admin' through this form as well.
 
@@ -22,30 +22,30 @@ The last row of the spreadsheet contains a function that can fetch publication d
 
 Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.
 
-Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.
+Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CaeNDR website.
 
 ## Updating Site Tools
 
-To change the version of the container that CeNDR uses for a tool:
+To change the version of the container that CaeNDR uses for a tool:
 
 - Admin -> Tool Versions
 
-The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CeNDR uses for all future operations.
+The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CaeNDR uses for all future operations.
 
 ## Creating a new release
 
 Before a new release is possible, you must have first completed the following tasks:
 
-__See [Pipeline Overview](pipeline-overview.md) for details__.
+__See [Pipeline Overview](../pipelines/pipeline-overview.md) for details__.
 
-1. Add new wild isolate sequence data, and process with the [trim-fq-nf](pipeline-trimming.md) pipeline.
-1. Align reads with [alignment-nf](pipeline-alignment.md).
-1. Call variants with [wi-gatk](pipeline-wiGATK.md).
-1. Identify new isotypes using the [concordance-nf](pipeline-concordance.md).
+1. Add new wild isolate sequence data, and process with the [trim-fq-nf](../pipelines/pipeline-trimming.md) pipeline.
+1. Align reads with [alignment-nf](../pipelines/pipeline-alignment.md).
+1. Call variants with [wi-gatk](../pipelines/pipeline-wiGATK.md).
+1. Identify new isotypes using the [concordance-nf](../pipelines/pipeline-concordance.md).
 1. Update the *C. elegans* WI Strain Info [spreadsheet](https://docs.google.com/spreadsheets/u/1/d/10x-CcKNCl80F9hMcrGWC4fhP_cbekSzi5_IYBY2UqCc/edit?usp=drive_web&ouid=113810443554564955854) with the new isotypes and update the release column to reflect the release date.
-1. Perform population genetic analysis with [post-gatk-nf](pipeline-postGATK.md).
-1. [Impute](pipeline-impute.md) the VCF.
-1. Annotate the VCF with the [annotation-nf](pipeline-annotation-nf.md) pipeline.
+1. Perform population genetic analysis with [post-gatk-nf](../pipelines/pipeline-postGATK.md).
+1. [Impute](../pipelines/pipeline-impute.md) the VCF.
+1. Annotate the VCF with the [annotation-nf](../pipelines/pipeline-annotation-nf.md) pipeline.
 
 Pushing a new release requires a series of steps described below.
 
@@ -59,11 +59,11 @@ Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) and co
 gcloud init 
 ```
 
-Once configured, navigate to the BAM location on b1059.
+Once configured, navigate to the BAM location on VAST.
 
 ```bash
 # CD to bams folder...
-cd /projects/b1059/data/c_elegans/WI/alignments/
+cd /vast/eande106/data/c_elegans/WI/alignments/
 ```
 Run this command in screen to ensure that it completes (it's going to take a while)
 
@@ -103,22 +103,22 @@ gsutil rsync -x ".DS_Store" . gs://caendr-photos-bucket/c_elegans
 
 ### Uploading Release Data to Google Storage
 
-When you run the `wi-gatk` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
+When you run the `wi-gatk` pipeline it will create a folder with the format `WI-YYYYMMDD`. These data are output in a format that CaeNDR can read as a release. You must upload the `WI-YYYYMMDD` folder to google storage with a command that looks like this:
 
 !!! Note 
-    Data from several different pipelines are combined to form a CeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. 
+	Data from several different pipelines are combined to form a CaeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. 
 
 ```bash
 # first cd into the folder you want to upload
-gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20210121/
+gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20231213/
 ```
 
 !!! Important
-    Use rsync to copy the files up to google storage. Note that the `WI-` prefix has been dropped from the `YYYYMMDD` declaration.
+	Use rsync to copy the files up to google storage. Note that the `WI-` prefix has been dropped from the `YYYYMMDD` declaration.
 
 There are 2 different expected filename and directory structures for dataset releases, V1 (the legacy format) and V2 (the current format).
-You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CeNDR.
-Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20210121
+You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CaeNDR.
+Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20231213
 
 V2 Structure:
 
@@ -162,9 +162,9 @@ V1 Structure:
 - [RELEASE_VERSION]/multiqc_bcftools_stats.json
 - [RELEASE_VERSION]/popgen/trees/genome.pdf
 
-### Adding the release to the CeNDR website
+### Adding the release to the CaeNDR website
 
-To publish the release data on the CeNDR website, you must be logged into the CeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CeNDR user account.
+To publish the release data on the CaeNDR website, you must be logged into the CaeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CaeNDR user account.
 
 __Perform the following steps in order:__
 
@@ -172,28 +172,28 @@ __1. Updating the site's internal database of Strains (~5 minutes).__
 This data is populated from the `C. elegans WI Strain Info` Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...
 
 - Admin -> Database Operations
-  - Click the 'New Operation' button
-  - Select 'Rebuild strain table from Google Sheet'
-  - Add any (optional) notes about why the operation is being run
-  - Click 'Start'
+	- Click the 'New Operation' button
+	- Select 'Rebuild strain table from Google Sheet'
+	- Add any (optional) notes about why the operation is being run
+	- Click 'Start'
 
 __2. (Optional) If the wormbase version used in the release is different from the previous release, that gene data must also be loaded into the site's internal database (~15 minutes).__
  Gene data is compiled from several external databases and used to look up chromosome:start-stop intervals using Wormbase Gene IDs, gene names, Homologenes from other species, etc..:
 
 - Admin -> Database Operations
-  - Click the 'New Operation' button
-  - Select 'Rebuild wormbase gene table from external sources'
-  - Enter the wormbase version number to use (ie: 280 to use version WS280)
-  - Click 'Start'
+	- Click the 'New Operation' button
+	- Select 'Rebuild wormbase gene table from external sources'
+	- Enter the wormbase version number to use (ie: 280 to use version WS280)
+	- Click 'Start'
 
 __3. Finally, you can publish the release files on the site:__
 
 - Admin -> Dataset Releases
-  - Click 'Create Release'
-  - Enter the RELEASE_VERSION of the release that was uploaded to Google Storage in previous section (format: YYYYMMDD)
-  - Enter the WORMBASE_VERSION that the release uses (ie: 280 to use version WS280)
-  - Leave the Report Type as 'V2' for new releases (if you are adding a legacy format release created before 20200101, use V1)
-  - Click 'Save'
+	- Click 'Create Release'
+	- Enter the RELEASE_VERSION of the release that was uploaded to Google Storage in previous section (format: YYYYMMDD)
+	- Enter the WORMBASE_VERSION that the release uses (ie: 280 to use version WS280)
+	- Leave the Report Type as 'V2' for new releases (if you are adding a legacy format release created before 20200101, use V1)
+	- Click 'Save'
 
 The release should now show as a new tab on the 'Data -> Genomic Data' page
 
@@ -201,7 +201,7 @@ The release should now show as a new tab on the 'Data -> Genomic Data' page
 
 Strain Variant Annotation data must first be gzipped and uploaded to Google Storage. The CSV should be named with the pattern:
 WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
-Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20210401
+Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20231213
 
 ```bash
  # First cd to the appropriate directory
@@ -215,13 +215,13 @@ You can also upload the gzipped file directly through the Google Cloud Console t
 gs://caendr-db-bucket/strain_variant_annotation/c_elegans/
 ```
 
-Then update the CeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):
+Then update the CaeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):
 
 - Admin -> Database Operations
-  - Click the 'New Operation' button
-  - Select 'Rebuild Strain Annotated Variant table from .csv.gz file'
-  - Enter the [VERSION_NUMBER] to use (ie: 20210401)
-  - Click 'Start'
+	- Click the 'New Operation' button
+	- Select 'Rebuild Strain Annotated Variant table from .csv.gz file'
+	- Enter the [VERSION_NUMBER] to use (ie: 20231213)
+	- Click 'Start'
 
 ## Google Storage Details
 
@@ -245,17 +245,17 @@ Examples:
 
 ### caendr-db-bucket
 
-This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CeNDR's internal database.
-Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20210401'.
+This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CaeNDR's internal database.
+Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CaeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20231213'.
 
 - caendr-db-bucket
-  - strain_variant_annotation
-    - c_elegans
-      - WI.strain-annotation.bcsq.20210401.csv.gz
+	- strain_variant_annotation
+		- c_elegans
+			- WI.strain-annotation.bcsq.20231213.csv.gz
 
 ### caendr-main-terraform-state
 
-This bucket contains the state information about the cloud infrastructure for CeNDR as well as a zipped backup of the secret.env file
+This bucket contains the state information about the cloud infrastructure for CaeNDR as well as a zipped backup of the secret.env file
 
 ### caendr-nextflow-work-bucket
 
@@ -268,122 +268,125 @@ This bucket contains any files that may (now or in the future) require custom ac
 __tools__ - This directory contains any data or file depencies for an associated tool.
 
 - tools
-  - pairwise_indel_primer
-    - sv.20200815.bed.gz
-    - sv.20200815.bed.gz.tbi
-    - sv.20200815.vcf.gz
-    - sv.20200815.vcf.gz.csi
-    - sv.20200815.vcf.gz.tbi
-  - nemascan
-    - input_data
-      - all_species
-      - c_elegans
-        - annotations
-        - genotypes
-        - isotypes
-        - phenotypes
-      - c_briggsae
-        - ...
-      - c_tropicalis
-        - ...
+	- pairwise_indel_primer
+		- sv.20200815.bed.gz
+		- sv.20200815.bed.gz.tbi
+		- sv.20200815.vcf.gz
+		- sv.20200815.vcf.gz.csi
+		- sv.20200815.vcf.gz.tbi
+	- nemascan
+		- input_data
+			- all_species
+			- c_elegans
+				- annotations
+				- genotypes
+				- isotypes
+				- phenotypes
+			- c_briggsae
+				- ...
+			- c_tropicalis
+				- ...
 
 __bam__ - contains the BAM and BAI files for each sequenced strain of each species. It also contains the 'Download All BAM/BAI Files' script that is automatically generated by CAENDR (bam_bai_signed_download_script.sh)
 
-  - bam
-  - c_elegans
-    - AB1.bam
-    - AB1.bam.bai
-    - AB4.bam
-    - AB4.bam.bai
-    - etc...
+	- bam
+	- c_elegans
+		- AB1.bam
+		- AB1.bam.bai
+		- AB4.bam
+		- AB4.bam.bai
+		- etc...
 
 __reports__ - This directory contains the source data and the output from running the associated tool. The data and results are organized by the container and version (with the exception of the indel primer), and the hash of the tool's input data.
 
-  - reports
-  - heritability
-    - v0.01a
-      - 15251d73f683450317089dae6736dee3
-        - data.tsv
-        - result.tsv
-    - indel-primer
-      - 00d67eecc8a9ea13b7eb5e615b3a6860
-        - input.json
-        - result.tsv
-  - nemascan-nxf
-    - v1.0
-      - 00d67eecc8a9ea13b7eb5e615b3a6860
-        - data.tsv
-        - results
-          - Divergent_and_haplotype
-          - Genotype_Matrix
-          - Mapping
-          - Nextflow
-          - Phenotypes
-          - Plots
-          - Reports
-    - v1.0a
-      - 3facbf334a99a2cde3b6c4372cbe7da6
-        - data.tsv
-        - results
-          - Divergent_and_haplotype
-          - Genotype_Matrix
-          - Mapping
-          - Nextflow
-          - Phenotypes
-          - Plots
-          - Reports
+	- reports
+	- heritability
+		- v0.01a
+			- 15251d73f683450317089dae6736dee3
+				- data.tsv
+				- result.tsv
+		- indel-primer
+			- 00d67eecc8a9ea13b7eb5e615b3a6860
+				- input.json
+				- result.tsv
+	- nemascan-nxf
+		- v1.0
+			- 00d67eecc8a9ea13b7eb5e615b3a6860
+				- data.tsv
+				- results
+					- Divergent_and_haplotype
+					- Genotype_Matrix
+					- Mapping
+					- Nextflow
+					- Phenotypes
+					- Plots
+					- Reports
+		- v1.0a
+			- 3facbf334a99a2cde3b6c4372cbe7da6
+				- data.tsv
+				- results
+					- Divergent_and_haplotype
+					- Genotype_Matrix
+					- Mapping
+					- Nextflow
+					- Phenotypes
+					- Plots
+					- Reports
 
 ### caendr-site-public-bucket
 
-This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CeNDR depends on these files and their contents.
+This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CaeNDR depends on these files and their contents.
 
-__dataset_release__ - This is the directory where formal releases of CeNDR data are uploaded
+__dataset_release__ - This is the directory where formal releases of CaeNDR data are uploaded
 
 - dataset_release
-  - c_elegans
-    - 20160408
-    - 20170531
-    - 20180527
-    - 20200815
-    - 20210121
-      - release_notes.md
-      - methods.md
-      - alignment_report.html
-      - gatk_report.html
-      - concordance_report.html
-      - divergent_regions_strain.20210121.bed.gz
-      - variation
-        - WI.20210121.soft-filter.vcf.gz
-        - WI.20210121.soft-filter.vcf.gz.tbi
-        - WI.20210121.soft-filter.isotype.vcf.gz
-        - WI.20210121.soft-filter.isotype.vcf.gz.tbi
-        - WI.20210121.hard-filter.vcf.gz
-        - WI.20210121.hard-filter.vcf.gz.tbi
-        - WI.20210121.hard-filter.isotype.vcf.gz
-        - WI.20210121.hard-filter.isotype.vcf.gz.tbi
-        - WI.20210121.impute.isotype.vcf.gz
-        - WI.20210121.impute.isotype.vcf.gz.tbi
-      - tree
-        - WI.20210121.hard-filter.min4.tree
-        - WI.20210121.hard-filter.min4.tree.pdf
-        - WI.20210121.hard-filter.isotype.min4.tree
-        - WI.20210121.hard-filter.isotype.min4.tree.pdf
-      - haplotype
-        - haplotype.png
-        - haplotype.pdf
-        - sweep.pdf
-        - sweep_summary.tsv
+	- c_elegans
+		- 20160408
+		- 20170531
+		- 20180527
+		- 20200815
+		- 20210121
+		- 20220216
+		- 20230731
+		- 20231323
+			- release_notes.md
+			- methods.md
+			- alignment_report.html
+			- gatk_report.html
+			- concordance_report.html
+			- divergent_regions_strain.20231323.bed.gz
+			- variation
+				- WI.20231323.soft-filter.vcf.gz
+				- WI.20231323.soft-filter.vcf.gz.tbi
+				- WI.20231323.soft-filter.isotype.vcf.gz
+				- WI.20231323.soft-filter.isotype.vcf.gz.tbi
+				- WI.20231323.hard-filter.vcf.gz
+				- WI.20231323.hard-filter.vcf.gz.tbi
+				- WI.20231323.hard-filter.isotype.vcf.gz
+				- WI.20231323.hard-filter.isotype.vcf.gz.tbi
+				- WI.20231323.impute.isotype.vcf.gz
+				- WI.20231323.impute.isotype.vcf.gz.tbi
+			- tree
+				- WI.20231323.hard-filter.min4.tree
+				- WI.20231323.hard-filter.min4.tree.pdf
+				- WI.20231323.hard-filter.isotype.min4.tree
+				- WI.20231323.hard-filter.isotype.min4.tree.pdf
+			- haplotype
+				- haplotype.png
+				- haplotype.pdf
+				- sweep.pdf
+				- sweep_summary.tsv
 
 __Profile__ - User Profile photos for Staff, Advisory Committee, etc... are uploaded here when managed using the 'Admin' portal
 
 - profile
-  - photos
-    - 0f7394fa0d48431884e673b34f4c4dea.jpg
+	- photos
+		- 0f7394fa0d48431884e673b34f4c4dea.jpg
 
 ### caendr-site-static-bucket
 
 This bucket contains static site resources like images, videos, example data, etc...
-These files are stored in the CAENDR git repo, but are not accessible from the CeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()
+These files are stored in the CAENDR git repo, but are not accessible from the CaeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()
 
 example:
 
