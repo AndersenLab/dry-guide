@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Image Analysis - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Image Analysis";
+        var mkdocs_page_input_path = "pipelines/pipeline-cellprofiler.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Other pipelines</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Image Analysis</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#implemented_using_cellprofiler">Implemented using CellProfiler</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Nextflow Pipelines</li>
+          <li class="breadcrumb-item">Other pipelines</li>
+      <li class="breadcrumb-item active">Image Analysis</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipelines/pipeline-cellprofiler.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="andersen_lab_image_analysis_pipeline">Andersen Lab Image Analysis Pipeline<a class="headerlink" href="#andersen_lab_image_analysis_pipeline" title="Permanent link">&para;</a></h1>
+<h2 id="implemented_using_cellprofiler">Implemented using CellProfiler<a class="headerlink" href="#implemented_using_cellprofiler" title="Permanent link">&para;</a></h2>
+<div class="toc">
+<ul>
+<li><a href="#andersen_lab_image_analysis_pipeline">Andersen Lab Image Analysis Pipeline</a><ul>
+<li><a href="#implemented_using_cellprofiler">Implemented using CellProfiler</a></li>
+</ul>
+</li>
+<li><a href="#a_pipeline_overview">A Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software requirements</a></li>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--project">--project</a></li>
+<li><a href="#--pipeline">--pipeline</a></li>
+<li><a href="#--groups">--groups</a></li>
+<li><a href="#--outdir">--outdir</a></li>
+</ul>
+</li>
+<li><a href="#cellprofiler_repository_data_directory_structure_input_data_with_example_files">CellProfiler Repository Data Directory Structure (input_data/ With Example Files)</a></li>
+<li><a href="#input_directory_structure">Input Directory Structure</a><ul>
+<li><a href="#dauer_input">dauer input</a></li>
+<li><a href="#toxin_input">toxin input</a></li>
+</ul>
+</li>
+<li><a href="#output_directory_structure">Output Directory Structure</a><ul>
+<li><a href="#dauer_output">dauer output</a></li>
+<li><a href="#toxin_output">toxin output</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/cellprofiler-nf">cellprofiler-nf</a> pipeline performs worm position and stage identification using CellProfiler and process the output.</p>
+<h1 id="a_pipeline_overview">A Pipeline overview<a class="headerlink" href="#a_pipeline_overview" title="Permanent link">&para;</a></h1>
+<p>C E L L P R O F I L E R - N F   P I P E L I N E</p>
+<pre><code>parameters              description                                 Set/Default
+==========              ===========                                 ========================
+--project               The path to your project directory          Required
+--pipeline              The CP pipeline to use: toxin, dauer        Required
+--groups                Comma separated metadata groupings          "plate,well"
+--outdir                Output directory to place files             "{projectdir}/Analysis-{date}"
+--help                  This usage statement
+</code></pre>
+<p><img alt="" src="../../img/cellprofiler-nf.drawio.svg" /></p>
+<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nextflow v23+ (see the dry guide on Nextflow <a href="../../rockfish/rf-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
+</code></pre>
+<h2 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h2>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/cellprofiler-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>cellprofiler/cellprofiler</code> (<a href="https://hub.docker.com/r/cellprofiler/cellprofiler">link</a>): Docker image is maintained by the Broad Institute of MIT and Harvard</li>
+<li><code>andersenlab/r_packages</code> (<a href="https://hub.docker.com/r/andersenlab/r_packages">link</a>): Docker image is created manually, code can be found in the <a href="https://github.com/AndersenLab/dockerfile/tree/master/r_packages">dockerfile</a> repo.</li>
+</ul>
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/cellprofiler-nf --debug
+</code></pre>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/cellprofiler --pipeline dauer --project /vast/eande106/project/&lt;user&gt;/&lt;project_dir&gt;
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="--project">--project<a class="headerlink" href="#--project" title="Permanent link">&para;</a></h2>
+<p>The path to your project directory which must contain a directory named "raw_images" containing your images to analyze</p>
+<h2 id="--pipeline">--pipeline<a class="headerlink" href="#--pipeline" title="Permanent link">&para;</a></h2>
+<p>The CP pipeline to use: toxin or dauer</p>
+<h2 id="--groups">--groups<a class="headerlink" href="#--groups" title="Permanent link">&para;</a></h2>
+<p>Comma separated metadata groupings (default: "plate,well")</p>
+<h2 id="--outdir">--outdir<a class="headerlink" href="#--outdir" title="Permanent link">&para;</a></h2>
+<p>Directory to store results in. (default: <project_dir>/Analysis-{date})</p>
+<h1 id="cellprofiler_repository_data_directory_structure_input_data_with_example_files">CellProfiler Repository Data Directory Structure (<code>input_data/</code> With Example Files)<a class="headerlink" href="#cellprofiler_repository_data_directory_structure_input_data_with_example_files" title="Permanent link">&para;</a></h1>
+<pre><code class="language-bash">input_data
+  ├── batch_files
+  |   └── 20191119_example_batch_20201018.h5
+  ├── metadata
+  |   └── 20191119_example_metadata_20201018.csv
+  ├── pipelines
+  |   ├── 20191119_example.cpproj
+  |   └── sample_pipelines
+  ├── projects
+  |   └── 20191119_example
+  |       ├── raw_images
+  |       └── output_data
+  |           └── 20191119_example_data_1603047856
+  |               ├── CellProfiler-Analysis_20191119_example_data_1603047856run1
+  |               ├── Logs
+  |               ├── ProcessedImages
+  |               ├── OverlappingWorms_Data
+  |               └── NonOverlappingWorms_Data
+  ├── scripts
+  |   ├── generate_metadata.R
+  |   ├── run_cellprofiler.sh
+  |   ├── cellprofiler_parallel.sh
+  |   ├── check_run_cellprofiler.sh
+  |   └── aggregate_cellprofiler_results.R
+  ├── well_masks
+  |   └── wellmask_98.png
+  └── worm_models
+      ├── Adult_N2_HB101_100w.xml
+      ├── L1_N2_HB101_100w.xml
+      ├── L2L3_N2_HB101_100w.xml
+      ├── L4_N2_HB101_100w.xml
+      ├── WM_FBZ_control.xml
+      ├── WM_FBZ_dose.xml
+      └── high_dose_worm_model.xml
+</code></pre>
+<h1 id="input_directory_structure">Input Directory Structure<a class="headerlink" href="#input_directory_structure" title="Permanent link">&para;</a></h1>
+<h2 id="dauer_input">dauer input<a class="headerlink" href="#dauer_input" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">&lt;project folder name&gt;/
+  └── raw_images
+      ├── 20191119-project-p01-m2x_A01_w1.tif
+      ├── 20191119-project-p01-m2x_A02_w1.tif
+      └── ...
+</code></pre>
+<h2 id="toxin_input">toxin input<a class="headerlink" href="#toxin_input" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">&lt;project folder name&gt;/
+  └── raw_images
+      ├── 20191119-project-p01-m2x_A01.tif
+      ├── 20191119-project-p01-m2x_A02.tif
+      └── ...
+</code></pre>
+<h1 id="output_directory_structure">Output Directory Structure<a class="headerlink" href="#output_directory_structure" title="Permanent link">&para;</a></h1>
+<h2 id="dauer_output">dauer output<a class="headerlink" href="#dauer_output" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">&lt;project folder name&gt;/
+├── raw_images
+└── Analysis-{current date}
+    ├── pipeline
+    ├── metadata
+    ├── groups
+    ├── processed_data
+    |   └── 20220501_dauerDebug_Analysis-{current date}.RData
+    └── processed_images
+        ├── 20220501_dauerDebug-p002-m2X_A01_w1_overlay.png
+        ├── 20220501_dauerDebug-p002-m2X_A01_w1_dauerMod_straightened_RFP.png
+        ├── 20220501_dauerDebug-p002-m2X_A01_w1_nondauerMod_straightened_RFP.png
+        ├── 20220501_dauerDebug-p002-m2X_A01_w2_dauerMod_NonOverlappingWorms_RFP_mask.png
+        ├── 20220501_dauerDebug-p002-m2X_A01_w2_nondauerMod_NonOverlappingWorms_RFP_mask.png
+        └── ...
+</code></pre>
+<h2 id="toxin_output">toxin output<a class="headerlink" href="#toxin_output" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">&lt;project folder name&gt;/
+├── raw_images
+└── Analysis-{current date}
+    ├── pipeline
+    ├── metadata
+    ├── groups
+    ├── processed_data
+    |   └── 20220501_toxinDebug_Analysis-{current date}.RData
+    └── processed_images
+        ├── 20220501_dauerDebug-p002-m2X_A01_w1_overlay.png
+        └── ...
+</code></pre>
+<p>These data can be analyzed using the <a href="https://github.com/AndersenLab/easyXpress">R/easyXpress</a> package </p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipeline-nemascan/" class="btn btn-neutral float-left" title="NemaScan"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline-nil-ril/" class="btn btn-neutral float-right" title="nil-ril-nf">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-nemascan/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-nil-ril/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

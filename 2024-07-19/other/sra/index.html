@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SRA - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SRA";
+        var mkdocs_page_input_path = "other/sra.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">SRA</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sra_submission">SRA submission</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#list_of_current_bioprojects_associated_with_the_andersen_lab">List of current bioprojects associated with the Andersen Lab</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Other things</li>
+      <li class="breadcrumb-item active">SRA</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/other/sra.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="uploading_wi_fastq_sequence_data_to_sra">Uploading WI FASTQ sequence data to SRA<a class="headerlink" href="#uploading_wi_fastq_sequence_data_to_sra" title="Permanent link">&para;</a></h1>
+<p>For each CaeNDR release, it is important to also upload the FASTQ files to NCBI's Sequence Read Archive (SRA). <strong>If a bioproject already exists, you can create a new submission and link to the previous bioproject</strong>. If there is no previous bioproject, you can create a new bioproject and add all relevant data. See below for more instructions.</p>
+<h2 id="sra_submission">SRA submission<a class="headerlink" href="#sra_submission" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Begin submission</strong></li>
+</ol>
+<ul>
+<li>In the <a href="https://submit.ncbi.nlm.nih.gov/subs/sra/">SRA submission portal</a>, click the button for "New submission" and follow the prompts.</li>
+<li>Remember to add the previous bioproject ID if applicable to link this submission to previous submissions.</li>
+<li>Select "Model organism or animal" for biosample type, select "upload file using excel" and download the <a href="https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/Model.organism.animal.1.0.xlsx">template</a></li>
+</ul>
+<ol start="2">
+<li><strong>Create biosample sheet (an example can be found below)</strong></li>
+</ol>
+<ul>
+<li>An easy starting point here is the sample sheet used for <code>alignment-nf</code>. You will keep the id as the sample name (unique identifier) and strain (note strain also needs to be unique - if there are multiple library preps for the same strain, please append "-2" etc. to the strain)</li>
+<li>To these two columns, you can add bioproject, organism, developmental stage, sex, and tissue (same across all strains)</li>
+<li>Finally, join this data with the WI species master sheet to get collected by, collection date, and latitude/longitude.
+        - <em>Note: latitude/longitude need to be converted into one shared column in the format "34.89 S 56.15 W" (+ refers to North and East)</em></li>
+<li>Copy the data into the relevent columns in the <a href="https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/Model.organism.animal.1.0.xlsx">template</a>, save, and upload to the submission portal
+<img alt="" src="../../img/sra_biosample.png" /></li>
+</ul>
+<ol start="3">
+<li><strong>Create SRA metadata sheet</strong></li>
+</ol>
+<ul>
+<li>Again, select "upload a file using excel" and download the <a href="https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata.xlsx">template</a></li>
+<li>An easy starting point here is, again, the sample sheet used for <code>alignment-nf</code>. You will keep the id as the sample name and the lb as library id. You will also keep fq1 and fq2 for filename and filename2.</li>
+<li>You will then add the rest of the columns as shown below. Note: the formatting is very specific for this sheet. The title can be found on the bioproject page. The instrument_model can be found by using the "sequencing_folder" (not shown, but part of the original sample sheet) and looking up the instrument that folder was run on in the Sequencing Runs google sheet (<a href="https://docs.google.com/spreadsheets/d/1CpSpzU1p-WtGKIMBK99DL5AeZb-A8QrHPuLkM_fAuEY/edit#gid=0">here</a>)</li>
+<li>Copy and paste the rows from this file into the <a href="https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata.xlsx">template</a> to check for correct formatting. Then save the tab as a tsv and upload to the submission portal.
+<img alt="" src="../../img/sra_metadata.png" /></li>
+</ul>
+<ol start="4">
+<li><strong>Pre-upload FASTQ files using FTP</strong></li>
+</ol>
+<ul>
+<li>Create a list of files to upload to the FTP server by combining the filename1 and filename2 from the SRA metadata sheet (above).</li>
+<li>Begin submission by creating an NCBI account (or signing in -- personal account). Then follow the link to the <a href="https://submit.ncbi.nlm.nih.gov/subs/sra/">SRA submission portal</a></li>
+<li>Follow the instructions under the "FTP upload":</li>
+</ul>
+<pre><code class="language-bash"># establish FTP connection from terminal (on QUEST!)
+# ftp &lt;address&gt;
+ftp ftp-private.ncbi.nlm.nih.gov
+
+# navigate to your account folder (i.e.)
+cd uploads/kathrynevans2015_u.northwestern.edu_YSlKSXQ4
+
+# create new folder for submission (i.e.)
+mkdir 20210121_submission
+
+# exit FTP connection
+exit
+
+# back on quest, run the following line to transfer every file with path listed in &quot;files_to_upload.tsv&quot; to that folder
+# make sure to change your upload folder and files to upload
+module load parallel
+parallel --verbose lftp -e \&quot;put -O /uploads/kathrynevans2015_u.northwestern.edu_YSlKSXQ4/20210121_submission {}\; bye\&quot; -u subftp,w4pYB9VQ ftp-private.ncbi.nlm.nih.gov &lt; files_to_upload.tsv
+</code></pre>
+<p><em>Note: it is important that this step is completely finished before you complete your SRA submission</em></p>
+<ol start="5">
+<li><strong>Complete submission</strong></li>
+</ol>
+<ul>
+<li>When finished, in the SRA portal you will be asked to select which folder you want to pull files from</li>
+<li>Review and submit! If there are any issues they will let you know.</li>
+</ul>
+<h2 id="list_of_current_bioprojects_associated_with_the_andersen_lab">List of current bioprojects associated with the Andersen Lab<a class="headerlink" href="#list_of_current_bioprojects_associated_with_the_andersen_lab" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>C. elegans</em> WI genome FASTQ - PRJNA549503 (link <a href="https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP201794&amp;o=acc_s%3Aa">here</a>)</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../backup/" class="btn btn-neutral float-left" title="Backup"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cloud/" class="btn btn-neutral float-right" title="Cloud">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../backup/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../cloud/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

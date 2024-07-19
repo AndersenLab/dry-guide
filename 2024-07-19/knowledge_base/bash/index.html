@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Command Line - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Command Line";
+        var mkdocs_page_input_path = "knowledge_base/bash.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Command Line</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basic_commands">Basic Commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#piping">Piping</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#redirects">Redirects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#more_advanced">More Advanced</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Knowledge Base</li>
+      <li class="breadcrumb-item active">Command Line</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/knowledge_base/bash.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="command_line">Command line<a class="headerlink" href="#command_line" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#command_line">Command line</a><ul>
+<li><a href="#basic_commands">Basic Commands</a></li>
+<li><a href="#piping">Piping</a></li>
+<li><a href="#redirects">Redirects</a></li>
+<li><a href="#more_advanced">More Advanced</a></li>
+</ul>
+</li>
+<li><a href="#good_guides">Good Guides</a><ul>
+<li><a href="#grep">grep</a></li>
+<li><a href="#awk">awk</a><ul>
+<li><a href="#rearranging_columns">Rearranging columns</a></li>
+<li><a href="#filtering_based_on_criteria">Filtering based on criteria</a></li>
+</ul>
+</li>
+<li><a href="#bcftools">bcftools</a></li>
+<li><a href="#persistent_terminals">Persistent terminals</a><ul>
+<li><a href="#screen">Screen</a></li>
+<li><a href="#tmux">Tmux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> is the default unix shell on Mac OS and most Linux operating systems. Many bioinformatic programs are run using the command line, so becoming familiar with Bash is important.</p>
+<p>Start with this <a href="http://cs.lmu.edu/~ray/notes/bash/">introduction to bash</a>. Also check out this <a href="https://gist.github.com/ssledz/9d244e4d5898fbd217d67bb62bdc22e5">cheatsheet</a></p>
+<h2 id="basic_commands">Basic Commands<a class="headerlink" href="#basic_commands" title="Permanent link">&para;</a></h2>
+<p>You should familiarize yourself with the following commands.</p>
+<ul>
+<li><strong>alias</strong> - create a shortcut for a command</li>
+<li><strong>cat</strong> - concatenate files</li>
+<li><strong>zcat</strong> - concatenate zipped files</li>
+<li><strong>cd</strong> - change directories</li>
+<li><strong>curl</strong> - download files</li>
+<li><strong>wget</strong> - download files</li>
+<li><strong>echo</strong> - print strings</li>
+<li><strong>export</strong> - Add a variable to the global environment so that they get passed on to child processes.</li>
+<li><strong>grep</strong> - filter by pattern</li>
+<li><strong>egrep</strong> - filter by regex</li>
+<li><strong>rm</strong> - delete files</li>
+<li><strong>sudo</strong> - run as an administrator</li>
+<li><strong>sort</strong> - sorts files</li>
+<li><strong>source</strong> - runs a file</li>
+<li><strong>ssh</strong> - connect to servers</li>
+<li><strong>which</strong> - locate files on your PATH</li>
+<li><strong>uniq</strong> - get unique lines. File must be sorted.</li>
+<li><strong>cut</strong> - select specific columns from a text file</li>
+<li><strong>head</strong> - select the first N lines of a text file</li>
+<li><strong>tail</strong> - select the last N lines of a text file</li>
+</ul>
+<h2 id="piping">Piping<a class="headerlink" href="#piping" title="Permanent link">&para;</a></h2>
+<p>In order to pass the output of one command to the next, you can use a pipe, <code>|</code>, which allows you to create chains of tools to create single-line workflows on the command line. </p>
+<pre><code>cat example.tsv | uniq
+</code></pre>
+<p>The above line will print out a sorted list of unique lines from the file <code>example.tsv</code>. <code>cat</code> prints every line from the file to the standard output, but instead of being printed to the terminal, they are redirected to the input of <code>uniq</code>, which then sorts the lines and keeps one copy per set of identical lines which are then printed to the terminal.</p>
+<h2 id="redirects">Redirects<a class="headerlink" href="#redirects" title="Permanent link">&para;</a></h2>
+<p>Like piping, we can tell the command line interpreter to redirect the contents of a file to a command as input or the output of a command to be saved in a file.</p>
+<ul>
+<li><strong>&gt;</strong> - Take the output from the left-hand side of the redict and write it to a file specified on the right-hand side (note that this will overwrite an existing file of the same name)</li>
+<li><strong>&gt;&gt;</strong> - Take the output from the left-hand side of the redict and append it to a file specified on the right-hand side (if no file exists, this will work the same as the <code>&gt;</code>)</li>
+<li><strong>&lt;</strong> - Take the file on the right-hand side of the redirect and use its contents as the input to the first command on the left-hand side of the redirect (this essentially replaces using <code>cat file.txt |</code> but is used at the end of the line)</li>
+</ul>
+<pre><code>uniq &gt; example_uniq.txt &lt; example.txt
+</code></pre>
+<p>The above line will create the same output as the piping example but save it to a new file named <code>example_uniq.txt</code> rather than print it to the terminal.</p>
+<h2 id="more_advanced">More Advanced<a class="headerlink" href="#more_advanced" title="Permanent link">&para;</a></h2>
+<p>You should learn these once you have the basics down.</p>
+<ul>
+<li><strong>git</strong> - version control</li>
+<li><strong>awk</strong> - file manipulation; Filtering; Rearranging columns</li>
+<li><strong>sed</strong> - quick find/replace</li>
+</ul>
+<h1 id="good_guides">Good Guides<a class="headerlink" href="#good_guides" title="Permanent link">&para;</a></h1>
+<p>Below are some good guides for various bash utilities.</p>
+<h2 id="grep">grep<a class="headerlink" href="#grep" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://linuxhint.com/grep_egrep_regex/">using grep with regular expressions</a></li>
+<li><a href="https://linuxize.com/post/regular-expressions-in-grep/">another regex grep guide</a></li>
+</ul>
+<h2 id="awk">awk<a class="headerlink" href="#awk" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://linuxconfig.org/learning-linux-commands-awk">awk guide</a></li>
+<li><a href="https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md">awk by example</a> - hundreds of examples</li>
+</ul>
+<h3 id="rearranging_columns">Rearranging columns<a class="headerlink" href="#rearranging_columns" title="Permanent link">&para;</a></h3>
+<pre><code>cat example.tsv | awk -f OFS=&quot;\t&quot; '{ print $2, $3, $1 }'
+</code></pre>
+<p>The line above will print the second column, the third column and finally the first column.</p>
+<h3 id="filtering_based_on_criteria">Filtering based on criteria<a class="headerlink" href="#filtering_based_on_criteria" title="Permanent link">&para;</a></h3>
+<p><strong>Print only lines that start with a comment (#) character</strong></p>
+<pre><code>cat example.tsv | awk '$0 ~ &quot;^#&quot; { print }'
+</code></pre>
+<h2 id="bcftools">bcftools<a class="headerlink" href="#bcftools" title="Permanent link">&para;</a></h2>
+<p><em>bcftools view</em></p>
+<ul>
+<li><strong>bcftools view <vcf></strong> - view VCF<ul>
+<li><strong>bcftools view -h <vcf></strong> - view only header of VCF</li>
+<li><strong>bcftools view -H <vcf></strong> - view VCF without header</li>
+</ul>
+</li>
+<li><strong>bcftools view -s CB4856,XZ1516,ECA701 <vcf></strong> - subset vcf for only these three samples<ul>
+<li><strong>bcftools view -S sample_file.txt <vcf></strong> - subset vcf for only samples listed in <code>sample_file.txt</code></li>
+</ul>
+</li>
+<li><strong>bcftools view -r III:1-800000 <vcf></strong> - subset vcf for a region of interest<ul>
+<li>can also just use <code>-r III</code> to get entire chromosome</li>
+<li><strong>bcftools view -R regions.txt <vcf></strong> - subset vcf for a region(s) of interest in the <code>regions.txt</code> file</li>
+</ul>
+</li>
+</ul>
+<p><em>bcftools query</em></p>
+<ul>
+<li><strong>bcftools query -l <vcf></strong> - print out list of samples in vcf</li>
+<li>Print out contents of vcf in specified format (i.e. tsv):</li>
+</ul>
+<pre><code>bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' &lt;vcf&gt; &gt; out.tsv
+</code></pre>
+<p><em>Output of above line of code:</em></p>
+<p><img alt="bcftools_out" src="../../img/bcftools.png" /></p>
+<ul>
+<li><strong>bcftools query -i GT=="alt" <vcf></strong> - keep rows that include a tag (like a filter)</li>
+<li><strong>bcftools query -e GT=="ref" <vcf></strong> - remove rows that include a tag</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>bcftools query -i/e</code> are not necessarily opposites. For example, if you have three genotype options (REF, ALT, or NA), including only ALT calls is different than exluding only REF calls...</p>
+</div>
+<p>For more, check out the <a href="https://samtools.github.io/bcftools/howtos/index.html">bcftools manual</a> and <a href="https://gist.github.com/elowy01/93922762e131d7abd3c7e8e166a74a0b">this cheatsheet</a></p>
+<h2 id="persistent_terminals">Persistent terminals<a class="headerlink" href="#persistent_terminals" title="Permanent link">&para;</a></h2>
+<p>A persistent terminal is one that will continue to run even after you've logged out of a remote system or closed your terminal program. This allows you to run programs and allow them to continue running without needing to keep the terminal window open. This is especially useful for running pipelines. Programs that create persistent terminals also allow you to have multiple terminal windows that you can easily switch between. Once you have shut the persistent terminal window, you can easily open it again to continue interacting with it and maintain the command history for that window.</p>
+<h3 id="screen">Screen<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h3>
+<p><code>screen</code> is a persistent terminal that is available on both Rockfish and QUEST. On Rockfish, you need to load it as a module with the command <code>module load screen</code> prior to using it. On QUEST, it is available upon login. To start a screen session, use the following command:</p>
+<pre><code>screen -S SessionName
+</code></pre>
+<p>where <code>SessionName</code> is some meaningful name for your persistent terminal. A new empty terminal window should replace your current terminal window. You can use this like any other terminal window. When you are ready to detach (exit the terminal window but keep it running), you use the key combination <code>ctrl-A, d</code>. This will create a detached screen session. To reattach (reopen) the detached session, use the command:</p>
+<pre><code>screen -r SessionName
+</code></pre>
+<p>This will attach to the screen session specified by <code>SessionName</code>. This also means that you can have multiple screen sessions detached and running at the same time. To see all available sessions, use the command <code>screen -ls</code>. To reattach to one of the listed sessions, use the name following the period in the left-hand column.</p>
+<p>To permanently close a screen session, just type <code>exit</code> in the attached terminal session.</p>
+<ul>
+<li>
+<p>Note * On Rockfish, you are randomly assigned to one of three login nodes. Detached sessions only exist on the node that they were created on. So, note which node you are on. To reopen that session you will need to login ot the same node.</p>
+</li>
+<li>
+<p><a href="https://www.linode.com/docs/networking/ssh/using-gnu-screen-to-manage-persistent-terminal-sessions">Screen basics</a></p>
+</li>
+</ul>
+<h3 id="tmux">Tmux<a class="headerlink" href="#tmux" title="Permanent link">&para;</a></h3>
+<p><code>tmux</code> is a persistent terminal that is available on QUEST and can easily be installed on Rockfish with conda. To start a tmux session, use the following command:</p>
+<pre><code>tmux new -s SessionName
+</code></pre>
+<p>where <code>SessionName</code> is some meaningful name for your persistent terminal. A new empty terminal window should replace your current terminal window. You can use this like any other terminal window. When you are ready to detach (exit the terminal window but keep it running), you use the key combination <code>ctrl-B, d</code>. This will create a detached tmux session. To reattach (reopen) the detached session, use the command:</p>
+<pre><code>tmux attach -t SessionName
+</code></pre>
+<p>This will attach to the tmux session specified by <code>SessionName</code>. This also means that you can have multiple tmux sessions detached and running at the same time. To see all available sessions, use the command <code>tmux ls</code>. To reattach to one of the listed sessions, use the name to the left of the colon in the left-hand column.</p>
+<p>To permanently close a screen session, just type <code>exit</code> in the attached terminal session.</p>
+<ul>
+<li>
+<p>Note * On Rockfish, you are randomly assigned to one of three login nodes. Detached sessions only exist on the node that they were created on. So, note which node you are on. To reopen that session you will need to login ot the same node.</p>
+</li>
+<li>
+<p><a href="https://tmuxcheatsheet.com/">Tmux basics</a></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../shiny/" class="btn btn-neutral float-left" title="R Shiny"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../github/" class="btn btn-neutral float-right" title="Git and Github">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../shiny/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../github/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

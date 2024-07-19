@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Conda - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Conda";
+        var mkdocs_page_input_path = "rockfish/rf-conda.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Conda</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#why_conda">Why Conda</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setting_up_conda_on_rockfish">Setting up Conda on Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_conda">Using Conda</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running_nextflow_with_conda">Running Nextflow with conda</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#notes_on_conda_versions_on_quest_vs_rockfish">Notes on conda versions on Quest vs Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a_faster_alternative_to_conda">A faster alternative to Conda</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Rockfish</li>
+      <li class="breadcrumb-item active">Conda</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/rockfish/rf-conda.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="using_conda_on_rockfish">Using conda on Rockfish<a class="headerlink" href="#using_conda_on_rockfish" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#using_conda_on_rockfish">Using conda on Rockfish</a><ul>
+<li><a href="#why_conda">Why Conda</a></li>
+<li><a href="#setting_up_conda_on_rockfish">Setting up Conda on Rockfish</a></li>
+<li><a href="#using_conda">Using Conda</a></li>
+<li><a href="#running_nextflow_with_conda">Running Nextflow with conda</a></li>
+<li><a href="#notes_on_conda_versions_on_quest_vs_rockfish">Notes on conda versions on Quest vs Rockfish</a></li>
+<li><a href="#a_faster_alternative_to_conda">A faster alternative to Conda</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="why_conda">Why Conda<a class="headerlink" href="#why_conda" title="Permanent link">&para;</a></h2>
+<p><strong>Computational Reproducibility</strong> is the ability to reproduce an analysis exactly. In order for computational research to be reproducible you need to keep track of the code, software, and data. We keep track of code using git and GitHub (for help, see the <a href="../../knowledge_base/github/">Github page</a>). Our starting data (usually FASTQs) is almost always static, so we don't need to track changes to the data. We perform a new analysis when data is added.</p>
+<p>To track software, package and environment managers such as Conda and Docker are very useful. Conda works similarly to <a href="https://brew.sh/">brew</a> or <a href="https://github.com/pyenv/pyenv">pyenv</a> that were used in the legacy Andersen-Lab-Env. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The software environments on Mac and Linux are not exactly identical...but they are very close.</p>
+</div>
+<h2 id="setting_up_conda_on_rockfish">Setting up Conda on Rockfish<a class="headerlink" href="#setting_up_conda_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>Anaconda is a Python distribution that contains many packages including conda. Miniconda is a more compact version of Anaconda that also includes conda. So in order to install conda, we usually either install Miniconda or Anaconda. On Rockfish, Anaconda is already installed. However there are many versions of Anaconda, each can have a different version of Python and Conda. The current lab environments mainly used <code>module load anaconda3/2022.05</code> (See <strong>Notes</strong> below for more info).</p>
+<p>In your home directory <code>~/</code>, create a file called <code>.condarc</code> and put the following lines into it. It sets the channel priority when conda searches for packages. If possible, in one environment it is good to use packages from the same channel. </p>
+<pre><code>channels:
+    - conda-forge
+    - bioconda
+    - anaconda
+    - defaults
+
+auto_activate_base: false
+
+envs_dirs:
+    - ~/.conda/envs/
+    - /home/&lt;jheid&gt;/data-eande106/software/conda_envs/
+</code></pre>
+<h2 id="using_conda">Using Conda<a class="headerlink" href="#using_conda" title="Permanent link">&para;</a></h2>
+<p><strong><a href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">Conda Documentation</a></strong></p>
+<p><strong><a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">Conda Cheatsheet</a></strong></p>
+<p>After loading the Anaconda module, one can create an environment and install packages into that environment:</p>
+<pre><code># Create conda environment named &quot;name_of_env&quot;
+conda create --name name_of_env
+
+# Create conda environment in a specific folder
+conda create -p /home/&lt;jheid&gt;/data_eande106/software/conda_envs/test
+
+# activate conda environment
+# for some `conda activate` works and for others `source activate`
+conda activate test
+source activate test
+
+# install package into conda environment
+conda install bcftools
+</code></pre>
+<p>When looking to install a package, one resource to check out is <a href="https://anaconda.org">anaconda.org</a>, search for your package and run the install command listed on the page.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to keep in mind the different versions of software/packages. You could have bcftools-v1.10 or bcftools-v.1.12, so make sure you install the correct one!</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You can also install R packages with conda, however conda and R don't always work well together. Check out our quick fix <a href="../../knowledge_base/r/">here</a></p>
+</div>
+<h2 id="running_nextflow_with_conda">Running Nextflow with conda<a class="headerlink" href="#running_nextflow_with_conda" title="Permanent link">&para;</a></h2>
+<p>When running Nextflow, conda environments can be specified as part of a process or in the <code>nextflow.config</code> file to apply to the entire pipeline (check out the <a href="https://www.nextflow.io/docs/latest/conda.html">documentation</a>):</p>
+<p><strong>Conda within a process:</strong></p>
+<pre><code>process foo {
+    conda '/home/&lt;jheid&gt;/data_eande106/software/conda_envs/cegwas2-nf_env'
+
+    '''
+    your_command --here
+    '''
+}
+</code></pre>
+<p><strong>Conda for the entire pipeline:</strong></p>
+<pre><code>// in the nextflow.config file:
+conda { 
+        conda.enabled = true 
+        conda.cacheDir = &quot;.env&quot;  
+}
+
+process {
+        conda = &quot;/home/&lt;jheid&gt;/data_eande106/software/conda_envs/cegwas2-nf_env&quot;
+}
+</code></pre>
+<h2 id="notes_on_conda_versions_on_quest_vs_rockfish">Notes on conda versions on Quest vs Rockfish<a class="headerlink" href="#notes_on_conda_versions_on_quest_vs_rockfish" title="Permanent link">&para;</a></h2>
+<p>As of the end of 2020, existing conda environments for the lab were mostly created by <code>module load python/anaconda</code> from our previous file system, QUEST (which got automatically loaded with <code>module git</code> by accident). It loads Python version 2.7.18 and conda 4.5.2. The other environments were created with <code>module load python/anaconda3.6</code> (also from QUEST) which loads Python 3.6.0 and conda 4.3.30. To see versions, use <code>conda info</code> or <code>conda -V</code>.</p>
+<p>As of 2023, conda environments will be generated with <code>module load anaconda3/2022.05</code> from Rockfish, which loads Python version 3.9.12 and conda 4.12.0. From our limited testing so far, all environments generated in QUEST (now under <code>~/data-eande106/software/conda_envs/</code>) seem to be compatible with the version active in Rockfish</p>
+<p>Once you activate an environment with <code>conda activate env_name</code> or <code>source activate env_name</code>, the default conda usually get re-directed to the conda that were originally used to create the environment. This is good because it helps ensure that all packages in the same environment uses the same version of conda. One can go to <code>cd ~/.conda/env_name/bin</code> and <code>readlink -f conda</code> or <code>readlink -f activate</code> to see which version of conda is used by this environment. This is exactly how Nextflow determines which conda to use when using an existing conda environment. </p>
+<h2 id="a_faster_alternative_to_conda">A faster alternative to Conda<a class="headerlink" href="#a_faster_alternative_to_conda" title="Permanent link">&para;</a></h2>
+<p>In recent years, a 'drop-in' replacement for Conda, called Mamba, was released. Mamba is faster at resolving dependencies, which improves wait times for creating and activating environments. Conda and Mamba seem to be forward and backwards compatible, and they share the same command structure. For example, <code>conda create</code> and <code>mamba create</code> do the same task and share the same parameters.</p>
+<p>If you prefer to use Mamba, you can install it in your home directory by running these commands:</p>
+<pre><code>cd ~
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+chmod +x ./Mambaforge-Linux-x86_64.sh
+./Mambaforge-Linux-x86_64.sh
+</code></pre>
+<p>After completing the installation, the <code>mamba</code> binary should be added to <code>$PATH</code>, and you should be able to create, configure, and activate environments using the same commands as <code>conda</code> (FYI the <code>conda</code> binary will still be available to be called from <code>$PATH</code> by default). At the time this is being written, this mamba installation will install Python version 3.10.13, with conda version 23.11.0 and mamba version 1.5.5.</p>
+<p>You will immediately notice a difference in speed when using mamba. Test it by loading the <code>nf23_env</code> environment:</p>
+<pre><code>mamba activate /home/&lt;jheid&gt;/data-eande106/software/conda_envs/nf23_env/
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../VAST/" class="btn btn-neutral float-left" title="Data on Rockfish"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../rf-nextflow/" class="btn btn-neutral float-right" title="Nextflow">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../VAST/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../rf-nextflow/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

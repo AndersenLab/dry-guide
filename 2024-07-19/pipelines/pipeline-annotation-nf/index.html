@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>annotation-nf - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "annotation-nf";
+        var mkdocs_page_input_path = "pipelines/pipeline-annotation-nf.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/r/">R</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../knowledge_base/github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >WI Sequencing pipelines</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">annotation-nf</a>
+    <ul class="current">
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Nextflow Pipelines</li>
+          <li class="breadcrumb-item">WI Sequencing pipelines</li>
+      <li class="breadcrumb-item active">annotation-nf</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/pipelines/pipeline-annotation-nf.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="annotation-nf">annotation-nf<a class="headerlink" href="#annotation-nf" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#annotation-nf">annotation-nf</a></li>
+<li><a href="#pipeline_overview">Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software Requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#-profile">-profile</a></li>
+<li><a href="#--debug">--debug</a></li>
+<li><a href="#--vcf">--vcf</a></li>
+<li><a href="#--species">--species</a></li>
+<li><a href="#--divergent_regions">--divergent_regions</a></li>
+<li><a href="#--reference_--project_--ws_build_optional">--reference, --project, --ws_build (optional)</a></li>
+<li><a href="#--ncsq_param_optional">--ncsq_param (optional)</a></li>
+</ul>
+</li>
+<li><a href="#csq_compatible_gffs">CSQ compatible GFFs</a></li>
+<li><a href="#output">Output</a></li>
+<li><a href="#data_storage">Data storage</a><ul>
+<li><a href="#cleanup">Cleanup</a></li>
+<li><a href="#updating_caendr_and_nemascan">Updating CaeNDR and NemaScan</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/annotation-nf">annotation-nf</a> pipeline performs variant annotation for the VCF at the isotype level using both <a href="http://pcingola.github.io/SnpEff/">SnpEff</a> and <a href="https://samtools.github.io/bcftools/howtos/csq-calling.html">BCFtools/csq (BCSQ)</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before running, make sure to check out the <a href="../pipeline-genomes-nf/">genomes-nf</a> pipeline to ensure that the reference genome and annotation databases are set up properly.</p>
+</div>
+<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
+<pre><code>-------------    
+ANNOTATION-NF
+-------------
+
+nextflow andersenlab/annotation-nf --debug
+
+nextflow andersenlab/annotation-nf --vcf=hard-filtered.vcf --species=c_elegans --divergent_regions=divergent_regions_strain.bed
+
+    parameters           description                                              Set/Default
+    ==========           ===========                                              ========================
+    --debug              Set to 'true' to test                                    ${params.debug}
+    --species            Species: 'c_elegans', 'c_tropicalis' or 'c_briggsae'     ${params.species}
+    --vcf                hard filtered vcf to calculate variant density           ${params.vcf}
+    --divergent_regions  (Optional) Divergent region bed file                     ${params.divergent_regions}
+    --reference          Reference used based on species and project              ${params.reference}
+    --output             (Optional) output folder name                            ${params.output}
+
+    username                                                                      ${&quot;whoami&quot;.execute().in.text}
+
+    HELP: http://andersenlab.org/dry-guide/pipelines/pipeline-annotation-nf
+</code></pre>
+<p><img alt="Pipeline-overview" src="../../img/annotation-nf.drawio.svg" /></p>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
+</code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/annotation-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>andersenlab/annotation</code> (<a href="https://hub.docker.com/r/andersenlab/annotation">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/annotation.Dockerfile</code> or <code>.github/workflows/build_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
+<li><code>andersenlab/r_packages</code> (<a href="https://hub.docker.com/r/andersenlab/r_packages">link</a>): Docker image is created manually, code can be found in the <a href="https://github.com/AndersenLab/dockerfile/tree/master/r_packages">dockerfile</a> repo.</li>
+</ul>
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/annotation-nf --debug
+</code></pre>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/annotation-nf --vcf &lt;path_to_vcf&gt; --species &lt;species&gt; --divergent_regions &lt;path_to_file&gt;
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
+<p>There are three configuration profiles for this pipeline.</p>
+<ul>
+<li><code>rockfish</code> - Used for running on Rockfish (default).</li>
+<li><code>quest</code>    - Used for running on Quest.</li>
+<li><code>local</code>    - Used for local development.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you forget to add a <code>-profile</code>, the <code>rockfish</code> profile will be chosen as default</p>
+</div>
+<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder).</p>
+<p>For example:</p>
+<pre><code>nextflow run -latest andersenlab/annotation-nf --debug
+</code></pre>
+<h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
+<p>Path to the hard-filter, isotype VCF (output from <code>post-gatk-nf</code>)</p>
+<h2 id="--species">--species<a class="headerlink" href="#--species" title="Permanent link">&para;</a></h2>
+<p>Choose from c_elegans, c_briggsae, or c_tropicalis. Species will specifiy a default reference genome. You can select a different one if you prefer (see below)</p>
+<h2 id="--divergent_regions">--divergent_regions<a class="headerlink" href="#--divergent_regions" title="Permanent link">&para;</a></h2>
+<p>This is the <code>divergent_regions_strain.bed</code> file output from the <code>post-gatk-nf</code> pipeline. This file is used to add a column to the flat file if the variant is within a divergent region. Currently, <em>C. elegans</em> is the only species with divergent regions, if running for another species, do not provide a divergent_regions file and the pipeline will ignore it.</p>
+<h2 id="--reference_--project_--ws_build_optional">--reference, --project, --ws_build (optional)<a class="headerlink" href="#--reference_--project_--ws_build_optional" title="Permanent link">&para;</a></h2>
+<p>By default, the reference genome is set by the species parameter. If you don't want to use the default, you could change the project and/or ws_build. As long as the genome is in the proper location on quest (for more, see the <a href="../pipeline-genomes-nf/">genomes-nf</a> pipeline), this will work. Alternatively, you could provide the path to a reference of your choice.</p>
+<p><strong>Defaults:</strong>
+- <em>C. elegans</em> - <code>/vast/eande106/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz</code>
+- <em>C. briggsae</em> - <code>/vast/eande106/data/c_briggsae/genomes/QX1410_nanopore/Feb2020/c_briggsae.QX1410_nanopore.Feb2020.genome.fa.gz</code>
+- <em>C. tropicalis</em> - <code>/vast/eande106/data/c_tropicalis/genomes/NIC58_nanopore/June2021/c_tropicalis.NIC58_nanopore.June2021.genome.fa.gz</code></p>
+<h2 id="--ncsq_param_optional">--ncsq_param (optional)<a class="headerlink" href="#--ncsq_param_optional" title="Permanent link">&para;</a></h2>
+<p>This parameter is necessary for correct annotation using BCSQ for variants with many different annotations (like found in divergent regions). In 20210121 we found that the default value of <code>224</code> was sufficient, but as more strains are added this number might need to increase. If there is an issue, you should see a warning error from BCFtools and they should suggest what to change this parameter to.</p>
+<h1 id="csq_compatible_gffs">CSQ compatible GFFs<a class="headerlink" href="#csq_compatible_gffs" title="Permanent link">&para;</a></h1>
+<p>There are a few specific change that need to be made to the GFF to use CSQ. These additions are made with the following script</p>
+<pre><code>library(tidyverse)
+
+
+#gff_file &lt;- &quot;/vast/eande106/projects/Ryan/protein_structure/ben_1_convergence/annotate_cb/gffs/c_briggsae/test.gff&quot;
+
+fix_mRNA &lt;- function(ID, Parent){
+  transcript_id &lt;- strsplit(ID, &quot;=&quot;)[[1]][2]
+  gene_id &lt;- strsplit(Parent, &quot;=&quot;)[[1]][2]
+
+  new_at &lt;- glue::glue(&quot;ID={transcript_id};Parent={gene_id};biotype=protein_coding&quot;)
+  return(new_at)
+} 
+
+
+add_mrna_biotype &lt;- function(gff_file, transcript_type = &quot;mRNA&quot;){
+
+    gff_cols &lt;- c(&quot;chrm_id&quot;, &quot;source&quot;, &quot;type&quot;, &quot;start&quot;, &quot;end&quot;, &quot;score&quot;, &quot;strand&quot;, &quot;phase&quot;, &quot;attributes&quot;) 
+
+    gff &lt;- data.table::fread(gff_file, header = FALSE, col.names = gff_cols)  #Separate the attribute column
+
+    mrna_features &lt;- gff  %&gt;%
+        dplyr::filter(type == transcript_type)  %&gt;% 
+        separate(attributes, sep=&quot;;&quot;, into = c(&quot;ID&quot;, &quot;Parent&quot;)) %&gt;% 
+        dplyr::mutate(attributes = map2_chr(ID, Parent, fix_mRNA)) %&gt;% 
+        select(-ID, -Parent)
+
+    #return(mrna_features)
+    other_features &lt;- gff  %&gt;%
+        dplyr::filter(type != transcript_type)  
+
+    reformatted &lt;- bind_rows(mrna_features, other_features)
+
+
+    #name and save output file
+    today &lt;- format(Sys.time(), '%Y%m%d')
+    file_id &lt;- basename(gff_file)
+    write_tsv(reformatted, glue::glue(&quot;{file_id}_reformatted_{today}.gff&quot;), col_names = FALSE)
+
+
+
+}
+
+ct_gff = &quot;/vast/eande106/projects/Ryan/protein_structure/ben_1_convergence/annotate_cb/gffs/c_tropicalis/NIC58.final_annotation.fixed.CSQ.gff&quot;
+cb_gff = &quot;/vast/eande106/projects/Ryan/protein_structure/ben_1_convergence/annotate_cb/gffs/c_briggsae/Curation-VF-230214.PC.clean.renamed.csq.gff3&quot;
+
+#Transcript type allows the &quot;type&quot; column in the gff to be dynamic 
+add_mrna_biotype(ct_gff, transcript_type = &quot;transcript&quot;)
+add_mrna_biotype(cb_gff, transcript_type = &quot;mRNA&quot;)
+</code></pre>
+<p>As of 05/02/23 these files are in the respective genomes folder on Rockfish</p>
+<h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
+<pre><code>├── strain_vcf
+│   ├── {strain}.{date}.vcf.gz
+│   └── {strain}.{date}.vcf.gz.tbi
+└── variation
+    ├── WI.{date}.hard-filter.isotype.snpeff.vcf.gz
+    ├── WI.{date}.hard-filter.isotype.snpeff.vcf.gz.tbi
+    ├── snpeff.stats.csv
+    ├── WI.{date}.hard-filter.isotype.bcsq.vcf.gz
+    ├── WI.{date}.hard-filter.isotype.bcsq.vcf.gz.tbi
+    ├── WI.{date}.hard-filter.isotype.bcsq.vcf.gz.stats.txt 
+    └── WI.{date}.strain-annotation.bcsq.tsv
+
+</code></pre>
+<h1 id="data_storage">Data storage<a class="headerlink" href="#data_storage" title="Permanent link">&para;</a></h1>
+<h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
+<p>Once the pipeline has complete successfully and you are satisfied with the results, the final data can be moved to their final storage place on Rockfish accordingly:</p>
+<ul>
+<li>Both the <code>strain_vcf</code> and the <code>variation</code> folders can be moved to <code>/vast/eande106/data/{species}/WI/variation/{date}/vcf</code></li>
+<li>If applicable, all snpeff <code>.bed</code> files (HIGH, LOW, MODERATE, etc.) can be moved to <code>/vast/eande106/data/{species}/WI/variation/{date}/tracks/</code> (<em>As of 20210901 this is no longer being produced for CaeNDR</em>)</li>
+</ul>
+<h2 id="updating_caendr_and_nemascan">Updating CaeNDR and NemaScan<a class="headerlink" href="#updating_caendr_and_nemascan" title="Permanent link">&para;</a></h2>
+<p>Check out the <a href="../../other/caendr/">CaeNDR</a> page and the <a href="https://katiesevans9.notion.site/Wild-isolate-sequence-analysis-protocol-00e76cc7f55f4bf6ab644dd99c883727">WI protocol</a> for more information about updating a new data release for CaeNDR.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipeline-impute/" class="btn btn-neutral float-left" title="imputation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline-nemascan/" class="btn btn-neutral float-right" title="NemaScan">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-impute/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline-nemascan/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>R - Andersen Lab Dry Guide</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "R";
+        var mkdocs_page_input_path = "knowledge_base/r.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Andersen Lab Dry Guide
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Knowledge Base</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">R</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general_r_resources">General R resources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#andersen_lab_r_packages">Andersen Lab R Packages</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#linkagemapping">linkagemapping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#copasutils">COPASutils</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#easysorter">easysorter</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#easyxpress">easyXpress</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#easyfulcrum">easyFulcrum</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_r_on_rockfish">Using R on Rockfish</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using_r_on_quest">Using R on Quest</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shiny/">R Shiny</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bash/">Command Line</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../github/">Git and Github</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Rockfish</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/VAST/">Data on Rockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../rockfish/rf-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Quest</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-intro/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/b1059/">Data on b1059</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-conda/">Conda</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../quest/quest-nextflow/">Nextflow</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Nextflow Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" >WI Sequencing pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-trimming/">trim-fq-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-alignment/">alignment-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-concordance/">concordance-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-impute/">imputation</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Other pipelines</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nemascan/">NemaScan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-cellprofiler/">Image Analysis</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-nil-ril/">nil-ril-nf</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipelines/pipeline-genomes-nf/">genomes-nf</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/docker/">Docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipelines/nf-GCPconfig/">GCP</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Other things</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/caendr/">CaeNDR</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/backup/">Backup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sra/">SRA</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/cloud/">Cloud</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/sharing-globus/">Globus file sharing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/writing-nextflow/">Writing Nextflow workflows</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../other/labsite/">Andersen Labsite</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Andersen Lab Dry Guide</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Knowledge Base</li>
+      <li class="breadcrumb-item active">R</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Andersenlab/dry-guide/edit/master/docs/knowledge_base/r.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="r">R<a class="headerlink" href="#r" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#r">R</a><ul>
+<li><a href="#general_r_resources">General R resources</a></li>
+<li><a href="#andersen_lab_r_packages">Andersen Lab R Packages</a><ul>
+<li><a href="#linkagemapping">linkagemapping</a></li>
+<li><a href="#copasutils">COPASutils</a></li>
+<li><a href="#easysorter">easysorter</a></li>
+<li><a href="#easyxpress">easyXpress</a></li>
+<li><a href="#easyfulcrum">easyFulcrum</a></li>
+</ul>
+</li>
+<li><a href="#using_r_on_rockfish">Using R on Rockfish</a></li>
+<li><a href="#using_r_on_quest">Using R on Quest</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="general_r_resources">General R resources<a class="headerlink" href="#general_r_resources" title="Permanent link">&para;</a></h2>
+<p>If you are looking for some help getting started with R or taking your R to the next level, check out these useful resources:</p>
+<ul>
+<li><a href="https://swirlstats.com/students.html">Swirl - interactive R learning</a></li>
+<li><a href="https://github.com/katiesevans/nuit_tidyverse">Tidyverse workshop and resources</a></li>
+<li><a href="https://github.com/AndersenLab/code_club/blob/main/R_cheatsheet.md">Andersen Lab R Knowledge base &amp; Cheatsheet</a></li>
+<li><a href="https://www.r-bloggers.com/">R-bloggers - tips and tricks</a></li>
+<li><a href="https://www.r-bloggers.com/2020/01/rstudio-projects-and-working-directories-a-beginners-guide/">Using Rprojects to organize scripts</a></li>
+<li><a href="https://www.rdocumentation.org/packages/workflowr/versions/0.7.0">Using workflowR for reproducible work</a></li>
+<li><a href="https://rmarkdown.rstudio.com/articles_intro.html">Using Rmarkdown to generate reports</a></li>
+<li>Also check out the <code>lab_code</code> slack channel for help/questions!</li>
+</ul>
+<h2 id="andersen_lab_r_packages">Andersen Lab R Packages<a class="headerlink" href="#andersen_lab_r_packages" title="Permanent link">&para;</a></h2>
+<p>The Andersen lab maintains several R packages useful for high-throughput data analysis.</p>
+<h3 id="linkagemapping">linkagemapping<a class="headerlink" href="#linkagemapping" title="Permanent link">&para;</a></h3>
+<p>This package includes all data and functions necessary to complete a mapping for the phenotype of your choice using the recombinant inbred lines from <a href="https://academic.oup.com/g3journal/article/5/5/911/6025542">Andersen, et al. 2015 (G3)</a>. Included with this package are the cross and map objects for this strain set as well a markers.rds file containing a lookup table for the physical positions of all markers used for mapping. To learn more about linkagemapping including how to install and use the package, check out the <a href="https://github.com/andersenlab/linkagemapping">andersenlab/linkagemapping</a> repo.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also check out the <a href="https://github.com/andersenlab/linkagemapping-nf">linkagemapping-nf</a> repo for a reproducible Nextflow pipeline for linkage mapping and two-dimensional genome scans (scan2) for one or several traits.</p>
+</div>
+<h3 id="copasutils">COPASutils<a class="headerlink" href="#copasutils" title="Permanent link">&para;</a></h3>
+<p>The R package <code>COPASutils</code> provides a logical workflow for the reading, processing, and visualization of data obtained from the Union Biometrica Complex Object Parametric Analyzer and Sorter (COPAS) or the BioSorter large-particle flow cytometers. Data obtained from these powerful experimental platforms can be unwieldy, leading to difficulties in the ability to process and visualize the data using existing tools. Researchers studying small organisms, such as Caenorhabditis elegans, Anopheles gambiae, and Danio rerio, and using these devices will benefit from this streamlined and extensible R package. <code>COPASutils</code> offers a powerful suite of functions for the rapid processing and analysis of large high-throughput screening data sets. To learn more about COPASutils including how to install and use the package, check out the <a href="https://github.com/andersenlab/copasutils">andersenlab/COPASutils</a> repo and the COPASutils <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111090">manuscript</a></p>
+<h3 id="easysorter">easysorter<a class="headerlink" href="#easysorter" title="Permanent link">&para;</a></h3>
+<p>This package is effectively version 2 of the <code>COPASutils</code> package. This package is specialized for use with worms and includes additional functionality on top of that provided by COPASutils, including division of recorded objects by larval stage and the ability to regress out control phenotypes from those recorded in experimental conditions To learn more about easysorter including how to install and use the package, check out the <a href="https://github.com/andersenlab/easysorter">andersenlab/easysorter</a> repo. Here are some of the papers using <code>easysorter</code>:</p>
+<ul>
+<li>
+<p><strong>The first easysorter paper</strong>
+A Powerful New Quantitative Genetics Platform, Combining <em>Caenorhabditis elegans</em> High-Throughput Fitness Assays with a Large Collection of Recombinant Strains (<a href="https://academic.oup.com/g3journal/article/5/5/911/6025542">Andersen et al. 2015</a>)</p>
+</li>
+<li>
+<p><strong>The first "V3" easysorter paper</strong>
+The Gene <em>scb-1</em> Underlies Variation in <em>Caenorhabditis elegans</em> Chemotherapeutic Responses (<a href="https://academic.oup.com/g3journal/article/10/7/2353/6026329">Evans and Andersen 2020</a>)</p>
+</li>
+<li>
+<p><strong>The first dominance/hemizygosity easysorter paper</strong>
+A Novel Gene Underlies Bleomycin-Response Variation in <em>Caenorhabditis elegans</em> (<a href="https://academic.oup.com/genetics/article/212/4/1453/5931413">Brady et al. 2019</a>)</p>
+</li>
+</ul>
+<p><em>Almost every paper published from the lab has used easysorter, for more, check out <a href="https://andersenlab.org/Publications/">our lab papers</a></em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>easysorter</code> package requires <code>COPASutils</code> installation as well.</p>
+</div>
+<h3 id="easyxpress">easyXpress<a class="headerlink" href="#easyxpress" title="Permanent link">&para;</a></h3>
+<p>This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. To learn more about easyXpress including how to install and use the package, check out the <a href="https://github.com/andersenlab/easyXpress">andersenlab/easyXpress</a> repo and the <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252000">easyXpress manuscript</a>. </p>
+<h3 id="easyfulcrum">easyFulcrum<a class="headerlink" href="#easyfulcrum" title="Permanent link">&para;</a></h3>
+<p>This package is designed for processing and analyzing ecological sampling data generated using the Fulcrum mobile application. To learn more about how to use easyFulcrum, check out the <a href="https://github.com/AndersenLab/easyfulcrum">andersenlab/easyFulcrum</a> repo and the <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254293">easyFulcrum manuscript</a>.</p>
+<h2 id="using_r_on_rockfish">Using R on Rockfish<a class="headerlink" href="#using_r_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:</p>
+<ul>
+<li>
+<p><strong>Docker container using Singularity</strong> - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Rockfish or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions. In order to use this option on Rockfish, you need to load the Singularity module (<code>module load singularity/3.8.7</code>)</p>
+</li>
+<li>
+<p><strong>Library Paths</strong> - For several recent pipelines on Rockfish, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (<code>/data/eande106/software/R_lib_3.6.0</code>). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. </p>
+</li>
+</ul>
+<pre><code># to manually install a package to this specific folder
+# make sure to first load the correct R version, our pipelines are currently using 3.6.3
+module load r/3.6.3
+
+# open R
+R
+
+# install package
+install.packages(&quot;tidyverse&quot;, lib = &quot;/data/eande106/software/R_lib_3.6.0&quot;)
+
+# if you load the package normally, it won't work (unless you also have it installed in your path)
+library(tidyverse) # won't work
+
+# load the package from the specific folder
+library(tidyverse, lib.loc = &quot;/data/eande106/software/R_lib_3.6.0&quot;)
+
+# or add the path to your local R library to make for easier loading
+.libPaths(c(&quot;/data/eande106/software/R_lib_3.6.0&quot;, .libPaths() ))
+library(tidyverse) # works
+
+# you can add the following lines to a nextflow script to use these R packages
+# set a parameter for R library path in case it updates in the future
+params.R_libpath = &quot;/data/eande106/software/R_lib_3.6.0&quot;
+
+# add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
+echo &quot;.libPaths(c(\\&quot;${params.R_libpath}\\&quot;, .libPaths() ))&quot; | cat - ${workflow.projectDir}/bin/Script.R &gt; Script.R
+Rscript --vanilla Script.R
+
+</code></pre>
+<p><strong>Running Rstudio on Rockfish</strong></p>
+<p>The Open On Demand (OOD) portal allow users with active Rockfish allocations to use RStudio from a web browser. See the <a href="https://www.arch.jhu.edu/guide/#pp-toc__heading-anchor-19">ARCH User Guide</a> for an overview of the system.</p>
+<p>Go to the <a href="https://portal.rockfish.jhu.edu/">OOD Portal</a> and select Rstudio from the list of Interactive Apps (<em>make sure you are connected with VPN if you are off campus</em>). Log in with your jheid and password just like you would on Rockfish.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The version of R on the Rstudio browser can be selected from the versions available via module on Rockfish.</p>
+</div>
+<p>You can set the working directory with <code>setwd("path_to_directory")</code> and then open and save files and data in Rstudio just like you were using it locally on your computer -- but with data and files on Rockfish!!</p>
+<h2 id="using_r_on_quest">Using R on Quest<a class="headerlink" href="#using_r_on_quest" title="Permanent link">&para;</a></h2>
+<p>Unfortunately, R doesn't seem to work very well with conda environments, and making sure everyone has the same version of several different R packages (specifically Tidyverse) can be a nightmare for software development. Fortunately, there are several ways to get around this issue:</p>
+<ul>
+<li>
+<p><strong>Docker container</strong> - instead of using conda environments (or maybe in addition to), a docker image can be generated with R packages installed. The benefit is that docker images can be used on Quest or locally and minimal set up is required. The downside is that on some occasions there can be errors generating the docker image with incompatible package versions.</p>
+</li>
+<li>
+<p><strong>Library Paths</strong> - For several recent pipelines on Quest, we have gotten around using a docker container for R packages by installing the proper versions of R packages to a shared location (<code>/projects/b1059/software/R_lib_3.6.0</code>). With the following code, any lab member can load the R package version from that location when running the pipeline, causing no errors, even if they don't have the package installed in their local R. </p>
+</li>
+</ul>
+<pre><code># to manually install a package to this specific folder
+# make sure to first load the correct R version, our pipelines are currently using 3.6.0
+module load R/3.6.0
+
+# open R
+R
+
+# install package
+install.packages(&quot;tidyverse&quot;, lib = &quot;/projects/b1059/software/R_lib_3.6.0&quot;)
+
+# if you load the package normally, it won't work (unless you also have it installed in your path)
+library(tidyverse) # won't work
+
+# load the package from the specific folder
+library(tidyverse, lib.loc = &quot;/projects/b1059/software/R_lib_3.6.0&quot;)
+
+# or add the path to your local R library to make for easier loading
+.libPaths(c(&quot;/projects/b1059/software/R_lib_3.6.0&quot;, .libPaths() ))
+library(tidyverse) # works
+
+# you can add the following lines to a nextflow script to use these R packages
+# set a parameter for R library path in case it updates in the future
+params.R_libpath = &quot;/projects/b1059/software/R_lib_3.6.0&quot;
+
+# add the .libPaths to the top of the script dynamically (we don't want it statically in case someone wants to use the pipeline outside of quest)
+echo &quot;.libPaths(c(\\&quot;${params.R_libpath}\\&quot;, .libPaths() ))&quot; | cat - ${workflow.projectDir}/bin/Script.R &gt; Script.R
+Rscript --vanilla Script.R
+
+</code></pre>
+<p><strong>Running Rstudio on QUEST</strong></p>
+<p>The Quest Analytics Nodes allow users with active Quest allocations to use RStudio from a web browser. See <a href="https://kb.northwestern.edu/quest-rstudio">Research Computing: Quest Analytics Nodes</a> for an overview of the system.</p>
+<p>Go to the <a href="https://rstudio.questanalytics.northwestern.edu">Rstudio browser</a> (<em>make sure you are connected with VPN if you are off campus</em>). Log in with your netid and password just like you would on QUEST.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The version of R on the Rstudio browser is currently 4.1.1, which is likely different from the version of R you run on QUEST. Therefore, you will need to re-install any packages you want to use in the browser.</p>
+</div>
+<p>You can set the working directory with <code>setwd("path_to_directory")</code> and then open and save files and data in Rstudio just like you were using it locally on your computer -- but with data and files on Quest!!</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../best_practices/" class="btn btn-neutral float-left" title="Best Practices"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../shiny/" class="btn btn-neutral float-right" title="R Shiny">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Andersenlab/dry-guide" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../best_practices/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../shiny/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
