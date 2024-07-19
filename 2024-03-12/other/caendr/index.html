@@ -123,7 +123,7 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">CaeNDR</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#cendr_user_privileges">CeNDR User privileges</a>
+    <li class="toctree-l2"><a class="reference internal" href="#caendr_user_privileges">CaeNDR User privileges</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#updating_staffcollaboratorcommittee_profiles">Updating Staff/Collaborator/Committee Profiles</a>
     </li>
@@ -139,7 +139,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#uploading_release_data_to_google_storage">Uploading Release Data to Google Storage</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#adding_the_release_to_the_cendr_website">Adding the release to the CeNDR website</a>
+    <li class="toctree-l3"><a class="reference internal" href="#adding_the_release_to_the_caendr_website">Adding the release to the CaeNDR website</a>
     </li>
         </ul>
     </li>
@@ -205,11 +205,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="cendr">CeNDR<a class="headerlink" href="#cendr" title="Permanent link">&para;</a></h1>
+                <h1 id="caendr">CaeNDR<a class="headerlink" href="#caendr" title="Permanent link">&para;</a></h1>
 <div class="toc">
 <ul>
-<li><a href="#cendr">CeNDR</a><ul>
-<li><a href="#cendr_user_privileges">CeNDR User privileges</a></li>
+<li><a href="#caendr">CaeNDR</a><ul>
+<li><a href="#caendr_user_privileges">CaeNDR User privileges</a></li>
 <li><a href="#updating_staffcollaboratorcommittee_profiles">Updating Staff/Collaborator/Committee Profiles</a></li>
 <li><a href="#updating_publications">Updating Publications</a></li>
 <li><a href="#updating_site_tools">Updating Site Tools</a></li>
@@ -217,7 +217,7 @@
 <li><a href="#uploading_bams_to_google_storage">Uploading BAMs to Google Storage</a></li>
 <li><a href="#adding_isotype_images">Adding isotype images</a></li>
 <li><a href="#uploading_release_data_to_google_storage">Uploading Release Data to Google Storage</a></li>
-<li><a href="#adding_the_release_to_the_cendr_website">Adding the release to the CeNDR website</a></li>
+<li><a href="#adding_the_release_to_the_caendr_website">Adding the release to the CaeNDR website</a></li>
 </ul>
 </li>
 <li><a href="#adding_strain_variant_annotation_data">Adding Strain Variant Annotation Data</a></li>
@@ -236,7 +236,7 @@
 </li>
 </ul>
 </div>
-<h2 id="cendr_user_privileges">CeNDR User privileges<a class="headerlink" href="#cendr_user_privileges" title="Permanent link">&para;</a></h2>
+<h2 id="caendr_user_privileges">CaeNDR User privileges<a class="headerlink" href="#caendr_user_privileges" title="Permanent link">&para;</a></h2>
 <p>To view, modify, or edit a user account, navigate to the 'Admin -&gt; Users' menu. You can promote existing users to 'Admin' through this form as well.</p>
 <h2 id="updating_staffcollaboratorcommittee_profiles">Updating Staff/Collaborator/Committee Profiles<a class="headerlink" href="#updating_staffcollaboratorcommittee_profiles" title="Permanent link">&para;</a></h2>
 <p>To modify the personal profiles of individuals associated with the project on the 'Staff', 'Scientific Advisory Committee', and 'Collaborators' pages:</p>
@@ -248,25 +248,25 @@
 <p>The publications page (<code>/about/publications</code>) is generated using a google spreadsheet. The spreadsheet can be accessed <a href="https://docs.google.com/spreadsheets/d/1ghJG6E_9YPsHu0H3C9s_yg_-EAjTUYBbO15c3RuePIs/edit">here</a> or through the 'Admin' menu. You can request access to edit the spreadsheet by visiting that link.</p>
 <p>The last row of the spreadsheet contains a function that can fetch publication data from Pubmed using its API. Simply fill in column A with the PMID (Pubmed Identifier), and the publication data will be fetched.</p>
 <p>Once you have retrieved the latest pubmed data, create a new row and copy/paste the values for any new publications so they are not fetched from the Pubmed API.</p>
-<p>Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CeNDR website.</p>
+<p>Alternatively, you can fill in the details for a publication manually. In either case, any details added should be double checked. Changes should be instant, but there may be some dely on the CaeNDR website.</p>
 <h2 id="updating_site_tools">Updating Site Tools<a class="headerlink" href="#updating_site_tools" title="Permanent link">&para;</a></h2>
-<p>To change the version of the container that CeNDR uses for a tool:</p>
+<p>To change the version of the container that CaeNDR uses for a tool:</p>
 <ul>
 <li>Admin -&gt; Tool Versions</li>
 </ul>
-<p>The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CeNDR uses for all future operations.</p>
+<p>The container versions are populated from the andersenlab docker hub repository. Updating the selected container version tag will switch the version that CaeNDR uses for all future operations.</p>
 <h2 id="creating_a_new_release">Creating a new release<a class="headerlink" href="#creating_a_new_release" title="Permanent link">&para;</a></h2>
 <p>Before a new release is possible, you must have first completed the following tasks:</p>
-<p><strong>See <a href="pipeline-overview.md">Pipeline Overview</a> for details</strong>.</p>
+<p><strong>See <a href="../../pipelines/pipeline-overview/">Pipeline Overview</a> for details</strong>.</p>
 <ol>
-<li>Add new wild isolate sequence data, and process with the <a href="pipeline-trimming.md">trim-fq-nf</a> pipeline.</li>
-<li>Align reads with <a href="pipeline-alignment.md">alignment-nf</a>.</li>
-<li>Call variants with <a href="pipeline-wiGATK.md">wi-gatk</a>.</li>
-<li>Identify new isotypes using the <a href="pipeline-concordance.md">concordance-nf</a>.</li>
+<li>Add new wild isolate sequence data, and process with the <a href="../../pipelines/pipeline-trimming/">trim-fq-nf</a> pipeline.</li>
+<li>Align reads with <a href="../../pipelines/pipeline-alignment/">alignment-nf</a>.</li>
+<li>Call variants with <a href="../../pipelines/pipeline-wiGATK/">wi-gatk</a>.</li>
+<li>Identify new isotypes using the <a href="../../pipelines/pipeline-concordance/">concordance-nf</a>.</li>
 <li>Update the <em>C. elegans</em> WI Strain Info <a href="https://docs.google.com/spreadsheets/u/1/d/10x-CcKNCl80F9hMcrGWC4fhP_cbekSzi5_IYBY2UqCc/edit?usp=drive_web&amp;ouid=113810443554564955854">spreadsheet</a> with the new isotypes and update the release column to reflect the release date.</li>
-<li>Perform population genetic analysis with <a href="pipeline-postGATK.md">post-gatk-nf</a>.</li>
-<li><a href="pipeline-impute.md">Impute</a> the VCF.</li>
-<li>Annotate the VCF with the <a href="pipeline-annotation-nf.md">annotation-nf</a> pipeline.</li>
+<li>Perform population genetic analysis with <a href="../../pipelines/pipeline-postGATK/">post-gatk-nf</a>.</li>
+<li><a href="../../pipelines/pipeline-impute/">Impute</a> the VCF.</li>
+<li>Annotate the VCF with the <a href="../../pipelines/pipeline-annotation-nf/">annotation-nf</a> pipeline.</li>
 </ol>
 <p>Pushing a new release requires a series of steps described below.</p>
 <h3 id="uploading_bams_to_google_storage">Uploading BAMs to Google Storage<a class="headerlink" href="#uploading_bams_to_google_storage" title="Permanent link">&para;</a></h3>
@@ -274,9 +274,9 @@
 <p>Install the <a href="https://cloud.google.com/sdk/docs/install">Google Cloud SDK</a> and configure with your GCP credentials and the <code>caendr</code> project ID.</p>
 <pre><code class="language-bash">gcloud init 
 </code></pre>
-<p>Once configured, navigate to the BAM location on b1059.</p>
+<p>Once configured, navigate to the BAM location on VAST.</p>
 <pre><code class="language-bash"># CD to bams folder...
-cd /projects/b1059/data/c_elegans/WI/alignments/
+cd /vast/eande106/data/c_elegans/WI/alignments/
 </code></pre>
 <p>Run this command in screen to ensure that it completes (it's going to take a while)</p>
 <pre><code>gsutil rsync . gs://caendr-site-private-bucket/bam/c_elegans/
@@ -299,21 +299,21 @@ cd ~/Dropbox/Andersenlab/Reagents/WormReagents/isolation_photos/c_elegans
 gsutil rsync -x &quot;.DS_Store&quot; . gs://caendr-photos-bucket/c_elegans
 </code></pre>
 <h3 id="uploading_release_data_to_google_storage">Uploading Release Data to Google Storage<a class="headerlink" href="#uploading_release_data_to_google_storage" title="Permanent link">&para;</a></h3>
-<p>When you run the <code>wi-gatk</code> pipeline it will create a folder with the format <code>WI-YYYYMMDD</code>. These data are output in a format that CeNDR can read as a release. You must upload the <code>WI-YYYYMMDD</code> folder to google storage with a command that looks like this:</p>
+<p>When you run the <code>wi-gatk</code> pipeline it will create a folder with the format <code>WI-YYYYMMDD</code>. These data are output in a format that CaeNDR can read as a release. You must upload the <code>WI-YYYYMMDD</code> folder to google storage with a command that looks like this:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Data from several different pipelines are combined to form a CeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. </p>
 </div>
+<p>Data from several different pipelines are combined to form a CaeNDR data release. Check the bottom of the page of each pipeline to see what data will be incorporated. </p>
 <pre><code class="language-bash"># first cd into the folder you want to upload
-gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20210121/
+gsutil rsync . gs://caendr-site-public-bucket/dataset_release/c_elegans/20231213/
 </code></pre>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Use rsync to copy the files up to google storage. Note that the <code>WI-</code> prefix has been dropped from the <code>YYYYMMDD</code> declaration.</p>
 </div>
+<p>Use rsync to copy the files up to google storage. Note that the <code>WI-</code> prefix has been dropped from the <code>YYYYMMDD</code> declaration.</p>
 <p>There are 2 different expected filename and directory structures for dataset releases, V1 (the legacy format) and V2 (the current format).
-You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CeNDR.
-Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20210121</p>
+You will need to select the appropriate release format when adding a new dataset release through the admin panel. These directories may contain additional data not listed here, but these are the files that are referenced by CaeNDR.
+Substitute [RELEASE_VERSION] in each filename with the version number for the dataset release ex: 20231213</p>
 <p>V2 Structure:</p>
 <ul>
 <li>[RELEASE_VERSION]/alignment_report.html</li>
@@ -356,8 +356,8 @@ Substitute [RELEASE_VERSION] in each filename with the version number for the da
 <li>[RELEASE_VERSION]/multiqc_bcftools_stats.json</li>
 <li>[RELEASE_VERSION]/popgen/trees/genome.pdf</li>
 </ul>
-<h3 id="adding_the_release_to_the_cendr_website">Adding the release to the CeNDR website<a class="headerlink" href="#adding_the_release_to_the_cendr_website" title="Permanent link">&para;</a></h3>
-<p>To publish the release data on the CeNDR website, you must be logged into the CeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CeNDR user account.</p>
+<h3 id="adding_the_release_to_the_caendr_website">Adding the release to the CaeNDR website<a class="headerlink" href="#adding_the_release_to_the_caendr_website" title="Permanent link">&para;</a></h3>
+<p>To publish the release data on the CaeNDR website, you must be logged into the CaeNDR website as an Admin user. If you do not see the 'Admin' menu in the navbar menu of the site, request administrative privileges for your CaeNDR user account.</p>
 <p><strong>Perform the following steps in order:</strong></p>
 <p><strong>1. Updating the site's internal database of Strains (~5 minutes).</strong>
 This data is populated from the <code>C. elegans WI Strain Info</code> Google Sheet linked in the 'Admin' menu. Confirm this data is accurate and formatted correctly before begin the import operation. While the table is being updated, some portions of the site may have errors or display incorrect data. The status of the table update operation is shown on the Database Operations Admin page, but that status only reflects the success of the database operation - you should also verify the correctness of the updated data. The 'strain' table is used to as the data source for the 'Strain Catalog', 'Istotype List', 'Strain Map', 'Strain Issues',  etc...</p>
@@ -390,7 +390,7 @@ This data is populated from the <code>C. elegans WI Strain Info</code> Google Sh
 <h2 id="adding_strain_variant_annotation_data">Adding Strain Variant Annotation Data<a class="headerlink" href="#adding_strain_variant_annotation_data" title="Permanent link">&para;</a></h2>
 <p>Strain Variant Annotation data must first be gzipped and uploaded to Google Storage. The CSV should be named with the pattern:
 WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
-Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20210401</p>
+Substitute [RELEASE_VERSION] in the filename with the version number for the dataset release in the form YYYYMMDD ex: 20231213</p>
 <pre><code class="language-bash"> # First cd to the appropriate directory
 gzip WI.strain-annotation.bcsq.[VERSION_NUMBER].csv
 gsutil cp WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz gs://caendr-db-bucket/strain_variant_annotation/c_elegans/WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz
@@ -398,12 +398,12 @@ gsutil cp WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz gs://caendr-db-bucke
 <p>You can also upload the gzipped file directly through the Google Cloud Console to this locations:</p>
 <pre><code class="language-bash">gs://caendr-db-bucket/strain_variant_annotation/c_elegans/
 </code></pre>
-<p>Then update the CeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):</p>
+<p>Then update the CaeNDR tool through the 'Admin' portal (This operation may take a long time to complete ~24hrs):</p>
 <ul>
 <li>Admin -&gt; Database Operations</li>
 <li>Click the 'New Operation' button</li>
 <li>Select 'Rebuild Strain Annotated Variant table from .csv.gz file'</li>
-<li>Enter the [VERSION_NUMBER] to use (ie: 20210401)</li>
+<li>Enter the [VERSION_NUMBER] to use (ie: 20231213)</li>
 <li>Click 'Start'</li>
 </ul>
 <h2 id="google_storage_details">Google Storage Details<a class="headerlink" href="#google_storage_details" title="Permanent link">&para;</a></h2>
@@ -420,18 +420,18 @@ gsutil cp WI.strain-annotation.bcsq.[VERSION_NUMBER].csv.gz gs://caendr-db-bucke
 'gs://caendr-photos-bucket/c_elegans/ECA1217.thumb.jpg'
 'gs://caendr-photos-bucket/c_elegans/WN2082.thumb.jpg'</p>
 <h3 id="caendr-db-bucket">caendr-db-bucket<a class="headerlink" href="#caendr-db-bucket" title="Permanent link">&para;</a></h3>
-<p>This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CeNDR's internal database.
-Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20210401'.</p>
+<p>This bucket is used for storing local backups of external databases (ie: Wormbase) and backing up CaeNDR's internal database.
+Strain Variant Annotation data must be manually uploaded to the bucket before you can update the 'Strain Variant Annotation' table in the CaeNDR database through the 'Admin' portal. The uploaded CSV file must be gzipped. For the example file below, the database operation form would require version '20231213'.</p>
 <ul>
 <li>caendr-db-bucket</li>
 <li>strain_variant_annotation<ul>
 <li>c_elegans</li>
-<li>WI.strain-annotation.bcsq.20210401.csv.gz</li>
+<li>WI.strain-annotation.bcsq.20231213.csv.gz</li>
 </ul>
 </li>
 </ul>
 <h3 id="caendr-main-terraform-state">caendr-main-terraform-state<a class="headerlink" href="#caendr-main-terraform-state" title="Permanent link">&para;</a></h3>
-<p>This bucket contains the state information about the cloud infrastructure for CeNDR as well as a zipped backup of the secret.env file</p>
+<p>This bucket contains the state information about the cloud infrastructure for CaeNDR as well as a zipped backup of the secret.env file</p>
 <h3 id="caendr-nextflow-work-bucket">caendr-nextflow-work-bucket<a class="headerlink" href="#caendr-nextflow-work-bucket" title="Permanent link">&para;</a></h3>
 <p>Work bucket for storing intermediate files in between Nextflow stages</p>
 <h3 id="caendr-site-private-bucket">caendr-site-private-bucket<a class="headerlink" href="#caendr-site-private-bucket" title="Permanent link">&para;</a></h3>
@@ -529,8 +529,8 @@ Strain Variant Annotation data must be manually uploaded to the bucket before yo
 </li>
 </ul>
 <h3 id="caendr-site-public-bucket">caendr-site-public-bucket<a class="headerlink" href="#caendr-site-public-bucket" title="Permanent link">&para;</a></h3>
-<p>This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CeNDR depends on these files and their contents.</p>
-<p><strong>dataset_release</strong> - This is the directory where formal releases of CeNDR data are uploaded</p>
+<p>This bucket contains files that have been manually uploaded to the bucket (following an expected naming convention) or created through the 'Admin' portal. The content of several pages on CaeNDR depends on these files and their contents.</p>
+<p><strong>dataset_release</strong> - This is the directory where formal releases of CaeNDR data are uploaded</p>
 <ul>
 <li>dataset_release</li>
 <li>c_elegans<ul>
@@ -539,30 +539,33 @@ Strain Variant Annotation data must be manually uploaded to the bucket before yo
 <li>20180527</li>
 <li>20200815</li>
 <li>20210121</li>
+<li>20220216</li>
+<li>20230731</li>
+<li>20231323</li>
 <li>release_notes.md</li>
 <li>methods.md</li>
 <li>alignment_report.html</li>
 <li>gatk_report.html</li>
 <li>concordance_report.html</li>
-<li>divergent_regions_strain.20210121.bed.gz</li>
+<li>divergent_regions_strain.20231323.bed.gz</li>
 <li>variation<ul>
-<li>WI.20210121.soft-filter.vcf.gz</li>
-<li>WI.20210121.soft-filter.vcf.gz.tbi</li>
-<li>WI.20210121.soft-filter.isotype.vcf.gz</li>
-<li>WI.20210121.soft-filter.isotype.vcf.gz.tbi</li>
-<li>WI.20210121.hard-filter.vcf.gz</li>
-<li>WI.20210121.hard-filter.vcf.gz.tbi</li>
-<li>WI.20210121.hard-filter.isotype.vcf.gz</li>
-<li>WI.20210121.hard-filter.isotype.vcf.gz.tbi</li>
-<li>WI.20210121.impute.isotype.vcf.gz</li>
-<li>WI.20210121.impute.isotype.vcf.gz.tbi</li>
+<li>WI.20231323.soft-filter.vcf.gz</li>
+<li>WI.20231323.soft-filter.vcf.gz.tbi</li>
+<li>WI.20231323.soft-filter.isotype.vcf.gz</li>
+<li>WI.20231323.soft-filter.isotype.vcf.gz.tbi</li>
+<li>WI.20231323.hard-filter.vcf.gz</li>
+<li>WI.20231323.hard-filter.vcf.gz.tbi</li>
+<li>WI.20231323.hard-filter.isotype.vcf.gz</li>
+<li>WI.20231323.hard-filter.isotype.vcf.gz.tbi</li>
+<li>WI.20231323.impute.isotype.vcf.gz</li>
+<li>WI.20231323.impute.isotype.vcf.gz.tbi</li>
 </ul>
 </li>
 <li>tree<ul>
-<li>WI.20210121.hard-filter.min4.tree</li>
-<li>WI.20210121.hard-filter.min4.tree.pdf</li>
-<li>WI.20210121.hard-filter.isotype.min4.tree</li>
-<li>WI.20210121.hard-filter.isotype.min4.tree.pdf</li>
+<li>WI.20231323.hard-filter.min4.tree</li>
+<li>WI.20231323.hard-filter.min4.tree.pdf</li>
+<li>WI.20231323.hard-filter.isotype.min4.tree</li>
+<li>WI.20231323.hard-filter.isotype.min4.tree.pdf</li>
 </ul>
 </li>
 <li>haplotype<ul>
@@ -585,7 +588,7 @@ Strain Variant Annotation data must be manually uploaded to the bucket before yo
 </ul>
 <h3 id="caendr-site-static-bucket">caendr-site-static-bucket<a class="headerlink" href="#caendr-site-static-bucket" title="Permanent link">&para;</a></h3>
 <p>This bucket contains static site resources like images, videos, example data, etc...
-These files are stored in the CAENDR git repo, but are not accessible from the CeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()</p>
+These files are stored in the CAENDR git repo, but are not accessible from the CaeNDR web server. Terraform will automatically upload them to the caendr-site-static-bucket. To reference any of these assets on a page, you can use the Jinja macro ext_asset()</p>
 <p>example:</p>
 <pre><code class="language-html">&lt;img src=&quot;{{ ext_asset('img/logo.png') }}&quot;&gt;
 </code></pre>
