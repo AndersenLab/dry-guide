@@ -169,16 +169,16 @@
 <h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
 <pre><code>O~~~     O~~                                      O~ O~~
 O~ O~~   O~~                                    O~~    O~~
-O~~ O~~  O~~    O~~   O~~~ O~~ O~~     O~~       O~~          O~~~    O~~    O~~~ O~~
-O~~  O~~ O~~  O~   O~  O~~  O~  O~~  O~~  O~~      O~~      O~~     O~~  O~~  O~~  O~~
-O~~   O~ O~~ O~~~~~ O~ O~~  O~  O~~ O~~   O~~         O~~  O~~     O~~   O~~  O~~  O~~
-O~~    O~O~~ O~        O~~  O~  O~~ O~~   O~~   O~~    O~~  O~~    O~~   O~~  O~~  O~~
-O~~      O~~   O~~~~   O~~  O~  O~~   O~~ O~~~    O~ O~~      O~~~   O~~ O~~~ O~~  O~~
+O~~ O~~  O~~    O~~  O~~~ O~~ O~~     O~~       O~~          O~~~    O~~    O~~~ O~~
+O~~  O~~ O~~  O~   O~ O~~  O~  O~~  O~~  O~~      O~~      O~~     O~~  O~~  O~~  O~~
+O~~   O~ O~~ O~~~~~O~ O~~  O~  O~~ O~~   O~~         O~~  O~~     O~~   O~~  O~~  O~~
+O~~    O~O~~ O~       O~~  O~  O~~ O~~   O~~   O~~    O~~  O~~    O~~   O~~  O~~  O~~
+O~~      O~~   O~~~~  O~~  O~  O~~   O~~ O~~~    O~ O~~      O~~~   O~~ O~~~ O~~  O~~
 
 parameters              description                                            Set/Default
 ==========              ===========                                            ========================
 --traitfile             Name of file containing strain and phenotype           (required)
---vcf                   Generally a CeNDR release date or path to vcf          (optional - 20231213)
+--vcf                   Generally a CaeNDR release date or path to vcf         (optional - 20231213)
 --download_vcf          Fetch VCF files from CaeNDR                            (optional - false)
 --species               c_elegans, c_briggsae, or c_tropicalis                 (optional - c_elegans)
 --mapping               Run GWAS mapping                                       (optional - true)
@@ -220,6 +220,38 @@ Optional arguments (Mapping &amp; Simulation):
 <pre><code>module load python/anaconda
 source activate /data/eande106/software/conda_envs/nf23_env
 </code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>andersenlab/nemascan</code> (<a href="https://hub.docker.com/r/andersenlab/nemascan">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/nemascan.Dockerfile</code> or <code>.github/workflows/build_nemascan_docker.yml</code> GitHub actions will create a new docker image and push if successful.</p>
+</li>
+<li>
+<p><code>andersenlab/mediation</code> (<a href="https://hub.docker.com/r/andersenlab/mediation">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/mediation.Dockerfile</code> or <code>.github/workflows/build_med_docker.yml</code> GitHub actions will create a new docker image and push if successful.</p>
+</li>
+<li>
+<p><code>andersenlab/gcta</code> (<a href="https://hub.docker.com/r/andersenlab/gcta">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/gcta.Dockerfile</code> or <code>.github/workflows/build_gcta_docker.yml</code> GitHub actions will create a new docker image and push if successful.</p>
+</li>
+<li>
+<p><code>andersenlab/r_packages</code> (<a href="https://hub.docker.com/r/andersenlab/r_packages">link</a>): Docker image is created manually, code can be found in the <a href="https://github.com/AndersenLab/dockerfile/tree/master/r_packages">dockerfile</a> repo.</p>
+</li>
+<li>
+<p><code>andersenlab/prep_sims</code> (<a href="https://hub.docker.com/r/mckeowr1/prep_sims">link</a>): Docker image is created manually.</p>
+</li>
+<li>
+<p><code>andersenlab/assess_sims</code> (<a href="https://hub.docker.com/r/mckeowr1/assess_sims">link</a>): Docker image is created manually.</p>
+</li>
+</ul>
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
+</div>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
 <p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
 <h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
@@ -300,14 +332,14 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <h2 id="--out_default_analysis_results-date">--out (default: Analysis_Results-{date})<a class="headerlink" href="#--out_default_analysis_results-date" title="Permanent link">&para;</a></h2>
 <p>A user-specified output directory name. (Default: <code>Analysis_Results-{date}</code>)</p>
 <h2 id="optional_mapping_parameters">Optional Mapping Parameters<a class="headerlink" href="#optional_mapping_parameters" title="Permanent link">&para;</a></h2>
-<h3 id="--pca_default_false">--pca (default: false)<a class="headerlink" href="#--pca_default_false" title="Permanent link">&para;</a></h3>
-<p>Use 1st principle component as a covariate for mapping.</p>
-<h3 id="--finemap_default_true">--finemap (default: true)<a class="headerlink" href="#--finemap_default_true" title="Permanent link">&para;</a></h3>
-<p>Perform fine-mapping of QTL intervals.</p>
-<h3 id="--mediation_default_false">--mediation (default: false)<a class="headerlink" href="#--mediation_default_false" title="Permanent link">&para;</a></h3>
-<p>'true' or 'false' input for whether or not to run the mediation analysis (overlapping expression variation with phenotypic variation to drive a QTL). (Default: <code>true</code>)</p>
-<h3 id="--fix_default_true">--fix (default: true)<a class="headerlink" href="#--fix_default_true" title="Permanent link">&para;</a></h3>
-<p>Filter trait values by combining strain replicates and pruning extreme values.</p>
+<h3 id="--pca">--pca<a class="headerlink" href="#--pca" title="Permanent link">&para;</a></h3>
+<p>Use 1st principle component as a covariate for mapping. (Default: false)</p>
+<h3 id="--finemap">--finemap<a class="headerlink" href="#--finemap" title="Permanent link">&para;</a></h3>
+<p>Perform fine-mapping of QTL intervals. (Default: true)</p>
+<h3 id="--mediation">--mediation<a class="headerlink" href="#--mediation" title="Permanent link">&para;</a></h3>
+<p>'true' or 'false' input for whether or not to run the mediation analysis (overlapping expression variation with phenotypic variation to drive a QTL). (Default: false)</p>
+<h3 id="--fix">--fix<a class="headerlink" href="#--fix" title="Permanent link">&para;</a></h3>
+<p>Filter trait values by combining strain replicates and pruning extreme values. (Default: true)</p>
 <h2 id="optional_mapping_matrix_parameter">Optional Mapping &amp; Matrix Parameter<a class="headerlink" href="#optional_mapping_matrix_parameter" title="Permanent link">&para;</a></h2>
 <h3 id="--strains">--strains<a class="headerlink" href="#--strains" title="Permanent link">&para;</a></h3>
 <p>A file (.tsv) that contains a list of strains used for generating the genotype matrix. There is no header:</p>

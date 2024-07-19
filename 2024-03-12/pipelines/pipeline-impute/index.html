@@ -225,7 +225,7 @@
 source activate /data/eande106/software/conda_envs/nf23_env
 </code></pre>
 <h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
-<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/post-gatk-nf -r 20220216-Release</code></em></p>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST and a script. However, these have since been migrated to docker images to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always find the script from an old commit of the dry guide prior to 20210827</em></p>
 <ul>
 <li><code>andersenlab/beagle</code> (<a href="https://hub.docker.com/r/andersenlab/beagle">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/beagle.Dockerfile</code> or <code>.github/workflows/build_beagle_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
 </ul>
