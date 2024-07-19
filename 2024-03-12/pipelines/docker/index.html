@@ -126,6 +126,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#running_nextflow_with_docker">Running Nextflow with docker</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#caching_singularity_images_on_rockfish">Caching singularity images on Rockfish</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#caching_singularity_images_on_quest">Caching singularity images on QUEST</a>
     </li>
         </ul>
@@ -186,6 +188,7 @@
 <li><a href="#tag_image_with_a_version">Tag image with a version</a></li>
 <li><a href="#push_docker_image_to_dockerhub">Push docker image to dockerhub</a></li>
 <li><a href="#running_nextflow_with_docker">Running Nextflow with docker</a><ul>
+<li><a href="#caching_singularity_images_on_rockfish">Caching singularity images on Rockfish</a></li>
 <li><a href="#caching_singularity_images_on_quest">Caching singularity images on QUEST</a></li>
 </ul>
 </li>
@@ -193,7 +196,7 @@
 </li>
 </ul>
 </div>
-<p><a href="https://www.docker.com">Docker</a> can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at <a href="https://github.com/AndersenLab/dockerfile">dockerfile</a>.</p>
+<p><a href="https://www.docker.com">Docker</a> can help us to maintain our computational environments. Each of our Nextflow pipeline has a dedicated docker image in our lab. And all the docker files should be avalible at <a href="https://github.com/AndersenLab/dockerfile">dockerfile</a> or in specific pipelines.</p>
 <h2 id="dockerfile">Dockerfile<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h2>
 <p>To simplify the image building, we can use conda to install most of the tools. We can collect the tools available on <a href="https://anaconda.org">conda cloud</a> into a <code>conda.yml</code> file, which might looks like this.</p>
 <pre><code>name: concordance-nf
@@ -229,14 +232,18 @@ RUN apt-get update &amp;&amp; apt-get install -y procps
 RUN R -e &quot;install.packages('roperators',dependencies=TRUE, repos='http://cran.us.r-project.org')&quot;
 </code></pre>
 <div class="admonition note">
-<p class="admonition-title">Note<p>Put the <code>conda.ymal</code> and <code>Dockerfile</code> under the same folder.</p>
-</p>
+<p class="admonition-title">Note</p>
+<p>Put the <code>conda.ymal</code> and <code>Dockerfile</code> under the same folder.</p>
 </div>
 <h2 id="build_docker_image">Build docker image<a class="headerlink" href="#build_docker_image" title="Permanent link">&para;</a></h2>
 <p>To build the docker image, you need <a href="https://www.docker.com/products/docker-desktop">docker desktop</a> installed on your local machine. Also you should sign up the dockerhub to enable pushing docker image to cloud.</p>
 <p>Go to the folder which have <code>conda.ymal</code> and <code>Dockerfile</code>, run</p>
 <pre><code>docker build -t &lt;dockerhub account&gt;/&lt;name of the image&gt; . # don't ingore the dot here
 </code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you are on a newer Mac (M1 processor or newer), you will need to specify the correct platform to build the container for with the argument <code>--platform linux/amd64</code>.</p>
+</div>
 <p>You can use <code>docker image ls</code> to check the image list you have in your local machine.</p>
 <p>Importantly, you have to check if the tools were installed sucessfully in your docker image. To test the docker image, run </p>
 <pre><code>docker run -ti &lt;dockerhub account&gt;/&lt;name of the image&gt; sh
@@ -258,13 +265,17 @@ RUN R -e &quot;install.packages('roperators',dependencies=TRUE, repos='http://cr
 <pre><code>process.container = 'nextflow/examples:latest'
 docker.enabled = true
 
-// if on quest:
+// if on quest or rockfish:
 // singularity.enabled = true
 </code></pre>
 <div class="admonition important">
-<p class="admonition-title">Important<p>When running Nextflow with a docker container on QUEST, it is necessary to replace the <code>docker</code> command with <code>singularity</code> (although you still must build a docker container). You must also load singularity using <code>module load singularity</code> before starting a run.</p>
-</p>
+<p class="admonition-title">Important</p>
+<p>When running Nextflow with a docker container on QUEST or Rockfish, it is necessary to replace the <code>docker</code> command with <code>singularity</code> (although you still must build a docker container). You must also load singularity using <code>module load singularity</code> before starting a run.</p>
 </div>
+<h3 id="caching_singularity_images_on_rockfish">Caching singularity images on Rockfish<a class="headerlink" href="#caching_singularity_images_on_rockfish" title="Permanent link">&para;</a></h3>
+<p>To make the most out of using a shared cache directory for singularity on VAST, make sure to add this line to your <code>~/.bash_profile</code> before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).</p>
+<pre><code>export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
 <h3 id="caching_singularity_images_on_quest">Caching singularity images on QUEST<a class="headerlink" href="#caching_singularity_images_on_quest" title="Permanent link">&para;</a></h3>
 <p>To make the most out of using a shared cache directory for singularity on b1059, make sure to add this line to your <code>~/.bash_profile</code> before you run a pipeline for the first time (Note: this is not needed to USE a previously cached image, but only when you ADD a new one).</p>
 <pre><code>export SINGULARITY_CACHEDIR='/projects/b1059/singularity/'
