@@ -168,7 +168,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="uploading_wi_fastq_sequence_data_to_sra">Uploading WI FASTQ sequence data to SRA<a class="headerlink" href="#uploading_wi_fastq_sequence_data_to_sra" title="Permanent link">&para;</a></h1>
-<p>For each CENDR release, it is important to also upload the FASTQ files to NCBI's Sequence Read Archive (SRA). <strong>If a bioproject already exists, you can create a new submission and link to the previous bioproject</strong>. If there is no previous bioproject, you can create a new bioproject and add all relevant data. See below for more instructions.</p>
+<p>For each CaeNDR release, it is important to also upload the FASTQ files to NCBI's Sequence Read Archive (SRA). <strong>If a bioproject already exists, you can create a new submission and link to the previous bioproject</strong>. If there is no previous bioproject, you can create a new bioproject and add all relevant data. See below for more instructions.</p>
 <h2 id="sra_submission">SRA submission<a class="headerlink" href="#sra_submission" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Begin submission</strong></li>
@@ -187,7 +187,7 @@
 <li>Finally, join this data with the WI species master sheet to get collected by, collection date, and latitude/longitude.
         - <em>Note: latitude/longitude need to be converted into one shared column in the format "34.89 S 56.15 W" (+ refers to North and East)</em></li>
 <li>Copy the data into the relevent columns in the <a href="https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/Model.organism.animal.1.0.xlsx">template</a>, save, and upload to the submission portal
-<img alt="" src="img/sra_biosample.png" /></li>
+<img alt="" src="../../img/sra_biosample.png" /></li>
 </ul>
 <ol start="3">
 <li><strong>Create SRA metadata sheet</strong></li>
@@ -197,7 +197,7 @@
 <li>An easy starting point here is, again, the sample sheet used for <code>alignment-nf</code>. You will keep the id as the sample name and the lb as library id. You will also keep fq1 and fq2 for filename and filename2.</li>
 <li>You will then add the rest of the columns as shown below. Note: the formatting is very specific for this sheet. The title can be found on the bioproject page. The instrument_model can be found by using the "sequencing_folder" (not shown, but part of the original sample sheet) and looking up the instrument that folder was run on in the Sequencing Runs google sheet (<a href="https://docs.google.com/spreadsheets/d/1CpSpzU1p-WtGKIMBK99DL5AeZb-A8QrHPuLkM_fAuEY/edit#gid=0">here</a>)</li>
 <li>Copy and paste the rows from this file into the <a href="https://ftp-trace.ncbi.nlm.nih.gov/sra/metadata_table/SRA_metadata.xlsx">template</a> to check for correct formatting. Then save the tab as a tsv and upload to the submission portal.
-<img alt="" src="img/sra_metadata.png" /></li>
+<img alt="" src="../../img/sra_metadata.png" /></li>
 </ul>
 <ol start="4">
 <li><strong>Pre-upload FASTQ files using FTP</strong></li>
@@ -207,7 +207,7 @@
 <li>Begin submission by creating an NCBI account (or signing in -- personal account). Then follow the link to the <a href="https://submit.ncbi.nlm.nih.gov/subs/sra/">SRA submission portal</a></li>
 <li>Follow the instructions under the "FTP upload":</li>
 </ul>
-<pre><code># establish FTP connection from terminal (on QUEST!)
+<pre><code class="language-bash"># establish FTP connection from terminal (on QUEST!)
 # ftp &lt;address&gt;
 ftp ftp-private.ncbi.nlm.nih.gov
 
