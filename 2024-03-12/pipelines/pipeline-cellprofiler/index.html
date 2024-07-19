@@ -109,14 +109,6 @@
                 <li class="toctree-l2 current"><a class="reference internal current" href="#">Image Analysis</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#implemented_using_cellprofiler">Implemented using CellProfiler</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#cellprofiler_directory_structure_with_example_files">CellProfiler Directory Structure (With Example Files)</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#to_recreate_cellprofiler_cp_on_quest">To recreate CellProfiler (CP) on QUEST:</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#to_execute_the_cp_pipeline_on_quest">To execute the CP pipeline on QUEST:</a>
-    </li>
-        </ul>
     </li>
     </ul>
                 </li>
@@ -176,86 +168,156 @@
               
                 <h1 id="andersen_lab_image_analysis_pipeline">Andersen Lab Image Analysis Pipeline<a class="headerlink" href="#andersen_lab_image_analysis_pipeline" title="Permanent link">&para;</a></h1>
 <h2 id="implemented_using_cellprofiler">Implemented using CellProfiler<a class="headerlink" href="#implemented_using_cellprofiler" title="Permanent link">&para;</a></h2>
-<h3 id="cellprofiler_directory_structure_with_example_files">CellProfiler Directory Structure (With Example Files)<a class="headerlink" href="#cellprofiler_directory_structure_with_example_files" title="Permanent link">&para;</a></h3>
-<pre><code>CellProfiler
+<div class="toc">
+<ul>
+<li><a href="#andersen_lab_image_analysis_pipeline">Andersen Lab Image Analysis Pipeline</a><ul>
+<li><a href="#implemented_using_cellprofiler">Implemented using CellProfiler</a></li>
+</ul>
+</li>
+<li><a href="#a_pipeline_overview">A Pipeline overview</a><ul>
+<li><a href="#software_requirements">Software requirements</a></li>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
+</ul>
+</li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#--project">--project</a></li>
+<li><a href="#--pipeline">--pipeline</a></li>
+<li><a href="#--groups">--groups</a></li>
+<li><a href="#--outdir">--outdir</a></li>
+</ul>
+</li>
+<li><a href="#cellprofiler_repository_data_directory_structure_input_data_with_example_files">CellProfiler Repository Data Directory Structure (input_data/ With Example Files)</a></li>
+<li><a href="#input_directory_structure">Input Directory Structure</a></li>
+</ul>
+</div>
+<p>The <a href="https://github.com/AndersenLab/cellprofiler-nf">cellprofiler-nf</a> pipeline performs worm position and stage identification using CellProfiler.</p>
+<h1 id="a_pipeline_overview">A Pipeline overview<a class="headerlink" href="#a_pipeline_overview" title="Permanent link">&para;</a></h1>
+<p>C E L L P R O F I L E R - N F   P I P E L I N E</p>
+<pre><code>parameters              description                                 Set/Default
+==========              ===========                                 ========================
+--project               The path to your project directory          Required
+--pipeline              The CP pipeline to use: toxin, dauer        Required
+--groups                Comma separated metadata groupings          "plate,well"
+--outdir                Output directory to place files             "{projectdir}/Analysis-{date}"
+--help                  This usage statement
+</code></pre>
+<p><img alt="" src="../../img/cellprofiler-nf.drawio.svg" /></p>
+<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nextflow v23+ (see the dry guide on Nextflow <a href="../../rockfish/rf-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
+</code></pre>
+<h2 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h2>
+<p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/cellprofiler-nf -r 20220216-Release</code></em></p>
+<ul>
+<li><code>cellprofiler/cellprofiler</code> (<a href="https://hub.docker.com/r/cellprofiler/cellprofiler">link</a>): Docker image is maintained by the Broad Institute of MIT and Harvard</li>
+<li><code>andersenlab/r_packages</code> (<a href="https://hub.docker.com/r/andersenlab/r_packages">link</a>): Docker image is created manually, code can be found in the <a href="https://github.com/AndersenLab/dockerfile/tree/master/r_packages">dockerfile</a> repo.</li>
+</ul>
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
+</div>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/cellprofiler-nf --debug
+</code></pre>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/cellprofiler --pipeline dauer --project /vast/eande106/project/&lt;user&gt;/&lt;project_dir&gt;
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="--project">--project<a class="headerlink" href="#--project" title="Permanent link">&para;</a></h2>
+<p>The path to your project directory which must contain a directory named "raw_images" containing your images to analyze</p>
+<h2 id="--pipeline">--pipeline<a class="headerlink" href="#--pipeline" title="Permanent link">&para;</a></h2>
+<p>The CP pipeline to use: toxin or dauer</p>
+<h2 id="--groups">--groups<a class="headerlink" href="#--groups" title="Permanent link">&para;</a></h2>
+<p>Comma separated metadata groupings (default: "plate,well")</p>
+<h2 id="--outdir">--outdir<a class="headerlink" href="#--outdir" title="Permanent link">&para;</a></h2>
+<p>Directory to store results in. (default: <project_dir>/Analysis-{date})</p>
+<h1 id="cellprofiler_repository_data_directory_structure_input_data_with_example_files">CellProfiler Repository Data Directory Structure (<code>input_data/</code> With Example Files)<a class="headerlink" href="#cellprofiler_repository_data_directory_structure_input_data_with_example_files" title="Permanent link">&para;</a></h1>
+<pre><code>input_data
   ├── batch_files
-      ├── 20191119_example_batch_20201018.h5
+  |   └── 20191119_example_batch_20201018.h5
   ├── metadata
-      ├── 20191119_example_metadata_20201018.csv
+  |   └── 20191119_example_metadata_20201018.csv
   ├── pipelines
-      ├── 20191119_example.cpproj
-      ├── sample_pipelines
+  |   ├── 20191119_example.cpproj
+  |   └── sample_pipelines
   ├── projects
-      ├── 20191119_example
-        ├── raw_images
-        ├── output_data
-            ├── 20191119_example_data_1603047856
-                ├── CellProfiler-Analysis_20191119_example_data_1603047856run1
-                ├── Logs
-                ├── ProcessedImages
-                ├── OverlappingWorms_Data
-                ├── NonOverlappingWorms_Data
+  |   └── 20191119_example
+  |       ├── raw_images
+  |       └── output_data
+  |           └── 20191119_example_data_1603047856
+  |               ├── CellProfiler-Analysis_20191119_example_data_1603047856run1
+  |               ├── Logs
+  |               ├── ProcessedImages
+  |               ├── OverlappingWorms_Data
+  |               └── NonOverlappingWorms_Data
   ├── scripts
-      ├── generate_metadata.R
-      ├── run_cellprofiler.sh
-      ├── cellprofiler_parallel.sh
-      ├── check_run_cellprofiler.sh
-      ├── aggregate_cellprofiler_results.R
+  |   ├── generate_metadata.R
+  |   ├── run_cellprofiler.sh
+  |   ├── cellprofiler_parallel.sh
+  |   ├── check_run_cellprofiler.sh
+  |   └── aggregate_cellprofiler_results.R
   ├── well_masks
-      ├── wellmask_98.png
-  ├── worm_models
+  |   └── wellmask_98.png
+  └── worm_models
       ├── Adult_N2_HB101_100w.xml
       ├── L1_N2_HB101_100w.xml
       ├── L2L3_N2_HB101_100w.xml
       ├── L4_N2_HB101_100w.xml
       ├── WM_FBZ_control.xml
       ├── WM_FBZ_dose.xml
-      ├── high_dose_worm_model.xml
+      └── high_dose_worm_model.xml
 </code></pre>
-<h3 id="to_recreate_cellprofiler_cp_on_quest">To recreate CellProfiler (CP) on QUEST:<a class="headerlink" href="#to_recreate_cellprofiler_cp_on_quest" title="Permanent link">&para;</a></h3>
-<p>1) Navigate to the directory where you wish to clone CP:</p>
-<pre><code>ssh -X user@quest.it.northwestern.edu
-cd [desired directory]
+<h1 id="input_directory_structure">Input Directory Structure<a class="headerlink" href="#input_directory_structure" title="Permanent link">&para;</a></h1>
+<pre><code>[project_dir]
+  └── raw_images
+      ├── 20191119-project-p01-m2x_A01.tif
+      ├── 20191119-project-p01-m2x_A02.tif
+      ├── 20191119-project-p01-m2x_A03.tif
+      ├── 20191119-project-p01-m2x_B01.tif
+      ├── 20191119-project-p01-m2x_B02.tif
+      └── 20191119-project-p01-m2x_B03.tif
+  ```
+
+# Output Directory Structure
+
 </code></pre>
-<p>2) Clone CP repository</p>
-<pre><code>git clone https://github.com/AndersenLab/CellProfiler.git
-</code></pre>
-<p>3) Download CP Docker images and convert to Singularity images within CP directory:</p>
-<pre><code>cd CellProfiler
-module load singularity
-singularity pull docker://cellprofiler/cellprofiler:3.1.9
-singularity pull docker://cellprofiler/cellprofiler:4.0.3
-</code></pre>
-<h3 id="to_execute_the_cp_pipeline_on_quest">To execute the CP pipeline on QUEST:<a class="headerlink" href="#to_execute_the_cp_pipeline_on_quest" title="Permanent link">&para;</a></h3>
-<h4 id="full_instructions_here">Full instructions <a href="https://docs.google.com/document/d/1IfnxFeNoG0JehJquMV_DorH5KpUsRJAg2OYdpBFppcM/edit">here</a>:<a class="headerlink" href="#full_instructions_here" title="Permanent link">&para;</a></h4>
-<p>1) Navigate to the CP Directory:</p>
-<pre><code>cd CellProfiler
-</code></pre>
-<p>2) Generate metadata CP file:</p>
-<pre><code>Rscript scripts/generate_metadata.R 20191119_example
-</code></pre>
-<p>3) Download metadata file and create CellProfiler pipeline <em>locally</em>. 
-4) Upload properly named batch file and CellProfiler pipeline to appropriate QUEST directories. (see file structure above)
-5) Collect measurements using CellProfiler:</p>
-<pre><code>bash scripts/run_cellprofiler.sh projects/20191119_example batch_files/20191119_example_batch_[date].h5
-bash scripts/check_run_cellprofiler.sh projects/20191119_example batch_files/20191119_example_batch_[date].h5 [timestamp]
-</code></pre>
-<p>6) Aggregate measurement data:</p>
-<pre><code>Rscript scripts/aggregate_cellprofiler_results.R 20191119_example_data_[timestamp] 20191119_example_metadata_[date].csv [output_info]
-</code></pre>
-<p>At this point, a summarized .RData file will be available for download, containing measurement outputs corresponding to each worm model used in the pipeline:</p>
-<pre><code>CellProfiler
-  ├── projects
-      ├── 20191119_example
-        ├── raw_images
-        ├── output_data
-            ├── 20191119_example_summary_data
-                ├── CellProfiler-Analysis_20191119_example_data_[output_info]_[timestamp].RData
-                ├── Logs
-                ├── ProcessedImages
-                ├── OverlappingWorms_Data
-                ├── NonOverlappingWorms_Data
-</code></pre>
+<p>[project_dir]
+  ├── raw_images
+  └── Analysis-{date}
+      ├── groups
+      |   └── groups.tsv
+      ├── metadata
+      |   └── metadata.csv
+      ├── pipelines
+      |   └── pipeline.cppipe
+      └── processed_images
+          ├── 20191119-project-p01-m2x_A01.png
+          ├── 20191119-project-p01-m2x_A02.png
+          ├── 20191119-project-p01-m2x_A03.png
+          ├── 20191119-project-p01-m2x_B01.png
+          ├── 20191119-project-p01-m2x_B02.png
+          └── 20191119-project-p01-m2x_B03.png
+          └──[project_name]_[run_stamp].RData
+```</p>
 <p>These data can be analyzed using the <a href="https://github.com/AndersenLab/easyXpress">R/easyXpress</a> package </p>
               
             </div>
