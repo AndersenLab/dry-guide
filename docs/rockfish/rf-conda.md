@@ -29,7 +29,7 @@ auto_activate_base: false
 
 envs_dirs:
 	- ~/.conda/envs/
-	- /home/<jheid>/data-eande106/software/conda_envs/
+	- /home/<jheid>/data_eande106/software/conda_envs/
 ```
 
 ## Using Conda
@@ -98,7 +98,7 @@ process {
 
 As of the end of 2020, existing conda environments for the lab were mostly created by `module load python/anaconda` from our previous file system, QUEST (which got automatically loaded with `module git` by accident). It loads Python version 2.7.18 and conda 4.5.2. The other environments were created with `module load python/anaconda3.6` (also from QUEST) which loads Python 3.6.0 and conda 4.3.30. To see versions, use `conda info` or `conda -V`.
 
-As of 2023, conda environments will be generated with `module load anaconda3/2022.05` from Rockfish, which loads Python version 3.9.12 and conda 4.12.0. From our limited testing so far, all environments generated in QUEST (now under `~/data-eande106/software/conda_envs/`) seem to be compatible with the version active in Rockfish
+As of 2023, conda environments will be generated with `module load anaconda3/2022.05` from Rockfish, which loads Python version 3.9.12 and conda 4.12.0. From our limited testing so far, all environments generated in QUEST (now under `~/data_eande106/software/conda_envs/`) seem to be compatible with the version active in Rockfish
 
 Once you activate an environment with `conda activate env_name` or `source activate env_name`, the default conda usually get re-directed to the conda that were originally used to create the environment. This is good because it helps ensure that all packages in the same environment uses the same version of conda. One can go to `cd ~/.conda/env_name/bin` and `readlink -f conda` or `readlink -f activate` to see which version of conda is used by this environment. This is exactly how Nextflow determines which conda to use when using an existing conda environment. 
 
@@ -120,5 +120,5 @@ After completing the installation, the `mamba` binary should be added to `$PATH`
 You will immediately notice a difference in speed when using mamba. Test it by loading the `nf23_env` environment:
 
 ```
-mamba activate /home/<jheid>/data-eande106/software/conda_envs/nf23_env/
+mamba activate /home/<jheid>/data_eande106/software/conda_envs/nf23_env/
 ```

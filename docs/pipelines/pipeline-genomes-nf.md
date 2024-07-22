@@ -2,6 +2,8 @@
 
 [TOC]
 
+# Overview
+
 This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:
 
 1. A BWA Index
@@ -10,88 +12,68 @@ This repo contains a nextflow pipeline that downloads, indexes, and builds annot
 4. Samtools faidx index
 5. A GATK Sequence dictionary file
 
-!!! Important
-	When adding a new WormBase version reference genome, *especially for c_elegans* it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.
+## Software Requirements
 
-# Pipeline overview
-
-```
-
-    >AAGACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAA
-    AGACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
-    GAAATA      CGCG       GA ATATA AAAA    TCG TCGAT GC       GGGC     CGATCGA TAGAT GA      TATATCGC
-    TTAAC ACTAGAGGGG CTATCGAC  CGAA CT GACTA CT  GCG  AT AGCATCACG TGGGGGCCTATC  CGAC AA TCAGCTACGAAAT
-    AGCCC TCTATCATAA    TATAT T TCT TC AGCGA GA A A T TC    ATAAAT TCGGGATCTAGC A CGC AT    ATATATATGC
-    GCGAT TCTAC   AG GCGGGGGA AT TA AA AAGAC CG TC AT GC AGCTGGGGGC    ACG   GA TA AT GA CTATATATATCGC
-    AATGC ACTAGAG GG CTATCGAC ACG A CT GACTA CT AGCGG AT AGCATCACGATGGG GCCTATC ACG C AA TCAGCTACGAAAT
-    ACTCC TCTATCA AA AAATATAT TCTC  TC AGCGA GA AAACT TC TTCATAAATCTCGG ATCTAGC ATCG  AT TATATATATATGC
-    TTAATA       FCG       GA ATATA AAA     TCG TCGAT GC        GG     ACGATCGA TAGAT GA CTATATATATCGC
-    AACACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAAT
-    CTACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
-
-
-        parameters          description                                    Set/Default
-        ==========          ===========                                    ========================
-        --wb_version        wormbase version to build                      WS276
-        --projects          comma-delimited list of `species/project_id`   c_elegans/PRJNA13758,c_briggsae/PRJNA10731,c_tropicalis/PRJNA53597
-        --output            Path of output folder                          /projects/b1059/data/
-
+* The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the `nf23_env` conda environment prior to running the pipeline command:
 
 ```
-
-![](../img/genomes-nf.drawio.svg)
-
-## Software requirements
-
-* Nextflow v20.01+ (see the dry guide on Nextflow [here](../quest/quest-nextflow.md) or the Nextflow documentation [here](https://www.nextflow.io/docs/latest/getstarted.html)). On QUEST, you can access this version by loading the `nf20` conda environment prior to running the pipeline command:
-
-```
-module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
+module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
 ```
 
-* If running pipeline on Quest, you must first load `singularity` to access the docker container:
+### Relevant Docker Images
+
+* `andersenlab/genomes` ([link](https://hub.docker.com/r/andersenlab/genomes-nf)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/genomes.Dockerfile` or `.github/workflows/build.yml` GitHub actions will create a new docker image and push if successful.
+
+Make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `/vast/eande106` for other users to take advantage of (without them also having to download the same image).
 
 ```
-module load singularity
+# add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 ```
 
-* If running locally, Docker must be installed. For further instructions, check out our [docker guide](docker.md)
+!!! Note
+	If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.
+		
+	```
+	interact -n1 -pexpress
+	module load singularity
+	singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/<image_name>
+	```
 
 # Usage
 
-The pipeline can be run locally or on Quest. For example:
+*Note: if you are having issues running Nextflow or need reminders, check out the [Nextflow](../rockfish/rf-nextflow.md) page.*
+
+## Testing on Rockfish
+
+*This command uses a test dataset*
 
 ```
-nextflow run main.nf -resume -profile local --wb_version=WS276 --projects=c_elegans/PRJNA13758
+nextflow run -latest andersenlab/genomes-nf --debug
+```
+
+## Running on Rockfish
+
+You should run this in a screen or tmux session.
+
+```
+nextflow run -latest andersenlab/genomes-nf -resume --wb_version=WS276 --projects=c_elegans/PRJNA13758
 ```
 
 # Parameters
 
-### `-profile` (optional)
+## `-profile`
 
-Can be set to `local` or `quest`. The pipeline uses the `andersenlab/genomes` docker image built from [`env/genome.Dockerfile`](https://github.com/AndersenLab/genomes-nf/blob/master/env/genome.Dockerfile). The image is automatically built using github actions. See [`.github/workflows/build.yml`](https://github.com/AndersenLab/genomes-nf/blob/master/.github/workflows/build.yml) for details.
+Can be set to 'rockfish' (default), `local`, or `quest`.
 
-!!! Note
-	The default profile is set to `-profile=quest`
+## `-wb_version`
 
-## Default usage: downloading genome files from Wormbase
+The wormbase version to build. For example, `WS276`.
 
-This is how the pipeline is mostly run, especially for *C. elegans*.
-
-### `--wb_version` (optional)
-
-The wormbase version to build. For example, `WS279`. Default is `WS276`.
-
-### `--projects` (optional)
+## `--projects`
 
 A comma-delimited list of `species/project_id` identifiers. A table below lists the current projects that can be downloaded. This table is regenerated as the first step of the pipeline, and stored as a file called `project_species.tsv` in the `params.output` folder (`./genomes` if working locally).
-
-By default, the pipeline will generate reference genome indices and annotations for:
-
-* `c_elegans/PRJNA13758` - N2 based reference genome
-* `c_briggsae/PRJNA10731`
-* `c_tropicalis/PRJNA53597`
 
 The current set of available species/projects that can be built are:
 
@@ -139,25 +121,6 @@ The current set of available species/projects that can be built are:
 | t_suis          | PRJNA208415 |
 | t_suis          | PRJNA208416 |
 
-### `--output` (optional)
-
-Path of output folder with results. Default is `/projects/b1059/data/{species}/genomes/{projectID}/{WSbuild}/`
-
----
-
-## Alternative usage: using manually selected genomes 
-
-This step is mostly for making the snpEff database and making sure that the gff is in the proper format for BCSQ annotation when you have a manually curated genome/gff file. This is common for *C. briggsae* and *C. tropicalis* and might start to be used if we want to annotate *C. elegans* wild isolates like CB4856.
-
-## `--genome`
-
-Path to manually curated genome (for genomes not downloaded from wormbase)
-
-## `--gff`
-
-Path to manually curated gff generated using the above genome (for genomes not downloaded from wormbase)
-
----
 
 # Output
 
@@ -166,33 +129,33 @@ Outputs are nested under `params.output` with the following structure:
 ```
 c_elegans                                                                   (species)
 └── genomes
-    └── PRJNA13758                                                          (project)
-        └── WS276                                                           (build)
-            ├── c_elegans.PRJNA13758.WS276.genome.dict                      (dict file)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz                     (fasta)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.amb                 (bwa index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.ann                 (bwa index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.bwt                 (bwa index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.fai                 (samtools faidx index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.gzi                 (bwa index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.pac                 (bwa index)
-            ├── c_elegans.PRJNA13758.WS276.genome.fa.gz.sa                  (bwa index)
-            ├── csq
-            │   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz                  (CSQ annotation GFF3)
-            │   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz.tbi              (tabix index)
-            │   ├── c_elegans.PRJNA13758.WS276.AA_Length.tsv                (protein lengths)
-            │   └── c_elegans.PRJNA13758.WS276.AA_Scores.tsv                (blosum and grantham scores)
-            ├── lcr
-            │   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz         (low complexity regions)
-            │   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz.tbi     (tabix index)
-            │   ├── c_elegans.PRJNA13758.WS276.dust.bed.gz                  (low complexity regions)
-            │   └── c_elegans.PRJNA13758.WS276.dust.bed.gz.tbi              (tabix index)
-            └── snpeff
-                ├── c_elegans.PRJNA13758.WS276                              (tabix index)
-                │   ├── genes.gtf.gz                                        (Reference GTF)
-                │   ├── sequences.fa                                        (fasta genome (unzipped))
-                │   └── snpEffectPredictor.bin                              (snpEff annotation db)
-                └── snpEff.config                                           (snpEff configuration file)
+	└── PRJNA13758                                                          (project)
+		└── WS276                                                           (build)
+			├── c_elegans.PRJNA13758.WS276.genome.dict                      (dict file)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz                     (fasta)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.amb                 (bwa index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.ann                 (bwa index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.bwt                 (bwa index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.fai                 (samtools faidx index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.gzi                 (bwa index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.pac                 (bwa index)
+			├── c_elegans.PRJNA13758.WS276.genome.fa.gz.sa                  (bwa index)
+			├── csq
+			│   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz                  (CSQ annotation GFF3)
+			│   ├── c_elegans.PRJNA13758.WS276.csq.gff3.gz.tbi              (tabix index)
+			│   ├── c_elegans.PRJNA13758.WS276.AA_Length.tsv                (protein lengths)
+			│   └── c_elegans.PRJNA13758.WS276.AA_Scores.tsv                (blosum and grantham scores)
+			├── lcr
+			│   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz         (low complexity regions)
+			│   ├── c_elegans.PRJNA13758.WS276.repeat_masker.bed.gz.tbi     (tabix index)
+			│   ├── c_elegans.PRJNA13758.WS276.dust.bed.gz                  (low complexity regions)
+			│   └── c_elegans.PRJNA13758.WS276.dust.bed.gz.tbi              (tabix index)
+			└── snpeff
+				├── c_elegans.PRJNA13758.WS276                              (tabix index)
+				│   ├── genes.gtf.gz                                        (Reference GTF)
+				│   ├── sequences.fa                                        (fasta genome (unzipped))
+				│   └── snpEffectPredictor.bin                              (snpEff annotation db)
+				└── snpEff.config                                           (snpEff configuration file)
 
 ```
 
@@ -203,4 +166,3 @@ c_elegans                                                                   (spe
 
 !!! Warning
 	The updated csq-formated gff script needs to be updated for other species besides *C. elegans* (if running the default mode)
-

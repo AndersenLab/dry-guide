@@ -22,7 +22,7 @@ gcloud init
 
 **2. Add files from QUEST folder to google cloud bucket**
 
-You can see the structure of the google buckets by going [here](https://console.cloud.google.com/storage/browser?authuser=1&project=andersen-lab&prefix=). Most things are currently in the `elegansvariation.org` bucket.
+You can see the structure of the google buckets by going [here](https://console.cloud.google.com/storage/browser?authuser=1&project=andersen-lab&prefix=). Most things are currently in the `caendr.org` bucket.
 
 ```
 # copy all files in current directory to specified bucket
@@ -35,7 +35,7 @@ gsutil -m cp * gs://<YOUR_BUCKET_NAME>
 gsutil ls gs://<YOUR_BUCKET_NAME>
 
 # example - move all vcf files to the variation folder under 20210121 release
-gsutil -m cp * gs://elegansvarition.org/releases/20210121/variation
+gsutil -m cp * gs://caendr.org/releases/20210121/variation
 ```
 
 !!! Note

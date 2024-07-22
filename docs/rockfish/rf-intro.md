@@ -42,7 +42,7 @@ If you are not familiar with what a bash profile is, [take a look at this](https
 
 ## Login Nodes
 
-There are three login nodes we use: login01-03. When you login you will be assigned to a random login node. You can switch login nodes by typing ssh and the node desired (_e.g._ `ssh login03`).
+There are three login nodes we use: login01-03. When you login you will be assigned to a random login node.
 
 !!! Warning
 	When using [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) or [tmux](https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) to submit and run jobs they will only persist on the login node you are currently on. If you log out and later log back in you may be logged in to a different login node. You will need to switch to that login node to access those sessions.
