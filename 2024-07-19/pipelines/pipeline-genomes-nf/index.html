@@ -168,22 +168,22 @@
 <div class="toc">
 <ul>
 <li><a href="#genomes-nf">genomes-nf</a></li>
-<li><a href="#pipeline_overview">Pipeline overview</a><ul>
-<li><a href="#software_requirements">Software requirements</a></li>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#software_requirements">Software Requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
 </ul>
 </li>
-<li><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
+</ul>
+</li>
 <li><a href="#parameters">Parameters</a><ul>
-<li><a href="#-profile_optional">-profile (optional)</a></li>
-<li><a href="#default_usage_downloading_genome_files_from_wormbase">Default usage: downloading genome files from Wormbase</a><ul>
-<li><a href="#--wb_version_optional">--wb_version (optional)</a></li>
-<li><a href="#--projects_optional">--projects (optional)</a></li>
-<li><a href="#--output_optional">--output (optional)</a></li>
-</ul>
-</li>
-<li><a href="#alternative_usage_using_manually_selected_genomes">Alternative usage: using manually selected genomes</a></li>
-<li><a href="#--genome">--genome</a></li>
-<li><a href="#--gff">--gff</a></li>
+<li><a href="#-profile">-profile</a></li>
+<li><a href="#-wb_version">-wb_version</a></li>
+<li><a href="#--projects">--projects</a></li>
 </ul>
 </li>
 <li><a href="#output">Output</a><ul>
@@ -192,6 +192,7 @@
 </li>
 </ul>
 </div>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <p>This repo contains a nextflow pipeline that downloads, indexes, and builds annotation databases for reference genomes from wormbase. The following outputs are created:</p>
 <ol>
 <li>A BWA Index</li>
@@ -200,72 +201,45 @@
 <li>Samtools faidx index</li>
 <li>A GATK Sequence dictionary file</li>
 </ol>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>When adding a new WormBase version reference genome, <em>especially for c_elegans</em> it is essential that you use this pipeline instead of downloading and adding the files to QUEST manually. These files and this file structure are essential to many other pipelines in the lab.</p>
-</div>
-<h1 id="pipeline_overview">Pipeline overview<a class="headerlink" href="#pipeline_overview" title="Permanent link">&para;</a></h1>
-<pre><code>
-    &gt;AAGACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAA
-    AGACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
-    GAAATA      CGCG       GA ATATA AAAA    TCG TCGAT GC       GGGC     CGATCGA TAGAT GA      TATATCGC
-    TTAAC ACTAGAGGGG CTATCGAC  CGAA CT GACTA CT  GCG  AT AGCATCACG TGGGGGCCTATC  CGAC AA TCAGCTACGAAAT
-    AGCCC TCTATCATAA    TATAT T TCT TC AGCGA GA A A T TC    ATAAAT TCGGGATCTAGC A CGC AT    ATATATATGC
-    GCGAT TCTAC   AG GCGGGGGA AT TA AA AAGAC CG TC AT GC AGCTGGGGGC    ACG   GA TA AT GA CTATATATATCGC
-    AATGC ACTAGAG GG CTATCGAC ACG A CT GACTA CT AGCGG AT AGCATCACGATGGG GCCTATC ACG C AA TCAGCTACGAAAT
-    ACTCC TCTATCA AA AAATATAT TCTC  TC AGCGA GA AAACT TC TTCATAAATCTCGG ATCTAGC ATCG  AT TATATATATATGC
-    TTAATA       FCG       GA ATATA AAA     TCG TCGAT GC        GG     ACGATCGA TAGAT GA CTATATATATCGC
-    AACACGACTAGAGGGGGCTATCGACTACGAAACTCGACTAGCTCAGCGGGATCAGCATCACGATGGGGGCCTATCTACGACAAAATCAGCTACGAAAT
-    CTACCATCTATCATAAAAAATATATATCTCTTTCTAGCGACGATAAACTCTCTTTCATAAATCTCGGGATCTAGCTATCGCTATATATATATATATGC
-
-
-        parameters          description                                    Set/Default
-        ==========          ===========                                    ========================
-        --wb_version        wormbase version to build                      WS276
-        --projects          comma-delimited list of `species/project_id`   c_elegans/PRJNA13758,c_briggsae/PRJNA10731,c_tropicalis/PRJNA53597
-        --output            Path of output folder                          /projects/b1059/data/
-
-
-</code></pre>
-<p><img alt="" src="../../img/genomes-nf.drawio.svg" /></p>
-<h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Nextflow v20.01+ (see the dry guide on Nextflow <a href="../../quest/quest-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
+<li>The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
 </ul>
-<pre><code>module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
 </code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
 <ul>
-<li>If running pipeline on Quest, you must first load <code>singularity</code> to access the docker container:</li>
+<li><code>andersenlab/genomes</code> (<a href="https://hub.docker.com/r/andersenlab/genomes-nf">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/genomes.Dockerfile</code> or <code>.github/workflows/build.yml</code> GitHub actions will create a new docker image and push if successful.</li>
 </ul>
-<pre><code>module load singularity
+<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
+<pre><code># add singularity cache
+export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
 </code></pre>
-<ul>
-<li>If running locally, Docker must be installed. For further instructions, check out our <a href="../docker/">docker guide</a></li>
-</ul>
-<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
-<p>The pipeline can be run locally or on Quest. For example:</p>
-<pre><code>nextflow run main.nf -resume -profile local --wb_version=WS276 --projects=c_elegans/PRJNA13758
-</code></pre>
-<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
-<h3 id="-profile_optional"><code>-profile</code> (optional)<a class="headerlink" href="#-profile_optional" title="Permanent link">&para;</a></h3>
-<p>Can be set to <code>local</code> or <code>quest</code>. The pipeline uses the <code>andersenlab/genomes</code> docker image built from <a href="https://github.com/AndersenLab/genomes-nf/blob/master/env/genome.Dockerfile"><code>env/genome.Dockerfile</code></a>. The image is automatically built using github actions. See <a href="https://github.com/AndersenLab/genomes-nf/blob/master/.github/workflows/build.yml"><code>.github/workflows/build.yml</code></a> for details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The default profile is set to <code>-profile=quest</code></p>
+<p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>
+<p><code>interact -n1 -pexpress
+module load singularity
+singularity shell [--bind local_dir:container_dir] /vast/eande106/singularity/&lt;image_name&gt;</code></p>
 </div>
-<h2 id="default_usage_downloading_genome_files_from_wormbase">Default usage: downloading genome files from Wormbase<a class="headerlink" href="#default_usage_downloading_genome_files_from_wormbase" title="Permanent link">&para;</a></h2>
-<p>This is how the pipeline is mostly run, especially for <em>C. elegans</em>.</p>
-<h3 id="--wb_version_optional"><code>--wb_version</code> (optional)<a class="headerlink" href="#--wb_version_optional" title="Permanent link">&para;</a></h3>
-<p>The wormbase version to build. For example, <code>WS279</code>. Default is <code>WS276</code>.</p>
-<h3 id="--projects_optional"><code>--projects</code> (optional)<a class="headerlink" href="#--projects_optional" title="Permanent link">&para;</a></h3>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/genomes-nf --debug
+</code></pre>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/genomes-nf -resume --wb_version=WS276 --projects=c_elegans/PRJNA13758
+</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="-profile"><code>-profile</code><a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
+<p>Can be set to 'rockfish' (default), <code>local</code>, or <code>quest</code>.</p>
+<h2 id="-wb_version"><code>-wb_version</code><a class="headerlink" href="#-wb_version" title="Permanent link">&para;</a></h2>
+<p>The wormbase version to build. For example, <code>WS276</code>.</p>
+<h2 id="--projects"><code>--projects</code><a class="headerlink" href="#--projects" title="Permanent link">&para;</a></h2>
 <p>A comma-delimited list of <code>species/project_id</code> identifiers. A table below lists the current projects that can be downloaded. This table is regenerated as the first step of the pipeline, and stored as a file called <code>project_species.tsv</code> in the <code>params.output</code> folder (<code>./genomes</code> if working locally).</p>
-<p>By default, the pipeline will generate reference genome indices and annotations for:</p>
-<ul>
-<li><code>c_elegans/PRJNA13758</code> - N2 based reference genome</li>
-<li><code>c_briggsae/PRJNA10731</code></li>
-<li><code>c_tropicalis/PRJNA53597</code></li>
-</ul>
 <p>The current set of available species/projects that can be built are:</p>
 <table>
 <thead>
@@ -441,16 +415,6 @@ source activate /projects/b1059/software/conda_envs/nf20_env
 </tr>
 </tbody>
 </table>
-<h3 id="--output_optional"><code>--output</code> (optional)<a class="headerlink" href="#--output_optional" title="Permanent link">&para;</a></h3>
-<p>Path of output folder with results. Default is <code>/projects/b1059/data/{species}/genomes/{projectID}/{WSbuild}/</code></p>
-<hr />
-<h2 id="alternative_usage_using_manually_selected_genomes">Alternative usage: using manually selected genomes<a class="headerlink" href="#alternative_usage_using_manually_selected_genomes" title="Permanent link">&para;</a></h2>
-<p>This step is mostly for making the snpEff database and making sure that the gff is in the proper format for BCSQ annotation when you have a manually curated genome/gff file. This is common for <em>C. briggsae</em> and <em>C. tropicalis</em> and might start to be used if we want to annotate <em>C. elegans</em> wild isolates like CB4856.</p>
-<h2 id="--genome"><code>--genome</code><a class="headerlink" href="#--genome" title="Permanent link">&para;</a></h2>
-<p>Path to manually curated genome (for genomes not downloaded from wormbase)</p>
-<h2 id="--gff"><code>--gff</code><a class="headerlink" href="#--gff" title="Permanent link">&para;</a></h2>
-<p>Path to manually curated gff generated using the above genome (for genomes not downloaded from wormbase)</p>
-<hr />
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <p>Outputs are nested under <code>params.output</code> with the following structure:</p>
 <pre><code>c_elegans                                                                   (species)

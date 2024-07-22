@@ -168,33 +168,32 @@
 <div class="toc">
 <ul>
 <li><a href="#nil-ril-nf">nil-ril-nf</a></li>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#docker_image">Docker image</a></li>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#software_requirements">Software Requirements</a><ul>
+<li><a href="#relevant_docker_images">Relevant Docker Images</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#usage">Usage</a><ul>
-<li><a href="#requirements">Requirements</a></li>
-<li><a href="#profiles_and_running_the_pipeline">Profiles and Running the Pipeline</a><ul>
+<li><a href="#testing_on_rockfish">Testing on Rockfish</a></li>
+<li><a href="#running_on_rockfish">Running on Rockfish</a></li>
 <li><a href="#running_the_pipeline_locally">Running the pipeline locally</a></li>
-<li><a href="#debugging_the_pipeline_on_quest">Debugging the pipeline on Quest</a></li>
-<li><a href="#running_the_pipeline_on_quest">Running the pipeline on Quest</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#testing">Testing</a></li>
 <li><a href="#parameters">Parameters</a><ul>
+<li><a href="#-profile">-profile</a></li>
+<li><a href="#--debug">--debug</a></li>
 <li><a href="#--fqs">--fqs</a></li>
 <li><a href="#--vcf">--vcf</a></li>
-<li><a href="#--reference">--reference</a><ul>
+<li><a href="#--reference">--reference</a></li>
 <li><a href="#--a_--b_optional">--A, --B (optional)</a></li>
-<li><a href="#--debug_optional">--debug (optional)</a></li>
 <li><a href="#--cores_optional">--cores (optional)</a></li>
 <li><a href="#--ca_--cb_optional">--cA, --cB (optional)</a></li>
 <li><a href="#--out_optional">--out (optional)</a></li>
 <li><a href="#--relative_optional">--relative (optional)</a></li>
 <li><a href="#--cross_obj_optional">--cross_obj (optional)</a></li>
 <li><a href="#--tmpdir_optional">--tmpdir (optional)</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#output">Output</a><ul>
@@ -240,7 +239,7 @@
 
 
     The Set/Default column shows what the value is currently set to
-    or would be set to if it is not specified (it's default).
+    or would be set to if it is not specified (its default).
 
 
 </code></pre>
@@ -260,71 +259,51 @@
 <p class="admonition-title">Important</p>
 <p>Do not perform any pre-processing on NIL data. NIL-data is low-coverage by design and you want to retain as much sequence data (however poor) as possible.</p>
 </div>
-<h1 id="docker_image">Docker image<a class="headerlink" href="#docker_image" title="Permanent link">&para;</a></h1>
+<h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+</ul>
+<pre><code>module load python/anaconda
+source activate /data/eande106/software/conda_envs/nf23_env
+</code></pre>
+<h3 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h3>
 <p>The docker image used by the <code>nil-ril-nf</code> pipeline is the <code>nil-ril-nf</code> docker image:</p>
 <p><a href="https://hub.docker.com/r/andersenlab/nil-ril-nf/">andersenlab/nil-ril-nf</a></p>
 <p>The <strong>Dockerfile</strong> is stored in the root of the <code>nil-ril-nf</code> github repo and is automatically built on <a href="http://www.dockerhub.com">Dockerhub</a> whenever the repo is pushed.</p>
 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h1>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The latest update requires Nextflow version 20.0+. On QUEST, you can access this version by loading the <code>nf20</code> conda environment prior to running the pipeline command:</li>
-</ul>
-<pre><code class="language-bash">module load python/anaconda3.6
-source activate /projects/b1059/software/conda_envs/nf20_env
+<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../rockfish/rf-nextflow/">Nextflow</a> page.</em></p>
+<h2 id="testing_on_rockfish">Testing on Rockfish<a class="headerlink" href="#testing_on_rockfish" title="Permanent link">&para;</a></h2>
+<p><em>This command uses a test dataset</em></p>
+<pre><code>nextflow run -latest andersenlab/nil-ril-nf --debug
 </code></pre>
-<h2 id="profiles_and_running_the_pipeline">Profiles and Running the Pipeline<a class="headerlink" href="#profiles_and_running_the_pipeline" title="Permanent link">&para;</a></h2>
-<p><em>Note: if you are having issues running Nextflow or need reminders, check out the <a href="../../quest/quest-nextflow/">Nextflow</a> page.</em></p>
-<p>The <code>nextflow.config</code> file included with this pipeline contains four profiles. These set up the environment for testing local development, testing on Quest, and running the pipeline on Quest.</p>
-<ul>
-<li><code>local</code> - Used for local development. Uses the docker container.</li>
-<li><code>quest_debug</code> - Runs a small subset of available test data. Should complete within a couple of hours. For testing/diagnosing issues on Quest.</li>
-<li><code>quest</code> - Runs the entire dataset.</li>
-<li><code>travis</code> - Used by travis-ci for testing purposes.</li>
-</ul>
-<h3 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h3>
+<h2 id="running_on_rockfish">Running on Rockfish<a class="headerlink" href="#running_on_rockfish" title="Permanent link">&para;</a></h2>
+<p>You should run this in a screen or tmux session.</p>
+<pre><code>nextflow run -latest andersenlab/nil-ril-nf -resume
+</code></pre>
+<h2 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h2>
 <p>When running locally, the pipeline will run using the <code>andersenlab/nil-ril-nf</code> docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:</p>
 <pre><code>curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
 </code></pre>
 <p>Run the pipeline locally with:</p>
-<pre><code class="language-bash">nextflow run andersenlab/nil-ril-nf -profile local -resume
+<pre><code class="language-bash">nextflow run -latest andersenlab/nil-ril-nf -profile local -resume
 </code></pre>
-<h3 id="debugging_the_pipeline_on_quest">Debugging the pipeline on Quest<a class="headerlink" href="#debugging_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
-<p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>
-<pre><code>module load singularity
-</code></pre>
-<p>When running on Quest, you should first run the quest debug profile. The Quest debug profile will use a test dataset and sample sheet which runs much faster and will encounter errors much sooner should they need to be fixed. If the debug dataset runs to completion it is likely that the full dataset will as well.</p>
-<pre><code>nextflow run andersenlab/nil-ril-nf -profile quest_debug -resume
-</code></pre>
+<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
+<h2 id="-profile">-profile<a class="headerlink" href="#-profile" title="Permanent link">&para;</a></h2>
+<p>There are three configuration profiles for this pipeline.</p>
+<ul>
+<li><code>rockfish</code> - Used for running on Rockfish (default).</li>
+<li><code>quest</code>    - Used for running on Quest.</li>
+<li><code>local</code>    - Used for local development.</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>There is no need to clone the git repo before running the pipeline. However, you may still choose to do so if you plan to manually track the git commit used to generate data.</p>
+<p>If you forget to add a <code>-profile</code>, the <code>rockfish</code> profile will be chosen as default</p>
 </div>
-<h3 id="running_the_pipeline_on_quest">Running the pipeline on Quest<a class="headerlink" href="#running_the_pipeline_on_quest" title="Permanent link">&para;</a></h3>
-<p>If running the pipeline on QUEST, you need to load <code>singularity</code> to access the docker container:</p>
-<pre><code>module load singularity
+<h2 id="--debug">--debug<a class="headerlink" href="#--debug" title="Permanent link">&para;</a></h2>
+<p>You should use <code>--debug</code> for testing/debugging purposes. This will run the debug test set (located in the <code>test_data</code> folder).</p>
+<p>For example:</p>
+<pre><code>nextflow run -latest andersenlab/nil-ril-nf --debug
 </code></pre>
-<p>The pipeline can be run on Quest using the following command:</p>
-<pre><code>nextflow run andersenlab/nil-ril-nf -profile quest -resume
-</code></pre>
-<h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
-<p>If you are going to modify the pipeline, I highly recommend doing so in a testing environment. The pipeline includes a debug dataset that runs rather quickly (~10 minutes). If you cache results initially and re-run with the <code>-resume</code> option it is fairly easy to add new processes or modify existing ones and still ensure that things are output correctly. </p>
-<p>Additionally - note that the pipeline is tested everytime a change is made and pushed to github. Testing takes place on travis-ci <a href="https://travis-ci.org/AndersenLab/nil-ril-nf">here</a>, and a badge is visible on the readme indicating the current 'build status'. If the pipeline encounters any errors when being run on travis-ci the 'build' will fail.</p>
-<p>The command below can be used to test the pipeline locally.</p>
-<pre><code class="language-bash"># Downloads a pre-indexed reference
-curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
-
-# Run nextflow
-nextflow run andersenlab/nil-ril-nf \
-             -with-docker andersenlab/nil-ril-nf \
-             --debug \
-             --reference=WS276.fa.gz \
-             -resume
-</code></pre>
-<ul>
-<li>Note that the path to the vcf will change slightly in releases later than WI-20170531; See the <code>wi-gatk</code> pipeline for details.</li>
-<li>The command above will automatically place results in a folder: <code>NIL-N2-CB4856-YYYY-MM-DD</code></li>
-</ul>
-<h1 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h1>
 <h2 id="--fqs">--fqs<a class="headerlink" href="#--fqs" title="Permanent link">&para;</a></h2>
 <p>In order to process NIL/RIL data, you need to move the sequence data to a folder and create a <code>fq_sheet.tsv</code>. This file defines the fastqs that should be processed. The fastq can be specified as <em>relative</em> or <em>absolute</em>. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:</p>
 <pre><code>NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
@@ -380,30 +359,28 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <p>Do not include the parental strains in the fq_sheet. If you re-sequenced the parent strains and want to include them in the analysis as a control, you need to rename the parent strains to avoid an error in merging the VCFs (i.e. N2 becomes N2-1).</p>
 </div>
 <h2 id="--vcf">--vcf<a class="headerlink" href="#--vcf" title="Permanent link">&para;</a></h2>
-<p>Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the b1059 analysis folder. For example, the most recent <em>C. elegans</em> VCF could be found here:</p>
-<pre><code>/projects/b1059/data/c_elegans/WI/variation/20210121/vcf/WI.20210121.hard-filter.isotype.vcf.gz
+<p>Before you begin, you will need access to a VCF with high-coverage data from the parental strains. In general, this can be obtained using the latest release of the wild-isolate data which is usually located in the <code>/vast/eande106/data</code> analysis folder (on Rockfish). For example, the most recent <em>C. elegans</em> VCF could be found here:</p>
+<pre><code>/vast/eande106/data/c_elegans/WI/variation/20210121/vcf/WI.20210121.hard-filter.isotype.vcf.gz
 </code></pre>
 <p>This is the <strong>hard-filtered</strong> VCF, meaning that poor quality variants have been stripped. Use hard-filtered VCFs for this pipeline.</p>
 <p>Set the parental VCF as <code>--vcf=/the/path/to/WI.20210121.hard-filter.isotype.vcf.gz</code></p>
 <h2 id="--reference">--reference<a class="headerlink" href="#--reference" title="Permanent link">&para;</a></h2>
 <p>A fasta reference indexed with BWA. For example, the <em>C. elegans</em> reference could be found here:</p>
-<pre><code>/projects/b1059/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
+<pre><code>/vast/eande106/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genome.fa.gz
 </code></pre>
-<h3 id="--a_--b_optional">--A, --B (optional)<a class="headerlink" href="#--a_--b_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--a_--b_optional">--A, --B (optional)<a class="headerlink" href="#--a_--b_optional" title="Permanent link">&para;</a></h2>
 <p>Two parental strains must be provided. By default these are N2 and CB4856. The parental strains provided <strong>must</strong> be present in the VCF provided. Their genotypes are pulled from that VCF and used to generate the HMM. See below for more details.</p>
-<h3 id="--debug_optional">--debug (optional)<a class="headerlink" href="#--debug_optional" title="Permanent link">&para;</a></h3>
-<p>The pipeline comes pre-packed with fastq's and a VCF that can be used to debug. See the <a href="#testing">Testing</a> section for more information.</p>
-<h3 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--cores_optional">--cores (optional)<a class="headerlink" href="#--cores_optional" title="Permanent link">&para;</a></h2>
 <p>The number of cores to use during alignments and variant calling. Default is 4.</p>
-<h3 id="--ca_--cb_optional">--cA, --cB (optional)<a class="headerlink" href="#--ca_--cb_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--ca_--cb_optional">--cA, --cB (optional)<a class="headerlink" href="#--ca_--cb_optional" title="Permanent link">&para;</a></h2>
 <p>The color to use for parental strain A and B on plots. Default is orange and blue.</p>
-<h3 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--out_optional">--out (optional)<a class="headerlink" href="#--out_optional" title="Permanent link">&para;</a></h2>
 <p>A directory in which to output results. By default it will be <code>NIL-A-B-YYYY-MM-DD</code> where A and be are the parental strains.</p>
-<h3 id="--relative_optional">--relative (optional)<a class="headerlink" href="#--relative_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--relative_optional">--relative (optional)<a class="headerlink" href="#--relative_optional" title="Permanent link">&para;</a></h2>
 <p>If you want to specify fastqs using an absolute path use <code>--relative=false</code>. Set to <code>true</code> by default. </p>
-<h3 id="--cross_obj_optional">--cross_obj (optional)<a class="headerlink" href="#--cross_obj_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--cross_obj_optional">--cross_obj (optional)<a class="headerlink" href="#--cross_obj_optional" title="Permanent link">&para;</a></h2>
 <p>If you are running a set of RILs, you might want to add the <code>--cross_obj true</code> parameter. When <code>true</code>, the pipeline will run an additional step to pair down the total genetic variants to only the informative variants and output a smaller genotype matrix to input directly into a new cross object. An example of how to generate a cross object can be found in the <code>bin</code>. There is no need to run this option for NIL data.</p>
-<h3 id="--tmpdir_optional">--tmpdir (optional)<a class="headerlink" href="#--tmpdir_optional" title="Permanent link">&para;</a></h3>
+<h2 id="--tmpdir_optional">--tmpdir (optional)<a class="headerlink" href="#--tmpdir_optional" title="Permanent link">&para;</a></h2>
 <p>A directory for storing temporary data.</p>
 <h1 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h1>
 <p>The final output directory looks like this:</p>
@@ -488,12 +465,12 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <h1 id="organizing_final_data">Organizing final data<a class="headerlink" href="#organizing_final_data" title="Permanent link">&para;</a></h1>
 <p>After the run is complete and you are satisfied with the results, follow these steps to ensure correct data storage on QUEST:</p>
 <ol>
-<li>Move the raw fastq files to <code>/projects/b1059/data/{species}/{NIL or RIL}/fastq/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
-<li>Move the BAM files from the output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/alignments/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Move the raw fastq files to <code>/vast/eande106/data/{species}/{NIL or RIL}/fastq/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
+<li>Move the BAM files from the output folder to <code>/vast/eande106/data/{species}/{NIL or RIL}/alignments/</code>. You might want to use <code>mv -i</code> to ensure no files are overwritten.</li>
 <li>Delete the now empty <code>bam</code> folder in the output directory.</li>
 <li>Move the sample sheet generated for analysis into the output directory.</li>
 <li>Make sure the output directory follows the default naming structure that is informative about the analysis (i.e. <code>NIL-20200322-N2-CB4856</code> (if NIL/RIL analysis is performed for another lab, consider adding a <code>-{LabName}</code> like <code>-Baugh</code> to the end of the folder name)).</li>
-<li>Move the entire output folder to <code>/projects/b1059/data/{species}/{NIL or RIL}/variation</code>.</li>
+<li>Move the entire output folder to <code>/vast/eande106/data/{species}/{NIL or RIL}/variation</code>.</li>
 </ol>
 <h1 id="adding_nil_sequence_data_to_lab_website">Adding NIL sequence data to lab website<a class="headerlink" href="#adding_nil_sequence_data_to_lab_website" title="Permanent link">&para;</a></h1>
 <p>If your sequencing was N2-CB4856 NILs (and maybe other <em>C. elegans</em> NILs as well...?) you probably want to add this sequencing data to the lab website to be accessed by everyone when looking for NIL genotypes.</p>

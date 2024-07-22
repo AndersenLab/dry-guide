@@ -209,7 +209,7 @@ auto_activate_base: false
 
 envs_dirs:
     - ~/.conda/envs/
-    - /home/&lt;jheid&gt;/data-eande106/software/conda_envs/
+    - /home/&lt;jheid&gt;/data_eande106/software/conda_envs/
 </code></pre>
 <h2 id="using_conda">Using Conda<a class="headerlink" href="#using_conda" title="Permanent link">&para;</a></h2>
 <p><strong><a href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">Conda Documentation</a></strong></p>
@@ -262,7 +262,7 @@ process {
 </code></pre>
 <h2 id="notes_on_conda_versions_on_quest_vs_rockfish">Notes on conda versions on Quest vs Rockfish<a class="headerlink" href="#notes_on_conda_versions_on_quest_vs_rockfish" title="Permanent link">&para;</a></h2>
 <p>As of the end of 2020, existing conda environments for the lab were mostly created by <code>module load python/anaconda</code> from our previous file system, QUEST (which got automatically loaded with <code>module git</code> by accident). It loads Python version 2.7.18 and conda 4.5.2. The other environments were created with <code>module load python/anaconda3.6</code> (also from QUEST) which loads Python 3.6.0 and conda 4.3.30. To see versions, use <code>conda info</code> or <code>conda -V</code>.</p>
-<p>As of 2023, conda environments will be generated with <code>module load anaconda3/2022.05</code> from Rockfish, which loads Python version 3.9.12 and conda 4.12.0. From our limited testing so far, all environments generated in QUEST (now under <code>~/data-eande106/software/conda_envs/</code>) seem to be compatible with the version active in Rockfish</p>
+<p>As of 2023, conda environments will be generated with <code>module load anaconda3/2022.05</code> from Rockfish, which loads Python version 3.9.12 and conda 4.12.0. From our limited testing so far, all environments generated in QUEST (now under <code>~/data_eande106/software/conda_envs/</code>) seem to be compatible with the version active in Rockfish</p>
 <p>Once you activate an environment with <code>conda activate env_name</code> or <code>source activate env_name</code>, the default conda usually get re-directed to the conda that were originally used to create the environment. This is good because it helps ensure that all packages in the same environment uses the same version of conda. One can go to <code>cd ~/.conda/env_name/bin</code> and <code>readlink -f conda</code> or <code>readlink -f activate</code> to see which version of conda is used by this environment. This is exactly how Nextflow determines which conda to use when using an existing conda environment. </p>
 <h2 id="a_faster_alternative_to_conda">A faster alternative to Conda<a class="headerlink" href="#a_faster_alternative_to_conda" title="Permanent link">&para;</a></h2>
 <p>In recent years, a 'drop-in' replacement for Conda, called Mamba, was released. Mamba is faster at resolving dependencies, which improves wait times for creating and activating environments. Conda and Mamba seem to be forward and backwards compatible, and they share the same command structure. For example, <code>conda create</code> and <code>mamba create</code> do the same task and share the same parameters.</p>
@@ -274,7 +274,7 @@ chmod +x ./Mambaforge-Linux-x86_64.sh
 </code></pre>
 <p>After completing the installation, the <code>mamba</code> binary should be added to <code>$PATH</code>, and you should be able to create, configure, and activate environments using the same commands as <code>conda</code> (FYI the <code>conda</code> binary will still be available to be called from <code>$PATH</code> by default). At the time this is being written, this mamba installation will install Python version 3.10.13, with conda version 23.11.0 and mamba version 1.5.5.</p>
 <p>You will immediately notice a difference in speed when using mamba. Test it by loading the <code>nf23_env</code> environment:</p>
-<pre><code>mamba activate /home/&lt;jheid&gt;/data-eande106/software/conda_envs/nf23_env/
+<pre><code>mamba activate /home/&lt;jheid&gt;/data_eande106/software/conda_envs/nf23_env/
 </code></pre>
               
             </div>
