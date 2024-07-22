@@ -4,13 +4,13 @@
 
 In 2023, the Andersen lab began moving its computing resources from QUEST at Northwestern to Rockfish at Johns Hopkins. The goal was to have a seamless transition by maintaining the file system and structure in Rockfish as similar as possible to QUEST.
 
-The primary file system that the Andersen lab uses in Rockfish is called VAST. The VAST partition purchased by the lab has a file quota of 120TB. In addition, the lab has access to two secondary partitions: `data-eande106` and `scr4-eande106`, with file quotas of 10TB and 1TB respectively. Once granted access to the Andersen lab security group and allocation, you will find symbolic links for `vast-eande106`, `data-eande106`, and `scr4-eande106` partitions attached to your home directory (e.g. `/home/<user>/vast-eande106`). Symbolic links act like shortcuts that will allow you to access all partitions without having to use intricate file paths that point to the true location of the partitions in the Rockfish file system.
+The primary file system that the Andersen lab uses in Rockfish is called VAST. The VAST partition purchased by the lab has a file quota of 120TB. In addition, the lab has access to two secondary partitions: `data_eande106` and `scr4-eande106`, with file quotas of 10TB and 1TB respectively. Once granted access to the Andersen lab security group and allocation, you will find symbolic links for `vast_eande106`, `data_eande106`, and `scr4-eande106` partitions attached to your home directory (e.g. `/home/<user>/vast_eande106`). Symbolic links act like shortcuts that will allow you to access all partitions without having to use intricate file paths that point to the true location of the partitions in the Rockfish file system.
 
-## /vast/eande106 (vast-eande106)
+## /vast/eande106 (vast_eande106)
 
-`vast-eande106` is where the *vast* (hehe, get it?) majority of files will exist. A breakdown of the directories of this partition is described below. Files stored in `vast` cannot have special characters (e.g. !@#$^&*()?:;) and have a few protected directory names that are not allowed (e.g. `aux`, `prn`, `con`)
+`vast_eande106` is where the *vast* (hehe, get it?) majority of files will exist. A breakdown of the directories of this partition is described below. Files stored in `vast` cannot have special characters (e.g. !@#$^&*()?:;) and have a few protected directory names that are not allowed (e.g. `aux`, `prn`, `con`)
 
-### data (vast-eande106)
+### data (vast_eande106)
 
 This directory contains all the lab data -- split by species. The goal is to create the same file structure across all species. This not only makes it easy to find the file you are looking for, but also makes it easy to script file locations. A general example of a species' file structure is below:
 
@@ -82,38 +82,38 @@ This directory contains all the lab data -- split by species. The goal is to cre
 !!! Note
 	This restructure is still not 100% complete and things might continue to change as we expand our genomes and data types. If you see something that is not organized well, let Erik or Mike know.
 
-### docs (vast-eande106)
+### docs (vast_eande106)
 
 This directory should probably be removed and the docs inside stored elsewhere. Currently, shows the process for fastq SRA submission from 2019 and then again from 2021.
 
-### projects (vast-eande106)
+### projects (vast_eande106)
 
 Projects is where most people will spend most of their time. Each user with access to quest should create a user-specific folder (named with their name) in the `projects` directory. Inside your folder, you can do all your work: analyzing data, writing new scripts, temporary storage, etc.
 
 !!! Note
 	Please be aware of how much space you are using in your personal folder. Of course some projects might require more space than others, and some projects require a lot of temporary space that can be deleted once completed. However, if you find that you have > 500-1000 GB of used space in your folder, please take a look if there is any unused data or scripts. **Either way, it is good practice to clean out your folder every few months to avoid storage pile-up.** You can check how much space you are using with `du -hs *` or ask Katie.
 
-### singularity (vast-eande106)
+### singularity (vast_eande106)
 
 This directory contains docker images suitable for specific nextflow workflows as well as those created for specific past analyses.
 
-### to_be_deleted (vast-eande106)
+### to_be_deleted (vast_eande106)
 
 This directory is a temporary holding place for large files/data that can be deleted. Think of it as a soft-trash bin. If, after a few months of living in `to_be_deleted`, it is likely the data in fact can be deleted without being missed. This was a temporary solution for the large restructure in 2021 and can likely be removed in the future.
 
-### workflows (vast-eande106)
+### workflows (vast_eande106)
 
 This directory is being phased out. Workflows will now be hosted on GitHub and any lab members who wish to run a shared workflow should run remotely (if nextflow script) or clone the repo into their personal folders.
 
-## /data/eande106 (data-eande106)
+## /data/eande106 (data_eande106)
 
-`data-eande106` is where software and pipelines will live. Software and pipeline files often contain special characters (e.g. packages with `::` delimiters) or directories with protected names. Any future software must be installed here. A breakdown of the directories of this partition is described below.
+`data_eande106` is where software and pipelines will live. Software and pipeline files often contain special characters (e.g. packages with `::` delimiters) or directories with protected names. Any future software must be installed here. A breakdown of the directories of this partition is described below.
 
-### analysis (data-eande106)
+### analysis (data_eande106)
 
 This directory contains non-data output and analyses from general lab pipelines (i.e. `wi-gatk` or `alignment-nf`). It is organized by pipeline and then by analysis type-date. **If you are running these pipelines (including `nil-ril-nf`) it is important that you move your analysis folder here once complete (and out of your personal folder) so that everyone has access to the results.**
 
-### software (data-eande106)
+### software (data_eande106)
 
 **General**
 
@@ -127,7 +127,7 @@ Inside the directory `conda_envs` you can find all the shared lab conda environm
 conda create -p /home/<user>/data_eande106/software/conda_envs/<name_of_env>
 ```
 
-You can also update your `~/.condarc` file to point to this directory so that you can easily load conda environments just by the name (i.e. `source activate nf23_env` instead of `source activate /home/<user>/data-eande106/software/conda_envs/nf23_env`):
+You can also update your `~/.condarc` file to point to this directory so that you can easily load conda environments just by the name (i.e. `source activate nf23_env` instead of `source activate /home/<user>/data_eande106/software/conda_envs/nf23_env`):
 
 ```
 channels:
@@ -139,7 +139,7 @@ auto_activate_base: false
 
 envs_dirs:
 	- ~/.conda/envs/
-	- /home/<user>/data-eande106/software/conda_envs/
+	- /home/<user>/data_eande106/software/conda_envs/
 ```
 
 !!! Important
@@ -182,3 +182,18 @@ Unfortunately, R doesn't seem to work very well with conda environments, and mak
 `scr4-eande106` is a small partition primarily used for scratch space. It's currently contains a series of folders with two-digit hexadecimal numbers that are used for `Nextflow` working files, and it's supposed to be used only to hold small test files and scripts with the aim to eventually delete such test files and reuse this space.**
 
 If you need to use the scratch partition for something other than running nextflow, receate a directory under your own name (`~/scr4-eande106/<your name>`).
+
+## Mapping VAST to your local computer
+
+In order to make accessing and transferring data easier, you can create a link to vast on your computer as if it were a network hard-drive. To do this, use the following procedure.
+
+### Windows machines
+
+Open a file explorer window and right-click on the "Network" icon on the left-hand side of the window. Select 
+"Map Network Drive". This will bring up a dialog box for you to enter the address of vast. Put in the address `\\vast.rockfish.jhu.edu\bio-andersen$`. You will also get to select a letter drive to map it to. I suggest "V". Also make sure that the check box for reconnecting to server upon restart is checked. When you click OK, you will be prompted for credentials. Instead of your usual JHED ID, use `WIN\<JHED>` where <JHED> is your JHED ID. Use your normal JHED password. Check the box to remember credentials and press OK. This should show a brief window while connecting and then close the dialog box. You can now find VAST under "Network" when you expand it in the explorer window. I suggest right-clicking on the VAST folder and pinning it to your EZ-access menu.
+
+### Mac and Linux machines
+
+Open Finder and under the "Go" drop-down menu at the top, select connect to server. This will open a dialog box with a line for you to enter an address for VAST. Use the address `smb://vast.rockfish.jhu.edu/bio-andersen$` and click "Connect". You will be prompted for credentials. Use your JHED ID and password. This should create an icon for VAST under "Locations" in your Finder windows. You can also drag and drop the VAST folder to your favorites section of the Finder window for quick access.
+
+For Linux machines, use the Nautilus file browser (or whatever file manager your distro uses) and follow the directions as described for Macs.
