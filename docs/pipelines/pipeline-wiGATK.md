@@ -110,7 +110,7 @@ There are three configuration profiles for this pipeline.
 
 ## --sample_sheet
 
-The sample sheet is automatically generated from `alignment-nf`. The sample sheet contains 5 columns as detailed below:
+The sample sheet is automatically generated from `alignment-nf` in the output folder under the name `sample_sheet_for_seq_sheet_ALL.tsv`. The sample sheet contains 5 columns as detailed below:
 
 | strain   | bam   | bai   | coverage  | percent_mapped   | 
 |:----|:-------|:------|:-----------|:-------------|

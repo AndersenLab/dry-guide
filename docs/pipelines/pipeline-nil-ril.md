@@ -93,10 +93,18 @@ nextflow run -latest andersenlab/nil-ril-nf -resume
 
 ## Running the pipeline locally
 
-When running locally, the pipeline will run using the `andersenlab/nil-ril-nf` docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:
+When running locally, the pipeline will run using the several different docker images. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:
 
+```bash
+curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz > c_elegans.PRJNA13758.WS276.fa.gz
 ```
-curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz > WS276.fa.gz
+
+You will also need to build a `bwa mem` index or copy it from Rockfish:
+
+```bash
+for I in rpac amb ann pac bwt rbwt rsa sa; do
+  scp <JHED_ID>@login.rockfish.jhu.edu:/vast/eande106/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genomc.fa.gz.${I} ./
+done
 ```
 
 Run the pipeline locally with:
@@ -129,27 +137,27 @@ nextflow run -latest andersenlab/nil-ril-nf --debug
 
 ## --fqs
 
-In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq can be specified as *relative* or *absolute*. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:
+In order to process NIL/RIL data, you need to move the sequence data to a folder and create a `fq_sheet.tsv`. This file defines the fastqs that should be processed. The fastq can be specified as *relative* or *absolute*. By default, they are expected to be relative to the execution directory. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this (this shows relative paths to fastqs):
 
 ```
-NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
-NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
+NIL_01   NIL_01_ID    S16 <relative_path_to_fq>/NIL_01_1.fq.gz   <relative_path_to_fq>/NIL_01_2.fq.gz
+NIL_02   NIL_02_ID    S1  <relative_path_to_fq>/NIL_02_1.fq.gz   <relative_path_to_fq>/NIL_02_2.fq.gz
 ```
 
-Notice that the file does not include a header. The table with corresponding columns looks like this.
+Notice that the file does not include a header. The table with corresponding columns looks like this (this shows absolute paths to fastqs).
 
 | strain   | fastq_pair_id   | library   | fastq-1-path   | fastq-2-path   |
 |:-------|:-----------------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| NIL_01 | NIL_01_ID | S16 | NIL_01_1.fq.gz | NIL_01_2.fq.gz |
-| NIL_02 | NIL_02_ID | S1  | NIL_02_1.fq.gz | NIL_02_2.fq.gz |
+| NIL_01 | NIL_01_ID | S16 | /<path_to_fq>/NIL_01_1.fq.gz | /<path_to_fq>/NIL_01_2.fq.gz |
+| NIL_02 | NIL_02_ID | S1  | /<path_to_fq>/NIL_02_1.fq.gz | /<path_to_fq>/NIL_02_2.fq.gz |
 
 The columns are detailed below:
 
 * __strain__ - The name of the strain. If a strain was sequenced multiple times this file is used to identify that fact and merge those fastq-pairs together following alignment.
 * __fastq_pair_id__ - This must be unique identifier for all individual FASTQ pairs.
 * __library__ - A string identifying the DNA library. If you sequenced a strain from different library preps it can be beneficial when calling variants. The string can be arbitrary (e.g. LIB1) as well if only one library prep was used.
-* __fastq-1-path__ - The __relative__ path of the first fastq.
-* __fastq-2-path__ - The __relative__ path of the second fastq.
+* __fastq-1-path__ - The __relative__ or __absolute__ path of the first fastq.
+* __fastq-2-path__ - The __relative__ or __absolute__ path of the second fastq.
 
 This file needs to be placed along with the sequence data into a folder. The tree will look like this:
 
