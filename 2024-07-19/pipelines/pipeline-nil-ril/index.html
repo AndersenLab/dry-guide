@@ -281,8 +281,13 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <pre><code>nextflow run -latest andersenlab/nil-ril-nf -resume
 </code></pre>
 <h2 id="running_the_pipeline_locally">Running the pipeline locally<a class="headerlink" href="#running_the_pipeline_locally" title="Permanent link">&para;</a></h2>
-<p>When running locally, the pipeline will run using the <code>andersenlab/nil-ril-nf</code> docker image. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:</p>
-<pre><code>curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; WS276.fa.gz
+<p>When running locally, the pipeline will run using the several different docker images. You must have docker installed. You will need to obtain a reference genome to run the alignment with as well. You can use the following command to obtain the reference:</p>
+<pre><code class="language-bash">curl ftp://wormbase.org/pub/wormbase/releases/WS276/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS276.genomc.fa.gz &gt; c_elegans.PRJNA13758.WS276.fa.gz
+</code></pre>
+<p>You will also need to build a <code>bwa mem</code> index or copy it from Rockfish:</p>
+<pre><code class="language-bash">for I in rpac amb ann pac bwt rbwt rsa sa; do
+  scp &lt;JHED_ID&gt;@login.rockfish.jhu.edu:/vast/eande106/data/c_elegans/genomes/PRJNA13758/WS276/c_elegans.PRJNA13758.WS276.genomc.fa.gz.${I} ./
+done
 </code></pre>
 <p>Run the pipeline locally with:</p>
 <pre><code class="language-bash">nextflow run -latest andersenlab/nil-ril-nf -profile local -resume
@@ -305,11 +310,11 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <pre><code>nextflow run -latest andersenlab/nil-ril-nf --debug
 </code></pre>
 <h2 id="--fqs">--fqs<a class="headerlink" href="#--fqs" title="Permanent link">&para;</a></h2>
-<p>In order to process NIL/RIL data, you need to move the sequence data to a folder and create a <code>fq_sheet.tsv</code>. This file defines the fastqs that should be processed. The fastq can be specified as <em>relative</em> or <em>absolute</em>. By default, they are expected to be relative to the fastq file. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this:</p>
-<pre><code>NIL_01   NIL_01_ID    S16 NIL_01_1.fq.gz   NIL_01_2.fq.gz
-NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
+<p>In order to process NIL/RIL data, you need to move the sequence data to a folder and create a <code>fq_sheet.tsv</code>. This file defines the fastqs that should be processed. The fastq can be specified as <em>relative</em> or <em>absolute</em>. By default, they are expected to be relative to the execution directory. The FASTQ sheet details strain names, ids, library, and files. It should be tab-delimited and look like this (this shows relative paths to fastqs):</p>
+<pre><code>NIL_01   NIL_01_ID    S16 &lt;relative_path_to_fq&gt;/NIL_01_1.fq.gz   &lt;relative_path_to_fq&gt;/NIL_01_2.fq.gz
+NIL_02   NIL_02_ID    S1  &lt;relative_path_to_fq&gt;/NIL_02_1.fq.gz   &lt;relative_path_to_fq&gt;/NIL_02_2.fq.gz
 </code></pre>
-<p>Notice that the file does not include a header. The table with corresponding columns looks like this.</p>
+<p>Notice that the file does not include a header. The table with corresponding columns looks like this (this shows absolute paths to fastqs).</p>
 <table>
 <thead>
 <tr>
@@ -325,15 +330,15 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <td style="text-align: left;">NIL_01</td>
 <td style="text-align: left;">NIL_01_ID</td>
 <td style="text-align: left;">S16</td>
-<td style="text-align: left;">NIL_01_1.fq.gz</td>
-<td style="text-align: left;">NIL_01_2.fq.gz</td>
+<td style="text-align: left;">/<path_to_fq>/NIL_01_1.fq.gz</td>
+<td style="text-align: left;">/<path_to_fq>/NIL_01_2.fq.gz</td>
 </tr>
 <tr>
 <td style="text-align: left;">NIL_02</td>
 <td style="text-align: left;">NIL_02_ID</td>
 <td style="text-align: left;">S1</td>
-<td style="text-align: left;">NIL_02_1.fq.gz</td>
-<td style="text-align: left;">NIL_02_2.fq.gz</td>
+<td style="text-align: left;">/<path_to_fq>/NIL_02_1.fq.gz</td>
+<td style="text-align: left;">/<path_to_fq>/NIL_02_2.fq.gz</td>
 </tr>
 </tbody>
 </table>
@@ -342,8 +347,8 @@ NIL_02   NIL_02_ID    S1  NIL_02_1.fq.gz   NIL_02_2.fq.gz
 <li><strong>strain</strong> - The name of the strain. If a strain was sequenced multiple times this file is used to identify that fact and merge those fastq-pairs together following alignment.</li>
 <li><strong>fastq_pair_id</strong> - This must be unique identifier for all individual FASTQ pairs.</li>
 <li><strong>library</strong> - A string identifying the DNA library. If you sequenced a strain from different library preps it can be beneficial when calling variants. The string can be arbitrary (e.g. LIB1) as well if only one library prep was used.</li>
-<li><strong>fastq-1-path</strong> - The <strong>relative</strong> path of the first fastq.</li>
-<li><strong>fastq-2-path</strong> - The <strong>relative</strong> path of the second fastq.</li>
+<li><strong>fastq-1-path</strong> - The <strong>relative</strong> or <strong>absolute</strong> path of the first fastq.</li>
+<li><strong>fastq-2-path</strong> - The <strong>relative</strong> or <strong>absolute</strong> path of the second fastq.</li>
 </ul>
 <p>This file needs to be placed along with the sequence data into a folder. The tree will look like this:</p>
 <pre><code class="language-bash">NIL_SEQ_DATA/
