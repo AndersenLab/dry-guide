@@ -45,7 +45,7 @@ The `wi-gatk` pipeline filters and calls variants from wild isolate sequence dat
 
 ## Software Requirements
 
-* The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the `nf23_env` conda environment prior to running the pipeline command:
+* The latest update requires Nextflow version 24+. On Rockfish, you can access this version by loading the `nf24_env` conda environment prior to running the pipeline command:
 
 ```
 module load python/anaconda
@@ -57,12 +57,8 @@ source activate /data/eande106/software/conda_envs/nf23_env
 * `andersenlab/gatk4` ([link](https://hub.docker.com/r/andersenlab/gatk4)): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to `env/gatk4.Dockerfile` or `.github/workflows/build_docker.yml` GitHub actions will create a new docker image and push if successful
 * `andersenlab/r_packages` ([link](https://hub.docker.com/r/andersenlab/r_packages)): Docker image is created manually, code can be found in the [dockerfile](https://github.com/AndersenLab/dockerfile/tree/master/r_packages) repo.
 
-Make sure that you add the following code to your `~/.bash_profile`. This line makes sure that any singularity images you download will go to a shared location on `/vast/eande106` for other users to take advantage of (without them also having to download the same image).
-
-```
-# add singularity cache
-export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
-```
+!!! Important
+Make sure that you have gone through the [Nextflow setup](../rockfish/rf-nextflow.md#configuring-nextflow) before running this workflow.
 
 !!! Note
 	If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.

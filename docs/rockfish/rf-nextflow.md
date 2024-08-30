@@ -11,13 +11,13 @@ On Rockfish, you do not need to install Nextflow. Instead, you will be using a p
 
 ```
 module load anaconda
-conda activate /data/eande106/software/conda_envs/nf23_env
+conda activate /data/eande106/software/conda_envs/nf24_env
 ```
 
-This will make Nextflow v23.10.1 available. To make it easier to load, you can create an alias for loading it by placing the following code in `~/.bash_profile`:
+This will make Nextflow v24 available. To make it easier to load, you can create an alias for loading it by placing the following code in `~/.bash_profile`:
 
 ```
-alias nf="ml anaconda && conda activate /data/eande106/software/conda_envs/nf23_env"
+alias nf="ml anaconda && conda activate /data/eande106/software/conda_envs/nf24_env"
 ```
 
 To exit the Nextflow environment, simply use the command `conda deactivate`.
@@ -33,8 +33,11 @@ There are a few environmental variables that will need to be set to insure prope
 export NXF_CACHE_DIR=$HOME
 export NXF_SINGULARITY_CACHEDIR=/vast/eande106/singularity
 export NXF_SINGULARITY_LIBRARYDIR=/vast/eande106/singularity
-export NXF_WORK=/scratch4/eande106/
+export NXF_WORK=/scratch4/eande106/<Your Name>
 ```
+
+!!! Note
+	Make sure to substitute your name for `<Your Name>` in the about code. This should ideally match your project folder name.
 
 !!! Note
 	Once you have saved these changes to your profile, you will either need to close the terminal window and open a new one, or run the command `source ~/.bash_profile` in order for them to take effect.
@@ -45,7 +48,7 @@ Theoretically, running a Nextflow pipeline should be very straightforward (altho
 
 ## Running Nextflow with a remote pipeline
 
-In order to run Andersen Lab pipelines, you should be retrieving them from their github repos directly through Nextflow to ensure that you are getting the newest (or specific) version. This can be done by specifying the repo instead of a `.nf` file. Nextflow will then include information about which version and repo the workflow came from in the logs and final report, allowing for complete reproducibility.
+In order to run Andersen Lab pipelines once you are in the `nf24_env` conda environment, all you need to do is call `nextflow` and specify the repo and workflow you want to run, along with any parameters the workflow needs. Nextflow will retrieve the workflow from their github repos directly to ensure that you are getting the newest (or a specific) version. Nextflow will then include information about which version and repo the workflow came from in the logs and final report, allowing for complete reproducibility.
 
 !!! Note
 	Nextflow caches repos when you execute them. This means that if you run have previously run a workflow and go to run it again after changes have been made, Nextflow will reuse the cached version unless you specify to download the latest version with the argument `-latest`. If you need to run a specific branch, commit, or tag of a pipeline repo, you can do this with the argument `-r <branch/commit/tag>`.
@@ -73,7 +76,7 @@ For example, in the above screenshot from a NemaScan run, there are 14 different
 Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the `[ad/eea615]` next to the `fix_strain_names_bulk` process indicates that the working directory is located at `/scratch4/eande106/ad/eea615...`. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.
 
 !!! Note
-	I highly recommend adding this function to your `~/.bash_profile` to easily access the Nexflow working directory: `gw() {cd /scratch4/eande106/$1*}` so that when you type `gw 3f/6a21a5` (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.
+	I highly recommend adding this function to your `~/.bash_profile` to easily access the Nexflow working directory: `gw() {cd /scratch4/eande106/<Your Name>/$1*}` so that when you type `gw 3f/6a21a5` (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.
 
 ## Resume
 
