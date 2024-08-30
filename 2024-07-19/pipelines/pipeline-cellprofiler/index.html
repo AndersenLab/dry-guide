@@ -221,7 +221,7 @@
 <li>Nextflow v24+ (see the dry guide on Nextflow <a href="../../rockfish/rf-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On Rockfish, you can access this version by loading the <code>nf24_env</code> conda environment prior to running the pipeline command:</li>
 </ul>
 <pre><code>module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 </code></pre>
 <h2 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h2>
 <p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/cellprofiler-nf -r 20220216-Release</code></em></p>
