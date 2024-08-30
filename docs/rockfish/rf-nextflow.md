@@ -26,6 +26,7 @@ To exit the Nextflow environment, simply use the command `conda deactivate`.
 	Because this is a shared environment, ***you should not make changes to it by installing new software, updating Nextflow, etc.***
 
 # Configuring Nextflow
+<a name="configuring-nextflow"></a>
 
 There are a few environmental variables that will need to be set to insure proper function of Nextflow on Rockfish. You can set these by adding them to your `~/.bash_profile` so that you only need to configure Nextflow once.
 
