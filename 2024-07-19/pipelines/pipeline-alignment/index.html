@@ -233,10 +233,10 @@
 <p><img alt="Pipeline-overview" src="../../img/alignment-nf.drawio.svg" /></p>
 <h2 id="software_requirements">Software requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Nextflow v23+ (see the dry guide on Nextflow <a href="../../rockfish/rf-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+<li>Nextflow v24+ (see the dry guide on Nextflow <a href="../../rockfish/rf-nextflow/">here</a> or the Nextflow documentation <a href="https://www.nextflow.io/docs/latest/getstarted.html">here</a>). On Rockfish, you can access this version by loading the <code>nf24_env</code> conda environment prior to running the pipeline command:</li>
 </ul>
 <pre><code>module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 </code></pre>
 <h2 id="relevant_docker_images">Relevant Docker Images<a class="headerlink" href="#relevant_docker_images" title="Permanent link">&para;</a></h2>
 <p><em>Note: Before 20220301, this pipeline was run using existing conda environments on QUEST. However, these have since been migrated to docker imgaes to allow for better control and reproducibility across platforms. If you need to access the conda version, you can always run an old commit with <code>nextflow run andersenlab/alignment-nf -r 20220216-Release</code></em></p>
@@ -245,10 +245,10 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <li><code>andersenlab/blobtools</code> (<a href="https://hub.docker.com/r/andersenlab/blobtools">link</a>): Docker image is created manually, code can be found in the <a href="https://github.com/AndersenLab/dockerfile/tree/master/blobtools">dockerfile</a> repo.</li>
 <li><code>andersenlab/multiqc</code> (<a href="https://hub.docker.com/r/andersenlab/multiqc">link</a>): Docker image is created within the <a href="https://github.com/andersenlab/trim-fq-nf/">trim-fq-nf</a> pipeline using GitHub actions. Whenever a change is made to <code>env/multiqc.Dockerfile</code> or <code>.github/workflows/build_multiqc_docker.yml</code> GitHub actions will create a new docker image and push if successful</li>
 </ul>
-<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
-<pre><code># add singularity cache
-export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
-</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>Make sure that you have gone through the <a href="../../rockfish/rf-nextflow/#configuring-nextflow">Nextflow setup</a> before running this workflow.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>

@@ -203,7 +203,7 @@
 </ol>
 <h2 id="software_requirements">Software Requirements<a class="headerlink" href="#software_requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The latest update requires Nextflow version 23+. On Rockfish, you can access this version by loading the <code>nf23_env</code> conda environment prior to running the pipeline command:</li>
+<li>The latest update requires Nextflow version 24+. On Rockfish, you can access this version by loading the <code>nf24_env</code> conda environment prior to running the pipeline command:</li>
 </ul>
 <pre><code>module load python/anaconda
 source activate /data/eande106/software/conda_envs/nf23_env
@@ -212,10 +212,10 @@ source activate /data/eande106/software/conda_envs/nf23_env
 <ul>
 <li><code>andersenlab/genomes</code> (<a href="https://hub.docker.com/r/andersenlab/genomes-nf">link</a>): Docker image is created within this pipeline using GitHub actions. Whenever a change is made to <code>env/genomes.Dockerfile</code> or <code>.github/workflows/build.yml</code> GitHub actions will create a new docker image and push if successful.</li>
 </ul>
-<p>Make sure that you add the following code to your <code>~/.bash_profile</code>. This line makes sure that any singularity images you download will go to a shared location on <code>/vast/eande106</code> for other users to take advantage of (without them also having to download the same image).</p>
-<pre><code># add singularity cache
-export SINGULARITY_CACHEDIR='/vast/eande106/singularity/'
-</code></pre>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p>Make sure that you have gone through the <a href="../../rockfish/rf-nextflow/#configuring-nextflow">Nextflow setup</a> before running this workflow.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you need to work with the docker container, you will need to create an interactive session as singularity can't be run on Rockfish login nodes.</p>

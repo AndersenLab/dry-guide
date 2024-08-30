@@ -184,10 +184,10 @@
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
 <p>On Rockfish, you do not need to install Nextflow. Instead, you will be using a preinstalled version in a conda environment. To activate this environment, you will first load the conda module, followed by activating the Nextflow environment:</p>
 <pre><code>module load anaconda
-conda activate /data/eande106/software/conda_envs/nf23_env
+conda activate /data/eande106/software/conda_envs/nf24_env
 </code></pre>
-<p>This will make Nextflow v23.10.1 available. To make it easier to load, you can create an alias for loading it by placing the following code in <code>~/.bash_profile</code>:</p>
-<pre><code>alias nf=&quot;ml anaconda &amp;&amp; conda activate /data/eande106/software/conda_envs/nf23_env&quot;
+<p>This will make Nextflow v24 available. To make it easier to load, you can create an alias for loading it by placing the following code in <code>~/.bash_profile</code>:</p>
+<pre><code>alias nf=&quot;ml anaconda &amp;&amp; conda activate /data/eande106/software/conda_envs/nf24_env&quot;
 </code></pre>
 <p>To exit the Nextflow environment, simply use the command <code>conda deactivate</code>.</p>
 <div class="admonition important">
@@ -199,8 +199,12 @@ conda activate /data/eande106/software/conda_envs/nf23_env
 <pre><code>export NXF_CACHE_DIR=$HOME
 export NXF_SINGULARITY_CACHEDIR=/vast/eande106/singularity
 export NXF_SINGULARITY_LIBRARYDIR=/vast/eande106/singularity
-export NXF_WORK=/scratch4/eande106/
+export NXF_WORK=/scratch4/eande106/&lt;Your Name&gt;
 </code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to substitute your name for <code>&lt;Your Name&gt;</code> in the about code. This should ideally match your project folder name.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Once you have saved these changes to your profile, you will either need to close the terminal window and open a new one, or run the command <code>source ~/.bash_profile</code> in order for them to take effect.</p>
@@ -208,7 +212,7 @@ export NXF_WORK=/scratch4/eande106/
 <h1 id="running_nextflow">Running Nextflow<a class="headerlink" href="#running_nextflow" title="Permanent link">&para;</a></h1>
 <p>Theoretically, running a Nextflow pipeline should be very straightforward (although with any developing pipelines there are always bugs to work out).</p>
 <h2 id="running_nextflow_with_a_remote_pipeline">Running Nextflow with a remote pipeline<a class="headerlink" href="#running_nextflow_with_a_remote_pipeline" title="Permanent link">&para;</a></h2>
-<p>In order to run Andersen Lab pipelines, you should be retrieving them from their github repos directly through Nextflow to ensure that you are getting the newest (or specific) version. This can be done by specifying the repo instead of a <code>.nf</code> file. Nextflow will then include information about which version and repo the workflow came from in the logs and final report, allowing for complete reproducibility.</p>
+<p>In order to run Andersen Lab pipelines once you are in the <code>nf24_env</code> conda environment, all you need to do is call <code>nextflow</code> and specify the repo and workflow you want to run, along with any parameters the workflow needs. Nextflow will retrieve the workflow from their github repos directly to ensure that you are getting the newest (or a specific) version. Nextflow will then include information about which version and repo the workflow came from in the logs and final report, allowing for complete reproducibility.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Nextflow caches repos when you execute them. This means that if you run have previously run a workflow and go to run it again after changes have been made, Nextflow will reuse the cached version unless you specify to download the latest version with the argument <code>-latest</code>. If you need to run a specific branch, commit, or tag of a pipeline repo, you can do this with the argument <code>-r &lt;branch/commit/tag&gt;</code>.</p>
@@ -232,7 +236,7 @@ nextflow run -latest andersenlab/nemascan --traitfile input_data/c_elegans/pheno
 <p>Another important piece of information from this Nextflow run is the hash that designates the working directory of each process. the <code>[ad/eea615]</code> next to the <code>fix_strain_names_bulk</code> process indicates that the working directory is located at <code>/scratch4/eande106/ad/eea615...</code>. This can be helpful if you want to go into that directory to see what is actually happening or trouble shoot errors.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>I highly recommend adding this function to your <code>~/.bash_profile</code> to easily access the Nexflow working directory: <code>gw() {cd /scratch4/eande106/$1*}</code> so that when you type <code>gw 3f/6a21a5</code> (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.</p>
+<p>I highly recommend adding this function to your <code>~/.bash_profile</code> to easily access the Nexflow working directory: <code>gw() {cd /scratch4/eande106/&lt;Your Name&gt;/$1*}</code> so that when you type <code>gw 3f/6a21a5</code> (the hash Nextflow shows that indicates the specific working directory for a process) you will go to that folder automatically.</p>
 </div>
 <h2 id="resume">Resume<a class="headerlink" href="#resume" title="Permanent link">&para;</a></h2>
 <p>Another great thing about Nextflow is that it caches all the processes that completed successfully, so if you have an error at the middle or end of your pipeline, you can re-run the same Nextflow command with <code>-resume</code> and it will start where it finished last time!</p>
