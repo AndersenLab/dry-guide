@@ -26,7 +26,7 @@ C E L L P R O F I L E R - N F   P I P E L I N E
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 ## Relevant Docker Images

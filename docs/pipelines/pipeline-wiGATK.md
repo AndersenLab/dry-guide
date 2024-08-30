@@ -49,7 +49,7 @@ The `wi-gatk` pipeline filters and calls variants from wild isolate sequence dat
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 ## Relevant Docker Images

@@ -43,7 +43,7 @@ _/  |_ _______ |__|  _____           _/ ____\  ______           ____  _/ ____\
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 !!! Note

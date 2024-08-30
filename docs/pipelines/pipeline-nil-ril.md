@@ -60,7 +60,7 @@ The `nil-ril-nf` pipeline will align, call variants, and generate datasets for N
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 !!! Important

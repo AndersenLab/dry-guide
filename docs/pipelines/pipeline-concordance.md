@@ -40,7 +40,7 @@ __The process of grouping isotypes is very hand-on. This pipeline will help proc
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 ### Relevant Docker Images

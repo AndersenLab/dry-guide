@@ -39,7 +39,7 @@ This page details how to run the pipeline.
 
 ```
 module load python/anaconda
-source activate /data/eande106/software/conda_envs/nf23_env
+source activate /data/eande106/software/conda_envs/nf24_env
 ```
 
 ### Relevant Docker Images
